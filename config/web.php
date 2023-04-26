@@ -4,7 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'demo',
+    'id' => 'basic',
     'language' => 'th',
     'name' => 'DCMS',
     'timezone' => 'Asia/Bangkok',
@@ -15,6 +15,10 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
+        'operator' => [
+            'class' => 'app\modules\operator\Module',
+        ],
+       
         // Admin
         'admin' => [
             'class' => 'mdm\admin\Module',
