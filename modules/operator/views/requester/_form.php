@@ -2,6 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+//
+use yii\helpers\ArrayHelper;
+//
+use kartik\widgets\Select2;
+//
+use app\modules\operator\models\Types;
+use app\modules\operator\models\Categories;
+use app\modules\operator\models\Departments;
+use app\modules\operator\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
@@ -12,23 +21,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'types_id')->textInput() ?>
+    <?= $form->field($model, 'types_id')->dropDownlist(ArrayHelper::map(Types::find()->all(), 'id', 'type_name'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    
+    <?= $form->field($model, 'status_id')->hiddenInput(['value'=> 1])->label(false); ?>
+    
+    <?= $form->field($model, 'request_by')->widget(Select2::classname(), [
+        'language' => 'th',
+        'data' => ArrayHelper::map(User::find()->all(),'id','username'),
+        'options' => ['placeholder' => 'เลือก ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
 
-    <?= $form->field($model, 'status_id')->textInput() ?>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
+    <?= $form->field($model, 'categories_id')->dropDownlist(ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'created_by')->textInput() ?>
-
-    <?= $form->field($model, 'updated_by')->textInput() ?>
-
-    <?= $form->field($model, 'request_by')->textInput() ?>
-
-    <?= $form->field($model, 'categories_id')->textInput() ?>
-
-    <?= $form->field($model, 'departments_id')->textInput() ?>
+    <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['departm   ent_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
     <?= $form->field($model, 'document_title')->textInput(['maxlength' => true]) ?>
 
