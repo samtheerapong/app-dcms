@@ -1,7 +1,10 @@
 <?php
 
+use app\modules\operator\models\Profile;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+
+use app\modules\operator\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
@@ -29,20 +32,47 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'types_id',
-            'status_id',
-            'created_at',
-            'updated_at',
-            'created_by',
-            'updated_by',
-            'request_by',
-            'categories_id',
-            'departments_id',
+            [
+                'attribute' => 'types_id',
+                'value' => $model->types->type_name,
+            ],
+            [
+                'attribute' => 'status_id',
+                'value' => $model->status->status_name,
+            ],
+            [
+                'attribute' => 'request_by',
+                'value' => $model->requestBy->profile->name,
+            ],
+            [
+                'attribute' => 'categories_id',
+                'value' => function ($model) {
+                    return $model->categories->category_code . ' - ' . $model->categories->category_details;
+                },
+
+            ],
+            [
+                'attribute' => 'departments_id',
+                'value' => function ($model) {
+                    return $model->departments->department_code . ' - ' . $model->departments->department_details;
+                },
+
+            ],
             'document_title',
             'details:ntext',
             'pdf_file:ntext',
             'docs_file:ntext',
+            'created_at:date',
+            'updated_at:date',
+            [
+                'attribute' => 'created_by',
+                'value' => $model->createdBy->profile->name, 
+               
+            ],
+            [
+                'attribute' => 'updated_by',
+                'value' => $model->updatedBy->profile->name,
+            ],
         ],
     ]) ?>
 

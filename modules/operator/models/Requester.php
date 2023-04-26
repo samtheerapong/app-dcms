@@ -3,6 +3,8 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "requester".
@@ -31,6 +33,22 @@ use Yii;
  */
 class Requester extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'createdAtAttribute' => 'created_at',
+                'updatedAtAttribute' => 'updated_at'
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -45,6 +63,7 @@ class Requester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['categories_id', 'departments_id', 'document_title'], 'required'],
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'pdf_file', 'docs_file'], 'string'],
             [['document_title'], 'string', 'max' => 255],
@@ -129,6 +148,15 @@ class Requester extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'request_by']);
     }
 
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
     /**
      * Gets query for [[Reviewers]].
      *

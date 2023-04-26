@@ -5,6 +5,7 @@ namespace app\modules\operator\controllers;
 use Yii;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
+use app\modules\operator\models\Reviewer;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -65,13 +66,20 @@ class RequesterController extends Controller
     public function actionCreate()
     {
         $model = new Requester();
+        $modelReviewer = new Reviewer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                $modelReviewer->requester_id = $model->id;
+                $modelReviewer->save();
+              }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelReviewer' => $modelReviewer,
+
         ]);
     }
 
