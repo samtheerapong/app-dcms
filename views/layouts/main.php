@@ -42,7 +42,23 @@ AppAsset::register($this);
             'options' => ['class' => 'navbar-nav navbar-right'],
             'items' => [
                 ['label' => 'Home', 'url' => ['/site/index']],
-                ['label' => 'Request', 'url' => ['/operator/requester/index']],
+                [
+                    'label' => 'Tasks', 'items' => [
+                        ['label' => 'Request', 'url' => ['/operator/requester/index']],
+                        ['label' => 'Reviewer', 'url' => ['/operator/reviewer/index']],
+                        ['label' => 'Approver', 'url' => ['/operator/approver/index']],
+                    ]
+                ],
+                [
+                    'label' => 'Backend', 'items' => [
+                        ['label' => 'categories', 'url' => ['/operator/categories/index']],
+                        ['label' => 'departments', 'url' => ['/operator/departments/index']],
+                        ['label' => 'points', 'url' => ['/operator/points/index']],
+                        ['label' => 'stamps', 'url' => ['/operator/stamps/index']],
+                        ['label' => 'status', 'url' => ['/operator/status/index']],
+                        ['label' => 'types', 'url' => ['/operator/types/index']],
+                    ]
+                ],
                 ['label' => 'About', 'url' => ['/site/about']],
                 ['label' => 'Contact', 'url' => ['/site/contact']],
                 Yii::$app->user->isGuest ?
