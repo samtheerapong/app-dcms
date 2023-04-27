@@ -166,4 +166,9 @@ class Requester extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
     }
+
+    public function getProfileName()
+    {
+       return $this->requestBy->profile->name;
+    }
 }

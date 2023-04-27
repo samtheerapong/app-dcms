@@ -55,22 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'created_by',
             //'updated_by',
             // 'request_by',
+            
             [
                 'attribute' => 'request_by',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return $model->createdBy->profile->name;
+                    return $model->requestBy->profile->name;
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'request_by', ArrayHelper::map(User::find()->all(), 'id', 'username'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
-                // 'filter' => Select2::widget([
-                //     'name' => 'request_by',
-                //     'value' => ArrayHelper::map(User::find()->all(), 'id', 'username'),
-                //     'data' => function ($model) {
-                //         return $model->createdBy->profile->name;
-                //     },
-                //     'options' => ['multiple' => false, 'placeholder' => 'Select states ...']
-                // ])
+                'filter' => Html::activeDropDownList($searchModel, 'request_by', ArrayHelper::map(User::find()->all(), 'id', 'username'), [
+                    'class' => 'form-control', 'prompt' => 'ทั้งหมด...'
+                ])
             ],
+
             [
                 'attribute' => 'categories_id',
                 'format' => 'html',
