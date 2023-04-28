@@ -27,7 +27,7 @@ use app\modules\operator\models\User;
     
     <?= $form->field($model, 'request_by')->widget(Select2::classname(), [
         'language' => 'th',
-        'data' => ArrayHelper::map(User::find()->all(),'id','username'),
+        'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
         'options' => ['placeholder' => 'เลือก ...'],
         'pluginOptions' => [
             'allowClear' => true
@@ -38,7 +38,7 @@ use app\modules\operator\models\User;
 
     <?= $form->field($model, 'categories_id')->dropDownlist(ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
-    <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['departm   ent_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
+    <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['department_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
     <?= $form->field($model, 'document_title')->textInput(['maxlength' => true]) ?>
 

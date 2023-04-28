@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+// use yii\grid\GridView;
+use kartik\grid\GridView;
 //
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
@@ -36,34 +37,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            // 'id',
-            // 'types_id',
             [
                 'attribute' => 'types_id',
                 'format' => 'html',
                 'value' => function ($model) {
                     return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_name . '</b></span>';
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(User::find()->all(), 'id', 'name'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+                'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_name'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
 
             ],
-            // 'status_id',
 
             'created_at:date',
-            // 'updated_at:date',
-            // 'created_by',
-            //'updated_by',
-            // 'request_by',
-            
+
             [
                 'attribute' => 'request_by',
                 'format' => 'html',
-                'value' => function ($model) {
-                    return $model->requestBy->profile->name;
-                },
-                'filter' => Html::activeDropDownList($searchModel, 'request_by', ArrayHelper::map(User::find()->all(), 'id', 'username'), [
-                    'class' => 'form-control', 'prompt' => 'ทั้งหมด...'
+                'value' => 'requestBy.profile.name',
+                'filter' => Select2::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'request_by',
+                    'theme' => Select2::THEME_BOOTSTRAP,
+                    'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                    'options' => ['placeholder' => 'เลือก ...'],
+                    'language' => 'th',
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
                 ])
             ],
 
@@ -73,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->categories->category_code;
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+                'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
             ],
             [
                 'attribute' => 'departments_id',
@@ -81,12 +80,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value' => function ($model) {
                     return $model->departments->department_code;
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+                'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
             ],
             'document_title:ntext',
-            //'details:ntext',
-            //'pdf_file:ntext',
-            //'docs_file:ntext',
 
             [
                 'attribute' => 'status_id',
@@ -97,7 +93,14 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Html::activeDropDownList($searchModel, 'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_name'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
             ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'options' => ['style' => 'width:120px;'],
+                'buttonOptions' => ['class' => 'btn btn-default'],
+                'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
+            ],
+            
         ],
     ]); ?>
 
