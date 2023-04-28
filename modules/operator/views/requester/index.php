@@ -6,13 +6,13 @@ use kartik\grid\GridView;
 //
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use kartik\date\DatePicker;
 //
 use app\modules\operator\models\Types;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
 use app\modules\operator\models\User;
-use app\modules\operator\models\profile;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\RequesterSearch */
@@ -48,6 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'created_at:date',
+            // [
+            //     'attribute' => 'created_at',
+            //     'format' => 'date',
+            //     'value' => 'created_at',
+            //     'filter' => DatePicker::widget([
+            //         'model' => $searchModel,
+            //         'attribute' => 'created_at',
+            //         'pluginOptions' => [
+            //             'format' => 'yyyy-mm-dd',
+            //             'autoclose' => true,
+            //         ]
+            //     ])
+            // ],
 
             [
                 'attribute' => 'request_by',
@@ -56,8 +69,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => Select2::widget([
                     'model' => $searchModel,
                     'attribute' => 'request_by',
-                    'theme' => Select2::THEME_BOOTSTRAP,
                     'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                    'theme' => Select2::THEME_BOOTSTRAP,
                     'options' => ['placeholder' => 'เลือก ...'],
                     'language' => 'th',
                     'pluginOptions' => [

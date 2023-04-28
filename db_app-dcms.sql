@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 26, 2023 at 04:11 AM
+-- Generation Time: Apr 28, 2023 at 08:41 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -273,11 +273,11 @@ CREATE TABLE IF NOT EXISTS `profile` (
 --
 
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
-(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(1, 'แอดมิน', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 'ธีรพงศ์ ขันตา', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 'อรอนงค์ ชุมภู', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
+(4, 'สุพรรณา พันธ์ภู่', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL),
+(5, 'พีรนัย โสทรทวีพงศ์', '', '', 'd41d8cd98f00b204e9800998ecf8427e', '', '', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -307,7 +307,20 @@ CREATE TABLE IF NOT EXISTS `requester` (
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `requester`
+--
+
+INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `details`, `pdf_file`, `docs_file`) VALUES
+(1, 1, 1, 1682484092, 1682485330, 5, 1, 4, 1, 2, 'การกำหนดรหัสเอกสาร', '', '', ''),
+(2, 3, 2, 1682493338, 1682667886, 2, 1, 1, 5, 14, 'การกำหนดรหัสเอกสาร2', '', '', ''),
+(3, 2, 1, 1682493659, 1682668446, 3, 1, 5, 3, 2, 'การทำความสะอาดห้อง ไอที', '', '', ''),
+(4, 2, 4, 1682495074, 1682495248, 3, 2, 4, 3, 7, 'การทำความสะอาดห้อง RD', 'การทำความสะอาดห้อง', '', ''),
+(5, 1, 1, 1682668390, 1682668390, 1, 1, 2, 1, 14, 'การกำหนดรหัสเอกสาร3', 'การกำหนดรหัสเอกสาร3', '', ''),
+(6, 3, 1, 1682670609, 1682670609, NULL, NULL, 2, 4, 4, 'การกำหนดรหัสเอกสาร4', '', '', ''),
+(7, 1, 1, 1682670740, 1682670740, 1, 1, 2, 5, 6, 'การทำความสะอาดห้อง RD', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -336,7 +349,19 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
   KEY `fk_reviewer_stamps1_idx` (`stamps_id`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `reviewer`
+--
+
+INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `document_number`, `document_revision`, `document_age`, `document_public_at`, `stamps_id`, `document_ref`, `document_tags`, `points_id`, `reviewer_comment`, `additional_training`) VALUES
+(1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(4, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -406,10 +431,10 @@ CREATE TABLE IF NOT EXISTS `status` (
 --
 
 INSERT INTO `status` (`id`, `status_name`, `status_details`, `color`) VALUES
-(1, 'New', 'ใหม่', NULL),
-(2, 'Process Review', 'ดำเนินการทบทวน', NULL),
-(3, 'Process Approve', 'ดำเนินการอนุมัติ', NULL),
-(4, 'Success', 'เสร็จ', NULL);
+(1, 'New', 'ใหม่', '#ff0000'),
+(2, 'Process Review', 'ดำเนินการทบทวน', '#ff9900'),
+(3, 'Process Approve', 'ดำเนินการอนุมัติ', '#0000ff'),
+(4, 'Success', 'เสร็จ', '#34870a');
 
 -- --------------------------------------------------------
 
@@ -456,9 +481,9 @@ CREATE TABLE IF NOT EXISTS `types` (
 --
 
 INSERT INTO `types` (`id`, `type_name`, `type_details`, `color`) VALUES
-(1, 'New Request', 'ขอจัดทำ', NULL),
-(2, 'Edit', 'ขอแก้ไข', NULL),
-(3, 'Cancel', 'ขอยกเลิก', NULL);
+(1, 'New Request', 'ขอจัดทำ', '#6DA9E4'),
+(2, 'Edit', 'ขอแก้ไข', '#F6BA6F'),
+(3, 'Cancel', 'ขอยกเลิก', '#FF6D60');
 
 -- --------------------------------------------------------
 
@@ -493,9 +518,9 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1682481754, 10, NULL),
-(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, NULL, 10, NULL),
-(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, NULL, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1682670717, 10, NULL),
+(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1682495090, 10, NULL),
+(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1682494012, 10, NULL),
 (4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1682481604, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL);
 

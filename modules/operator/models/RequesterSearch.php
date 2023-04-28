@@ -18,7 +18,7 @@ class RequesterSearch extends Requester
     {
         return [
             [['id', 'types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'pdf_file', 'docs_file','request_by'], 'safe'],
+            [['document_title', 'details', 'pdf_file', 'docs_file'], 'safe'],
         ];
     }
 
@@ -41,8 +41,6 @@ class RequesterSearch extends Requester
     public function search($params)
     {
         $query = Requester::find();
-        // $query->joinWith(['requestBy.profile']);
-
 
         // add conditions that should always apply here
 
@@ -77,7 +75,6 @@ class RequesterSearch extends Requester
             ->andFilterWhere(['like', 'details', $this->details])
             ->andFilterWhere(['like', 'pdf_file', $this->pdf_file])
             ->andFilterWhere(['like', 'docs_file', $this->docs_file]);
-            // ->andFilterWhere(['like', 'requestBy.profile.name', $this->id]);
 
         return $dataProvider;
     }
