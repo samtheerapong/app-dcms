@@ -18,7 +18,7 @@ $config = [
         'operator' => [
             'class' => 'app\modules\operator\Module',
         ],
-       
+
         // Admin
         'admin' => [
             'class' => 'mdm\admin\Module',
@@ -59,6 +59,13 @@ $config = [
         ]
     ],
     'components' => [
+        'view' => [
+            'theme' => [
+                'pathMap' => [
+                    '@app/views' => '@app/views/themes/adminlte'
+                ]
+            ]
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'nHxR8ZIQBaxQAbLqiO-IaqGue42rygpO1',
