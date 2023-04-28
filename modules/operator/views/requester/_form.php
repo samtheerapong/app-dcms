@@ -42,7 +42,7 @@ use app\modules\operator\models\User;
 
     <?= $form->field($model, 'document_title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'details')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'details')->textarea(['rows' => 3]) ?>
 
     <?= $form->field($model, 'pdf_file')->textarea(['rows' => 6]) ?>
 

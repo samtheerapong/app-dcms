@@ -5,6 +5,7 @@ namespace app\modules\operator\models;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "requester".
@@ -39,8 +40,10 @@ class Requester extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'createdAtAttribute' => 'created_at',
-                'updatedAtAttribute' => 'updated_at'
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
+                ],
             ],
             [
                 'class' => BlameableBehavior::class,

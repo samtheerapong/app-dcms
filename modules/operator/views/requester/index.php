@@ -44,23 +44,22 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_name . '</b></span>';
                 },
                 'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_name'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
-
             ],
 
-            'created_at:date',
-            // [
-            //     'attribute' => 'created_at',
-            //     'format' => 'date',
-            //     'value' => 'created_at',
-            //     'filter' => DatePicker::widget([
-            //         'model' => $searchModel,
-            //         'attribute' => 'created_at',
-            //         'pluginOptions' => [
-            //             'format' => 'yyyy-mm-dd',
-            //             'autoclose' => true,
-            //         ]
-            //     ])
-            // ],
+            // 'created_at:date',
+            [
+                'attribute' => 'created_at',
+                'format' => 'date',
+                'value' => 'created_at',
+                'filter' => DatePicker::widget([
+                    'model' => $searchModel,
+                    'attribute' => 'created_at',
+                    'pluginOptions' => [
+                        'format' => 'dd-mm-yyyy',
+                        'autoclose' => true,
+                    ]
+                ])
+            ],
 
             [
                 'attribute' => 'request_by',
