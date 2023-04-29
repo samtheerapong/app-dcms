@@ -18,7 +18,7 @@ use kartik\widgets\ColorInput;
 
     <?= $form->field($model, 'type_details')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'color')->widget(ColorInput::classname(), ['options' => ['placeholder' => 'เลือกสี'],]);?>  
+    <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]); ?> 
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

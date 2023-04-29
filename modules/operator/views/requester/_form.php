@@ -26,7 +26,7 @@ use app\modules\operator\models\User;
 
     <?= $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
 
-    <?= $form->field($model, 'request_by')->widget(Select2::classname(), [
+    <?= $form->field($model, 'request_by')->widget(Select2::class, [
         'language' => 'th',
         'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
         'options' => ['placeholder' => 'เลือก ...'],
@@ -36,7 +36,6 @@ use app\modules\operator\models\User;
     ]);
     ?>
 
-
     <?= $form->field($model, 'categories_id')->dropDownlist(ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
 
     <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['department_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
@@ -45,7 +44,7 @@ use app\modules\operator\models\User;
 
     <?= $form->field($model, 'details')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'pdf_file')->widget(FileInput::classname(), [
+    <?= $form->field($model, 'pdf_file')->widget(FileInput::class, [
         'options' => [
             //'accept' => 'application/pdf',
             //'multiple' => true

@@ -29,10 +29,17 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'category_code',
             'category_details',
-            'color',
+            // 'color',
+            [
+                'attribute' => 'color',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->color . '</b></span>';
+                },
+            ],
         ],
     ]) ?>
 

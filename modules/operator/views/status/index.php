@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+// use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\StatusSearch */
@@ -15,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Status'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,12 +27,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'status_name',
+            // 'id',
+            // 'status_name',
+            [
+                'attribute' => 'status_name',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->status_name . '</b></span>';
+                },
+                // 'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+            ],
             'status_details:ntext',
-            'color',
+            // 'color',
 
-            ['class' => 'yii\grid\ActionColumn'],
+          // ['class' => 'yii\grid\ActionColumn'],
+          [
+            'class' => 'kartik\grid\ActionColumn',
+            'options' => ['style' => 'width:120px;'],
+            'buttonOptions' => ['class' => 'btn btn-default'],
+            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
+        ],
         ],
     ]); ?>
 
