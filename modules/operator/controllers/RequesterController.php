@@ -69,6 +69,9 @@ class RequesterController extends Controller
         $modelReviewer = new Reviewer();
 
         if ($model->load(Yii::$app->request->post())) {
+
+            $model->pdf_file = $model->uploadFiles($model, 'pdf_file');  // Upload PDF
+
             if($model->save()){
                 $modelReviewer->requester_id = $model->id;
                 $modelReviewer->save();
@@ -94,7 +97,12 @@ class RequesterController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            $model->pdf_file = $model->uploadFiles($model, 'pdf_file');  // Upload PDF
+
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

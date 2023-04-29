@@ -6,6 +6,8 @@ use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\BaseActiveRecord;
+//
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "requester".
@@ -34,6 +36,8 @@ use yii\db\BaseActiveRecord;
  */
 class Requester extends \yii\db\ActiveRecord
 {
+
+    public $upload_folder = 'uploads/pdf';
 
     public function behaviors()
     {
@@ -68,13 +72,18 @@ class Requester extends \yii\db\ActiveRecord
         return [
             [['categories_id', 'departments_id', 'document_title'], 'required'],
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['details', 'pdf_file', 'docs_file'], 'string'],
+            [['details', 'docs_file'], 'string'],
             [['document_title'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::className(), 'targetAttribute' => ['departments_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::className(), 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['request_by' => 'id']],
+            [
+                ['pdf_file'], 'file',
+                'skipOnEmpty' => true,
+                'extensions' => 'pdf'
+            ],
         ];
     }
 
@@ -172,6 +181,39 @@ class Requester extends \yii\db\ActiveRecord
 
     public function getProfileName()
     {
-       return $this->requestBy->profile->name;
+        return $this->requestBy->profile->name;
     }
+
+    /**
+     * Uploads files
+     */
+    public function uploadFiles($model, $attribute)
+    {
+        $file = UploadedFile::getInstance($model, $attribute);
+        $path = $this->getUploadFilePath();
+        if ($this->validate() && $file !== null) {
+
+            $filesName = md5($file->baseName . time()) . '.' . $file->extension;
+            if ($file->saveAs($path . $filesName)) {
+                return $filesName;
+            }
+        }
+        return $model->isNewRecord ? false : $model->getOldAttribute($attribute);
+    }
+
+    public function getUploadFilePath()
+    {
+        return Yii::getAlias('@webroot') . '/' . $this->upload_folder . '/';
+    }
+
+    public function getUploadFileUrl()
+    {
+        return Yii::getAlias('@web') . '/' . $this->upload_folder . '/';
+    }
+
+    public function getFileViewer()
+    {
+        return empty($this->pdf_file) ? Yii::getAlias('@web') . '/uploads/nofile.png' : $this->getUploadFileUrl() . $this->pdf_file;
+    }
+
 }

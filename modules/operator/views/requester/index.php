@@ -37,13 +37,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
+            // 'types.type_name',
             [
-                'attribute' => 'types_id',
+                'attribute' => 'types.type_name',
                 'format' => 'html',
                 'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_name . '</b></span>';
+                    return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
+                    
                 },
-                'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_name'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
             ],
 
             // 'created_at:date',

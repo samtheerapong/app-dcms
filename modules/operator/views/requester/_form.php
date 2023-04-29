@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 //
 use kartik\widgets\Select2;
+use kartik\widgets\FileInput;
 //
 use app\modules\operator\models\Types;
 use app\modules\operator\models\Categories;
@@ -21,10 +22,10 @@ use app\modules\operator\models\User;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'types_id')->dropDownlist(ArrayHelper::map(Types::find()->all(), 'id', 'type_name'), ['prompt' => 'กรุณาเลือก ...',]) ?>
-    
-    <?= $form->field($model, 'status_id')->hiddenInput(['value'=> 1])->label(false); ?>
-    
+    <?= $form->field($model, 'types_id')->dropDownlist(ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+
+    <?= $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
+
     <?= $form->field($model, 'request_by')->widget(Select2::classname(), [
         'language' => 'th',
         'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
@@ -44,7 +45,23 @@ use app\modules\operator\models\User;
 
     <?= $form->field($model, 'details')->textarea(['rows' => 3]) ?>
 
-    <?= $form->field($model, 'pdf_file')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'pdf_file')->widget(FileInput::classname(), [
+        'options' => [
+            //'accept' => 'application/pdf',
+            //'multiple' => true
+        ],
+        'pluginOptions' => [
+            // 'initialPreview'=>empty($model->pdf_file)?[]:[
+            //     Html::img($model->pdf_file, ['class' => 'file-preview-image', 'alt' => $model->pdf_file, 'title' => $model->pdf_file])
+            //  ],
+            'language' => 'th',
+            'allowedFileExtensions' => ['pdf'],
+            'showPreview' => false,
+            'showRemove' => true,
+            'showUpload' => false,
+        ]
+    ]);
+    ?>
 
     <?= $form->field($model, 'docs_file')->textarea(['rows' => 6]) ?>
 

@@ -60,14 +60,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'document_title',
             'details:ntext',
-            'pdf_file:ntext',
+            // 'pdf_file:ntext',
+         
             'docs_file:ntext',
             'created_at:date',
             'updated_at:date',
             [
                 'attribute' => 'created_by',
-                'value' => $model->createdBy->profile->name, 
-               
+                'value' => $model->createdBy->profile->name,
+
             ],
             [
                 'attribute' => 'updated_by',
