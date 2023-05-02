@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="requester-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -29,52 +29,62 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute' => 'types_id',
-                'value' => $model->types->type_name,
-            ],
-            [
-                'attribute' => 'status_id',
-                'value' => $model->status->status_name,
-            ],
-            [
-                'attribute' => 'request_by',
-                'value' => $model->requestBy->profile->name,
-            ],
-            [
-                'attribute' => 'categories_id',
-                'value' => function ($model) {
-                    return $model->categories->category_code . ' - ' . $model->categories->category_details;
-                },
+    <div class="actions-form">
+        <div class="box box-success box-solid">
+            <div class="box-header">
+                <div class="box-title"><?= $this->title ?></div>
+            </div>
+            <div class="box-body">
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'attributes' => [
+                        'id',
+                        [
+                            'attribute' => 'types_id',
+                            'value' => $model->types->type_name,
+                        ],
+                        [
+                            'attribute' => 'status_id',
+                            'value' => $model->status->status_name,
+                        ],
+                        [
+                            'attribute' => 'request_by',
+                            'value' => $model->requestBy->profile->name,
+                        ],
+                        [
+                            'attribute' => 'categories_id',
+                            'value' => function ($model) {
+                                return $model->categories->category_code . ' - ' . $model->categories->category_details;
+                            },
 
-            ],
-            [
-                'attribute' => 'departments_id',
-                'value' => function ($model) {
-                    return $model->departments->department_code . ' - ' . $model->departments->department_details;
-                },
+                        ],
+                        [
+                            'attribute' => 'departments_id',
+                            'value' => function ($model) {
+                                return $model->departments->department_code . ' - ' . $model->departments->department_details;
+                            },
 
-            ],
-            'document_title',
-            'details:ntext',
-            // 'pdf_file:ntext',
-         
-            'docs_file:ntext',
-            'created_at:date',
-            'updated_at:date',
-            [
-                'attribute' => 'created_by',
-                'value' => $model->createdBy->profile->name,
+                        ],
+                        'document_title',
+                        'details:ntext',
+                        // 'pdf_file:ntext',
 
-            ],
-            [
-                'attribute' => 'updated_by',
-                'value' => $model->updatedBy->profile->name,
-            ],
-        ],
-    ]) ?>
+                        'docs_file:ntext',
+                        'created_at:date',
+                        'updated_at:date',
+                        [
+                            'attribute' => 'created_by',
+                            'value' => $model->createdBy->profile->name,
 
+                        ],
+                        [
+                            'attribute' => 'updated_by',
+                            'value' => $model->updatedBy->profile->name,
+                        ],
+                    ],
+                ]) ?>
+
+            </div>
+        </div>
+    </div>
 </div>

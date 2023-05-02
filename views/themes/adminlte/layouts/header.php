@@ -25,24 +25,24 @@ use yii\bootstrap\Nav;
 
                     <?php
                     $menuItems = [
-                        ['label' => 'Home', 'url' => ['/site/index']],
+                        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
                         // ['label' => 'About', 'url' => ['/site/about']],
                         // ['label' => 'Contact', 'url' => ['/site/contact']],
                         [
-                            'label' => 'Tasks', 'items' => [
-                                ['label' => 'Request', 'url' => ['/operator/requester/index']],
-                                ['label' => 'Reviewer', 'url' => ['/operator/reviewer/index']],
-                                ['label' => 'Approver', 'url' => ['/operator/approver/index']],
+                            'label' => Yii::t('app', 'Tasks'), 'items' => [
+                                ['label' => Yii::t('app', 'Request'), 'url' => ['/operator/requester/index']],
+                                ['label' => Yii::t('app', 'Reviewer'), 'url' => ['/operator/reviewer/index']],
+                                ['label' => Yii::t('app', 'Approver'), 'url' => ['/operator/approver/index']],
                             ]
                         ],
                         [
-                            'label' => 'Backend', 'items' => [
-                                ['label' => 'categories', 'url' => ['/operator/categories/index']],
-                                ['label' => 'departments', 'url' => ['/operator/departments/index']],
-                                ['label' => 'points', 'url' => ['/operator/points/index']],
-                                ['label' => 'stamps', 'url' => ['/operator/stamps/index']],
-                                ['label' => 'status', 'url' => ['/operator/status/index']],
-                                ['label' => 'types', 'url' => ['/operator/types/index']],
+                            'label' => Yii::t('app', 'Backend'), 'items' => [
+                                ['label' => Yii::t('app', 'categories'), 'url' => ['/operator/categories/index']],
+                                ['label' => Yii::t('app', 'departments'), 'url' => ['/operator/departments/index']],
+                                ['label' => Yii::t('app', 'points'), 'url' => ['/operator/points/index']],
+                                ['label' => Yii::t('app', 'stamps'), 'url' => ['/operator/stamps/index']],
+                                ['label' => Yii::t('app', 'status'), 'url' => ['/operator/status/index']],
+                                ['label' => Yii::t('app', 'types'), 'url' => ['/operator/types/index']],
                             ]
                         ],
                         [

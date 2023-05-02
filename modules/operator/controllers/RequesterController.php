@@ -100,7 +100,7 @@ class RequesterController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->pdf_file = $model->uploadFiles($model, 'pdf_file');  // Upload PDF
+            // $model->pdf_file = $model->uploadFiles($model, 'pdf_file');  // Upload PDF  
 
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
