@@ -3,6 +3,11 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\BaseActiveRecord;
+//
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "requester".
@@ -31,6 +36,26 @@ use Yii;
  */
 class Requester extends \yii\db\ActiveRecord
 {
+
+    public $upload_folder = 'uploads/pdf';
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
+                ],
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -45,14 +70,20 @@ class Requester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['categories_id', 'departments_id', 'document_title'], 'required'],
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['details'], 'string'],
+            [['details', 'docs_file','pdf_file'], 'string'],
             [['document_title'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::className(), 'targetAttribute' => ['departments_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::className(), 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['request_by' => 'id']],
+            // [
+            //     ['pdf_file'], 'file',
+            //     'skipOnEmpty' => true,
+            //     'extensions' => 'pdf'
+            // ],
         ];
     }
 
@@ -129,6 +160,15 @@ class Requester extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'request_by']);
     }
 
+    public function getCreatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
+    }
+
+    public function getUpdatedBy()
+    {
+        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+    }
     /**
      * Gets query for [[Reviewers]].
      *
@@ -139,19 +179,9 @@ class Requester extends \yii\db\ActiveRecord
         return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
     }
 
-
-    public function getCreatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
-    }
-
-    public function getUpdatedBy()
-    {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
-    }
-
     public function getProfileName()
     {
         return $this->requestBy->profile->name;
     }
+
 }

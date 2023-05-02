@@ -17,8 +17,8 @@ class RequesterSearch extends Requester
     public function rules()
     {
         return [
-            [['id', 'types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'pdf_file', 'docs_file'], 'safe'],
+            [['id', 'types_id', 'status_id', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
+            [['document_title', 'details', 'pdf_file', 'docs_file','created_at'], 'safe'],
         ];
     }
 
@@ -46,6 +46,7 @@ class RequesterSearch extends Requester
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -61,8 +62,8 @@ class RequesterSearch extends Requester
             'id' => $this->id,
             'types_id' => $this->types_id,
             'status_id' => $this->status_id,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+            // 'created_at' => $this->created_at,
+            // 'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'request_by' => $this->request_by,
@@ -71,6 +72,8 @@ class RequesterSearch extends Requester
         ]);
 
         $query->andFilterWhere(['like', 'document_title', $this->document_title])
+            ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
+            ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
             ->andFilterWhere(['like', 'details', $this->details])
             ->andFilterWhere(['like', 'pdf_file', $this->pdf_file])
             ->andFilterWhere(['like', 'docs_file', $this->docs_file]);
