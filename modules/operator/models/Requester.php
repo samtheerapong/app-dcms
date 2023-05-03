@@ -79,66 +79,35 @@ class Requester extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * Gets query for [[Categories]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getCategories()
     {
         return $this->hasOne(Categories::className(), ['id' => 'categories_id']);
     }
 
-    /**
-     * Gets query for [[Departments]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getDepartments()
     {
         return $this->hasOne(Departments::className(), ['id' => 'departments_id']);
     }
 
-    /**
-     * Gets query for [[Status]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getStatus()
     {
         return $this->hasOne(Status::className(), ['id' => 'status_id']);
     }
 
-    /**
-     * Gets query for [[Types]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getTypes()
     {
         return $this->hasOne(Types::className(), ['id' => 'types_id']);
     }
 
-    /**
-     * Gets query for [[RequestBy]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRequestBy()
     {
         return $this->hasOne(User::className(), ['id' => 'request_by']);
     }
 
-    /**
-     * Gets query for [[Reviewers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getReviewers()
     {
         return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
     }
-
 
     public function getCreatedBy()
     {

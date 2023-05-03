@@ -88,7 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'categories_id',
                             'format' => 'html',
                             'value' => function ($model) {
-                                return $model->categories->category_code;
+                                return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
@@ -96,7 +96,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'departments_id',
                             'format' => 'html',
                             'value' => function ($model) {
-                                return $model->departments->department_code;
+                                return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
