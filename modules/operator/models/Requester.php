@@ -51,7 +51,7 @@ class Requester extends \yii\db\ActiveRecord
             ],
         ];
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -69,11 +69,11 @@ class Requester extends \yii\db\ActiveRecord
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details'], 'string'],
             [['document_title'], 'string', 'max' => 255],
-            [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::className(), 'targetAttribute' => ['categories_id' => 'id']],
-            [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::className(), 'targetAttribute' => ['departments_id' => 'id']],
-            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::className(), 'targetAttribute' => ['status_id' => 'id']],
-            [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::className(), 'targetAttribute' => ['types_id' => 'id']],
-            [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['request_by' => 'id']],
+            [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],
+            [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::class, 'targetAttribute' => ['departments_id' => 'id']],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
+            [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
+            [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
         ];
     }
 
@@ -99,14 +99,15 @@ class Requester extends \yii\db\ActiveRecord
             'docs_file' => Yii::t('app', 'แนบไฟล์ Docs'),
         ];
     }
-/**
+
+    /**
      * Gets query for [[Categories]].
      *
      * @return \yii\db\ActiveQuery
      */
     public function getCategories()
     {
-        return $this->hasOne(Categories::className(), ['id' => 'categories_id']);
+        return $this->hasOne(Categories::class, ['id' => 'categories_id']);
     }
 
     /**
@@ -116,7 +117,7 @@ class Requester extends \yii\db\ActiveRecord
      */
     public function getDepartments()
     {
-        return $this->hasOne(Departments::className(), ['id' => 'departments_id']);
+        return $this->hasOne(Departments::class, ['id' => 'departments_id']);
     }
 
     /**
@@ -126,7 +127,7 @@ class Requester extends \yii\db\ActiveRecord
      */
     public function getStatus()
     {
-        return $this->hasOne(Status::className(), ['id' => 'status_id']);
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
     /**
@@ -136,7 +137,7 @@ class Requester extends \yii\db\ActiveRecord
      */
     public function getTypes()
     {
-        return $this->hasOne(Types::className(), ['id' => 'types_id']);
+        return $this->hasOne(Types::class, ['id' => 'types_id']);
     }
 
     /**
@@ -146,7 +147,7 @@ class Requester extends \yii\db\ActiveRecord
      */
     public function getRequestBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'request_by']);
+        return $this->hasOne(User::class, ['id' => 'request_by']);
     }
 
     public function getProfileName()
@@ -156,13 +157,14 @@ class Requester extends \yii\db\ActiveRecord
 
     public function getCreatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::class, ['id' => 'created_by']);
     }
 
     public function getUpdatedBy()
     {
-        return $this->hasOne(User::className(), ['id' => 'updated_by']);
+        return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
+
     /**
      * Gets query for [[Reviewers]].
      *
@@ -170,8 +172,6 @@ class Requester extends \yii\db\ActiveRecord
      */
     public function getReviewers()
     {
-        return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
+        return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
     }
-
-   
 }
