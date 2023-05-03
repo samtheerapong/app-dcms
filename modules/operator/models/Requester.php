@@ -3,6 +3,9 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "requester".
@@ -31,6 +34,24 @@ use Yii;
  */
 class Requester extends \yii\db\ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
+                ],
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'createdByAttribute' => 'created_by',
+                'updatedByAttribute' => 'updated_by',
+            ],
+        ];
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -78,35 +99,59 @@ class Requester extends \yii\db\ActiveRecord
             'docs_file' => Yii::t('app', 'แนบไฟล์ Docs'),
         ];
     }
-
+/**
+     * Gets query for [[Categories]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getCategories()
     {
         return $this->hasOne(Categories::className(), ['id' => 'categories_id']);
     }
 
+    /**
+     * Gets query for [[Departments]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getDepartments()
     {
         return $this->hasOne(Departments::className(), ['id' => 'departments_id']);
     }
 
+    /**
+     * Gets query for [[Status]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getStatus()
     {
         return $this->hasOne(Status::className(), ['id' => 'status_id']);
     }
 
+    /**
+     * Gets query for [[Types]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getTypes()
     {
         return $this->hasOne(Types::className(), ['id' => 'types_id']);
     }
 
+    /**
+     * Gets query for [[RequestBy]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
     public function getRequestBy()
     {
         return $this->hasOne(User::className(), ['id' => 'request_by']);
     }
 
-    public function getReviewers()
+    public function getProfileName()
     {
-        return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
+        return $this->requestBy->profile->name;
     }
 
     public function getCreatedBy()
@@ -118,9 +163,15 @@ class Requester extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'updated_by']);
     }
-
-    public function getProfileName()
+    /**
+     * Gets query for [[Reviewers]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getReviewers()
     {
-        return $this->requestBy->profile->name;
+        return $this->hasMany(Reviewer::className(), ['requester_id' => 'id']);
     }
+
+   
 }

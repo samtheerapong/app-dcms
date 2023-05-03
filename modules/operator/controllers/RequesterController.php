@@ -9,6 +9,9 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+//
+use app\modules\operator\models\Reviewer;
+
 /**
  * RequesterController implements the CRUD actions for Requester model.
  */
@@ -65,13 +68,19 @@ class RequesterController extends Controller
     public function actionCreate()
     {
         $model = new Requester();
+        $modelReviewer = new Reviewer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                $modelReviewer->requester_id = $model->id;
+                $modelReviewer->save();
+            }
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelReviewer' => $modelReviewer,
         ]);
     }
 
@@ -86,7 +95,8 @@ class RequesterController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
