@@ -1,7 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+// use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ApproverSearch */
@@ -12,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="approver-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Approver'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -33,7 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'approve_comment:ntext',
             //'approved',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'class' => 'kartik\grid\ActionColumn',
+                'options' => ['style' => 'width:120px;'],
+                'buttonOptions' => ['class' => 'btn btn-default'],
+                'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
+            ],
         ],
     ]); ?>
 
