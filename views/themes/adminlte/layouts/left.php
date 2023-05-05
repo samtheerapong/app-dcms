@@ -1,3 +1,7 @@
+<?php
+
+use yii\helpers\Html;
+?>
 <aside class="main-sidebar">
 
     <section class="sidebar">
@@ -39,7 +43,7 @@
                         ]
                     ],
                     [
-                        'label' => Yii::t('app', 'Backend'), 'icon' => 'folder-o','items' => [
+                        'label' => Yii::t('app', 'Backend'), 'icon' => 'folder-o', 'items' => [
                             ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/categories/index']],
                             ['label' => Yii::t('app', 'departments'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/departments/index']],
                             ['label' => Yii::t('app', 'points'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/points/index']],
@@ -48,43 +52,52 @@
                             ['label' => Yii::t('app', 'types'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/types/index']],
                             ['label' => Yii::t('app', 'user'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/user/index']],
                             ['label' => Yii::t('app', 'profile'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/profile/index']],
-                            // ['label' => Yii::t('app', 'approver'), 'url' => ['/operator/approver/index']],
                         ]
                     ],
                     [
-                        'label' => Yii::t('app', 'System'), 'icon' => 'cog','items' => [
+                        'label' => Yii::t('app', 'System'), 'icon' => 'cog', 'items' => [
                             ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                             ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                         ]
                     ],
-                   
-                    ['label' => 'Login', 'url' => ['site/login'], 'visible' => Yii::$app->user->isGuest],
-                    // [
-                    //     'label' => 'Some tools',
-                    //     'icon' => 'share',
-                    //     'url' => '#',
-                    //     'items' => [
-                    //         ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],
-                    //         ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug'],],
-                    //         [
-                    //             'label' => 'Level One',
-                    //             'icon' => 'circle-o',
-                    //             'url' => '#',
-                    //             'items' => [
-                    //                 ['label' => 'Level Two', 'icon' => 'circle-o', 'url' => '#',],
-                    //                 [
-                    //                     'label' => 'Level Two',
-                    //                     'icon' => 'circle-o',
-                    //                     'url' => '#',
-                    //                     'items' => [
-                    //                         ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                    //                         ['label' => 'Level Three', 'icon' => 'circle-o', 'url' => '#',],
-                    //                     ],
-                    //                 ],
-                    //             ],
-                    //         ],
-                    //     ],
-                    // ],
+
+                    // ['label' => Yii::t('app', 'Login'), 'url' => ['/user/security/login'], 'visible' => Yii::$app->user->isGuest],
+                    Yii::$app->user->isGuest ?
+                        [
+                            'label' => 'เข้าสู่ระบบ',
+                            'url' => ['/user/security/login']
+                        ] :
+                        [
+                            'label' => 'สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
+                            'items' => [
+                                [
+                                    'label' => 'โปรไฟล์',
+                                    'url' => ['/user/settings/profile']
+                                ],
+                                ['label' => 'บัญชี', 'url' => ['/user/settings/account']],
+                                ['label' => 'จัดการสิทธิ์', 'url' => ['/admin']],
+                                ['label' => 'จัดการผู้ใช้งาน', 'url' => ['/user/admin/index']],
+                                [
+                                    'label' => Yii::t('app', 'Logout'),
+                                    'icon' => 'file-code-o',
+                                    'url' => ['/site/logout'],
+                                    // 'template' => Html::beginForm(['/user/security/logout']) . Html::submitButton('Logout') . Html::endForm(),
+                                    // 'template' => '<a href="{url}" data-method="post"><i class="fa fa-sign-out"></i> <span>{label}</span></a>',
+                                    'template' => Html::beginForm(['/user/security/logout']) .
+                                        Html::submitButton(
+                                            '<i class="fas fa-sign-out-alt"></i>' . ' ' . Yii::t('app', 'Logout'),
+                                            [
+                                                'data-confirm' =>  Yii::t('app', 'Are you sure you want to log out?'),
+                                                'class' => 'btn btn-danger btn-block'
+                                            ]
+                                        ) .
+                                        Html::endForm(),
+                                ],
+
+                            ]
+                        ],
+
+
                 ],
             ]
         ) ?>
