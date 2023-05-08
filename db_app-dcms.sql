@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 28, 2023 at 08:41 AM
+-- Generation Time: May 08, 2023 at 09:54 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -124,15 +124,15 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 INSERT INTO `categories` (`id`, `category_code`, `category_details`, `color`) VALUES
-(1, 'PM', 'ขั้นตอนการปฏิบัติ (Procedure Manual)', NULL),
-(2, 'ST', 'มาตรฐานอ้างอิง (Standard)', NULL),
-(3, 'WI', 'วิธีการปฏิบัติ (Work Instruction)', NULL),
-(4, 'MM', 'คู่มือระบบบริหารต่างๆ (Manual)', NULL),
-(5, 'SP', 'เอกสารสนับสนุน (Support Document)', NULL),
-(6, 'FM', 'แบบฟอร์ม (Form)', NULL),
-(7, 'QM', 'คู่มือคุณภาพ (QM)', NULL),
-(8, 'SHE', 'คู่มือการจัดการด้านอาชีวอนามัยและความปลอดภัย', NULL),
-(9, 'EM', 'คู่มือระบบการจัดการด้านสิ่งแวดล้อม', NULL);
+(1, 'PM', 'ขั้นตอนการปฏิบัติ (Procedure Manual)', '#0000ff'),
+(2, 'ST', 'มาตรฐานอ้างอิง (Standard)', '#ff00ff'),
+(3, 'WI', 'วิธีการปฏิบัติ (Work Instruction)', '#ff9900'),
+(4, 'MM', 'คู่มือระบบบริหารต่างๆ (Manual)', '#00ffff'),
+(5, 'SP', 'เอกสารสนับสนุน (Support Document)', '#1c4587'),
+(6, 'FM', 'แบบฟอร์ม (Form)', '#274e13'),
+(7, 'QM', 'คู่มือคุณภาพ (QM)', '#674ea7'),
+(8, 'SHE', 'คู่มือการจัดการด้านอาชีวอนามัยและความปลอดภัย', '#e06666'),
+(9, 'EM', 'คู่มือระบบการจัดการด้านสิ่งแวดล้อม', '#666666');
 
 -- --------------------------------------------------------
 
@@ -156,20 +156,20 @@ CREATE TABLE IF NOT EXISTS `departments` (
 --
 
 INSERT INTO `departments` (`id`, `department_code`, `department_details`, `color`, `user_id`) VALUES
-(1, 'MK', 'การตลาด (Marketing)', NULL, NULL),
-(2, 'PD', 'ฝ่ายผลิต (Production)', NULL, NULL),
-(3, 'QC', 'แผนกควบคุมคุณภาพ (Quality Control)', NULL, NULL),
-(4, 'EN', 'แผนกวิศวกรรม (Engineer)', NULL, NULL),
-(5, 'PC', 'แผนกจัดซื้อ (Purchasing)', NULL, NULL),
-(6, 'WH', 'แผนกคลังสินค้า (Ware House)', NULL, NULL),
-(7, 'RD', 'แผนกวิจัยและพัฒนาผลิตภัณฑ์ (Research and Development)', NULL, NULL),
-(8, 'AG', 'แผนกส่งเสริมการเกษตร (Agriculture)', NULL, NULL),
-(9, 'GR', 'เอกสารใช้ทั่วไป (General)', NULL, NULL),
-(10, 'MM', 'เอกสารที่จัดทำจากระบบการจัดการมาตรฐานแรงงานไทย มรท.8001\n', NULL, NULL),
-(11, 'EM', 'เอกสารที่จัดทำจากระบบการจัดการสิ่งแวดล้อม (Environmental)', NULL, NULL),
-(12, 'HS', 'เอกสารที่จัดทำจากระบบการจัดการอาชีวอนามัยและความปลอดภัย (OHSAS 18001)\r\n', NULL, NULL),
-(13, 'PCC', 'ฝ่ายวางแผนและควบคุมการผลิต', NULL, NULL),
-(14, 'IT', 'แผนกเทคโนโลยีสารสนเทศ', NULL, NULL);
+(1, 'MK', 'การตลาด (Marketing)', '#434343', NULL),
+(2, 'PD', 'ฝ่ายผลิต (Production)', '#4a86e8', NULL),
+(3, 'QC', 'แผนกควบคุมคุณภาพ (Quality Control)', '#ff9900', NULL),
+(4, 'EN', 'แผนกวิศวกรรม (Engineer)', '#9900ff', NULL),
+(5, 'PC', 'แผนกจัดซื้อ (Purchasing)', '#ff00ff', NULL),
+(6, 'WH', 'แผนกคลังสินค้า (Ware House)', '#980000', NULL),
+(7, 'RD', 'แผนกวิจัยและพัฒนาผลิตภัณฑ์ (Research and Development)', '#ff0000', NULL),
+(8, 'AG', 'แผนกส่งเสริมการเกษตร (Agriculture)', '#dd7e6b', NULL),
+(9, 'GR', 'เอกสารใช้ทั่วไป (General)', '#93c47d', NULL),
+(10, 'MM', 'เอกสารที่จัดทำจากระบบการจัดการมาตรฐานแรงงานไทย มรท.8001\r\n', '#76a5af', NULL),
+(11, 'EM', 'เอกสารที่จัดทำจากระบบการจัดการสิ่งแวดล้อม (Environmental)', '#8e7cc3', NULL),
+(12, 'HS', 'เอกสารที่จัดทำจากระบบการจัดการอาชีวอนามัยและความปลอดภัย (OHSAS 18001)\r\n', '#f6b26b', NULL),
+(13, 'PCC', 'ฝ่ายวางแผนและควบคุมการผลิต', '#674ea7', NULL),
+(14, 'IT', 'แผนกเทคโนโลยีสารสนเทศ', '#1c4587', NULL);
 
 -- --------------------------------------------------------
 
@@ -299,28 +299,24 @@ CREATE TABLE IF NOT EXISTS `requester` (
   `departments_id` int DEFAULT NULL COMMENT 'แผนกที่รับผิดชอบ',
   `document_title` varchar(255) DEFAULT NULL COMMENT 'เรื่อง',
   `details` text COMMENT 'รายละเอียดเอกสาร',
-  `pdf_file` text COMMENT 'แนบไฟล์  PDF',
-  `docs_file` text COMMENT 'แนบไฟล์ Docs',
+  `ref` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'ref',
+  `fullname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'เลขที่เอกสาร',
+  `covenant` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'PDF',
+  `docs` text COMMENT 'เอกสารประกอบ',
   PRIMARY KEY (`id`),
   KEY `fk_requester_status_idx` (`status_id`),
   KEY `fk_requester_user1_idx` (`request_by`),
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `requester`
 --
 
-INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `details`, `pdf_file`, `docs_file`) VALUES
-(1, 1, 1, 1682484092, 1682485330, 5, 1, 4, 1, 2, 'การกำหนดรหัสเอกสาร', '', '', ''),
-(2, 3, 2, 1682493338, 1682667886, 2, 1, 1, 5, 14, 'การกำหนดรหัสเอกสาร2', '', '', ''),
-(3, 2, 1, 1682493659, 1682668446, 3, 1, 5, 3, 2, 'การทำความสะอาดห้อง ไอที', '', '', ''),
-(4, 2, 4, 1682495074, 1682495248, 3, 2, 4, 3, 7, 'การทำความสะอาดห้อง RD', 'การทำความสะอาดห้อง', '', ''),
-(5, 1, 1, 1682668390, 1682668390, 1, 1, 2, 1, 14, 'การกำหนดรหัสเอกสาร3', 'การกำหนดรหัสเอกสาร3', '', ''),
-(6, 3, 1, 1682670609, 1682670609, NULL, NULL, 2, 4, 4, 'การกำหนดรหัสเอกสาร4', '', '', ''),
-(7, 1, 1, 1682670740, 1682670740, 1, 1, 2, 5, 6, 'การทำความสะอาดห้อง RD', '', '', '');
+INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `details`, `ref`, `fullname`, `covenant`, `docs`) VALUES
+(34, 1, 1, 1683539636, 1683539636, 2, 2, 3, 7, 6, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', '', 'cQPYswSsyBu1Q42GQsdHfN', NULL, '{\"8151e3346cd0661666468a11f4a4d3b9.pdf\":\"PM-GR-05 Rev.33.pdf\"}', 'null');
 
 -- --------------------------------------------------------
 
@@ -349,19 +345,14 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
   KEY `fk_reviewer_stamps1_idx` (`stamps_id`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `reviewer`
 --
 
 INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `document_number`, `document_revision`, `document_age`, `document_public_at`, `stamps_id`, `document_ref`, `document_tags`, `points_id`, `reviewer_comment`, `additional_training`) VALUES
-(1, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(4, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 7, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(32, 34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -398,6 +389,7 @@ CREATE TABLE IF NOT EXISTS `stamps` (
   `stamp_code` varchar(45) DEFAULT NULL COMMENT 'รหัสประทับตรา',
   `stamp_name` varchar(100) DEFAULT NULL COMMENT 'ประทับตรา',
   `color` varchar(45) DEFAULT NULL COMMENT 'สี',
+  `photo` varchar(255) DEFAULT NULL COMMENT 'รูป',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
@@ -405,11 +397,11 @@ CREATE TABLE IF NOT EXISTS `stamps` (
 -- Dumping data for table `stamps`
 --
 
-INSERT INTO `stamps` (`id`, `stamp_code`, `stamp_name`, `color`) VALUES
-(1, 'Master', 'ต้นฉบับ', NULL),
-(2, 'Controlled', 'เอกสารควบคุม', NULL),
-(3, 'Uncontrolled', 'เอกสารไม่ควบคุม', NULL),
-(4, 'Canceled', 'ยกเลิก', NULL);
+INSERT INTO `stamps` (`id`, `stamp_code`, `stamp_name`, `color`, `photo`) VALUES
+(1, 'Master', 'ต้นฉบับ', '#0000ff', '1-4d514b7273a0fcbb72b0c249055a2dab.jpg'),
+(2, 'Controlled', 'เอกสารควบคุม', '#e06666', NULL),
+(3, 'Uncontrolled', 'เอกสารไม่ควบคุม', '#6aa84f', NULL),
+(4, 'Canceled', 'ยกเลิก', '#434343', NULL);
 
 -- --------------------------------------------------------
 
@@ -472,7 +464,7 @@ CREATE TABLE IF NOT EXISTS `types` (
   `id` int NOT NULL AUTO_INCREMENT,
   `type_name` varchar(100) DEFAULT NULL COMMENT 'ประเภทการร้องขอ',
   `type_details` text COMMENT 'รายละเอียด',
-  `color` varchar(45) DEFAULT NULL COMMENT 'สี',
+  `color` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'สี',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
@@ -481,9 +473,9 @@ CREATE TABLE IF NOT EXISTS `types` (
 --
 
 INSERT INTO `types` (`id`, `type_name`, `type_details`, `color`) VALUES
-(1, 'New Request', 'ขอจัดทำ', '#6DA9E4'),
-(2, 'Edit', 'ขอแก้ไข', '#F6BA6F'),
-(3, 'Cancel', 'ขอยกเลิก', '#FF6D60');
+(1, 'New Request', 'ขอจัดทำ', '#4a86e8'),
+(2, 'Edit', 'ขอแก้ไข', '#ff6000'),
+(3, 'Cancel', 'ขอยกเลิก', '#434343');
 
 -- --------------------------------------------------------
 
@@ -518,8 +510,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1682670717, 10, NULL),
-(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1682495090, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1683262808, 10, NULL),
+(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1683538968, 10, NULL),
 (3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1682494012, 10, NULL),
 (4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1682481604, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL);
@@ -581,7 +573,7 @@ ALTER TABLE `requester`
 --
 ALTER TABLE `reviewer`
   ADD CONSTRAINT `fk_reviewer_points1` FOREIGN KEY (`points_id`) REFERENCES `points` (`id`),
-  ADD CONSTRAINT `fk_reviewer_requester1` FOREIGN KEY (`requester_id`) REFERENCES `requester` (`id`),
+  ADD CONSTRAINT `fk_reviewer_requester1` FOREIGN KEY (`requester_id`) REFERENCES `requester` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_reviewer_stamps1` FOREIGN KEY (`stamps_id`) REFERENCES `stamps` (`id`),
   ADD CONSTRAINT `fk_reviewer_user1` FOREIGN KEY (`reviewer_name`) REFERENCES `user` (`id`);
 
