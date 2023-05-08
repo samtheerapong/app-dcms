@@ -18,7 +18,7 @@ class RequesterSearch extends Requester
     {
         return [
             [['id', 'types_id', 'status_id', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'pdf_file', 'docs_file','created_at'], 'safe'],
+            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at'], 'safe'],
         ];
     }
 
@@ -75,8 +75,10 @@ class RequesterSearch extends Requester
             ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
             ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
             ->andFilterWhere(['like', 'details', $this->details])
-            ->andFilterWhere(['like', 'pdf_file', $this->pdf_file])
-            ->andFilterWhere(['like', 'docs_file', $this->docs_file]);
+            ->andFilterWhere(['like', 'ref', $this->ref])
+            ->andFilterWhere(['like', 'fullname', $this->fullname])
+            ->andFilterWhere(['like', 'covenant', $this->covenant])
+            ->andFilterWhere(['like', 'docs', $this->docs]);
 
         return $dataProvider;
     }

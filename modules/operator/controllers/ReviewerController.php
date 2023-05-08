@@ -66,7 +66,8 @@ class ReviewerController extends Controller
     {
         $model = new Reviewer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -85,8 +86,16 @@ class ReviewerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+       
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            // $autoName = $model->requester->categories->category_code . '-' . $model->requester->departments->department_code;
+            // $docFullName = $autoName . '-' . $model->document_number;
+            // if($autoName === $docFullName){
+            //     $model->document_number = $docFullName;
+            // }
+            
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -3,6 +3,7 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "stamps".
@@ -16,6 +17,10 @@ use Yii;
  */
 class Stamps extends \yii\db\ActiveRecord
 {
+
+    public $stamp_img;
+
+
     /**
      * {@inheritdoc}
      */
@@ -32,6 +37,8 @@ class Stamps extends \yii\db\ActiveRecord
         return [
             [['stamp_code', 'color'], 'string', 'max' => 45],
             [['stamp_name'], 'string', 'max' => 100],
+            [['photo'], 'string', 'max' => 255],
+            [['stamp_img'], 'file', 'skipOnEmpty' => true, 'on' => 'update', 'extensions' => 'jpg,png,gif'],
         ];
     }
 
@@ -45,6 +52,8 @@ class Stamps extends \yii\db\ActiveRecord
             'stamp_code' => Yii::t('app', 'รหัสประทับตรา'),
             'stamp_name' => Yii::t('app', 'ประทับตรา'),
             'color' => Yii::t('app', 'สี'),
+            'photo' => Yii::t('app', 'รูป'),
+            'stamp_img' => Yii::t('app', 'รูปภาพ'),
         ];
     }
 
@@ -55,6 +64,17 @@ class Stamps extends \yii\db\ActiveRecord
      */
     public function getReviewers()
     {
-        return $this->hasMany(Reviewer::className(), ['stamps_id' => 'id']);
+        return $this->hasMany(Reviewer::class, ['stamps_id' => 'id']);
+    }
+
+
+    public function getPhotoPreview()
+    {
+        $PhotoPreview = Html::img('uploads/stamp/' . $this->photo, [
+            'class' => 'rounded mx-auto d-block',
+            'width' => '200px',
+        ]);
+
+        return $PhotoPreview;
     }
 }

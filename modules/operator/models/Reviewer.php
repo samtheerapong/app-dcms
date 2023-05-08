@@ -67,8 +67,8 @@ class Reviewer extends \yii\db\ActiveRecord
             'reviewer_name' => Yii::t('app', 'ทบทวนโดย'),
             'reviewer_at' => Yii::t('app', 'ทบทวนเมื่อ'),
             'document_number' => Yii::t('app', 'เลขที่เอกสาร'),
-            'document_revision' => Yii::t('app', 'แก้ไขครั้งที่'),
-            'document_age' => Yii::t('app', 'อายุของเอกสาร'),
+            'document_revision' => Yii::t('app', 'แก้ไขครั้งที่ (Rev)'),
+            'document_age' => Yii::t('app', 'อายุของเอกสาร (ปี)'),
             'document_public_at' => Yii::t('app', 'วันที่ประกาศใช้'),
             'stamps_id' => Yii::t('app', 'ประทับตรา'),
             'document_ref' => Yii::t('app', 'เอกสารอ้างอิง'),
@@ -76,6 +76,9 @@ class Reviewer extends \yii\db\ActiveRecord
             'points_id' => Yii::t('app', 'จุดรับเอกสาร'),
             'reviewer_comment' => Yii::t('app', 'ความคิดเห็นของผู้ทบทวน'),
             'additional_training' => Yii::t('app', 'การอบรมเพิ่มเติม'),
+            //
+            'categories_id' => Yii::t('app', 'categories_id'),
+            'reviewerName.profile.name' => Yii::t('app', 'reviewerName.profile.name'),
         ];
     }
 
@@ -128,4 +131,11 @@ class Reviewer extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'reviewer_name']);
     }
+
+    // public function getDocumentFullNumber()
+    // {
+    //     $autoName = $this->requester->categories->category_code . '-' . $this->requester->departments->department_code;
+    //     $docFullName = $autoName . '-' . $this->document_number;
+    //     return $docFullName;
+    // }
 }

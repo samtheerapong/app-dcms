@@ -7,6 +7,12 @@ use yii\behaviors\TimestampBehavior;
 use yii\behaviors\BlameableBehavior;
 use yii\db\BaseActiveRecord;
 
+//
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\helpers\Json;
+
+
 /**
  * This is the model class for table "requester".
  *
@@ -22,9 +28,6 @@ use yii\db\BaseActiveRecord;
  * @property int|null $departments_id แผนกที่รับผิดชอบ
  * @property string|null $document_title เรื่อง
  * @property string|null $details รายละเอียดเอกสาร
- * @property string|null $pdf_file แนบไฟล์  PDF
- * @property string|null $docs_file แนบไฟล์ Docs
- *
  * @property Categories $categories
  * @property Departments $departments
  * @property Status $status
@@ -34,6 +37,10 @@ use yii\db\BaseActiveRecord;
  */
 class Requester extends \yii\db\ActiveRecord
 {
+
+    const UPLOAD_FOLDER = 'documents';
+
+
     public function behaviors()
     {
         return [
@@ -67,13 +74,16 @@ class Requester extends \yii\db\ActiveRecord
     {
         return [
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['details'], 'string'],
-            [['document_title'], 'string', 'max' => 255],
+            [['details', 'fullname', ], 'string'],
+            [['document_title', 'fullname','ref'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::class, 'targetAttribute' => ['departments_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
+            //
+            [['covenant'], 'file', 'maxFiles' => 1],
+            [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true]
         ];
     }
 
@@ -95,56 +105,35 @@ class Requester extends \yii\db\ActiveRecord
             'departments_id' => Yii::t('app', 'แผนกที่รับผิดชอบ'),
             'document_title' => Yii::t('app', 'เรื่อง'),
             'details' => Yii::t('app', 'รายละเอียดเอกสาร'),
-            'pdf_file' => Yii::t('app', 'แนบไฟล์  PDF'),
-            'docs_file' => Yii::t('app', 'แนบไฟล์ Docs'),
+            'ref' => Yii::t('app', 'อ้างอิง'),
+            'fullname' => Yii::t('app', 'ชื่อไฟล์'),
+            //
+            'covenant' => Yii::t('app', 'แนบไฟล์ PDF'),
+            'docs' => Yii::t('app', 'แนบไฟล์เอกสาร'),
         ];
     }
 
-    /**
-     * Gets query for [[Categories]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+    /****************  Relation   ********************/
     public function getCategories()
     {
         return $this->hasOne(Categories::class, ['id' => 'categories_id']);
     }
 
-    /**
-     * Gets query for [[Departments]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getDepartments()
     {
         return $this->hasOne(Departments::class, ['id' => 'departments_id']);
     }
 
-    /**
-     * Gets query for [[Status]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getStatus()
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
-    /**
-     * Gets query for [[Types]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getTypes()
     {
         return $this->hasOne(Types::class, ['id' => 'types_id']);
     }
 
-    /**
-     * Gets query for [[RequestBy]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRequestBy()
     {
         return $this->hasOne(User::class, ['id' => 'request_by']);
@@ -165,13 +154,61 @@ class Requester extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
-    /**
-     * Gets query for [[Reviewers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getReviewers()
     {
         return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
+    }
+
+    /**************** Upload docs ********************/
+    public static function getUploadPath()
+    {
+        return Yii::getAlias('@webroot') . '/' . self::UPLOAD_FOLDER . '/';
+    }
+
+    public static function getUploadUrl()
+    {
+        return Url::base(true) . '/' . self::UPLOAD_FOLDER . '/';
+    }
+
+    public function listDownloadFiles($type)
+    {
+        $docs_file = '';
+        if (in_array($type, ['docs', 'covenant'])) {
+            $data = $type === 'docs' ? $this->docs : $this->covenant;
+            $files = Json::decode($data);
+            if (is_array($files)) {
+                $docs_file = '<ul>';
+                foreach ($files as $key => $value) {
+                    $docs_file .= '<li>' . Html::a($value, ['/operator/requester/download', 'id' => $this->id, 'file' => $key, 'fullname' => $value]) . '</li>';
+                }
+                $docs_file .= '</ul>';
+            }
+        }
+
+        return $docs_file;
+    }
+
+    /**************** initialPreview ********************/
+    public function initialPreview($data, $field, $type = 'file')
+    {
+        $initial = [];
+        $files = Json::decode($data);
+        if (is_array($files)) {
+            foreach ($files as $key => $value) {
+                if ($type == 'file') {
+                    $initial[] = "<div class='file-preview-other'><h2><i class='glyphicon glyphicon-file'></i></h2></div>";
+                } elseif ($type == 'config') {
+                    $initial[] = [
+                        'caption' => $value,
+                        'width'  => '120px',
+                        'url'    => Url::to(['/operator/requester/deletefile', 'id' => $this->id, 'fullname' => $key, 'field' => $field]),
+                        'key'    => $key
+                    ];
+                } else {
+                    $initial[] = Html::img(self::getUploadUrl() . $value, ['class' => 'file-preview-image', 'alt' => $model->fullname, 'title' => $model->fullname]);
+                }
+            }
+        }
+        return $initial;
     }
 }

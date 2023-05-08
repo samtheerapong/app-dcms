@@ -18,7 +18,7 @@ class StampsSearch extends Stamps
     {
         return [
             [['id'], 'integer'],
-            [['stamp_code', 'stamp_name', 'color'], 'safe'],
+            [['stamp_code', 'stamp_name', 'color','photo'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class StampsSearch extends Stamps
 
         $query->andFilterWhere(['like', 'stamp_code', $this->stamp_code])
             ->andFilterWhere(['like', 'stamp_name', $this->stamp_name])
-            ->andFilterWhere(['like', 'color', $this->color]);
+            ->andFilterWhere(['like', 'color', $this->color])
+            ->andFilterWhere(['like', 'photo', $this->photo]);
 
         return $dataProvider;
     }

@@ -8,6 +8,8 @@ use app\modules\operator\models\StampsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+//
+use yii\web\UploadedFile;
 
 /**
  * StampsController implements the CRUD actions for Stamps model.
@@ -66,7 +68,17 @@ class StampsController extends Controller
     {
         $model = new Stamps();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $file = UploadedFile::getInstance($model, 'stamp_img');
+            if ($file->size != 0) {
+                $filepath = 'uploads/stamp/';
+                $filename = md5($file->basename) . '.' . $file->extension;
+                $model->photo = $filename;
+                $file->saveAs($filepath . $filename);
+            }  
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,7 +98,17 @@ class StampsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            $file = UploadedFile::getInstance($model, 'stamp_img');
+            if ($file->size != 0) {
+                $filepath = 'uploads/stamp/';
+                $filename = $model->id . '-' . md5($file->basename) . '.' . $file->extension;
+                $model->photo = $filename;
+                $file->saveAs($filepath . $filename);
+            }  
+            $model->save();
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

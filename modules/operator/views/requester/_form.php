@@ -28,6 +28,7 @@ use app\modules\operator\models\User;
                 <div class="box-title"><?= $this->title ?></div>
             </div>
             <div class="box-body">
+
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
                     <div class="col-md-3">
@@ -66,41 +67,44 @@ use app\modules\operator\models\User;
 
                 <div class="row">
                     <div class="col-md-6">
-                        <?= $form->field($model, 'pdf_file')->widget(FileInput::class, [
-                            'options' => [
-                                'accept' => 'application/pdf',
-                                // 'visible' => Yii::$app->user->can('admin'),
-                                //'multiple' => true
-                            ],
+                        <?= $form->field($model, 'covenant')->widget(FileInput::class, [
+                            //'options' => ['accept' => 'image/*'],
                             'pluginOptions' => [
-                                'initialPreview' => [],
-                                'language' => 'th',
+                                'initialPreview' => $model->initialPreview($model->covenant, 'covenant', 'file'),
+                                'initialPreviewConfig' => $model->initialPreview($model->covenant, 'covenant', 'config'),
                                 'allowedFileExtensions' => ['pdf'],
                                 'showPreview' => true,
+                                'showCaption' => true,
                                 'showRemove' => true,
-                                'showUpload' => false,
+                                'showUpload' => false
+                            ],
+                            'options' => [
+                                'required' => true,
                             ]
-                        ]);
-                        ?>
+
+                        ]); ?>
+
                     </div>
                     <div class="col-md-6">
-                        <?= $form->field($model, 'docs_file')->widget(FileInput::class, [
+                        <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
-                                //'accept' => 'application/pdf',
+                                //'accept' => 'image/*',
                                 'multiple' => true
                             ],
                             'pluginOptions' => [
-                                // 'initialPreview'=>empty($model->pdf_file)?[]:[
-                                //     Html::img($model->pdf_file, ['class' => 'file-preview-image', 'alt' => $model->pdf_file, 'title' => $model->pdf_file])
-                                //  ],
-                                'language' => 'th',
-                                'allowedFileExtensions' => ['pdf'],
+                                'previewFileType' => 'any',
+                                'initialPreview' => $model->initialPreview($model->docs, 'docs', 'file'),
+                                'initialPreviewConfig' => $model->initialPreview($model->docs, 'docs', 'config'),
+                                'allowedFileExtensions' => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'odt', 'png'],
                                 'showPreview' => true,
+                                'showCaption' => true,
                                 'showRemove' => true,
                                 'showUpload' => false,
+                                'overwriteInitial' => false,
+                                'maxFileCount' => 3,
                             ]
-                        ]);
-                        ?>
+                        ]); ?>
+
                     </div>
                 </div>
 
@@ -120,3 +124,4 @@ use app\modules\operator\models\User;
             </div>
         </div>
     </div>
+</div>

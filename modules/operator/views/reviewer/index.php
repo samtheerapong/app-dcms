@@ -1,8 +1,14 @@
 <?php
 
+use app\modules\operator\models\Points;
 use yii\helpers\Html;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
+use yii\helpers\ArrayHelper;
+use kartik\select2\Select2;
+use app\modules\operator\models\User;
+use app\modules\operator\models\Requester;
+use app\modules\operator\models\Stamps;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ReviewerSearch */
@@ -32,28 +38,85 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'class' => 'kartik\grid\ActionColumn',
+                            'options' => ['style' => 'width:50px;'],
+                            'buttonOptions' => ['class' => 'btn btn-default'],
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} </div>',
+                            'buttons' => [
+                                'update' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                        'title' => Yii::t('yii', 'Update'),
+                                        'class' => 'btn btn-default',
+                                    ]);
+                                },
+                            ],
+                        ],
 
-                        'id',
-                        'requester_id',
-                        'reviewer_name',
-                        'reviewer_at',
+                        // 'id',
+                        // 'requester_id',
+                        [
+                            'attribute' => 'requester_id',
+                            'format' => 'html',
+                            'value' => 'requester.document_title',
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'requester_id',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'id', 'document_title'),
+                                'theme' => Select2::THEME_BOOTSTRAP,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
                         'document_number',
-                        //'document_revision',
-                        //'document_age',
-                        //'document_public_at',
-                        //'stamps_id',
+                        'document_revision',
+                        // 'reviewer_name',
+                        [
+                            'attribute' => 'reviewer_name',
+                            'format' => 'html',
+                            'value' => 'reviewerName.profile.name',
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'reviewer_name',
+                                'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                                'theme' => Select2::THEME_BOOTSTRAP,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
+                        'reviewer_at:date',
+                        // 'document_age',
+                        // 'document_public_at',
+                        // 'stamps_id',
+                        [
+                            'attribute' => 'stamps_id',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return $model->stamps && $model->stamps->stamp_name ? $model->stamps->stamp_name : '';
+                                // return '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>';
+                            },
+                            'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                        ],
                         //'document_ref',
                         //'document_tags',
-                        //'points_id',
+                        // 'points.point_name',
+                        [
+                            'attribute' => 'points_id',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return $model->points ? $model->points->point_name : '';
+                            },
+                            'filter' => Html::activeDropDownList($searchModel, 'points_id', ArrayHelper::map(Points::find()->all(), 'id', 'point_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                        ],
                         //'reviewer_comment:ntext',
                         //'additional_training:ntext',
 
-                        [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:120px;'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
-                        ],
                     ],
                 ]); ?>
 

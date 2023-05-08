@@ -39,6 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'attributes' => [
                         'id',
+                        // 'ref',
+                        // 'fullname',
                         [
                             'attribute' => 'types_id',
                             'value' => $model->types->type_name,
@@ -63,13 +65,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return $model->departments->department_code . ' - ' . $model->departments->department_details;
                             },
-
                         ],
                         'document_title',
                         'details:ntext',
                         // 'pdf_file:ntext',
 
-                        'docs_file:ntext',
                         'created_at:date',
                         'updated_at:date',
                         [
@@ -81,6 +81,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'updated_by',
                             'value' => $model->updatedBy->profile->name,
                         ],
+                        ['attribute'=>'covenant','value'=>$model->listDownloadFiles('covenant'),'format'=>'html'],
+                        ['attribute'=>'docs','value'=>$model->listDownloadFiles('docs'),'format'=>'html'],
                     ],
                 ]) ?>
 

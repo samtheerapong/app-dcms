@@ -45,6 +45,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         'stamp_name',
                         // 'color',
+                        // 'photo',
+                        [
+                            'attribute' => 'photo',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return Html::img('uploads/stamp/' . $model->photo, [
+                                    'class' => 'thumbnail',
+                                    'width' => '50px',
+                                ]);
+                            },
+                        ],
 
                         // ['class' => 'yii\grid\ActionColumn'],
                         [
