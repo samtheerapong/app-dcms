@@ -1,26 +1,27 @@
 <?php
 use miloschuman\highcharts\Highcharts;
+?>
 
-echo Highcharts::widget([
-    'options' => [
-        'title' => [
-            'text' => 'สรุปแยกเป็นกลุ่มเอกสาร',
-            'style' => [
-                'fontFamily' => 'Chakra Petch',
-            ],
-        ],
-       'xAxis' => [
-          'categories' => ['จำนวน']
-       ],
-       'yAxis' => [
-        'title' => [
+<?= Highcharts::widget([
+   'options' => [
+      'title' => [
+         'text' => 'สรุปแยกเป็นระดับเอกสาร',
+         'style' => [
+            'fontFamily' => 'Chakra Petch',
+         ],
+      ],
+      'xAxis' => [
+         'categories' => ['จำนวน']
+      ],
+      'yAxis' => [
+         'title' => [
             'text' => 'จำนวนครั้ง',
             'style' => [
-                'fontFamily' => 'Chakra Petch',
+               'fontFamily' => 'Chakra Petch',
             ],
-        ],
-    ],
-       'series' => $graph,
-    ]
- ]);
+         ],
+      ],
+      'series' => $graph,
+   ]
+]);
 ?>
