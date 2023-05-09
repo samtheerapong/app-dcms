@@ -3,7 +3,7 @@
 namespace app\modules\operator\controllers;
 
 use Yii;
-use app\modules\operator\models\Requester;
+use yii\data\ArrayDataProvider;
 
 class ReportController extends \yii\web\Controller
 {
@@ -26,30 +26,56 @@ class ReportController extends \yii\web\Controller
             ];
         }
 
+       
+        //ArrayDataProvider ส่งให้ตาราง
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data,
+            'sort' => [
+                'attributes' => ['mid', 'category_details'],
+            ],
+        ]);
+
         return $this->render('index', [
             'graph' => $graph,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
     public function actionReport1()
     {
-        $data = Requester::find()
-            ->groupBy('status_id')
-            ->all();
+        $sql = " SELECT  COUNT(m.id) AS mid , r.type_details
+                    FROM requester m
+                    LEFT JOIN types r 
+                    ON r.id = m.types_id
+                    GROUP BY m.types_id";
+
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
 
         $graph = [];
         foreach ($data as $d) {
             $graph[] = [
                 'type' => 'column',
-                'name' => 'status_id',
-                'data' => $d,
+                'name' => $d['type_details'],
+                'data' => [intval($d['mid'])],
             ];
         }
+
+       
+        //ArrayDataProvider ส่งให้ตาราง
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data,
+            'sort' => [
+                'attributes' => ['mid', 'type_details'],
+            ],
+        ]);
+
         return $this->render('report1', [
             'graph' => $graph,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
+    
     public function actionReport2()
     {
         return $this->render('report2');
