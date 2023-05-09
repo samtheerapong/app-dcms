@@ -21,10 +21,11 @@
         "dektrium/yii2-user": "^0.9.14",
         "dektrium/yii2-rbac": "1.0.0-alpha@dev",
         "mdmsoft/yii2-admin": "~2.0",
-        "kartik-v/yii2-widgets": "dev-master",
-        "kartik-v/yii2-grid": "dev-master",
-        "kartik-v/yii2-detail-view": "dev-master",
-        "dmstr/yii2-adminlte-asset": "^2.6"
+        "kartik-v/yii2-widgets": "*",
+        "kartik-v/yii2-grid": "*",
+        "kartik-v/yii2-detail-view": "*",
+        "dmstr/yii2-adminlte-asset": "^2.6",
+        "miloschuman/yii2-highcharts-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

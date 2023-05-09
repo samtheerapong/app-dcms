@@ -55,6 +55,15 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
+                        'label' => Yii::t('app', 'Reports'), 'icon' => 'calendar-o', 'items' => [
+                            ['label' => Yii::t('app', 'index'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/index']],
+                            ['label' => Yii::t('app', 'report1'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report1']],
+                            ['label' => Yii::t('app', 'report2'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report2']],
+                            ['label' => Yii::t('app', 'report3'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
+                            ['label' => Yii::t('app', 'report4'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
+                        ]
+                    ],
+                    [
                         'label' => Yii::t('app', 'System'), 'icon' => 'cog', 'items' => [
                             ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                             ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
