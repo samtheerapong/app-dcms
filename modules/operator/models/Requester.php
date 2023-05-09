@@ -38,8 +38,7 @@ use yii\helpers\Json;
 class Requester extends \yii\db\ActiveRecord
 {
 
-    const UPLOAD_FOLDER = 'documents';
-
+    const UPLOAD_FOLDER = 'documents';  // Create folder web/documents/
 
     public function behaviors()
     {
@@ -81,7 +80,6 @@ class Requester extends \yii\db\ActiveRecord
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
-            //
             [['covenant'], 'file', 'maxFiles' => 1],
             [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true]
         ];
@@ -107,7 +105,6 @@ class Requester extends \yii\db\ActiveRecord
             'details' => Yii::t('app', 'รายละเอียดเอกสาร'),
             'ref' => Yii::t('app', 'อ้างอิง'),
             'fullname' => Yii::t('app', 'ชื่อไฟล์'),
-            //
             'covenant' => Yii::t('app', 'แนบไฟล์ PDF'),
             'docs' => Yii::t('app', 'แนบไฟล์เอกสาร'),
         ];
@@ -205,7 +202,7 @@ class Requester extends \yii\db\ActiveRecord
                         'key'    => $key
                     ];
                 } else {
-                    $initial[] = Html::img(self::getUploadUrl() . $value, ['class' => 'file-preview-image', 'alt' => $model->fullname, 'title' => $model->fullname]);
+                    $initial[] = Html::img(self::getUploadUrl() . $value, ['class' => 'file-preview-image', 'alt' => $this->fullname, 'title' => $this->fullname]);
                 }
             }
         }
