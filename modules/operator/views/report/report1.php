@@ -1,9 +1,26 @@
 <?php
-/* @var $this yii\web\View */
-?>
-<h1>report/report1</h1>
+use miloschuman\highcharts\Highcharts;
 
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
+echo Highcharts::widget([
+    'options' => [
+        'title' => [
+            'text' => 'สรุป',
+            'style' => [
+                'fontFamily' => 'Chakra Petch',
+            ],
+        ],
+       'xAxis' => [
+          'categories' => ['จำนวน(ครั้ง)']
+       ],
+       'yAxis' => [
+        'title' => [
+            'text' => 'จำนวนครั้ง',
+            'style' => [
+                'fontFamily' => 'Chakra Petch',
+            ],
+        ],
+    ],
+       'series' => $graph,
+    ]
+ ]);
+?>

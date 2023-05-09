@@ -78,9 +78,9 @@ use app\modules\operator\models\User;
                                 'showRemove' => true,
                                 'showUpload' => false
                             ],
-                            'options' => [
-                                'required' => true,
-                            ]
+                            // 'options' => [
+                            //     'required' => true,
+                            // ]
 
                         ]); ?>
 

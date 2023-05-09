@@ -3,24 +3,26 @@
 namespace app\modules\operator\controllers;
 
 use Yii;
+use app\modules\operator\models\Requester;
 
 class ReportController extends \yii\web\Controller
 {
     public function actionIndex()
     {
-        //Ex
-        $sql = "SELECT COUNT(m.id) AS mid, r.requester_id
-        FROM requester m
-        LEFT JOIN reviewer r ON r.id = m.id
-        GROUP BY m.id";
+        $sql = " SELECT  COUNT(m.id) AS mid , r.category_details
+                    FROM requester m
+                    LEFT JOIN categories r 
+                    ON r.id = m.categories_id
+                    GROUP BY m.categories_id";
+
         $data = Yii::$app->db->createCommand($sql)->queryAll();
 
         $graph = [];
         foreach ($data as $d) {
             $graph[] = [
                 'type' => 'column',
-                'name' => 'name',
-                'data' => [intval($d)]
+                'name' => $d['category_details'],
+                'data' => [intval($d['mid'])],
             ];
         }
 
@@ -31,7 +33,21 @@ class ReportController extends \yii\web\Controller
 
     public function actionReport1()
     {
-        return $this->render('report1');
+        $data = Requester::find()
+            ->groupBy('status_id')
+            ->all();
+
+        $graph = [];
+        foreach ($data as $d) {
+            $graph[] = [
+                'type' => 'column',
+                'name' => 'status_id',
+                'data' => $d,
+            ];
+        }
+        return $this->render('report1', [
+            'graph' => $graph,
+        ]);
     }
 
     public function actionReport2()

@@ -3,13 +3,23 @@ use miloschuman\highcharts\Highcharts;
 
 echo Highcharts::widget([
     'options' => [
-       'title' => ['text' => 'title'],
+        'title' => [
+            'text' => 'สรุปแยกเป็นกลุ่มเอกสาร',
+            'style' => [
+                'fontFamily' => 'Chakra Petch',
+            ],
+        ],
        'xAxis' => [
-          'categories' => ['category1', 'category2', 'category3']
+          'categories' => ['จำนวน']
        ],
        'yAxis' => [
-          'title' => ['text' => 'yAxis title']
-       ],
+        'title' => [
+            'text' => 'จำนวนครั้ง',
+            'style' => [
+                'fontFamily' => 'Chakra Petch',
+            ],
+        ],
+    ],
        'series' => $graph,
     ]
  ]);
