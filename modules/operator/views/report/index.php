@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
                ],
             ],
             'xAxis' => [
-               'categories' => ['จำนวน']
+               'categories' => ['กลุ่มข้อมูล']
             ],
             'yAxis' => [
                'title' => [

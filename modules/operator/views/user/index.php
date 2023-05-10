@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -33,11 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
-                        'id',
+                        // 'id',
                         'username',
                         'email:email',
-                        'password_hash',
-                        'auth_key',
+                        // 'password_hash',
+                        // 'auth_key',
                         //'confirmed_at',
                         //'unconfirmed_email:email',
                         //'blocked_at',
@@ -46,8 +46,8 @@ $this->params['breadcrumbs'][] = $this->title;
                         //'updated_at',
                         //'flags',
                         //'last_login_at',
-                        //'status',
-                        //'role',
+                        // 'status',
+                        // 'role',
 
                         [
                             'class' => 'kartik\grid\ActionColumn',

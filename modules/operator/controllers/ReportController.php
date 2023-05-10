@@ -78,7 +78,36 @@ class ReportController extends \yii\web\Controller
     
     public function actionReport2()
     {
-        return $this->render('report2');
+        $sql = " SELECT  COUNT(m.id) AS mid , r.status_details
+                    FROM requester m
+                    LEFT JOIN status r 
+                    ON r.id = m.status_id
+                    GROUP BY m.status_id";
+
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $graph = [];
+        foreach ($data as $d) {
+            $graph[] = [
+                'type' => 'column',
+                'name' => $d['status_details'],
+                'data' => [intval($d['mid'])],
+            ];
+        }
+
+       
+        //ArrayDataProvider ส่งให้ตาราง
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data,
+            'sort' => [
+                'attributes' => ['mid', 'status_details'],
+            ],
+        ]);
+
+        return $this->render('report2', [
+            'graph' => $graph,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     public function actionReport3()

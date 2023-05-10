@@ -37,10 +37,10 @@ use dmstr\widgets\Alert;
 
 <footer class="main-footer">
     <div class="pull-right hidden-xs">
-        <b>Version</b> 2.0
+        <b>Dev Version</b> 1.0
     </div>
-    <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
-    reserved.
+    <strong>Copyright &copy; 2023 <a href="http://www.northernfood-complex.com/" target="_blank">Northern Food Complex</a>.</strong> All rights
+    reserved. <b><a href="https://github.com/samtheerapong/app-dcms" target="_blank">พัฒนาโดย นายธีรพงศ์ ขันตา </a></b> <small>: 087-087-3830</small> 
 </footer>
 
 <!-- Control Sidebar -->

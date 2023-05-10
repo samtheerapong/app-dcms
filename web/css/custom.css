@@ -4,7 +4,7 @@
 /* font */
 *,
 .panel-title {
-  font-family: "Chakra Petch", sans-serif;
-  /* font-family: 'Kanit', sans-serif; */
+  /* font-family: "Chakra Petch", sans-serif; */
+  font-family: 'Kanit', sans-serif;
   /* font-family: 'Itim', cursive; */
 }
