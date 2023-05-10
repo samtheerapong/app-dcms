@@ -10,6 +10,8 @@ return [
     'Requesters' => 'ผู้ร้องขอ',
     'Create New' => 'เพิ่มข้อมูล',
     'Create' => 'เพิ่มข้อมูล',
+    'Update' => 'ปรับปรุง',
+    'Delete' => 'ลบข้อมูล',
     'Back' => 'ย้อนกลับ',
     'Tasks' => 'ตารางงาน',
     'Request' => 'ร้องขอ',
@@ -47,6 +49,10 @@ return [
     'approver_at' => 'อนุมัติเมื่อ',
     'approver_comment' => 'ความคิดเห็นของผู้อนุมัติ',
     'Approve' => 'ทบทวนและอนุมัติ',
+    // Categories
+    'Categories' => 'ระดับเอกสาร',
+    'Category' => 'ระดับเอกสาร',
+
     
     
 ];

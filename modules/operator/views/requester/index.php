@@ -25,14 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
+    
     <p>
-        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create New')), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
     <div class="actions-form">
-        <div class="box box-success box-solid">
+        <div class="box box-info box-solid">
             <div class="box-header">
                 <div class="box-title"><?= $this->title ?></div>
             </div>
@@ -44,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         // 'types.type_name',
                         [
-                            'attribute' => 'types.type_name',
+                            'attribute' => 'types_id',
                             'format' => 'html',
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
@@ -106,9 +107,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'status_id',
                             'format' => 'html',
                             'value' => function ($model) {
-                                return '<span class="badge" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_name . '</b></span>';
+                                return '<span class="badge" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_name'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
+                            'filter' => Html::activeDropDownList($searchModel, 'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
                         ],
 
                         // ['class' => 'yii\grid\ActionColumn'],

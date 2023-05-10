@@ -44,7 +44,7 @@ class Reviewer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['requester_id', 'reviewer_name', 'stamps_id', 'points_id','approver_name'], 'integer'],
+            [['requester_id', 'reviewer_name', 'stamps_id', 'points_id','approver_name','status_id'], 'integer'],
             [['document_revision', 'document_age'], 'number'],
             [['reviewer_comment', 'additional_training','approver_comment','approver_at'], 'string'],
             [['reviewer_at', 'document_number', 'document_public_at'], 'string', 'max' => 45],
@@ -83,7 +83,7 @@ class Reviewer extends \yii\db\ActiveRecord
             'approver_name' => Yii::t('app', 'approver_name'),
             'approver_at' => Yii::t('app', 'approver_at'),
             'approver_comment' => Yii::t('app', 'approver_comment'),
-            'status' => Yii::t('app', 'status'),
+            'status_id' => Yii::t('app', 'status_id'),
             
 
         ];
@@ -113,9 +113,16 @@ class Reviewer extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'reviewer_name']);
     }
-    public function getapproverName()
+
+    public function getApproverName()
     {
         return $this->hasOne(User::class, ['id' => 'approver_name']);
     }
+
+    public function getStatus()
+    {
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
+    }
+    
 
 }

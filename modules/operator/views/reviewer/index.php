@@ -9,6 +9,7 @@ use kartik\select2\Select2;
 use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\Stamps;
+use app\modules\operator\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ReviewerSearch */
@@ -42,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:50px;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} </div>',
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} {view}</div>',
                             'buttons' => [
                                 'update' => function ($url, $model, $key) {
                                     return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
@@ -56,9 +57,34 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'id',
                         // 'requester_id',
                         [
+                            // 'attribute' => 'requester.status_id',
+                            'attribute' => 'status_id',
+                            'format' => 'html',
+                            // 'value' => 'requester.status.status_details',
+                            'value' => function ($model) {
+                                return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' .$model->requester->status->status_details . '</b></span>';
+                            },
+                            // 'filter' => Html::activeDropDownList($searchModel, 'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'requester.status.status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                            
+                            // 'filter' => Select2::widget([
+                            //     'model' => $searchModel,
+                            //     'attribute' => 'id',
+                            //     'data' => ArrayHelper::map(Status::find()->all(), 'id', 'requester.status.status_details'),
+                            //     'theme' => Select2::THEME_BOOTSTRAP,
+                            //     'options' => ['placeholder' => 'เลือก ...'],
+                            //     'language' => 'th',
+                            //     'pluginOptions' => [
+                            //         'allowClear' => true
+                            //     ],
+                            // ])
+                        ],
+                        [
                             'attribute' => 'requester_id',
                             'format' => 'html',
-                            'value' => 'requester.document_title',
+                            // 'value' => 'requester.document_title',
+                            'value' => function ($model) {
+                                return $model->requester->document_title;
+                            },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'requester_id',

@@ -6,18 +6,17 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Categories */
 
-$this->title = $model->id;
+$this->title = $model->category_details;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Categories'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="categories-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -25,22 +24,28 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <div class="box box-info box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= $this->title ?></div>
+        </div>
+        <div class="box-body">
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            // 'id',
-            'category_code',
-            'category_details',
-            // 'color',
-            [
-                'attribute' => 'color',
-                'format' => 'html',
-                'value' => function ($model) {
-                    return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->color . '</b></span>';
-                },
-            ],
-        ],
-    ]) ?>
-
+            <?= DetailView::widget([
+                'model' => $model,
+                'attributes' => [
+                    // 'id',
+                    'category_code',
+                    'category_details',
+                    // 'color',
+                    [
+                        'attribute' => 'color',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->color . '</b></span>';
+                        },
+                    ],
+                ],
+            ]) ?>
+        </div>
+    </div>
 </div>

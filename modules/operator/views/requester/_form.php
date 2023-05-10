@@ -20,10 +20,10 @@ use app\modules\operator\models\User;
 
 <div class="requester-form">
 
-    <p><?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
+<p><?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
 
     <div class="actions-form">
-        <div class="box box-success box-solid">
+        <div class="box box-info box-solid">
             <div class="box-header">
                 <div class="box-title"><?= $this->title ?></div>
             </div>
@@ -114,7 +114,7 @@ use app\modules\operator\models\User;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-saved"></span> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
                             </div>
                         </div>
                     </div>
