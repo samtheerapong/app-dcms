@@ -1,0 +1,10 @@
+@import url("https://use.fontawesome.com/releases/v5.3.1/css/all.css");
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500&&family=Kanit&family=Itim&display=swap");
+
+/* font */
+*,
+.panel-title {
+  font-family: "Chakra Petch", sans-serif;
+  /* font-family: 'Kanit', sans-serif; */
+  /* font-family: 'Itim', cursive; */
+}
