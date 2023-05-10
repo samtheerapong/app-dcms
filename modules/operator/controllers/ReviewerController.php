@@ -4,6 +4,7 @@ namespace app\modules\operator\controllers;
 
 use Yii;
 use app\modules\operator\models\Reviewer;
+use app\modules\operator\models\Requester;
 use app\modules\operator\models\ReviewerSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -21,7 +22,7 @@ class ReviewerController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -86,22 +87,40 @@ class ReviewerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-       
+        $modelRequester = $this->findModelRequester($model->requester_id);
 
-        if ($model->load(Yii::$app->request->post())) {
-            // $autoName = $model->requester->categories->category_code . '-' . $model->requester->departments->department_code;
-            // $docFullName = $autoName . '-' . $model->document_number;
-            // if($autoName === $docFullName){
-            //     $model->document_number = $docFullName;
+
+        if ($model->load(Yii::$app->request->post()) &&
+            $modelRequester->load(Yii::$app->request->post()) ) {
+            if ($modelRequester->save()) {
+                $model->save();
+            }
+
+            // if ($model->reviewer_name == null) {
+            //     $model->requester->status_id = 2;
             // }
-            
+            // else if ($model->approver_name == null) {
+            //     $model->requester->status_id = 3;
+            // }
+            // $model->requester->status_id = 4;
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelRequester'=>$modelRequester,
         ]);
+    }
+
+    protected function findModelRequester($id)
+    {
+        if (($model = Requester::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

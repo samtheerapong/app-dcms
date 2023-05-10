@@ -36,14 +36,14 @@ use yii\helpers\Html;
                 'items' => [
                     ['label' => 'Menu', 'options' => ['class' => 'header']],
                     [
-                        'label' => Yii::t('app', 'Tasks'), 'icon' => 'comments-o', 'items' => [
-                            ['label' => Yii::t('app', 'Request'), 'icon' => 'circle-o text-danger', 'url' => ['/operator/requester/index']],
-                            ['label' => Yii::t('app', 'Reviewer'), 'icon' => 'circle-o text-warning', 'url' => ['/operator/reviewer/index']],
-                            ['label' => Yii::t('app', 'Approver'), 'icon' => 'circle-o text-success', 'url' => ['/operator/approver/index']],
+                        'label' => Yii::t('app', 'Tasks'), 'icon' => 'far fa-file', 'items' => [
+                            ['label' => Yii::t('app', 'Request'), 'icon' => 'fas fa-comment text-danger', 'url' => ['/operator/requester/index']],
+                            ['label' => Yii::t('app', 'Reviewer'), 'icon' => 'fas fa-comments text-warning', 'url' => ['/operator/reviewer/index']],
+                            ['label' => Yii::t('app', 'Approver'), 'icon' => 'far fa-paper-plane text-success', 'url' => ['/operator/approver/index']],
                         ]
                     ],
                     [
-                        'label' => Yii::t('app', 'Backend'), 'icon' => 'folder-o', 'items' => [
+                        'label' => Yii::t('app', 'Backend'), 'icon' => 'fas fa-database', 'items' => [
                             ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/categories/index']],
                             ['label' => Yii::t('app', 'departments'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/departments/index']],
                             ['label' => Yii::t('app', 'points'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/points/index']],
@@ -55,7 +55,7 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => Yii::t('app', 'Reports'), 'icon' => 'calendar-o', 'items' => [
+                        'label' => Yii::t('app', 'Reports'), 'icon' => 'fas fa-chart-pie', 'items' => [
                             ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/index']],
                             ['label' => Yii::t('app', 'types'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report1']],
                             ['label' => Yii::t('app', 'status'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report2']],
@@ -64,7 +64,7 @@ use yii\helpers\Html;
                         ]
                     ],
                     [
-                        'label' => Yii::t('app', 'System'), 'icon' => 'cog', 'items' => [
+                        'label' => Yii::t('app', 'System'), 'icon' => 'cogs', 'items' => [
                             ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
                             ['label' => 'Debug', 'icon' => 'dashboard', 'url' => ['/debug']],
                         ]
@@ -78,14 +78,12 @@ use yii\helpers\Html;
                         ] :
                         [
                             'label' => 'สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
+                            'icon' => 'fas fa-child',
                             'items' => [
-                                [
-                                    'label' => 'โปรไฟล์',
-                                    'url' => ['/user/settings/profile']
-                                ],
-                                ['label' => 'บัญชี', 'url' => ['/user/settings/account']],
-                                ['label' => 'จัดการสิทธิ์', 'url' => ['/admin']],
-                                ['label' => 'จัดการผู้ใช้งาน', 'url' => ['/user/admin/index']],
+                                ['label' => 'โปรไฟล์', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/profile']],
+                                ['label' => 'บัญชี', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/account']],
+                                ['label' => 'จัดการสิทธิ์', 'icon' => 'circle-o text-primary', 'url' => ['/admin']],
+                                ['label' => 'จัดการผู้ใช้งาน', 'icon' => 'circle-o text-primary', 'url' => ['/user/admin/index']],
                                 [
                                     'label' => Yii::t('app', 'Logout'),
                                     'icon' => 'file-code-o',
@@ -102,15 +100,11 @@ use yii\helpers\Html;
                                         ) .
                                         Html::endForm(),
                                 ],
-
                             ]
                         ],
-
-
                 ],
             ]
         ) ?>
-
     </section>
 
 </aside>

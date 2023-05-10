@@ -44,15 +44,15 @@ class Reviewer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['requester_id', 'reviewer_name', 'stamps_id', 'points_id'], 'integer'],
+            [['requester_id', 'reviewer_name', 'stamps_id', 'points_id','approver_name'], 'integer'],
             [['document_revision', 'document_age'], 'number'],
-            [['reviewer_comment', 'additional_training'], 'string'],
+            [['reviewer_comment', 'additional_training','approver_comment','approver_at'], 'string'],
             [['reviewer_at', 'document_number', 'document_public_at'], 'string', 'max' => 45],
             [['document_ref', 'document_tags'], 'string', 'max' => 255],
-            [['points_id'], 'exist', 'skipOnError' => true, 'targetClass' => Points::className(), 'targetAttribute' => ['points_id' => 'id']],
-            [['requester_id'], 'exist', 'skipOnError' => true, 'targetClass' => Requester::className(), 'targetAttribute' => ['requester_id' => 'id']],
-            [['stamps_id'], 'exist', 'skipOnError' => true, 'targetClass' => Stamps::className(), 'targetAttribute' => ['stamps_id' => 'id']],
-            [['reviewer_name'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['reviewer_name' => 'id']],
+            [['points_id'], 'exist', 'skipOnError' => true, 'targetClass' => Points::class, 'targetAttribute' => ['points_id' => 'id']],
+            [['requester_id'], 'exist', 'skipOnError' => true, 'targetClass' => Requester::class, 'targetAttribute' => ['requester_id' => 'id']],
+            [['stamps_id'], 'exist', 'skipOnError' => true, 'targetClass' => Stamps::class, 'targetAttribute' => ['stamps_id' => 'id']],
+            [['reviewer_name'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['reviewer_name' => 'id']],
         ];
     }
 
@@ -63,79 +63,59 @@ class Reviewer extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'requester_id' => Yii::t('app', 'เอกสารที่ร้องขอ'),
-            'reviewer_name' => Yii::t('app', 'ทบทวนโดย'),
-            'reviewer_at' => Yii::t('app', 'ทบทวนเมื่อ'),
-            'document_number' => Yii::t('app', 'เลขที่เอกสาร'),
-            'document_revision' => Yii::t('app', 'แก้ไขครั้งที่ (Rev)'),
-            'document_age' => Yii::t('app', 'อายุของเอกสาร (ปี)'),
-            'document_public_at' => Yii::t('app', 'วันที่ประกาศใช้'),
-            'stamps_id' => Yii::t('app', 'ประทับตรา'),
-            'document_ref' => Yii::t('app', 'เอกสารอ้างอิง'),
-            'document_tags' => Yii::t('app', '#tag'),
-            'points_id' => Yii::t('app', 'จุดรับเอกสาร'),
-            'reviewer_comment' => Yii::t('app', 'ความคิดเห็นของผู้ทบทวน'),
-            'additional_training' => Yii::t('app', 'การอบรมเพิ่มเติม'),
+            'requester_id' => Yii::t('app', 'requester_id'),
+            'reviewer_name' => Yii::t('app', 'reviewer_name'),
+            'reviewer_at' => Yii::t('app', 'reviewer_at'),
+            'document_number' => Yii::t('app', 'document_number'),
+            'document_revision' => Yii::t('app', 'document_revision'),
+            'document_age' => Yii::t('app', 'document_age'),
+            'document_public_at' => Yii::t('app', 'document_public_at'),
+            'stamps_id' => Yii::t('app', 'stamps_id'),
+            'document_ref' => Yii::t('app', 'document_ref'),
+            'document_tags' => Yii::t('app', 'document_tags'),
+            'points_id' => Yii::t('app', 'points_id'),
+            'reviewer_comment' => Yii::t('app', 'reviewer_comment'),
+            'additional_training' => Yii::t('app', 'additional_training'),
             //
             'categories_id' => Yii::t('app', 'categories_id'),
             'reviewerName.profile.name' => Yii::t('app', 'reviewerName.profile.name'),
+            //
+            'approver_name' => Yii::t('app', 'approver_name'),
+            'approver_at' => Yii::t('app', 'approver_at'),
+            'approver_comment' => Yii::t('app', 'approver_comment'),
+            'status' => Yii::t('app', 'status'),
+            
+
         ];
     }
 
-    /**
-     * Gets query for [[Approvers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getApprovers()
     {
-        return $this->hasMany(Approver::className(), ['reviewer_id' => 'id']);
+        return $this->hasMany(Approver::class, ['reviewer_id' => 'id']);
     }
 
-    /**
-     * Gets query for [[Points]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getPoints()
     {
-        return $this->hasOne(Points::className(), ['id' => 'points_id']);
+        return $this->hasOne(Points::class, ['id' => 'points_id']);
     }
 
-    /**
-     * Gets query for [[Requester]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getRequester()
     {
-        return $this->hasOne(Requester::className(), ['id' => 'requester_id']);
+        return $this->hasOne(Requester::class, ['id' => 'requester_id']);
     }
 
-    /**
-     * Gets query for [[Stamps]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
     public function getStamps()
     {
-        return $this->hasOne(Stamps::className(), ['id' => 'stamps_id']);
+        return $this->hasOne(Stamps::class, ['id' => 'stamps_id']);
     }
-
-    /**
-     * Gets query for [[ReviewerName]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
+ 
     public function getReviewerName()
     {
-        return $this->hasOne(User::className(), ['id' => 'reviewer_name']);
+        return $this->hasOne(User::class, ['id' => 'reviewer_name']);
+    }
+    public function getapproverName()
+    {
+        return $this->hasOne(User::class, ['id' => 'approver_name']);
     }
 
-    // public function getDocumentFullNumber()
-    // {
-    //     $autoName = $this->requester->categories->category_code . '-' . $this->requester->departments->department_code;
-    //     $docFullName = $autoName . '-' . $this->document_number;
-    //     return $docFullName;
-    // }
 }

@@ -11,6 +11,7 @@ use kartik\date\DatePicker;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\User;
 use app\modules\operator\models\Stamps;
+use app\modules\operator\models\Status;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Reviewer */
@@ -19,32 +20,35 @@ use app\modules\operator\models\Stamps;
 
 <div class="reviewer-form">
     <div class="actions-form">
-        <div class="box box-success box-solid">
+        <div class="box box-info box-solid">
             <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
+                <div class="box-title"><?= Yii::t('app', 'Reviewer')  ?> </div>
             </div>
             <div class="box-body">
                 <?php $form = ActiveForm::begin(); ?>
+
                 <div class="row">
+                    <div class="col-md-2">
+                    <?= $form->field($modelRequester, 'status_id')->dropDownlist(ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['prompt' => 'กรุณาเลือก ...', 'required' => true]) ?>
+                    </div>
                     <div class="col-md-4">
                         <?= $form->field($model, 'requester_id')->dropDownlist(ArrayHelper::map(Requester::find()->all(), 'id', 'document_title'), (['disabled' =>  true])) ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'reviewer_name')->widget(Select2::class, [
                             'language' => 'th',
                             'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
                             'options' => [
                                 'placeholder' => Yii::t('app', 'Select...'),
-                                'required' => true,
+                                // 'required' => true,
                             ],
                             'pluginOptions' => [
                                 'allowClear' => true,
-                                'required' => true,
                             ],
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'reviewer_at')->widget(
                             DatePicker::class,
                             [
@@ -108,22 +112,68 @@ use app\modules\operator\models\Stamps;
                     </div>
                 </div>
 
-                <?= $form->field($model, 'document_tags')->hiddenInput()->label(false); ?>
+
+            <?= $form->field($model, 'document_tags')->hiddenInput()->label(false); ?>
 
 
-                <div class="box-footer">
+
+            <div class="box box-info box-solid">
+                <div class="box-header">
+                    <div class="box-title"><?= $this->title ?></div>
+                </div>
+                <div class="box-body">
+
                     <div class="row">
-                        <div class="col-md-126">
-                            <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
-                            </div>
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'approver_name')->widget(Select2::class, [
+                                'language' => 'th',
+                                'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                                'options' => [
+                                    'placeholder' => Yii::t('app', 'Select...'),
+                                ],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                ],
+                            ]);
+                            ?>
+                        </div>
+
+                        <div class="col-md-6">
+                            <?= $form->field($model, 'approver_at')->widget(
+                                DatePicker::class,
+                                [
+                                    'language' => 'th',
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'pluginOptions' => [
+                                        'format' => 'yyyy-mm-dd',
+                                        'todayHighlight' => true,
+                                        'autoclose' => true,
+                                    ]
+                                ]
+                            ); ?>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?= $form->field($model, 'approver_comment')->textarea(['rows' => 3]) ?>
                         </div>
                     </div>
                 </div>
-
-                <?php ActiveForm::end(); ?>
-
             </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-md-126">
+                        <div class="form-group">
+                            <?= Html::submitButton(Yii::t('app', Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <?php ActiveForm::end(); ?>
+
         </div>
     </div>
+</div>
 </div>

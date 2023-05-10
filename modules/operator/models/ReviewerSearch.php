@@ -17,8 +17,8 @@ class ReviewerSearch extends Reviewer
     public function rules()
     {
         return [
-            [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id'], 'integer'],
-            [['reviewer_at', 'document_number', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training'], 'safe'],
+            [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id','approver_at','approver_name'], 'integer'],
+            [['reviewer_at', 'document_number', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training','approver_comment'], 'safe'],
             [['document_revision', 'document_age'], 'number'],
         ];
     }
@@ -75,7 +75,10 @@ class ReviewerSearch extends Reviewer
             ->andFilterWhere(['like', 'document_ref', $this->document_ref])
             ->andFilterWhere(['like', 'document_tags', $this->document_tags])
             ->andFilterWhere(['like', 'reviewer_comment', $this->reviewer_comment])
-            ->andFilterWhere(['like', 'additional_training', $this->additional_training]);
+            ->andFilterWhere(['like', 'additional_training', $this->additional_training])
+            ->andFilterWhere(['like', 'approver_name', $this->approver_name])
+            ->andFilterWhere(['like', 'approver_at', $this->approver_at])
+            ->andFilterWhere(['like', 'approver_comment', $this->approver_comment]);
 
         return $dataProvider;
     }

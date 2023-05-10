@@ -5,9 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Reviewer */
 
-$this->title = Yii::t('app', 'Update Reviewer: {name}', [
-    'name' => $model->id,
-]);
+$this->title = Yii::t('app', 'Approve') . 'ของเอกสาร : ' . $model->requester->categories->category_code . '-' .  $model->requester->departments->department_code . '-' . $model->document_number . ' Rev. ' . $model->document_revision;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reviewers'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
@@ -18,6 +16,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     <?= $this->render('_form', [
         'model' => $model,
+        'modelRequester'=>$modelRequester,
     ]) ?>
 
 </div>

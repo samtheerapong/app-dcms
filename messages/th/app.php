@@ -22,9 +22,31 @@ return [
     'stamps' => 'ประทับตรา',
     'status' => 'สถานะ',
     'types' => 'ประเภทการร้องขอ',
+    'Select...' => 'เลือก...',
+    'Reports' => 'รายงาน',
+    'Name' => 'ชื่อ',
+    'Public Email' => 'อีเมล',
+    // Requester
+    'Reviewer' => 'ผู้ทบทวน',
+    'requester_id' => 'เอกสารที่ร้องขอ',
+    'reviewer_name' => 'ทบทวนโดย',
+    'reviewer_at' => 'ทบทวนเมื่อ',
+    'document_number' => 'เลขที่เอกสาร',
+    'document_revision' => 'แก้ไขครั้งที่ (Rev)',
+    'document_age' => 'อายุของเอกสาร (ปี)',
+    'document_public_at' => 'วันที่ประกาศใช้',
+    'stamps_id' => 'ประทับตรา',
+    'document_ref' => 'อกสารอ้างอิง',
+    'document_tags' => '#แท็ก',
+    'points_id' => 'จุดรับเอกสาร',
+    'reviewer_comment' => 'ความคิดเห็นของผู้ทบทวน',
+    'additional_training' => 'การอบรมเพิ่มเติม',
     'categories_id' => 'ระดับเอกสาร(CODE)',
     'reviewerName.profile.name' => 'ผู้ทบทวน',
-    'Select...' => 'เลือก...',
-
+    'approver_name' => 'ผู้อนุมัติ',
+    'approver_at' => 'อนุมัติเมื่อ',
+    'approver_comment' => 'ความคิดเห็นของผู้อนุมัติ',
+    'Approve' => 'ทบทวนและอนุมัติ',
+    
     
 ];

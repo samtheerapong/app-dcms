@@ -8,9 +8,6 @@ use app\modules\operator\models\RequesterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Url;
-use yii\helpers\Html;
-//
 use app\modules\operator\models\Reviewer;
 
 //
