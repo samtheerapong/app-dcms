@@ -90,8 +90,19 @@ class ReviewerController extends Controller
         $modelRequester = $this->findModelRequester($model->requester_id);
 
 
-        if ($model->load(Yii::$app->request->post()) &&
-            $modelRequester->load(Yii::$app->request->post()) ) {
+        if (
+            $model->load(Yii::$app->request->post()) &&
+            $modelRequester->load(Yii::$app->request->post())
+        ) {
+            if ($model->reviewer_name == null) {
+                $modelRequester->status_id = 2;
+            } else if ($model->approver_name == null) {
+                $modelRequester->status_id = 3;
+            } else {
+                $modelRequester->status_id = 4;
+            }
+
+
             if ($modelRequester->save()) {
                 $model->save();
             }
@@ -110,7 +121,7 @@ class ReviewerController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'modelRequester'=>$modelRequester,
+            'modelRequester' => $modelRequester,
         ]);
     }
 
