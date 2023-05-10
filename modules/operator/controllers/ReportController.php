@@ -112,7 +112,11 @@ class ReportController extends \yii\web\Controller
 
     public function actionReport3()
     {
-        return $this->render('report3');
+
+        return $this->render('report3', [
+           
+        ]);
+   
     }
 
     public function actionReport4()

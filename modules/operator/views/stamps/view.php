@@ -31,8 +31,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'stamp_code',
-            'stamp_name',
+            'stamp_name:html',
             'color',
+            'content:html',
         ],
     ]) ?>
 

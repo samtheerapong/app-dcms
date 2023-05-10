@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\widgets\ColorInput;
+use dosamigos\ckeditor\CKEditor;
+
 //
 use kartik\widgets\FileInput;
 
@@ -19,9 +21,16 @@ use kartik\widgets\FileInput;
 
     <?= $form->field($model, 'stamp_name')->textInput(['maxlength' => true]) ?>
 
+
     <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]); ?>
 
-    
+    <?= $form->field($model, 'content')->widget(CKEditor::class, [
+        'options' => ['rows' => 6],
+        'preset' => 'advance',
+        // 'clientOptions' => [
+        //     'filebrowserUploadUrl' => yii\helpers\Url::to(['/operator/stamps/upload']), // replace with your controller action URL
+        // ],
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

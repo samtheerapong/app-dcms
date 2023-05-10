@@ -43,9 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             // 'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
                         ],
-                        'stamp_name',
+                        'stamp_name:html',
                         // 'color',
-                        // 'photo',
+                        'content:html',
                         // [
                         //     'attribute' => 'photo',
                         //     'format' => 'html',

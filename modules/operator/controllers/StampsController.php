@@ -70,13 +70,7 @@ class StampsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $file = UploadedFile::getInstance($model, 'stamp_img');
-            if ($file->size != 0) {
-                $filepath = 'uploads/stamp/';
-                $filename = md5($file->basename) . '.' . $file->extension;
-                $model->photo = $filename;
-                $file->saveAs($filepath . $filename);
-            }  
+
             $model->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -100,13 +94,7 @@ class StampsController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $file = UploadedFile::getInstance($model, 'stamp_img');
-            if ($file->size != 0) {
-                $filepath = 'uploads/stamp/';
-                $filename = $model->id . '-' . md5($file->basename) . '.' . $file->extension;
-                $model->photo = $filename;
-                $file->saveAs($filepath . $filename);
-            }  
+
             $model->save();
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -145,5 +133,33 @@ class StampsController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    public function actionUpload()
+    {
+        $uploadDir = 'uploads/stamp/'; // the directory where uploaded files are saved
+        $uploadUrl = Yii::getAlias('@web/' . $uploadDir); // the URL of the directory where uploaded files are saved
+
+        $uploadedFile = UploadedFile::getInstanceByName('upload');
+
+        $fileName = $uploadedFile->baseName . '.' . $uploadedFile->extension;
+        $filePath = $uploadDir . $fileName;
+
+        if ($uploadedFile->saveAs($filePath)) {
+            $url = $uploadUrl . $fileName;
+
+            $response = new \StdClass;
+            $response->uploaded = 1;
+            $response->fileName = $fileName;
+            $response->url = $url;
+
+            echo stripslashes(json_encode($response));
+        } else {
+            $response = new \StdClass;
+            $response->uploaded = 0;
+            $response->error = 'Failed to upload file';
+
+            echo stripslashes(json_encode($response));
+        }
     }
 }
