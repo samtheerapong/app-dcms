@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:120px;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} </div>'
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>'
                         ],
 
                     ],
