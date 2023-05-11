@@ -5,7 +5,6 @@ namespace app\modules\operator\controllers;
 use Yii;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
-use app\modules\operator\models\PrivateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

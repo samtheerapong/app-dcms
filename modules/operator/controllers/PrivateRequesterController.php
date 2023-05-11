@@ -28,7 +28,7 @@ class PrivateRequesterController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -74,6 +74,7 @@ class PrivateRequesterController extends Controller
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
 
+
         if ($model->load(Yii::$app->request->post())) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
@@ -81,6 +82,7 @@ class PrivateRequesterController extends Controller
 
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
+
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;

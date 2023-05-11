@@ -94,6 +94,8 @@ class ReviewerController extends Controller
             $model->load(Yii::$app->request->post()) &&
             $modelRequester->load(Yii::$app->request->post())
         ) {
+
+
             if ($model->reviewer_name == null) {
                 $modelRequester->status_id = 2;
             } else if ($model->approver_name == null) {
@@ -102,19 +104,9 @@ class ReviewerController extends Controller
                 $modelRequester->status_id = 4;
             }
 
-
             if ($modelRequester->save()) {
                 $model->save();
             }
-
-            // if ($model->reviewer_name == null) {
-            //     $model->requester->status_id = 2;
-            // }
-            // else if ($model->approver_name == null) {
-            //     $model->requester->status_id = 3;
-            // }
-            // $model->requester->status_id = 4;
-
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }

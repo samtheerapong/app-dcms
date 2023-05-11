@@ -108,7 +108,8 @@ use app\modules\operator\models\User;
                     </div>
                 </div>
 
-                <?= $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
+                <?php echo $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
+                <?php //echo $form->field($model, 'status_id')->textInput(['value' => 1]); ?>
 
                 <div class="box-footer">
                     <div class="row">
