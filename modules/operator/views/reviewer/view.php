@@ -49,27 +49,61 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'requester.document_title',
 
-                                'reviewerName.profile.name',
-                                // [
-                                //     'attribute' => 'reviewerName.profile.name',
-                                //     'value' => $model->reviewerName->profile,
-                                // ],
-                                'reviewer_at',
-                                'document_number',
-                                'document_revision',
-                                'document_age',
+                                // 'reviewerName.profile.name',
+                                [
+                                    'attribute' => 'reviewerName.profile.name',
+                                    // 'value' => $model->requester_by,
+                                    'value' => function ($model) {
+                                        return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', 'No Data');
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'reviewer_at',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->reviewer_at ? $model->reviewer_at : Yii::t('app', 'No Data');
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'document_number',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_number ? $model->document_number : Yii::t('app', 'No Data');
+                                    },
+                                ],
+
+                                [
+                                    'attribute' => 'document_revision',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_revision ? $model->document_revision : Yii::t('app', 'No Data');
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'document_age',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_age ? $model->document_age : Yii::t('app', 'No Data');
+                                    },
+                                ],
                                 'document_public_at',
-                                'stamps_id',
+                                // 'stamps_id',
                                 [
                                     'attribute' => 'stamps_id',
                                     'format' => 'html',
                                     'value' => function ($model) {
-                                        return '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>';
+                                        if (isset($model->stamps)) {
+                                            $massageColor = isset($model->stamps->color) ? $model->stamps->color : 'gray';
+                                            $massageName = isset($model->stamps->stamp_name) ? $model->stamps->stamp_name : 'Unknown';
+                                            $fullMassage = '<span class="badge" style="background-color:' . $massageColor . ';"><b>' . $massageName . '</b></span>';
+                                            return $fullMassage;
+                                        } else {
+                                            return Yii::t('app', 'No Data');
+                                        }
                                     },
                                 ],
                                 'document_ref',
                                 'document_tags',
-                                // 'points_id',
                                 [
                                     'attribute' => 'points_id',
                                     'format' => 'html',

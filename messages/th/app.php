@@ -53,6 +53,7 @@ return [
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',
     'Private Document' => 'เอกสารส่วนตัว',
+    'No Data' => 'ไม่มีข้อมูล',
 
     
     
