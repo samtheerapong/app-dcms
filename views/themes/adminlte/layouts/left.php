@@ -38,6 +38,7 @@ use yii\helpers\Html;
                     [
                         'label' => Yii::t('app', 'Tasks'), 'icon' => 'far fa-file', 'items' => [
                             ['label' => Yii::t('app', 'Request'), 'icon' => 'fas fa-comment text-danger', 'url' => ['/operator/requester/index']],
+                            
                             ['label' => Yii::t('app', 'Reviewer'), 'icon' => 'fas fa-comments text-warning', 'url' => ['/operator/reviewer/index']],
                             ['label' => Yii::t('app', 'Approver'), 'icon' => 'far fa-paper-plane text-success', 'url' => ['/operator/approver/index']],
                         ]
@@ -80,6 +81,7 @@ use yii\helpers\Html;
                             'label' => 'สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
                             'icon' => 'fas fa-child',
                             'items' => [
+                                ['label' => Yii::t('app', 'Private Document'), 'icon' => 'fas fa-file text-danger', 'url' => ['/operator/private-requester/index']],
                                 ['label' => 'โปรไฟล์', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/profile']],
                                 ['label' => 'บัญชี', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/account']],
                                 ['label' => 'จัดการสิทธิ์', 'icon' => 'circle-o text-primary', 'url' => ['/admin']],

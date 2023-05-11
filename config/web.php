@@ -55,7 +55,7 @@ $config = [
             'user/security/auth',
             'user/registration/register',
             'site/*',
-            // '*', //Allow All For Dev
+            '*', //Allow All For Dev
         ]
     ],
     'components' => [

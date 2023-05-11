@@ -52,6 +52,7 @@ return [
     // Categories
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',
+    'Private Document' => 'เอกสารส่วนตัว',
 
     
     
