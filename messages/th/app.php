@@ -38,7 +38,7 @@ return [
     'document_age' => 'อายุของเอกสาร (ปี)',
     'document_public_at' => 'วันที่ประกาศใช้',
     'stamps_id' => 'ประทับตรา',
-    'document_ref' => 'อกสารอ้างอิง',
+    'document_ref' => 'เอกสารอ้างอิง',
     'document_tags' => '#แท็ก',
     'points_id' => 'จุดรับเอกสาร',
     'reviewer_comment' => 'ความคิดเห็นของผู้ทบทวน',
@@ -54,6 +54,8 @@ return [
     'Category' => 'ระดับเอกสาร',
     'Private Document' => 'เอกสารส่วนตัว',
     'No Data' => 'ไม่มีข้อมูล',
+    'No Reviewer' => 'ยังไม่ได้รับการทบทวนเอกสาร',
+    'No Approver' => 'ยังไม่ได้รับการอนุมัติเอกสาร',
 
     
     

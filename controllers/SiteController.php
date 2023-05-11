@@ -10,6 +10,9 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+
+use yii\data\ArrayDataProvider;
+
 class SiteController extends Controller
 {
     /**
@@ -61,7 +64,36 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $sql = " SELECT  COUNT(m.id) AS mid , r.category_details
+                    FROM requester m
+                    LEFT JOIN categories r 
+                    ON r.id = m.categories_id
+                    GROUP BY m.categories_id";
+
+        $data = Yii::$app->db->createCommand($sql)->queryAll();
+
+        $graph = [];
+        foreach ($data as $d) {
+            $graph[] = [
+                'type' => 'column',
+                'name' => $d['category_details'],
+                'data' => [intval($d['mid'])],
+            ];
+        }
+
+       
+        //ArrayDataProvider ส่งให้ตาราง
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => $data,
+            'sort' => [
+                'attributes' => ['mid', 'category_details'],
+            ],
+        ]);
+
+        return $this->render('index', [
+            'graph' => $graph,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

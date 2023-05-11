@@ -8,28 +8,22 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Reviewer */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reviewers'), 'url' => ['index']];
+$this->title = $model->requester->document_title;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reviewer'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="reviewer-view">
 
-   <p>
+    <p>
         <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Approver'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+
     </p>
- 
+
     <div class="actions-form">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="box box-info box-solid">
                     <div class="box-header">
                         <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
@@ -38,56 +32,115 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                                // 'id',
-                                // 'requester_id',
+
                                 [
-                                    'attribute' => 'status',
+                                    'attribute' => 'requester.status.status_name',
                                     'format' => 'html',
                                     'value' => function ($model) {
-                                        return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' .$model->requester->status->status_details . '</b></span>';
+                                        return '<span class="badge" style="background-color:'
+                                            . $model->requester->status->color
+                                            . ';"><b>'
+                                            . $model->requester->status->status_details
+                                            . '</b></span>';
                                     },
                                 ],
-                                'requester.document_title',
+                                [
+                                    'attribute' => 'requester.types_id',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return '<span class="badge" style="background-color:'
+                                            . $model->requester->types->color
+                                            . ';"><b>'
+                                            . $model->requester->types->type_details
+                                            . '</b></span>';
+                                    },
+                                ],
 
-                                // 'reviewerName.profile.name',
+                                [
+                                    'attribute' => 'requester.request_by',
+                                    'format' => 'html',
+                                    'value' => $model->requester->requestBy->profile->name,
+
+                                ],
+
+                                [
+                                    'attribute' => 'requester.categories_id',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return '<span class="badge" style="background-color:'
+                                            . $model->requester->categories->color . ';"><b>'
+                                            . $model->requester->categories->category_code
+                                            . ' </b></span> - '
+                                            . $model->requester->categories->category_details;
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'requester.departments_id',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return '<span class="badge" style="background-color:'
+                                            . $model->requester->departments->color . ';"><b>'
+                                            . $model->requester->departments->department_code
+                                            . '</b></span> - '
+                                            . $model->requester->departments->department_details;
+                                    },
+
+                                ],
+                                'requester.document_title',
+                                'requester.details:ntext',
+                                // 'requester.created_at:date',
+                                [
+                                    'attribute' => 'requester.created_at',
+                                    'format' => 'date',
+                                    'value' => function ($model) {
+                                        return $model->requester->created_at;
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'requester.created_by',
+                                    'format' => 'html',
+                                    'value' => $model->requester->createdBy->profile->name,
+
+                                ],
+                                'requester.updated_at:date',
+                                [
+                                    'attribute' => 'requester.updated_by',
+                                    'format' => 'html',
+                                    'value' => $model->requester->updatedBy->profile->name,
+                                ],
+                                [
+                                    'attribute' => 'requester.covenant',
+                                    'format' => 'html',
+                                    'value' => $model->requester->listDownloadFiles('covenant')
+                                ],
+                                [
+                                    'attribute' => 'requester.docs',
+                                    'format' => 'html',
+                                    'value' => $model->requester->listDownloadFiles('docs')
+                                ],
+                            ],
+                        ]) ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="box box-warning box-solid">
+                    <div class="box-header">
+                        <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
+                    </div>
+                    <div class="box-body">
+                        <?= DetailView::widget([
+                            'model' => $model,
+                            'attributes' => [
                                 [
                                     'attribute' => 'reviewerName.profile.name',
                                     // 'value' => $model->requester_by,
                                     'value' => function ($model) {
-                                        return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', 'No Data');
-                                    },
-                                ],
-                                [
-                                    'attribute' => 'reviewer_at',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->reviewer_at ? $model->reviewer_at : Yii::t('app', 'No Data');
-                                    },
-                                ],
-                                [
-                                    'attribute' => 'document_number',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_number ? $model->document_number : Yii::t('app', 'No Data');
+                                        return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', 'No Reviewer');
                                     },
                                 ],
 
-                                [
-                                    'attribute' => 'document_revision',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_revision ? $model->document_revision : Yii::t('app', 'No Data');
-                                    },
-                                ],
-                                [
-                                    'attribute' => 'document_age',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_age ? $model->document_age : Yii::t('app', 'No Data');
-                                    },
-                                ],
-                                'document_public_at',
-                                // 'stamps_id',
                                 [
                                     'attribute' => 'stamps_id',
                                     'format' => 'html',
@@ -98,32 +151,103 @@ $this->params['breadcrumbs'][] = $this->title;
                                             $fullMassage = '<span class="badge" style="background-color:' . $massageColor . ';"><b>' . $massageName . '</b></span>';
                                             return $fullMassage;
                                         } else {
-                                            return Yii::t('app', 'No Data');
+                                            return Yii::t('app', '');
                                         }
                                     },
                                 ],
-                                'document_ref',
-                                'document_tags',
+
+                                [
+                                    'attribute' => 'document_number',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_number ? $model->document_number : Yii::t('app', '');
+                                    },
+                                ],                             
+
+                                [
+                                    'attribute' => 'document_revision',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_revision ? $model->document_revision : Yii::t('app', '');
+                                    },
+                                ],
+                                
+
+                                [
+                                    'attribute' => 'document_age',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_age ? $model->document_age : Yii::t('app', '');
+                                    },
+                                ],
+                                // 'document_public_at',
+                                [
+                                    'attribute' => 'document_public_at',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        if ($model->document_public_at !== null) {
+                                            $timestamp = strtotime($model->document_public_at);
+                                            $monthNames = [
+                                                'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                                                'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                                                'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                            ];
+                                            $day = date('d', $timestamp);
+                                            $month = $monthNames[date('n', $timestamp) - 1];
+                                            $year = date('Y', $timestamp);
+                                            return "$day $month $year";
+                                        } else {
+                                            return Yii::t('app', '');
+                                        }
+                                    },
+                                ],
+
+                                [
+                                    'attribute' => 'document_ref',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_ref ? $model->document_ref : Yii::t('app', '');
+                                    },
+                                ],
+                                // 'document_tags',
+                                [
+                                    'attribute' => 'document_tags',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_tags ? $model->document_tags : Yii::t('app', '');
+                                    },
+                                ],
+
                                 [
                                     'attribute' => 'points_id',
                                     'format' => 'html',
                                     'value' => function ($model) {
-
-                                        // return $model->points->point_name;
-                                        return $model->points ? $model->points->point_name : '';
+                                        return $model->points ? $model->points->point_name : Yii::t('app', '');
                                     },
-                                    // 'viewModel' => $model->points,
                                 ],
-
-                                'reviewer_comment:ntext',
-                                'additional_training:ntext',
+                                // 'reviewer_comment:ntext',
+                                [
+                                    'attribute' => 'reviewer_comment',
+                                    'format' => 'ntext',
+                                    'value' => function ($model) {
+                                        return $model->reviewer_comment ? $model->reviewer_comment : Yii::t('app', '');
+                                    },
+                                ],
+                                // 'additional_training:ntext',
+                                [
+                                    'attribute' => 'additional_training',
+                                    'format' => 'ntext',
+                                    'value' => function ($model) {
+                                        return $model->additional_training ? $model->additional_training : Yii::t('app', '');
+                                    },
+                                ],
                             ],
                         ]) ?>
 
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <div class="box box-success box-solid">
                     <div class="box-header">
                         <div class="box-title"><?= Yii::t('app', 'Approver') ?></div>
@@ -132,9 +256,42 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
-                                'approverName.profile.name',
-                                'approver_at:date',
-                                'approver_comment:ntext',
+                                // 'approverName.profile.name',
+                                [
+                                    'attribute' => 'approverName.profile.name',
+                                    // 'value' => $model->requester_by,
+                                    'value' => function ($model) {
+                                        return $model->approver_name ? $model->approverName->profile->name : Yii::t('app', 'No Approver');
+                                    },
+                                ],
+                                // 'approver_at:date',
+                                [
+                                    'attribute' => 'approver_at',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        if ($model->approver_at !== null) {
+                                            $timestamp = strtotime($model->approver_at);
+                                            $monthNames = [
+                                                'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                                                'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                                                'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                            ];
+                                            $day = date('d', $timestamp);
+                                            $month = $monthNames[date('n', $timestamp) - 1];
+                                            $year = date('Y', $timestamp); // + 543 Convert to Thai Buddhist year
+                                            return "$day $month $year";
+                                        } else {
+                                            return Yii::t('app', '');
+                                        }
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'approver_comment',
+                                    'format' => 'ntext',
+                                    'value' => function ($model) {
+                                        return $model->approver_comment ? $model->approver_comment : Yii::t('app', '');
+                                    },
+                                ],
                             ],
                         ]) ?>
 
