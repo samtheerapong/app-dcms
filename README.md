@@ -10,7 +10,7 @@ Password = admin123456
 ```
 
 <hr>
-autonumber
+## Autonumber
 
 ```
 php composer require --prefer-dist mdmsoft/yii2-autonumber "*"
