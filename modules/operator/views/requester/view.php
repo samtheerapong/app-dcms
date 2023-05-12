@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attributes' => [
                         'id',
                         // 'ref',
-                        // 'fullname',
+                        'fullname',
                         [
                             'attribute' => 'types_id',
                             'value' => $model->types->type_name,

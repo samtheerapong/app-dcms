@@ -82,6 +82,10 @@ class RequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
 
+            // Document name
+            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            $model->fullname = $fullname;
+
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
                 $modelReviewer->save();
@@ -114,6 +118,10 @@ class RequesterController extends Controller
             $this->CreateDir($model->ref);
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
+
+            // Document name
+            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            $model->fullname = $fullname;
 
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);

@@ -26,7 +26,8 @@
         "kartik-v/yii2-detail-view": "*",
         "dmstr/yii2-adminlte-asset": "^2.6",
         "miloschuman/yii2-highcharts-widget": "*",
-        "2amigos/yii2-ckeditor-widget": "^2.1"
+        "2amigos/yii2-ckeditor-widget": "^2.1",
+        "mdmsoft/yii2-autonumber": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
