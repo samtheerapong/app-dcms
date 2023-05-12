@@ -134,10 +134,37 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'attributes' => [
                                 [
+                                    'attribute' => 'document_number',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_number ? $model->document_number : Yii::t('app', '');
+                                    },
+                                ],   
+                                [
                                     'attribute' => 'reviewerName.profile.name',
                                     // 'value' => $model->requester_by,
                                     'value' => function ($model) {
                                         return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', 'No Reviewer');
+                                    },
+                                ],
+                                [
+                                    'attribute' => 'reviewer_at',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        if ($model->reviewer_at !== null) {
+                                            $timestamp = strtotime($model->reviewer_at);
+                                            $monthNames = [
+                                                'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                                                'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                                                'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                            ];
+                                            $day = date('d', $timestamp);
+                                            $month = $monthNames[date('n', $timestamp) - 1];
+                                            $year = date('Y', $timestamp);
+                                            return "$day $month $year";
+                                        } else {
+                                            return Yii::t('app', '');
+                                        }
                                     },
                                 ],
 
@@ -156,13 +183,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
 
-                                [
-                                    'attribute' => 'document_number',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_number ? $model->document_number : Yii::t('app', '');
-                                    },
-                                ],                             
+                                                         
 
                                 [
                                     'attribute' => 'document_revision',

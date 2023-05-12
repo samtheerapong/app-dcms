@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Reviewer'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
@@ -39,45 +39,13 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                        [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:50px;'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} {view}</div>',
-                            'buttons' => [
-                                'update' => function ($url, $model, $key) {
-                                    return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                        'title' => Yii::t('yii', 'Update'),
-                                        'class' => 'btn btn-default',
-                                    ]);
-                                },
-                            ],
-                        ],
+                        'document_number',
+
 
                         // 'id',
                         // 'requester_id',
-                        [
-                            // 'attribute' => 'requester.status_id',
-                            'attribute' => 'status_id',
-                            'format' => 'html',
-                            // 'value' => 'requester.status.status_details',
-                            'value' => function ($model) {
-                                return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' .$model->requester->status->status_details . '</b></span>';
-                            },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'requester.status.status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
-                            
-                            // 'filter' => Select2::widget([
-                            //     'model' => $searchModel,
-                            //     'attribute' => 'id',
-                            //     'data' => ArrayHelper::map(Status::find()->all(), 'id', 'requester.status.status_details'),
-                            //     'theme' => Select2::THEME_BOOTSTRAP,
-                            //     'options' => ['placeholder' => 'เลือก ...'],
-                            //     'language' => 'th',
-                            //     'pluginOptions' => [
-                            //         'allowClear' => true
-                            //     ],
-                            // ])
-                        ],
+                        // 'requester.status.status_name',
+
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
@@ -97,13 +65,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
-                        'document_number',
-                        'document_revision',
+
+                        // 'document_revision',
+                        [
+                            'attribute' => 'document_revision',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return $model->document_revision ? $model->document_revision : Yii::t('app', '');
+                            },
+                        ],
                         // 'reviewer_name',
                         [
                             'attribute' => 'reviewer_name',
                             'format' => 'html',
-                            'value' => 'reviewerName.profile.name',
+                            'value' => function ($model) {
+                                return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', '');
+                            },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'reviewer_name',
@@ -116,7 +93,43 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
-                        'reviewer_at:date',
+                        // [
+                        //     'attribute' => 'reviewer_name',
+                        //     'format' => 'html',
+                        //     'value' => 'reviewerName.profile.name',
+                        //     'filter' => Select2::widget([
+                        //         'model' => $searchModel,
+                        //         'attribute' => 'reviewer_name',
+                        //         'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                        //         'theme' => Select2::THEME_BOOTSTRAP,
+                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        //         'language' => 'th',
+                        //         'pluginOptions' => [
+                        //             'allowClear' => true
+                        //         ],
+                        //     ])
+                        // ],
+                        // 'reviewer_at:date',
+                        [
+                            'attribute' => 'reviewer_at',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                if ($model->reviewer_at !== null) {
+                                    $timestamp = strtotime($model->reviewer_at);
+                                    $monthNames = [
+                                        'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                                        'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                                        'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                    ];
+                                    $day = date('d', $timestamp);
+                                    $month = $monthNames[date('n', $timestamp) - 1];
+                                    $year = date('Y', $timestamp);
+                                    return "$day $month $year";
+                                } else {
+                                    return Yii::t('app', '');
+                                }
+                            },
+                        ],
                         // 'document_age',
                         // 'document_public_at',
                         // 'stamps_id',
@@ -124,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'stamps_id',
                             'format' => 'html',
                             'value' => function ($model) {
-                                return $model->stamps && $model->stamps->stamp_name ? $model->stamps->stamp_name : '';
+                                return $model->stamps && $model->stamps->stamp_name ? '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>' : '';
                                 // return '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>';
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
@@ -142,12 +155,33 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         //'reviewer_comment:ntext',
                         //'additional_training:ntext',
-
+                        [
+                            'attribute' => 'requester.status.status_name',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
+                            },
+                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'), 'disabled' => true]),
+                        ],
+                        [
+                            'class' => 'kartik\grid\ActionColumn',
+                            'options' => ['style' => 'width:50px;'],
+                            'buttonOptions' => ['class' => 'btn btn-default'],
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} {view}</div>',
+                            'buttons' => [
+                                'update' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
+                                        'title' => Yii::t('app', 'Approver'),
+                                        'class' => 'btn btn-success',
+                                    ]);
+                                },
+                            ],
+                        ],
                     ],
                 ]); ?>
 
-
             </div>
+
         </div>
     </div>
 </div>

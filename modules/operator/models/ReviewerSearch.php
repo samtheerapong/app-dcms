@@ -78,6 +78,7 @@ class ReviewerSearch extends Reviewer
             ->andFilterWhere(['like', 'additional_training', $this->additional_training])
             ->andFilterWhere(['like', 'approver_name', $this->approver_name])
             ->andFilterWhere(['like', 'approver_at', $this->approver_at])
+            ->andFilterWhere(['like', 'statusName.status_name', $this->status_name])
             ->andFilterWhere(['like', 'approver_comment', $this->approver_comment]);
 
         return $dataProvider;
