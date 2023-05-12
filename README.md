@@ -2,6 +2,7 @@
 ```
 composer update
 ```
+<hr>
 
 ## Demo user
 ```
@@ -10,6 +11,7 @@ Password = admin123456
 ```
 
 <hr>
+
 ## Autonumber
 
 ```
