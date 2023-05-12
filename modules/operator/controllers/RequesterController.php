@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\modules\operator\models\Reviewer;
+use mdm\autonumber\AutoNumber;
 
 //
 use yii\web\UploadedFile;
@@ -82,12 +83,12 @@ class RequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
 
-            // Document name
+            // document_number @Reviewer
             $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            $model->fullname = $fullname;
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
+                $modelReviewer->document_number = AutoNumber::generate($fullname . '-???'); // document_number @Reviewer
                 $modelReviewer->save();
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -118,10 +119,6 @@ class RequesterController extends Controller
             $this->CreateDir($model->ref);
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
-
-            // Document name
-            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            $model->fullname = $fullname;
 
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -167,7 +164,7 @@ class RequesterController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-   
+
 
     /***************** Deletefile ******************/
     public function actionDeletefile($id, $field, $fileName)

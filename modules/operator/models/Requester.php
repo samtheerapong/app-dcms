@@ -38,6 +38,7 @@ use yii\helpers\Json;
 class Requester extends \yii\db\ActiveRecord
 {
 
+
     const UPLOAD_FOLDER = 'documents';  // Create folder web/documents/
 
     public function behaviors()
@@ -81,7 +82,7 @@ class Requester extends \yii\db\ActiveRecord
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
             [['covenant'], 'file', 'maxFiles' => 1],
-            [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true]
+            [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true],
         ];
     }
 
@@ -208,4 +209,5 @@ class Requester extends \yii\db\ActiveRecord
         }
         return $initial;
     }
+    
 }
