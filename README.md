@@ -51,7 +51,6 @@ public function actionCreate()
     $model->load(Yii::$app->request->post());
     $model->sales_num = mdm\autonumber\AutoNumber::generate('SA/{Y/m}/?.???');
     ...
-} ];
 }
 ```
 http://mdmsoft.github.io/yii2-autonumber/index.html
