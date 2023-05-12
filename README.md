@@ -25,7 +25,7 @@ yii migrate --migrationPath=@mdm/autonumber/migrations
 ```
 use mdm\autonumber\AutoNumber;
 
-public function actionCreate()
+ public function actionCreate()
     {
         $model = new Requester();
         $modelReviewer = new Reviewer();
@@ -38,12 +38,12 @@ public function actionCreate()
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
 
-            // document_number @Reviewer
+            // Get format nimber Ex. FM-GR-001
             $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
-                $modelReviewer->document_number = AutoNumber::generate($fullname . '-???'); // document_number @Reviewer
+                $modelReviewer->document_number = AutoNumber::generate($fullname . '-???'); // Set document_number @Reviewer
                 $modelReviewer->save();
             }
             return $this->redirect(['view', 'id' => $model->id]);
