@@ -39,13 +39,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
+                       
+                        [
+                            'class' => 'kartik\grid\ActionColumn',
+                            'options' => ['style' => 'width:50px;'],
+                            'buttonOptions' => ['class' => 'btn btn-default'],
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} {view}</div>',
+                            'buttons' => [
+                                'update' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
+                                        'title' => Yii::t('app', 'Approver'),
+                                        'class' => 'btn btn-success',
+                                    ]);
+                                },
+                            ],
+                        ],
+                        [
+                            'attribute' => 'requester.status.status_name',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
+                            },
+                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'), 'disabled' => true]),
+                        ],
                         'document_number',
-
-
-                        // 'id',
-                        // 'requester_id',
-                        // 'requester.status.status_name',
-
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
@@ -155,28 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         //'reviewer_comment:ntext',
                         //'additional_training:ntext',
-                        [
-                            'attribute' => 'requester.status.status_name',
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
-                            },
-                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'), 'disabled' => true]),
-                        ],
-                        [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:50px;'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {update} {view}</div>',
-                            'buttons' => [
-                                'update' => function ($url, $model, $key) {
-                                    return Html::a('<span class="glyphicon glyphicon-ok"></span>', $url, [
-                                        'title' => Yii::t('app', 'Approver'),
-                                        'class' => 'btn btn-success',
-                                    ]);
-                                },
-                            ],
-                        ],
+
                     ],
                 ]); ?>
 
