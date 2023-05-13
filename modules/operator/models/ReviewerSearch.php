@@ -5,6 +5,8 @@ namespace app\modules\operator\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\operator\models\Reviewer;
+use app\modules\operator\models\Status;
+use app\modules\operator\models\Requester;
 
 /**
  * ReviewerSearch represents the model behind the search form of `app\modules\operator\models\Reviewer`.
@@ -17,8 +19,8 @@ class ReviewerSearch extends Reviewer
     public function rules()
     {
         return [
-            [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id','approver_at','approver_name'], 'integer'],
-            [['reviewer_at', 'document_number', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training','approver_comment'], 'safe'],
+            [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id', 'approver_at', 'approver_name'], 'integer'],
+            [['reviewer_at', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment'], 'safe'],
             [['document_revision', 'document_age'], 'number'],
         ];
     }
@@ -70,7 +72,6 @@ class ReviewerSearch extends Reviewer
         ]);
 
         $query->andFilterWhere(['like', 'reviewer_at', $this->reviewer_at])
-            ->andFilterWhere(['like', 'document_number', $this->document_number])
             ->andFilterWhere(['like', 'document_public_at', $this->document_public_at])
             ->andFilterWhere(['like', 'document_ref', $this->document_ref])
             ->andFilterWhere(['like', 'document_tags', $this->document_tags])
@@ -82,5 +83,15 @@ class ReviewerSearch extends Reviewer
             ->andFilterWhere(['like', 'approver_comment', $this->approver_comment]);
 
         return $dataProvider;
+    }
+
+    public function getRequester()
+    {
+        return $this->hasOne(Requester::class, ['id' => 'requester_id']);
+    }
+
+    public function getStatus()
+    {
+        return $this->hasOne(Status::class, ['id' => 'status_id'])->via('requester');
     }
 }

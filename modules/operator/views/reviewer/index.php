@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
-                       
+
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:50px;'],
@@ -54,15 +54,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                             ],
                         ],
+
                         [
                             'attribute' => 'requester.status.status_name',
                             'format' => 'html',
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'), 'disabled' => true]),
+                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'),'disabled'=>true]),
                         ],
-                        'document_number',
+
+                        // 'requester_id',
+                        // 'requester.document_number',
+                        [
+                            'attribute' => 'requester.document_number',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return $model->requester->document_number ? $model->requester->document_number : '';
+                            },
+                            // 'filter' => Html::activeTextInput($searchModel, 'requester_id', ['class' => 'form-control']),
+                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Requester::find()->all(), 'id', 'document_number'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')]),
+                        ],
+
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
@@ -110,22 +123,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
-                        // [
-                        //     'attribute' => 'reviewer_name',
-                        //     'format' => 'html',
-                        //     'value' => 'reviewerName.profile.name',
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'reviewer_name',
-                        //         'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
-                        //         'theme' => Select2::THEME_BOOTSTRAP,
-                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
+                   
                         // 'reviewer_at:date',
                         [
                             'attribute' => 'reviewer_at',

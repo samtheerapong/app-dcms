@@ -38,7 +38,6 @@ use yii\helpers\Json;
 class Requester extends \yii\db\ActiveRecord
 {
 
-
     const UPLOAD_FOLDER = 'documents';  // Create folder web/documents/
 
     public function behaviors()
@@ -75,7 +74,7 @@ class Requester extends \yii\db\ActiveRecord
         return [
             [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname',], 'string'],
-            [['document_title', 'fullname', 'ref'], 'string', 'max' => 255],
+            [['document_title', 'fullname', 'ref','document_number'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::class, 'targetAttribute' => ['departments_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
@@ -102,6 +101,7 @@ class Requester extends \yii\db\ActiveRecord
             'request_by' => Yii::t('app', 'จัดทำโดย'),
             'categories_id' => Yii::t('app', 'ระดับเอกสาร'),
             'departments_id' => Yii::t('app', 'แผนกที่รับผิดชอบ'),
+            'document_number' => Yii::t('app', 'เลขที่เอกสาร'),
             'document_title' => Yii::t('app', 'เรื่อง'),
             'details' => Yii::t('app', 'รายละเอียดเอกสาร'),
             'ref' => Yii::t('app', 'อ้างอิง'),

@@ -44,9 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= DetailView::widget([
                     'model' => $model,
                     'attributes' => [
-                        'id',
+                        // 'id',
                         // 'ref',
-                        'fullname',
+                        // 'fullname',
+                        'document_number',
                         [
                             'attribute' => 'types_id',
                             'value' => $model->types->type_name,
@@ -72,6 +73,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $model->departments->department_code . ' - ' . $model->departments->department_details;
                             },
                         ],
+                        // 'reviewers.document_number',
                         'document_title',
                         'details:ntext',
                         // 'pdf_file:ntext',

@@ -6,6 +6,7 @@ use Yii;
 use app\modules\operator\models\Reviewer;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\ReviewerSearch;
+use app\modules\operator\models\RequesterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;

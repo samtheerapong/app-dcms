@@ -65,9 +65,7 @@ use app\modules\operator\models\Status;
                 </div>
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <?= $form->field($model, 'document_number')->textInput(['maxlength' => true], ['required' =>  true]) ?>
-                    </div>
+                   
                     <div class="col-md-2">
                         <?= $form->field($model, 'document_revision')->textInput(['required' =>  true]) ?>
                     </div>

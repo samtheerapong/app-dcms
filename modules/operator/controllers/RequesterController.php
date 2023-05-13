@@ -85,10 +85,10 @@ class RequesterController extends Controller
 
             // Get format nimber Ex. FM-GR-001
             $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            $model->document_number = AutoNumber::generate($fullname . '-???');
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
-                $modelReviewer->document_number = AutoNumber::generate($fullname . '-???'); // Set document_number @Reviewer
                 $modelReviewer->save();
             }
             return $this->redirect(['view', 'id' => $model->id]);
@@ -158,6 +158,10 @@ class RequesterController extends Controller
     protected function findModel($id)
     {
         if (($model = Requester::findOne($id)) !== null) {
+            return $model;
+        }
+
+         if (($model = Requester::findOne($id)) !== null) {
             return $model;
         }
 

@@ -18,7 +18,7 @@ class RequesterSearch extends Requester
     {
         return [
             [['id', 'types_id', 'status_id', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at'], 'safe'],
+            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at', 'document_number'], 'safe'],
         ];
     }
 
@@ -72,6 +72,7 @@ class RequesterSearch extends Requester
         ]);
 
         $query->andFilterWhere(['like', 'document_title', $this->document_title])
+            ->andFilterWhere(['like', 'document_number', $this->document_number])
             ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
             ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
             ->andFilterWhere(['like', 'details', $this->details])

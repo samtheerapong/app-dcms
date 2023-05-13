@@ -34,6 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attributes' => [
 
                                 [
+                                    'attribute' => 'requester.document_number',
+                                    'format' => 'html',
+                                    'value' => $model->requester->document_number,
+
+                                ],
+                                [
                                     'attribute' => 'requester.status.status_name',
                                     'format' => 'html',
                                     'value' => function ($model) {
@@ -133,13 +139,19 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?= DetailView::widget([
                             'model' => $model,
                             'attributes' => [
+                                // [
+                                //     'attribute' => 'document_number',
+                                //     'format' => 'html',
+                                //     'value' => function ($model) {
+                                //         return $model->document_number ? $model->document_number : Yii::t('app', '');
+                                //     },
+                                // ],   
                                 [
-                                    'attribute' => 'document_number',
+                                    'attribute' => 'requester.document_number',
                                     'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_number ? $model->document_number : Yii::t('app', '');
-                                    },
-                                ],   
+                                    'value' => $model->requester->document_number,
+
+                                ],
                                 [
                                     'attribute' => 'reviewerName.profile.name',
                                     // 'value' => $model->requester_by,
@@ -230,15 +242,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_ref ? $model->document_ref : Yii::t('app', '');
                                     },
                                 ],
-                                // 'document_tags',
-                                [
-                                    'attribute' => 'document_tags',
-                                    'format' => 'html',
-                                    'value' => function ($model) {
-                                        return $model->document_tags ? $model->document_tags : Yii::t('app', '');
-                                    },
-                                ],
-
+                                
                                 [
                                     'attribute' => 'points_id',
                                     'format' => 'html',
@@ -262,6 +266,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->additional_training ? $model->additional_training : Yii::t('app', '');
                                     },
                                 ],
+                                // 'document_tags',
+                                [
+                                    'attribute' => 'document_tags',
+                                    'format' => 'html',
+                                    'value' => function ($model) {
+                                        return $model->document_tags ? $model->document_tags : Yii::t('app', '');
+                                    },
+                                ],
                             ],
                         ]) ?>
 
@@ -278,6 +290,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'attributes' => [
                                 // 'approverName.profile.name',
+                                [
+                                    'attribute' => 'requester.document_number',
+                                    'format' => 'html',
+                                    'value' => $model->requester->document_number,
+
+                                ],
                                 [
                                     'attribute' => 'approverName.profile.name',
                                     // 'value' => $model->requester_by,
