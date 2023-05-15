@@ -120,6 +120,10 @@ class RequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
 
+            // Get format nimber Ex. FM-GR-001
+            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            $model->document_number = AutoNumber::generate($fullname . '-???');
+
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
