@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Reviewer */
 
-$this->title = $model->requester->document_title;
+$this->title = $model->requester->document_number;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reviewer'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-md-4">
                 <div class="box box-info box-solid">
                     <div class="box-header">
-                        <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
+                        <div class="box-title"><?= Yii::t('app', 'Requester') ?></div>
                     </div>
                     <div class="box-body">
                         <?= DetailView::widget([

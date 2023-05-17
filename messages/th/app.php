@@ -29,7 +29,7 @@ return [
     'Name' => 'ชื่อ',
     'Public Email' => 'อีเมล',
     // Requester
-    'Reviewer' => 'ผู้ทบทวน',
+    'Reviewer' => 'ทบทวน',
     'requester_id' => 'เอกสารที่ร้องขอ',
     'reviewer_name' => 'ทบทวนโดย',
     'reviewer_at' => 'ทบทวนเมื่อ',
@@ -49,6 +49,9 @@ return [
     'approver_at' => 'อนุมัติเมื่อ',
     'approver_comment' => 'ความคิดเห็นของผู้อนุมัติ',
     'Approve' => 'ทบทวนและอนุมัติ',
+    'Requester Page' => 'หน้าร้องขอ',
+    'Reviewer Page' => 'หน้าทบทวน',
+    'Requester' => 'ร้องขอ',
     // Categories
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',

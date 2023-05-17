@@ -15,7 +15,7 @@ use app\modules\operator\models\Status;
 /* @var $searchModel app\modules\operator\models\ReviewerSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Reviewers');
+$this->title = Yii::t('app', 'Reviewer');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
@@ -45,10 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-primary']) ?>
+    <p style="text-align: left;">
+        <?= Html::a('<i class="fa fa-arrow-circle-left"></i> ' .Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-warning']) ?>
     </p>
-
+    
 
     <div class="actions-form">
         <div class="box box-primary box-solid">
@@ -152,6 +152,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
+                         // 'document_revision',
+                         [
+                            'attribute' => 'document_revision',
+                            'label' => 'Revision',
+                            'format' => 'html',
+                            'options' => ['style' => 'width:100px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'value' => function ($model) {
+                                return $model->document_revision ? $model->document_revision : Yii::t('app', '');
+                            },
+                        ],
 
                         [
                             'attribute' => 'requester_id',
@@ -181,17 +192,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'document_revision',
-                        [
-                            'attribute' => 'document_revision',
-                            'label' => 'Revision',
-                            'format' => 'html',
-                            'options' => ['style' => 'width:100px;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'value' => function ($model) {
-                                return $model->document_revision ? $model->document_revision : Yii::t('app', '');
-                            },
-                        ],
+                       
                         // 'reviewer_name',
                         [
                             'attribute' => 'reviewer_name',

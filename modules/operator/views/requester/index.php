@@ -47,10 +47,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
+    <div style="display: flex; justify-content: space-between;">
+        <p style="text-align: left;">
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
+        </p>
+        <p style="text-align: right;">
+            <?= Html::a( Yii::t('app', 'Reviewer Page') . ' <i class="fa fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
+        </p>
+    </div>
 
-    <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create New')), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 
     ?>
@@ -112,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                         ],
 
-                        
+
 
                         // 'created_at:date',
 
@@ -177,7 +182,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
-                       
+
 
 
 
