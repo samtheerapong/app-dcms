@@ -90,7 +90,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ]);
                                     } else {
                                         return '';
-                                       
                                     }
                                 },
                                 'view' => function ($url, $model, $key) {
@@ -106,57 +105,61 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'requester.status_id',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:150px;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->requester->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList(
-                                $searchModel,
-                                'status_id',
-                                ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                [
-                                    'class' => 'form-control', // Add Bootstrap form-control class
-                                    'prompt' => Yii::t('app', 'Select...')
-                                ]
-                            ),
+                            // 'filter' => Html::activeDropDownList(
+                            //     $searchModel,
+                            //     'status_id',
+                            //     ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                            //     [
+                            //         'class' => 'form-control', // Add Bootstrap form-control class
+                            //         'prompt' => Yii::t('app', 'Select...')
+                            //     ]
+                            // ),
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'status_id',
+                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
-                        // [
-                        //     'attribute' => 'requester.status.status_name',
-                        //     'format' => 'html',
-                        //     'value' => function ($model) {
-                        //         return '<span class="badge" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
-                        //     },
-                        //     'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...'),'disabled'=>true]),
-                        // ],
-
-                        // 'requester_id',
                         // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
+                            'options' => ['style' => 'width:150px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
-                            'options' => ['style' => 'width:120px;'],
-                            'value' => function ($model) {
-                                return $model->requester->document_number ? $model->requester->document_number : '';
-                            },
-                            // 'filter' => Html::activeTextInput($searchModel, 'requester_id', ['class' => 'form-control']),
-                            'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Requester::find()->all(), 'id', 'document_number'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')]),
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_number',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
-
-
-
-
 
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
                             'value' => function ($model) {
                                 $text = $model->requester->document_title;
-                                if (mb_strlen($text) > 40) {
-                                    $text = mb_substr($text, 0, 40) . '...';
+                                if (mb_strlen($text) > 30) {
+                                    $text = mb_substr($text, 0, 30) . '...';
                                 }
                                 return $text;
                             },
@@ -169,7 +172,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                     return $value;
                                 }, ArrayHelper::map(Requester::find()->all(), 'id', 'document_title')),
-                                'theme' => Select2::THEME_BOOTSTRAP,
+                                'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
@@ -254,9 +257,28 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             'options' => ['style' => 'width:200px;'],
                             'value' => function ($model) {
-                                return $model->points ? $model->points->point_name : '';
+                                $value = $model->points ? $model->points->point_name : '';
+                                if (mb_strlen($value) > 20) {
+                                    $value = mb_substr($value, 0, 20) . '...';
+                                }
+                                return $value;
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'points_id', ArrayHelper::map(Points::find()->all(), 'id', 'point_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'points_id',
+                                'data' =>  array_map(function ($value) {
+                                    if (mb_strlen($value) > 18) {
+                                        $value = mb_substr($value, 0, 18) . '...';
+                                    }
+                                    return $value;
+                                }, ArrayHelper::map(Points::find()->all(), 'id', 'point_name')),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
                         //'reviewer_comment:ntext',
                         //'additional_training:ntext',

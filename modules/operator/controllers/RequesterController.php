@@ -2,6 +2,7 @@
 
 namespace app\modules\operator\controllers;
 
+use app\modules\operator\models\DocumentLogs;
 use Yii;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
@@ -74,6 +75,7 @@ class RequesterController extends Controller
     {
         $model = new Requester();
         $modelReviewer = new Reviewer();
+        $modelDocumentLogs = new DocumentLogs();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -89,7 +91,9 @@ class RequesterController extends Controller
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
+                $modelDocumentLogs->requester_id = $model->id;
                 $modelReviewer->save();
+                $modelDocumentLogs->save();
             }
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -97,6 +101,7 @@ class RequesterController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelReviewer' => $modelReviewer,
+            'modelDocumentLogs' => $modelDocumentLogs,
         ]);
     }
 

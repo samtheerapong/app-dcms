@@ -16,6 +16,7 @@ class ReviewerSearch extends Reviewer
 
     // **************** เพิ่ม  1 ********************
     public $status_id;
+    public $document_number;
 
 
     /**
@@ -25,7 +26,7 @@ class ReviewerSearch extends Reviewer
     {
         return [
             [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id', 'approver_at', 'approver_name'], 'integer'],
-            [['reviewer_at', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment'], 'safe'],
+            [['reviewer_at', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment','document_number'], 'safe'],
             [['document_revision', 'document_age'], 'number'],
             [['status_id'], 'integer'], // **************** เพิ่ม  2 ********************
         ];
@@ -53,7 +54,6 @@ class ReviewerSearch extends Reviewer
 
         // **************** เพิ่ม  3 ********************
         $query = Reviewer::find()->joinWith('requester.status');
-        $query->joinWith(['requester.status']); // Join the 'status' relation
 
         // add conditions that should always apply here
 
@@ -72,6 +72,9 @@ class ReviewerSearch extends Reviewer
 
         // **************** เพิ่ม  4 ********************
         $query->andFilterWhere(['status.id' => $this->status_id]);
+        $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
+        
+
 
         // grid filtering conditions
         $query->andFilterWhere([
