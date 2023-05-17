@@ -11,14 +11,15 @@ use app\modules\operator\models\Requester;
  */
 class RequesterSearch extends Requester
 {
+    
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['id', 'types_id', 'status_id', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at', 'document_number'], 'safe'],
+            [['id', 'types_id', 'status_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
+            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at', 'document_number', 'updated_at'], 'safe'],
         ];
     }
 
@@ -73,8 +74,10 @@ class RequesterSearch extends Requester
 
         $query->andFilterWhere(['like', 'document_title', $this->document_title])
             ->andFilterWhere(['like', 'document_number', $this->document_number])
-            ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
-            ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
+            // ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
+            // ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
+            ->andFilterWhere(['like', 'created_at', $this->created_at])
+            ->andFilterWhere(['like', 'updated_at', $this->updated_at])
             ->andFilterWhere(['like', 'details', $this->details])
             ->andFilterWhere(['like', 'ref', $this->ref])
             ->andFilterWhere(['like', 'fullname', $this->fullname])

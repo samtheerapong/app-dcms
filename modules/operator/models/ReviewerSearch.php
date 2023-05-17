@@ -13,6 +13,11 @@ use app\modules\operator\models\Requester;
  */
 class ReviewerSearch extends Reviewer
 {
+
+    // **************** เพิ่ม  1 ********************
+    public $status_id;
+
+
     /**
      * {@inheritdoc}
      */
@@ -22,6 +27,7 @@ class ReviewerSearch extends Reviewer
             [['id', 'requester_id', 'reviewer_name', 'stamps_id', 'points_id', 'approver_at', 'approver_name'], 'integer'],
             [['reviewer_at', 'document_public_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment'], 'safe'],
             [['document_revision', 'document_age'], 'number'],
+            [['status_id'], 'integer'], // **************** เพิ่ม  2 ********************
         ];
     }
 
@@ -43,7 +49,11 @@ class ReviewerSearch extends Reviewer
      */
     public function search($params)
     {
-        $query = Reviewer::find();
+        // $query = Reviewer::find();
+
+        // **************** เพิ่ม  3 ********************
+        $query = Reviewer::find()->joinWith('requester.status');
+        $query->joinWith(['requester.status']); // Join the 'status' relation
 
         // add conditions that should always apply here
 
@@ -59,6 +69,9 @@ class ReviewerSearch extends Reviewer
             // $query->where('0=1');
             return $dataProvider;
         }
+
+        // **************** เพิ่ม  4 ********************
+        $query->andFilterWhere(['status.id' => $this->status_id]);
 
         // grid filtering conditions
         $query->andFilterWhere([
@@ -79,19 +92,8 @@ class ReviewerSearch extends Reviewer
             ->andFilterWhere(['like', 'additional_training', $this->additional_training])
             ->andFilterWhere(['like', 'approver_name', $this->approver_name])
             ->andFilterWhere(['like', 'approver_at', $this->approver_at])
-            ->andFilterWhere(['like', 'statusName.status_name', $this->status_name])
             ->andFilterWhere(['like', 'approver_comment', $this->approver_comment]);
 
         return $dataProvider;
-    }
-
-    public function getRequester()
-    {
-        return $this->hasOne(Requester::class, ['id' => 'requester_id']);
-    }
-
-    public function getStatus()
-    {
-        return $this->hasOne(Status::class, ['id' => 'status_id'])->via('requester');
     }
 }

@@ -45,15 +45,12 @@ class Requester extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
-                ],
+                'value' => function() {
+                    return date('Y-m-d H:i:s');
+                },
             ],
             [
                 'class' => BlameableBehavior::class,
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
             ],
         ];
     }
@@ -72,8 +69,9 @@ class Requester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['details', 'fullname',], 'string'],
+            [['created_at', 'updated_at'], 'string','max' => 45],
+            [['types_id', 'status_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
+            [['details', 'fullname'], 'string'],
             [['document_title', 'fullname', 'ref','document_number'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::class, 'targetAttribute' => ['departments_id' => 'id']],
