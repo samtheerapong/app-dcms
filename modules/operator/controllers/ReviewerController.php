@@ -70,6 +70,8 @@ class ReviewerController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             $model->save();
+
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -109,6 +111,9 @@ class ReviewerController extends Controller
                 $model->save();
             }
             $model->save();
+
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
+            
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

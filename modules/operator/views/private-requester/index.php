@@ -74,12 +74,40 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:120px;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>'
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
+                            'buttons' => [
+                                'view' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                        'title' => Yii::t('app', 'View'),
+                                        'class' => 'btn btn-info',
+                                    ]);
+                                },
+                                'update' => function ($url, $model, $key) {
+
+                                    return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                        'title' => Yii::t('app', 'Approver'),
+                                        'class' => 'btn btn-warning',
+                                    ]);
+                                },
+                                'delete' => function ($url, $model, $key) {
+
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('app', 'Delete'),
+                                        'class' => 'btn btn-danger',
+                                        'data' => [
+                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                            'method' => 'post',
+                                        ],
+                                    ]);
+                                },
+
+                            ],
                         ],
 
                         [
                             'attribute' => 'status_id',
                             'options' => ['style' => 'width:120px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->status->id == 1 ? 'blink' : '';

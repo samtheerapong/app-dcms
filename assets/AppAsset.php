@@ -24,9 +24,12 @@ class AppAsset extends AssetBundle
         'css/custom.css',
         'css/site.css',
     ];
-    public $js = [];
+    public $js = [
+        // 'js/yii-override.js',
+    ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
+        // 'app\assets\SweetAlertAsset',
     ];
 }

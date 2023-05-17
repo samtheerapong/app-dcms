@@ -18,6 +18,9 @@ use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 
+use dominus77\sweetalert2\Alert;
+
+
 /**
  * RequesterController implements the CRUD actions for Requester model.
  */
@@ -95,6 +98,14 @@ class RequesterController extends Controller
                 $modelReviewer->save();
                 $modelDocumentLogs->save();
             }
+
+            // Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
+            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
+                'title' => 'The Internet?',
+                'text' => 'That thing is still around?',
+            ]);
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -130,8 +141,15 @@ class RequesterController extends Controller
             $model->document_number = AutoNumber::generate($fullname . '-???');
 
             $model->save();
+
+            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
+                'title' => 'The Internet?',
+                'text' => 'That thing is still around?',
+            ]);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
@@ -170,7 +188,7 @@ class RequesterController extends Controller
             return $model;
         }
 
-         if (($model = Requester::findOne($id)) !== null) {
+        if (($model = Requester::findOne($id)) !== null) {
             return $model;
         }
 

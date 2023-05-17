@@ -52,7 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
         <p style="text-align: right;">
-            <?= Html::a( Yii::t('app', 'Reviewer Page') . ' <i class="fa fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a(Yii::t('app', 'Reviewer Page') . ' <i class="fa fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
 
@@ -74,12 +74,40 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:120px;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>'
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
+                            'buttons' => [
+                                'view' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                        'title' => Yii::t('app', 'View'),
+                                        'class' => 'btn btn-info',
+                                    ]);
+                                },
+                                'update' => function ($url, $model, $key) {
+
+                                    return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                        'title' => Yii::t('app', 'Approver'),
+                                        'class' => 'btn btn-warning',
+                                    ]);
+                                },
+                                'delete' => function ($url, $model, $key) {
+
+                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                        'title' => Yii::t('app', 'Delete'),
+                                        'class' => 'btn btn-danger',
+                                        'data' => [
+                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                            'method' => 'post',
+                                        ],
+                                    ]);
+                                },
+
+                            ],
                         ],
 
                         [
                             'attribute' => 'status_id',
                             'options' => ['style' => 'width:120px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->status->id == 1 ? 'blink' : '';
@@ -99,6 +127,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_number',
                             'options' => ['style' => 'width:120px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 return  $model->document_number;
@@ -124,6 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'created_at',
                             'options' => ['style' => 'width:200px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'date',
                             'filter' => DatePicker::widget([
                                 'model' => $searchModel,
@@ -157,6 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'categories_id',
                             'format' => 'html',
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'options' => ['style' => 'width:100px;'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
@@ -166,6 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'departments_id',
                             'format' => 'html',
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'options' => ['style' => 'width:100px;'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
@@ -176,6 +208,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'types_id',
                             'options' => ['style' => 'width:120px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';

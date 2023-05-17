@@ -28,6 +28,7 @@ return [
     'Reports' => 'รายงาน',
     'Name' => 'ชื่อ',
     'Public Email' => 'อีเมล',
+    'Successfully' => 'สำเร็จ',
     // Requester
     'Reviewer' => 'ทบทวน',
     'requester_id' => 'เอกสารที่ร้องขอ',
