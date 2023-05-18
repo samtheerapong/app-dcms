@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 17, 2023 at 10:03 AM
+-- Generation Time: May 18, 2023 at 05:47 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -410,7 +410,7 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('FM-PC-???', 2, 1, 1683884207),
 ('FM-WH-???', 1, 1, 1683883958),
 ('MM-AG-???', 1, 1, 1683882730),
-('MM-PC-???', 6, 1, 1684302632),
+('MM-PC-???', 7, 1, 1684374918),
 ('PM-EN-???', 1, 1, 1684117280),
 ('PM-QC-???', 1, 1, 1684117299),
 ('PM-RD-???', 3, 1, 1683882077),
@@ -420,11 +420,11 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('SHE-EN-???', 2, 1, 1683972022),
 ('SHE-MM-???', 2, 1, 1684302648),
 ('SP-AG-???', 2, 1, 1684302572),
-('SP-EN-???', 13, 1, 1684315160),
+('SP-EN-???', 14, 1, 1684374907),
 ('SP-PC-???', 1, 1, 1683883745),
 ('SP-QC-???', 2, 1, 1684315140),
 ('SP-RD-???', 1, 1, 1683946262),
-('SP-WH-???', 8, 1, 1684317631),
+('SP-WH-???', 31, 1, 1684375994),
 ('ST-WH-???', 1, 1, 1684117162),
 ('WI-EN-???', 1, 1, 1683941629),
 ('WI-MK-???', 1, 1, 1683942957),
@@ -739,15 +739,15 @@ INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_a
 (8, 3, 4, '2023-05-17 08:07:55', '2023-05-17 11:35:11', 1, 1, 3, 1, 3, 'การทบทวนและเปลี่ยนแปลงข้อตกลง', 'PM-QC-001', '', NULL, 'wAlve3PwYRSorpNtDjsgHg', NULL, NULL, 'null'),
 (9, 1, 1, '2023-05-18 08:07:55', '2023-05-17 12:50:48', 1, 1, 12, 8, 10, 'การวางแผนการผลิต', 'SHE-MM-002', '', NULL, 'R5T8SnBacTYyUdmcIzt8Bu', NULL, NULL, 'null'),
 (10, 2, 1, '2023-05-19 08:07:55', '2023-05-17 12:50:32', 1, 1, 15, 4, 5, 'กระบวนการผลิต', 'MM-PC-006', '', NULL, 'YYzgJPDPVcikzsu8e9E50p', NULL, NULL, 'null'),
-(11, 1, 1, '2023-05-10 08:07:55', '2023-05-17 12:50:23', 8, 1, 20, 4, 5, 'การสอบเทียบเครื่องมือและอุปกรณ์', 'MM-PC-005', '', NULL, 'u2z3rCi58jOZOexdu8DaSp', NULL, NULL, 'null'),
+(11, 1, 1, '2023-05-10 08:07:55', '2023-05-18 08:55:18', 8, 1, 20, 4, 5, 'การสอบเทียบเครื่องมือและอุปกรณ์', 'MM-PC-007', '', NULL, 'u2z3rCi58jOZOexdu8DaSp', NULL, NULL, 'null'),
 (12, 1, 1, '2023-05-20 08:07:55', '2023-05-17 12:50:04', 11, 1, 21, 7, 5, 'การควบคุมผลิตภัณฑ์ที่ไม่เป็นไปตามข้อกำหนด', 'QM-PC-003', '', NULL, 'vgFYbLvuwiWy6xJrie3Boy', NULL, NULL, 'null'),
 (14, 1, 4, '2023-05-17 08:43:30', '2023-05-17 13:12:17', 1, 4, 25, 5, 4, 'การควบคุมกระบวนการผลิตและการแสดงสถานะ', 'SP-EN-009', '', NULL, 'M2W8vQBziy36J2cMDD5Kd5', NULL, NULL, 'null'),
-(15, 1, 1, '2023-05-17 11:31:37', '2023-05-17 16:19:20', 5, 1, 2, 5, 4, 'การติดตามตรวจสอบ การตรวจวัด และ การประเมินความสอดคล้อง', 'SP-EN-013', '', NULL, 'Yny1qaRt5LQ6EZ5N2uPqyD', NULL, NULL, 'null'),
+(15, 1, 1, '2023-05-17 11:31:37', '2023-05-18 08:55:07', 5, 1, 2, 5, 4, 'การติดตามตรวจสอบ การตรวจวัด และ การประเมินความสอดคล้อง', 'SP-EN-014', '', NULL, 'Yny1qaRt5LQ6EZ5N2uPqyD', NULL, NULL, 'null'),
 (16, 3, 3, '2023-05-17 11:32:50', '2023-05-17 14:18:09', 20, 4, 8, 6, 8, 'การตรวจปล่อยผลิตภัณฑ์', 'FM-AG-001', '', NULL, 'lmpC2NmdQyAdTh_GWWo5wq', NULL, NULL, 'null'),
 (17, 2, 4, '2023-05-17 11:34:37', '2023-05-17 13:12:10', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, NULL, 'null'),
 (18, 2, 4, '2023-05-17 11:34:37', '2023-05-17 15:28:40', 1, 1, 1, 5, 4, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', 'SP-EN-012', '', NULL, 'GMGAfj5tylZgdKAmTu-ZGt', NULL, '{\"9d92c9b09c3bce439464f1ddf826eaf9.pdf\":\"BK23002908.pdf\"}', 'null'),
 (19, 3, 3, '2023-05-17 16:28:33', '2023-05-17 16:57:28', 1, 1, 2, 3, 5, 'asdasdasds', 'WI-PC-011', '', NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, NULL, 'null'),
-(20, 3, 1, '2023-05-17 16:56:53', '2023-05-17 17:00:31', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-008', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, NULL, 'null');
+(20, 3, 2, '2023-05-17 16:56:53', '2023-05-18 09:13:14', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-031', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, NULL, 'null');
 
 -- --------------------------------------------------------
 
@@ -960,8 +960,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684310281, 10, NULL),
-(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684308653, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684375982, 10, NULL),
+(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684376773, 10, NULL),
 (3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1683795258, 10, NULL),
 (4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684308358, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL),
