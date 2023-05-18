@@ -62,7 +62,7 @@ $config = [
         'view' => [
             'theme' => [
                 'pathMap' => [
-                    '@app/views' => '@app/views/themes/adminlte'
+                    '@app/views' => '@app/themes/adminlte'
                 ]
             ]
         ],

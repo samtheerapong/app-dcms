@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+// use yii2mod\alert\Alert;
 
 /* @var $this \yii\web\View */
 /* @var $content string */

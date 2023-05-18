@@ -3,18 +3,16 @@
 namespace app\modules\operator\controllers;
 
 use Yii;
-use app\modules\operator\models\Reviewer;
-use app\modules\operator\models\Requester;
-use app\modules\operator\models\ReviewerSearch;
-use app\modules\operator\models\RequesterSearch;
+use app\modules\operator\models\DocumentLogs;
+use app\modules\operator\models\DocumentLogsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ReviewerController implements the CRUD actions for Reviewer model.
+ * DocumentLogsController implements the CRUD actions for DocumentLogs model.
  */
-class ReviewerController extends Controller
+class DocumentLogsController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -23,7 +21,7 @@ class ReviewerController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -32,12 +30,12 @@ class ReviewerController extends Controller
     }
 
     /**
-     * Lists all Reviewer models.
+     * Lists all DocumentLogs models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ReviewerSearch();
+        $searchModel = new DocumentLogsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -47,7 +45,7 @@ class ReviewerController extends Controller
     }
 
     /**
-     * Displays a single Reviewer model.
+     * Displays a single DocumentLogs model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -60,18 +58,15 @@ class ReviewerController extends Controller
     }
 
     /**
-     * Creates a new Reviewer model.
+     * Creates a new DocumentLogs model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Reviewer();
+        $model = new DocumentLogs();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->save();
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -81,7 +76,7 @@ class ReviewerController extends Controller
     }
 
     /**
-     * Updates an existing Reviewer model.
+     * Updates an existing DocumentLogs model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,50 +85,18 @@ class ReviewerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $modelRequester = $this->findModelRequester($model->requester_id);
 
-
-        if (
-            $model->load(Yii::$app->request->post()) &&
-            $modelRequester->load(Yii::$app->request->post())
-        ) {
-
-
-            if ($model->reviewer_name == null) {
-                $modelRequester->status_id = 2;
-            } else if ($model->approver_name == null) {
-                $modelRequester->status_id = 3;
-            } else {
-                $modelRequester->status_id = 4;
-            }
-
-            if ($modelRequester->save()) {
-                $model->save();
-            }
-            $model->save();
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-            
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
-            'modelRequester' => $modelRequester,
         ]);
     }
 
-    protected function findModelRequester($id)
-    {
-        if (($model = Requester::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
     /**
-     * Deletes an existing Reviewer model.
+     * Deletes an existing DocumentLogs model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -147,15 +110,15 @@ class ReviewerController extends Controller
     }
 
     /**
-     * Finds the Reviewer model based on its primary key value.
+     * Finds the DocumentLogs model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Reviewer the loaded model
+     * @return DocumentLogs the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Reviewer::findOne($id)) !== null) {
+        if (($model = DocumentLogs::findOne($id)) !== null) {
             return $model;
         }
 

@@ -9,7 +9,7 @@ use app\modules\operator\models\User;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
 
-$this->title = $model->document_title;
+$this->title = $model->document_number;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Requesters'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box-body">
                 <?= DetailView::widget([
                     'model' => $model,
+                    'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
                     'attributes' => [
                         // 'id',
                         // 'ref',

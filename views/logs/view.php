@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\operator\models\User */
+/* @var $model app\models\Logs */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Logs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="user-view">
+<div class="logs-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -28,23 +28,28 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
-        'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
         'attributes' => [
             'id',
-            'username',
-            'email:email',
-            'password_hash',
-            'auth_key',
-            'confirmed_at',
-            'unconfirmed_email:email',
-            'blocked_at',
-            'registration_ip',
-            'created_at',
-            'updated_at',
-            'flags',
-            'last_login_at',
-            'status',
-            'role',
+            'document_number',
+            'document_revision',
+            'document_title',
+            'requester_by',
+            'requester_at',
+            'details:ntext',
+            'covenant:ntext',
+            'docs:ntext',
+            'document_age',
+            'document_public_at',
+            'stamps_id',
+            'document_tags',
+            'points_id',
+            'additional_training:ntext',
+            'reviewer_by',
+            'reviewer_at',
+            'reviewer_comment:ntext',
+            'approve_by',
+            'approve_at',
+            'approver_comment:ntext',
         ],
     ]) ?>
 

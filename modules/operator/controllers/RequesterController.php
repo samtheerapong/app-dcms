@@ -2,6 +2,7 @@
 
 namespace app\modules\operator\controllers;
 
+use app\modules\operator\models\DocumentLogs;
 use Yii;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
@@ -16,6 +17,9 @@ use yii\web\UploadedFile;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+
+use dominus77\sweetalert2\Alert;
+
 
 /**
  * RequesterController implements the CRUD actions for Requester model.
@@ -74,6 +78,7 @@ class RequesterController extends Controller
     {
         $model = new Requester();
         $modelReviewer = new Reviewer();
+        $modelDocumentLogs = new DocumentLogs();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -89,14 +94,25 @@ class RequesterController extends Controller
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
+                $modelDocumentLogs->requester_id = $model->id;
                 $modelReviewer->save();
+                $modelDocumentLogs->save();
             }
+
+            // Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
+            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
+                'title' => 'The Internet?',
+                'text' => 'That thing is still around?',
+            ]);
+
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'modelReviewer' => $modelReviewer,
+            'modelDocumentLogs' => $modelDocumentLogs,
         ]);
     }
 
@@ -120,9 +136,20 @@ class RequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
 
+            // Get format nimber Ex. FM-GR-001
+            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            $model->document_number = AutoNumber::generate($fullname . '-???');
+
             $model->save();
+
+            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
+                'title' => 'The Internet?',
+                'text' => 'That thing is still around?',
+            ]);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
+
 
         return $this->render('update', [
             'model' => $model,
@@ -161,7 +188,7 @@ class RequesterController extends Controller
             return $model;
         }
 
-         if (($model = Requester::findOne($id)) !== null) {
+        if (($model = Requester::findOne($id)) !== null) {
             return $model;
         }
 

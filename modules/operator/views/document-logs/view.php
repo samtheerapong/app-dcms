@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\operator\models\User */
+/* @var $model app\modules\operator\models\DocumentLogs */
 
 $this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Document Logs'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="user-view">
+<div class="document-logs-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -31,20 +31,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
         'attributes' => [
             'id',
-            'username',
-            'email:email',
-            'password_hash',
-            'auth_key',
-            'confirmed_at',
-            'unconfirmed_email:email',
-            'blocked_at',
-            'registration_ip',
+            'requester_id',
+            'reviewer_id',
             'created_at',
             'updated_at',
-            'flags',
-            'last_login_at',
-            'status',
-            'role',
+            'document_name',
+            'document_revision',
+            'document_fullname',
         ],
     ]) ?>
 

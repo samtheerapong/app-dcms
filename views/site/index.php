@@ -88,7 +88,7 @@ $this->title = 'Documents Control';
                                         ],
                                     ],
                                     'xAxis' => [
-                                        'categories' => ['กลุ่มข้อมูล']
+                                        'categories' => ['ระดับเอกสาร']
                                     ],
                                     'yAxis' => [
                                         'title' => [

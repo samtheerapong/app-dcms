@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0e1813cd74828da7a80d2c645f3511f3",
+    "content-hash": "a175ef71d78748d5e8f9f7795d0f9a83",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -140,7 +140,7 @@
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -674,6 +674,66 @@
                 }
             ],
             "time": "2022-12-14T08:49:07+00:00"
+        },
+        {
+            "name": "dominus77/yii2-sweetalert2-widget",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Dominus77/yii2-sweetalert2-widget.git",
+                "reference": "36f24b0724f17a3769f6cd95944e6f31c1988eb6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Dominus77/yii2-sweetalert2-widget/zipball/36f24b0724f17a3769f6cd95944e6f31c1988eb6",
+                "reference": "36f24b0724f17a3769f6cd95944e6f31c1988eb6",
+                "shasum": ""
+            },
+            "require": {
+                "npm-asset/animate.css": "^4.1",
+                "npm-asset/sweetalert2": "^11.4",
+                "npm-asset/sweetalert2--themes": "^5.0",
+                "yiisoft/yii2": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.5",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "dominus77\\sweetalert2\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexey Schevchenko",
+                    "email": "ivanovosity@gmail.com"
+                }
+            ],
+            "description": "Renders a SweetAlert2 widget for Yii2.",
+            "keywords": [
+                "Dominus77",
+                "extension",
+                "sweetalert2",
+                "widget",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/Dominus77/yii2-sweetalert2-widget/issues",
+                "source": "https://github.com/Dominus77/yii2-sweetalert2-widget/tree/v2.0.0"
+            },
+            "funding": [
+                {
+                    "url": "https://www.patreon.com/dominus77",
+                    "type": "patreon"
+                }
+            ],
+            "time": "2022-07-09T11:55:53+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -2557,6 +2617,18 @@
             "time": "2023-01-23T19:41:04+00:00"
         },
         {
+            "name": "npm-asset/animate.css",
+            "version": "4.1.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/animate.css/-/animate.css-4.1.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/highcharts",
             "version": "10.3.3",
             "dist": {
@@ -2566,6 +2638,30 @@
             "type": "npm-asset",
             "license": [
                 "https://www.highcharts.com/license"
+            ]
+        },
+        {
+            "name": "npm-asset/sweetalert2",
+            "version": "11.7.3",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/sweetalert2/-/sweetalert2-11.7.3.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/sweetalert2--themes",
+            "version": "5.0.11",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@sweetalert2/themes/-/themes-5.0.11.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
             ]
         },
         {
@@ -4451,16 +4547,16 @@
         },
         {
             "name": "fakerphp/faker",
-            "version": "v1.21.0",
+            "version": "v1.22.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FakerPHP/Faker.git",
-                "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d"
+                "reference": "f85772abd508bd04e20bb4b1bbe260a68d0066d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/92efad6a967f0b79c499705c69b662f738cc9e4d",
-                "reference": "92efad6a967f0b79c499705c69b662f738cc9e4d",
+                "url": "https://api.github.com/repos/FakerPHP/Faker/zipball/f85772abd508bd04e20bb4b1bbe260a68d0066d2",
+                "reference": "f85772abd508bd04e20bb4b1bbe260a68d0066d2",
                 "shasum": ""
             },
             "require": {
@@ -4513,9 +4609,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FakerPHP/Faker/issues",
-                "source": "https://github.com/FakerPHP/Faker/tree/v1.21.0"
+                "source": "https://github.com/FakerPHP/Faker/tree/v1.22.0"
             },
-            "time": "2022-12-13T13:54:32+00:00"
+            "time": "2023-05-14T12:31:37+00:00"
         },
         {
             "name": "guzzlehttp/psr7",
