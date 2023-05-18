@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:8%;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete} </div>',
                             'buttons' => [
@@ -129,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:8%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'filter' => Select2::widget([
@@ -160,7 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:25%;'],
+                            'options' => ['style' => 'width:20%;'],
                             'value' => function ($model) {
                                 $text = $model->requester->document_title ?? '';
                                 if (mb_strlen($text) > 30) {
@@ -211,7 +211,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'reviewer_at:date',
                         [
                             'attribute' => 'reviewer_at',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:8%;'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->reviewer_at !== null) {
@@ -234,7 +234,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'document_public_at',
                         [
                             'attribute' => 'document_public_at',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:8%;'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->document_public_at !== null) {
@@ -256,7 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'stamps_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:8%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 return $model->stamps && $model->stamps->stamp_name ? 
@@ -271,7 +271,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'points_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:10%;'],
+                            'options' => ['style' => 'width:15%;'],
                             'value' => function ($model) {
                                 $value = $model->points ? $model->points->point_name :  '';
                                 if (mb_strlen($value) > 20) {
