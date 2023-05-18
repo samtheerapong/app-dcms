@@ -45,53 +45,102 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
                     'attributes' => [
-                        // 'id',
-                        // 'ref',
-                        // 'fullname',
-                        'document_number',
+
+                        [
+                            'attribute' => 'document_number',
+                            'format' => 'html',
+                            // 'value' => $model->document_number,
+                            'value' => function ($model) {
+                                return '<span style="color:'
+                                    . $model->status->color
+                                    . ';"><b>' . $model->document_number . '</b></span>';
+                            },
+                        ],
+                        [
+                            'attribute' => 'status.status_name',
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return '<span class="badge" style="background-color:'
+                                    . $model->status->color
+                                    . ';"><b>'
+                                    . $model->status->status_details
+                                    . '</b></span>';
+                            },
+                        ],
                         [
                             'attribute' => 'types_id',
-                            'value' => $model->types->type_name,
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return '<span class="badge" style="background-color:'
+                                    . $model->types->color
+                                    . ';"><b>'
+                                    . $model->types->type_details
+                                    . '</b></span>';
+                            },
                         ],
-                        [
-                            'attribute' => 'status_id',
-                            'value' => $model->status->status_name,
-                        ],
+
                         [
                             'attribute' => 'request_by',
+                            'format' => 'html',
                             'value' => $model->requestBy->profile->name,
+
                         ],
+
                         [
                             'attribute' => 'categories_id',
+                            'format' => 'html',
                             'value' => function ($model) {
-                                return $model->categories->category_code . ' - ' . $model->categories->category_details;
+                                return '<span class="badge" style="background-color:'
+                                    . $model->categories->color . ';"><b>'
+                                    . $model->categories->category_code
+                                    . ' </b></span> - '
+                                    . $model->categories->category_details;
                             },
-
                         ],
                         [
                             'attribute' => 'departments_id',
+                            'format' => 'html',
                             'value' => function ($model) {
-                                return $model->departments->department_code . ' - ' . $model->departments->department_details;
+                                return '<span class="badge" style="background-color:'
+                                    . $model->departments->color . ';"><b>'
+                                    . $model->departments->department_code
+                                    . '</b></span> - '
+                                    . $model->departments->department_details;
                             },
+
                         ],
-                        // 'reviewers.document_number',
                         'document_title',
                         'details:ntext',
-                        // 'pdf_file:ntext',
-
-                        'created_at:date',
-                        'updated_at:date',
+                        // 'created_at:date',
+                        [
+                            'attribute' => 'created_at',
+                            'format' => 'date',
+                            'value' => function ($model) {
+                                return $model->created_at;
+                            },
+                        ],
                         [
                             'attribute' => 'created_by',
+                            'format' => 'html',
                             'value' => $model->createdBy->profile->name,
 
                         ],
+                        'updated_at:date',
                         [
                             'attribute' => 'updated_by',
+                            'format' => 'html',
                             'value' => $model->updatedBy->profile->name,
                         ],
-                        ['attribute' => 'covenant', 'value' => $model->listDownloadFiles('covenant'), 'format' => 'html'],
-                        ['attribute' => 'docs', 'value' => $model->listDownloadFiles('docs'), 'format' => 'html'],
+                        [
+                            'attribute' => 'covenant',
+                            'format' => 'html',
+                            'value' => $model->listDownloadFiles('covenant')
+                        ],
+                        [
+                            'attribute' => 'docs',
+                            'format' => 'html',
+                            'value' => $model->listDownloadFiles('docs')
+                        ],
                     ],
                 ]) ?>
 

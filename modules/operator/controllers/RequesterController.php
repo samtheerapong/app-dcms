@@ -18,8 +18,6 @@ use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 
-use dominus77\sweetalert2\Alert;
-
 
 /**
  * RequesterController implements the CRUD actions for Requester model.
@@ -99,12 +97,7 @@ class RequesterController extends Controller
                 $modelDocumentLogs->save();
             }
 
-            // Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
-                'title' => 'The Internet?',
-                'text' => 'That thing is still around?',
-            ]);
-
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -142,10 +135,7 @@ class RequesterController extends Controller
 
             $model->save();
 
-            Yii::$app->session->setFlash(Alert::TYPE_QUESTION, [
-                'title' => 'The Internet?',
-                'text' => 'That thing is still around?',
-            ]);
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
