@@ -65,7 +65,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:50px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete} </div>',
                             'buttons' => [
@@ -106,22 +106,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'requester.status_id',
-                            'options' => ['style' => 'width:150px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->requester->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList(
-                            //     $searchModel,
-                            //     'status_id',
-                            //     ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                            //     [
-                            //         'class' => 'form-control', // Add Bootstrap form-control class
-                            //         'prompt' => Yii::t('app', 'Select...')
-                            //     ]
-                            // ),
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'status_id',
@@ -138,7 +129,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
-                            'options' => ['style' => 'width:150px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'filter' => Select2::widget([
@@ -158,7 +149,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'document_revision',
                             'label' => 'Revision',
                             'format' => 'html',
-                            'options' => ['style' => 'width:100px;'],
+                            'options' => ['style' => 'width:5%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
@@ -169,6 +160,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
+                            'options' => ['style' => 'width:25%;'],
                             'value' => function ($model) {
                                 $text = $model->requester->document_title ?? '';
                                 if (mb_strlen($text) > 30) {
@@ -199,7 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'reviewer_name',
                             'format' => 'html',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'value' => function ($model) {
                                 return $model->reviewer_name ? $model->reviewerName->profile->name : '';
                             },
@@ -219,7 +211,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'reviewer_at:date',
                         [
                             'attribute' => 'reviewer_at',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->reviewer_at !== null) {
@@ -242,7 +234,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'document_public_at',
                         [
                             'attribute' => 'document_public_at',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->document_public_at !== null) {
@@ -264,7 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'stamps_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:150px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 return $model->stamps && $model->stamps->stamp_name ? 
@@ -279,7 +271,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'points_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'value' => function ($model) {
                                 $value = $model->points ? $model->points->point_name :  '';
                                 if (mb_strlen($value) > 20) {
