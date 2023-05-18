@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
                             'buttons' => [
@@ -106,7 +106,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'status_id',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -126,7 +126,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'document_number',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -136,11 +136,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
+                            'options' => ['style' => 'width:20%'],
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ 50 แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
-                                if (mb_strlen($text) > 40) {
-                                    $text = mb_substr($text, 0, 40) . '...';
+                                if (mb_strlen($text) > 30) {
+                                    $text = mb_substr($text, 0, 30) . '...';
                                 }
                                 return $text;
                             },
@@ -152,7 +153,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'created_at',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'date',
                             'filter' => DatePicker::widget([
@@ -169,7 +170,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'request_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%'],
                             'value' => 'requestBy.profile.name',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -188,7 +189,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'categories_id',
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:100px;'],
+                            'options' => ['style' => 'width:10%'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
@@ -198,7 +199,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'departments_id',
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:100px;'],
+                            'options' => ['style' => 'width:10%'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
@@ -207,7 +208,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'document_title:ntext',
                         [
                             'attribute' => 'types_id',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
