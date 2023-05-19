@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
+
 //
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
@@ -21,38 +22,15 @@ use app\modules\operator\models\User;
 $this->title = Yii::t('app', 'Requesters');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<style>
-    @keyframes blink {
-        0% {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .blink {
-        animation: blink 1s infinite;
-    }
-</style>
-
-
 <div class="requester-index">
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', 'Refresh'), [''], ['class' => 'btn btn-info', 'id' => 'refresh-btn']) ?>
         </p>
         <p style="text-align: right;">
-            <?= Html::a(Yii::t('app', 'Reviewer Page') . ' <i class="fa fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a(Yii::t('app', 'Reviewer Page') . ' <i class="fas fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
 
@@ -68,6 +46,15 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'export' => [
+                        'label' => 'Export',
+                        'target' => GridView::TARGET_BLANK,
+                        'exportConfig' => [
+                            GridView::CSV => ['filename' => 'data_export'],
+                            GridView::EXCEL => ['filename' => 'data_export'],
+                            GridView::PDF => ['filename' => 'data_export'],
+                        ],
+                    ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
@@ -133,6 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return  $model->document_number;
                             },
                         ],
+
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
@@ -147,10 +135,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                         ],
 
-
-
                         // 'created_at:date',
-
                         [
                             'attribute' => 'created_at',
                             'options' => ['style' => 'width:10%'],
@@ -195,6 +180,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
+
                         [
                             'attribute' => 'departments_id',
                             'format' => 'html',
@@ -205,6 +191,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
+
                         // 'document_title:ntext',
                         [
                             'attribute' => 'types_id',
@@ -217,13 +204,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                         ],
 
-
-
-
-
-                        // ['class' => 'yii\grid\ActionColumn'],
-
-
                     ],
                 ]); ?>
             </div>
@@ -231,3 +211,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+

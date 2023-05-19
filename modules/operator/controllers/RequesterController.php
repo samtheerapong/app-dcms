@@ -17,6 +17,7 @@ use yii\web\UploadedFile;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+//
 
 
 /**
@@ -24,6 +25,9 @@ use yii\helpers\ArrayHelper;
  */
 class RequesterController extends Controller
 {
+    
+
+
     /**
      * {@inheritdoc}
      */
@@ -77,6 +81,7 @@ class RequesterController extends Controller
         $model = new Requester();
         $modelReviewer = new Reviewer();
         $modelDocumentLogs = new DocumentLogs();
+        $model->status_id = 1;
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -129,15 +134,16 @@ class RequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
 
-            // Get format nimber Ex. FM-GR-001
-            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            $model->document_number = AutoNumber::generate($fullname . '-???');
+            // // Get format nimber Ex. FM-GR-001
+            // $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
+            // $model->document_number = AutoNumber::generate($fullname . '-???');
 
             $model->save();
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
-            return $this->redirect(['view', 'id' => $model->id]);
+            // return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
 

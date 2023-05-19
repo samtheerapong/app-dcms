@@ -108,7 +108,7 @@ use app\modules\operator\models\User;
                     </div>
                 </div>
 
-                <?= $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
+         
 
                 <div class="box-footer">
                     <div class="row">

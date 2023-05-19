@@ -70,7 +70,7 @@ class Requester extends \yii\db\ActiveRecord
     {
         return [
             [['created_at', 'updated_at'], 'string','max' => 45],
-            [['types_id', 'status_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
+            [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname'], 'string'],
             [['document_title', 'fullname', 'ref','document_number'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],

@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </p>
 
+
     <div class="actions-form">
         <div class="row">
             <div class="col-md-4">
@@ -31,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="box-body">
                         <?= DetailView::widget([
                             'model' => $model,
-                            'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
+                            'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                             'attributes' => [
 
                                 [
@@ -139,6 +140,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="box-body">
                         <?= DetailView::widget([
                             'model' => $model,
+                            'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                             'attributes' => [
                                 // [
                                 //     'attribute' => 'document_number',
@@ -196,7 +198,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
 
-                                                         
+
 
                                 [
                                     'attribute' => 'document_revision',
@@ -205,7 +207,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_revision ? $model->document_revision : Yii::t('app', '');
                                     },
                                 ],
-                                
+
 
                                 [
                                     'attribute' => 'document_age',
@@ -243,7 +245,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_ref ? $model->document_ref : Yii::t('app', '');
                                     },
                                 ],
-                                
+
                                 [
                                     'attribute' => 'points_id',
                                     'format' => 'html',
@@ -289,6 +291,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="box-body">
                         <?= DetailView::widget([
                             'model' => $model,
+                            'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                             'attributes' => [
                                 // 'approverName.profile.name',
                                 [

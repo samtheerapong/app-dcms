@@ -14,77 +14,79 @@ $this->title = 'รายงาน';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">สรุปแยกเป็นประเภทการร้องขอ</h3>
-    </div>
-    <div class="panel-body">
-        <?= Highcharts::widget([
-            'scripts' => [
-                'modules/exporting',
-                'themes/grid-light',
-            ],
-            'options' => [
-                'title' => [
-                    'text' => 'สรุปแยกเป็นประเภทการร้องขอ',
-                    'style' => [
-                        'fontFamily' => 'Chakra Petch',
-                    ],
-                ],
-                'xAxis' => [
-                    'categories' => ['กลุ่มข้อมูล']
-                ],
-                'yAxis' => [
-                    'title' => [
-                        'text' => 'จำนวนครั้ง',
-                        'style' => [
-                            'fontFamily' => 'Chakra Petch',
+<div class="report-report">
+
+    <div class="row">
+        <div class="col-md-7">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?= Yii::t('app', 'report type') ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?= Highcharts::widget([
+                        'scripts' => [
+                            'modules/exporting',
+                            'themes/grid-light',
                         ],
-                    ],
-                ],
-                'series' => $graph,
-            ]
-        ]);
-        ?>
+                        'options' => [
+                            'title' => [
+                                'text' => Yii::t('app', 'report type'),
+                                'style' => [
+                                    'fontFamily' => 'Chakra Petch',
+                                ],
+                            ],
+                            'xAxis' => [
+                                'categories' => [Yii::t('app', 'group data')]
+                            ],
+                            'yAxis' => [
+                                'title' => [
+                                    'text' => Yii::t('app', 'Times'),
+                                    'style' => [
+                                        'fontFamily' => 'Chakra Petch',
+                                    ],
+                                ],
+                            ],
+                            'series' => $graph,
+                        ]
+                    ]);
+                    ?>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-5">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><?= Yii::t('app', 'report type') ?></h3>
+                </div>
+                <div class="panel-body">
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        //'filterModel' => $searchModel,
+                        'summary' => '',
+                        'options' => [
+                            'class' => 'table-responsive',
+                        ],
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            //'mid',
+                            [
+                                'attribute' => 'type_details',
+                                'label' => Yii::t('app', 'type_details'),
+                                'headerOptions' => ['style' => 'width: 90%;'],
+                            ],
+
+                            [
+                                'attribute' => 'mid',
+                                'label' => Yii::t('app', 'Times'),
+                                'headerOptions' => ['style' => 'width: 10%;'],
+                            ],
+                      
+                        ],
+                    ]) ?>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-
-
-<div class="panel panel-info">
-    <div class="panel-heading">
-        <h3 class="panel-title">ตารางสรุปแยกประเภทการร้องขอ</h3>
-    </div>
-    <div class="panel-body">
-        <?= GridView::widget([
-            'dataProvider' => $dataProvider,
-            //'filterModel' => $searchModel,
-            'summary' => '',
-            'options' => [
-                'class' => 'table-responsive',
-            ],
-            'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-                //'mid',
-                [
-                    'attribute' => 'type_details',
-                    'label' => 'ประเภทการร้องขอ',
-                ],
-
-                [
-                    'attribute' => 'mid',
-                    'label' => 'จำนวนครั้ง',
-                ],
-                //    [
-                //       'class' => 'kartik\grid\ActionColumn',
-                //       'options' => ['style' => 'width:120px;'],
-                //       'buttonOptions' => ['class' => 'btn btn-default'],
-                //       'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
-                //   ],
-            ],
-        ]) ?>
-    </div>
-</div>
-
-
-

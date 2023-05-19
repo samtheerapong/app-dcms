@@ -4,8 +4,6 @@ use app\modules\operator\models\Profile;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-use app\modules\operator\models\User;
-
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
 
@@ -15,12 +13,11 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="requester-view">
-
-    <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
+     <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
         <p>
-            <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-            <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
                 'data' => [
                     'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
@@ -30,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     <?php } else { ?>
         <p>
-            <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
     <?php } ?>
 

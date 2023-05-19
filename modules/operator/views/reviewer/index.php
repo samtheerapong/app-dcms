@@ -21,38 +21,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<style>
-    @keyframes blink {
-        0% {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .blink {
-        animation: blink 1s infinite;
-    }
-</style>
 
 
 <div class="reviewer-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p style="text-align: left;">
-        <?= Html::a('<i class="fa fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-warning']) ?>
+        <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', 'Refresh'), [''], ['class' => 'btn btn-info']) ?>
     </p>
 
 
     <div class="actions-form">
-        <div class="box box-primary box-solid">
+        <div class="box box-success box-solid">
             <div class="box-header">
                 <div class="box-title"><?= $this->title ?></div>
             </div>

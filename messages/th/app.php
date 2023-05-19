@@ -29,6 +29,11 @@ return [
     'Name' => 'ชื่อ',
     'Public Email' => 'อีเมล',
     'Successfully' => 'สำเร็จ',
+    'Refresh' => 'ฟื้นฟู',
+    'Times' => 'จำนวน',
+    'report category' => 'รายงาน (ระดับเอกสาร)',
+    'report type' => 'รายงาน (ประเภทการร้องขอ)',
+    'report status' => 'รายงาน (สถานะ)',
     // Requester
     'Reviewer' => 'ทบทวน',
     'requester_id' => 'เอกสารที่ร้องขอ',
@@ -60,6 +65,12 @@ return [
     'No Data' => 'ไม่มีข้อมูล',
     'No Reviewer' => 'ยังไม่ได้รับการทบทวนเอกสาร',
     'No Approver' => 'ยังไม่ได้รับการอนุมัติเอกสาร',
+    'category_details' => 'ระดับเอกสาร',
+    //
+    'type_details' => 'ประเภทการร้องขอ',
+    'status_details' => 'สถานะ',
+    'group data' => 'กลุ่มข้อมูล',
+
 
     
     

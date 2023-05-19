@@ -59,6 +59,13 @@ $config = [
         ]
     ],
     'components' => [
+        'pdf' => [
+            'class' => 'kartik\mpdf\Pdf',
+            'format' => 'A4',
+            'orientation' => 'P',
+            'destination' => 'browser',
+            // สามารถอ้างอิงถึงเอกสารคู่มือ MPDF เพื่อดูตัวเลือกและการกำหนดค่าเพิ่มเติมได้
+        ],
         'view' => [
             'theme' => [
                 'pathMap' => [
