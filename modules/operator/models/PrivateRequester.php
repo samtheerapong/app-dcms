@@ -73,7 +73,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['types_id', 'categories_id', 'departments_id', 'document_title', 'covenant'], 'required'],
+            [['types_id', 'categories_id', 'departments_id', 'document_title'], 'required'],
             [['created_at', 'updated_at'], 'string', 'max' => 45],
             [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname'], 'string'],
@@ -83,7 +83,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
-            [['covenant'], 'file', 'maxFiles' => 1],
+            [['covenant'], 'file', 'maxFiles' => 1,'skipOnEmpty' => true],
             [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true],
         ];
     }
