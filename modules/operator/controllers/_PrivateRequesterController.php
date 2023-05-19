@@ -15,7 +15,6 @@ use yii\web\UploadedFile;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
-use mdm\autonumber\AutoNumber;
 
 /**
  * PrivateRequesterController implements the CRUD actions for PrivateRequester model.
@@ -74,9 +73,9 @@ class PrivateRequesterController extends Controller
     {
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
-        $model->status_id = 1;
 
-        if ($model->load(Yii::$app->request->post() )) {
+
+        if ($model->load(Yii::$app->request->post())) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);
@@ -84,17 +83,11 @@ class PrivateRequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
 
-            // Get format nimber Ex. FM-GR-001
-            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            $model->document_number = AutoNumber::generate($fullname . '-???');
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
                 $modelReviewer->save();
             }
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -114,7 +107,6 @@ class PrivateRequesterController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         $tempCovenant = $model->covenant;
         $tempDocs     = $model->docs;
 
@@ -124,18 +116,9 @@ class PrivateRequesterController extends Controller
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
 
-            // // Get format nimber Ex. FM-GR-001
-            // $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            // $model->document_number = AutoNumber::generate($fullname . '-???');
-
             $model->save();
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-
-            // return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+            return $this->redirect(['view', 'id' => $model->id]);
         }
-
 
         return $this->render('update', [
             'model' => $model,

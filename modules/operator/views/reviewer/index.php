@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
+use app\modules\operator\models\Reviewer;
 use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\Stamps;
@@ -135,6 +136,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
                                 return $model->document_revision ? $model->document_revision : '';
                             },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_revision',
+                                'data' => ArrayHelper::map(Reviewer::find()->all(), 'document_revision', 'document_revision'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         [
@@ -243,7 +255,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>' : 
                                 '';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'stamps_id',
+                                'data' => ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
                         //'document_ref',
                         //'document_tags',

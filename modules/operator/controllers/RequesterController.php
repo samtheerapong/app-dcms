@@ -25,7 +25,7 @@ use yii\helpers\ArrayHelper;
  */
 class RequesterController extends Controller
 {
-    
+
 
 
     /**
@@ -83,7 +83,7 @@ class RequesterController extends Controller
         $modelDocumentLogs = new DocumentLogs();
         $model->status_id = 1;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post() )) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);

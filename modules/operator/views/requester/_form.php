@@ -32,13 +32,11 @@ use app\modules\operator\models\User;
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
                     <div class="col-md-3">
-                        <?= $form->field($model, 'types_id')->dropDownlist(ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
-                    </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'request_by')->widget(Select2::class, [
+                        <?= $form->field($model, 'types_id')->widget(Select2::class, [
                             'language' => 'th',
-                            'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
-                            'options' => ['placeholder' => 'เลือก ...'],
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
@@ -46,10 +44,40 @@ use app\modules\operator\models\User;
                         ?>
                     </div>
                     <div class="col-md-3">
-                        <?= $form->field($model, 'categories_id')->dropDownlist(ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+                        <?= $form->field($model, 'request_by')->widget(Select2::class, [
+                            'language' => 'th',
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]);
+                        ?>
                     </div>
                     <div class="col-md-3">
-                        <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['department_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
+                        <?= $form->field($model, 'categories_id')->widget(Select2::class, [
+                            'language' => 'th',
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]);
+                        ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?= $form->field($model, 'departments_id')->widget(Select2::class, [
+                            'language' => 'th',
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_details'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]);
+                        ?>
                     </div>
                 </div>
 
@@ -108,7 +136,7 @@ use app\modules\operator\models\User;
                     </div>
                 </div>
 
-         
+
 
                 <div class="box-footer">
                     <div class="row">

@@ -69,6 +69,7 @@ class Requester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['types_id','request_by','categories_id','departments_id','document_title','covenant'], 'required'],
             [['created_at', 'updated_at'], 'string','max' => 45],
             [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname'], 'string'],

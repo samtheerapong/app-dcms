@@ -45,15 +45,16 @@ class PrivateRequester extends \yii\db\ActiveRecord
         return [
             [
                 'class' => TimestampBehavior::class,
-                'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_at',
-                ],
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                },
             ],
             [
                 'class' => BlameableBehavior::class,
-                'createdByAttribute' => 'created_by',
-                'updatedByAttribute' => 'updated_by',
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['created_by', 'request_by', 'updated_by'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => 'updated_by',
+                ],
             ],
         ];
     }
@@ -72,16 +73,18 @@ class PrivateRequester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['types_id', 'status_id', 'created_at', 'updated_at', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['details', 'fullname', ], 'string'],
-            [['document_title', 'fullname','ref'], 'string', 'max' => 255],
+            [['types_id', 'categories_id', 'departments_id', 'document_title', 'covenant'], 'required'],
+            [['created_at', 'updated_at'], 'string', 'max' => 45],
+            [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
+            [['details', 'fullname'], 'string'],
+            [['document_title', 'fullname', 'ref', 'document_number'], 'string', 'max' => 255],
             [['categories_id'], 'exist', 'skipOnError' => true, 'targetClass' => Categories::class, 'targetAttribute' => ['categories_id' => 'id']],
             [['departments_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::class, 'targetAttribute' => ['departments_id' => 'id']],
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
             [['covenant'], 'file', 'maxFiles' => 1],
-            [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true]
+            [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true],
         ];
     }
 
@@ -101,6 +104,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
             'request_by' => Yii::t('app', 'จัดทำโดย'),
             'categories_id' => Yii::t('app', 'ระดับเอกสาร'),
             'departments_id' => Yii::t('app', 'แผนกที่รับผิดชอบ'),
+            'document_number' => Yii::t('app', 'เลขที่เอกสาร'),
             'document_title' => Yii::t('app', 'เรื่อง'),
             'details' => Yii::t('app', 'รายละเอียดเอกสาร'),
             'ref' => Yii::t('app', 'อ้างอิง'),
@@ -176,7 +180,13 @@ class PrivateRequester extends \yii\db\ActiveRecord
             if (is_array($files)) {
                 $docs_file = '<ul>';
                 foreach ($files as $key => $value) {
-                    $docs_file .= '<li>' . Html::a($value, ['/operator/requester/download', 'id' => $this->id, 'file' => $key, 'fullname' => $value]) . '</li>';
+                    if (strpos($value, '.jpg') !== false || strpos($value, '.jpeg') !== false || strpos($value, '.png') !== false || strpos($value, '.gif') !== false) {
+                        $thumbnail = Html::img(['/operator/requester/download', 'id' => $this->id, 'file' => $key, 'fullname' => $value], ['class' => 'img-thumbnail', 'alt' => 'Image', 'style' => 'width: 150px']);
+                        $fullSize = Html::a($thumbnail, ['/operator/requester/download', 'id' => $this->id, 'file' => $key, 'fullname' => $value], ['target' => '_blank']);
+                        $docs_file .= '<li>' . $fullSize . '</li>';
+                    } else {
+                        $docs_file .= '<li>' . Html::a($value, ['/operator/requester/download', 'id' => $this->id, 'file' => $key, 'fullname' => $value]) . '</li>';
+                    }
                 }
                 $docs_file .= '</ul>';
             }
@@ -184,6 +194,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
 
         return $docs_file;
     }
+
 
     /**************** initialPreview ********************/
     public function initialPreview($data, $field, $type = 'file')

@@ -20,7 +20,7 @@ use app\modules\operator\models\User;
 
 <div class="requester-form">
 
-<p><?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
+    <p><?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
 
     <div class="actions-form">
         <div class="box box-info box-solid">
@@ -31,13 +31,11 @@ use app\modules\operator\models\User;
 
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'types_id')->dropDownlist(ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
-                    </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'request_by')->widget(Select2::class, [
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'types_id')->widget(Select2::class, [
                             'language' => 'th',
-                            'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
                             'options' => ['placeholder' => 'เลือก ...'],
                             'pluginOptions' => [
                                 'allowClear' => true
@@ -45,11 +43,30 @@ use app\modules\operator\models\User;
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'categories_id')->dropDownlist(ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'), ['prompt' => 'กรุณาเลือก ...',]) ?>
+
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'categories_id')->widget(Select2::class, [
+                            'language' => 'th',
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'),
+                            'options' => ['placeholder' => 'เลือก ...'],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]);
+                        ?>
                     </div>
-                    <div class="col-md-3">
-                        <?= $form->field($model, 'departments_id')->dropDownlist(ArrayHelper::map(Departments::find()->all(), 'id', ['department_details']), ['prompt' => 'กรุณาเลือก ...',]) ?>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'departments_id')->widget(Select2::class, [
+                            'language' => 'th',
+                            'theme' => Select2::THEME_DEFAULT,
+                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                            'options' => ['placeholder' => 'เลือก ...'],
+                            'pluginOptions' => [
+                                'allowClear' => true
+                            ],
+                        ]);
+                        ?>
                     </div>
                 </div>
 
@@ -68,20 +85,17 @@ use app\modules\operator\models\User;
                 <div class="row">
                     <div class="col-md-6">
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
-                            //'options' => ['accept' => 'image/*'],
+                            'options' => ['accept' => 'application/pdf'],
                             'pluginOptions' => [
                                 'initialPreview' => $model->initialPreview($model->covenant, 'covenant', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->covenant, 'covenant', 'config'),
                                 'allowedFileExtensions' => ['pdf'],
+                                'maxFileSize' => 10240, // Size in KB (10MB = 10 * 1024 KB)
                                 'showPreview' => true,
                                 'showCaption' => true,
                                 'showRemove' => true,
                                 'showUpload' => false
                             ],
-                            // 'options' => [
-                            //     'required' => true,
-                            // ]
-
                         ]); ?>
 
                     </div>
@@ -96,6 +110,7 @@ use app\modules\operator\models\User;
                                 'initialPreview' => $model->initialPreview($model->docs, 'docs', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->docs, 'docs', 'config'),
                                 'allowedFileExtensions' => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'odt', 'png'],
+                                'maxFileSize' => 10240, // Size in KB (10MB = 10 * 1024 KB)
                                 'showPreview' => true,
                                 'showCaption' => true,
                                 'showRemove' => true,
@@ -109,7 +124,8 @@ use app\modules\operator\models\User;
                 </div>
 
                 <?php echo $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
-                <?php //echo $form->field($model, 'status_id')->textInput(['value' => 1]); ?>
+                <?php //echo $form->field($model, 'status_id')->textInput(['value' => 1]); 
+                ?>
 
                 <div class="box-footer">
                     <div class="row">

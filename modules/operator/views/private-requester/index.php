@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 // use yii\grid\GridView;
 use kartik\grid\GridView;
+
 //
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
@@ -12,6 +13,7 @@ use app\modules\operator\models\Types;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
+use app\modules\operator\models\Requester;
 use app\modules\operator\models\User;
 
 /* @var $this yii\web\View */
@@ -21,38 +23,15 @@ use app\modules\operator\models\User;
 $this->title = Yii::t('app', 'Requesters');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
-<style>
-    @keyframes blink {
-        0% {
-            opacity: 1;
-        }
-
-        50% {
-            opacity: 0;
-        }
-
-        100% {
-            opacity: 1;
-        }
-    }
-
-    .blink {
-        animation: blink 1s infinite;
-    }
-</style>
-
-
 <div class="requester-index">
-
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
 
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', 'Refresh'), [''], ['class' => 'btn btn-info', 'id' => 'refresh-btn']) ?>
         </p>
         <p style="text-align: right;">
-            <?= Html::a( Yii::t('app', 'Reviewer Page') . ' <i class="fa fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
+            <?= Html::a(Yii::t('app', 'Reviewer Page') . ' <i class="fas fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
 
@@ -68,11 +47,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'export' => [
+                        'label' => 'Export',
+                        'target' => GridView::TARGET_BLANK,
+                        'exportConfig' => [
+                            GridView::CSV => ['filename' => 'data_export'],
+                            GridView::EXCEL => ['filename' => 'data_export'],
+                            GridView::PDF => ['filename' => 'data_export'],
+                        ],
+                    ],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
                             'buttons' => [
@@ -106,52 +94,83 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'status_id',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 $blinkClass = $model->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList(
-                                $searchModel,
-                                'status_id',
-                                ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                [
-                                    'class' => 'form-control', // Add Bootstrap form-control class
-                                    'prompt' => Yii::t('app', 'Select...')
-                                ]
-                            ),
+                            // 'filter' => Html::activeDropDownList( $searchModel,'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')]),
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'status_id',
+                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         [
                             'attribute' => 'document_number',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 return  $model->document_number;
                             },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_number',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
+
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
+                            'options' => ['style' => 'width:20%'],
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ 50 แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
-                                if (mb_strlen($text) > 40) {
-                                    $text = mb_substr($text, 0, 40) . '...';
+                                if (mb_strlen($text) > 30) {
+                                    $text = mb_substr($text, 0, 30) . '...';
                                 }
                                 return $text;
                             },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_title',
+                                'data' =>  array_map(function ($value) {
+                                    if (mb_strlen($value) > 20) {
+                                        $value = mb_substr($value, 0, 20) . '...';
+                                    }
+                                    return $value;
+                                }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
+                                'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
-
-
                         // 'created_at:date',
-
                         [
                             'attribute' => 'created_at',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'date',
                             'filter' => DatePicker::widget([
                                 'model' => $searchModel,
@@ -167,15 +186,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'request_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:200px;'],
+                            'options' => ['style' => 'width:10%'],
                             'value' => 'requestBy.profile.name',
-                            
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'request_by',
                                 'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
                                 'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => 'เลือก ...','disabled' => true,],
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
                                     'allowClear' => true
@@ -186,38 +204,69 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'categories_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:100px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'options' => ['style' => 'width:10%'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'categories_id',
+                                'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
+
                         [
                             'attribute' => 'departments_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:100px;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'options' => ['style' => 'width:10%'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'departments_id',
+                                'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
+
                         // 'document_title:ntext',
                         [
                             'attribute' => 'types_id',
-                            'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:10%'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'types_id',
+                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
-
-
-
-
-
-                        // ['class' => 'yii\grid\ActionColumn'],
-
 
                     ],
                 ]); ?>
@@ -226,3 +275,4 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
 </div>
+

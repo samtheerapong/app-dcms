@@ -13,6 +13,7 @@ use app\modules\operator\models\Types;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
+use app\modules\operator\models\Requester;
 use app\modules\operator\models\User;
 
 /* @var $this yii\web\View */
@@ -100,15 +101,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $blinkClass = $model->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList(
-                                $searchModel,
-                                'status_id',
-                                ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                [
-                                    'class' => 'form-control', // Add Bootstrap form-control class
-                                    'prompt' => Yii::t('app', 'Select...')
-                                ]
-                            ),
+                            // 'filter' => Html::activeDropDownList( $searchModel,'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')]),
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'status_id',
+                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         [
@@ -119,6 +123,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return  $model->document_number;
                             },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_number',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         [
@@ -133,6 +148,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                                 return $text;
                             },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_title',
+                                'data' =>  array_map(function ($value) {
+                                    if (mb_strlen($value) > 20) {
+                                        $value = mb_substr($value, 0, 20) . '...';
+                                    }
+                                    return $value;
+                                }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
+                                'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         // 'created_at:date',
@@ -162,7 +193,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'attribute' => 'request_by',
                                 'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
                                 'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => 'เลือก ...'],
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
                                     'allowClear' => true
@@ -178,7 +209,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'categories_id',
+                                'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         [
@@ -189,7 +231,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'departments_id',
+                                'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                         // 'document_title:ntext',
@@ -201,7 +254,18 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
                             },
-                            'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            // 'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'types_id',
+                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
                         ],
 
                     ],
