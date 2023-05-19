@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 18, 2023 at 05:47 AM
+-- Generation Time: May 19, 2023 at 09:56 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -412,7 +412,7 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('MM-AG-???', 1, 1, 1683882730),
 ('MM-PC-???', 7, 1, 1684374918),
 ('PM-EN-???', 1, 1, 1684117280),
-('PM-QC-???', 1, 1, 1684117299),
+('PM-QC-???', 2, 1, 1684479811),
 ('PM-RD-???', 3, 1, 1683882077),
 ('PM-WH-???', 1, 1, 1684117140),
 ('QM-PC-???', 3, 1, 1684302604),
@@ -420,16 +420,18 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('SHE-EN-???', 2, 1, 1683972022),
 ('SHE-MM-???', 2, 1, 1684302648),
 ('SP-AG-???', 2, 1, 1684302572),
-('SP-EN-???', 14, 1, 1684374907),
+('SP-EN-???', 15, 1, 1684486516),
 ('SP-PC-???', 1, 1, 1683883745),
 ('SP-QC-???', 2, 1, 1684315140),
 ('SP-RD-???', 1, 1, 1683946262),
-('SP-WH-???', 31, 1, 1684375994),
+('SP-WH-???', 43, 1, 1684477584),
+('ST-QC-???', 1, 1, 1684488157),
 ('ST-WH-???', 1, 1, 1684117162),
 ('WI-EN-???', 1, 1, 1683941629),
 ('WI-MK-???', 1, 1, 1683942957),
-('WI-PC-???', 11, 1, 1684317252),
-('WI-RD-???', 1, 1, 1684117229);
+('WI-PC-???', 17, 1, 1684479863),
+('WI-QC-???', 1, 1, 1684486802),
+('WI-RD-???', 2, 1, 1684479801);
 
 -- --------------------------------------------------------
 
@@ -460,6 +462,28 @@ INSERT INTO `categories` (`id`, `category_code`, `category_details`, `color`) VA
 (7, 'QM', 'คู่มือคุณภาพ (QM)', '#674ea7'),
 (8, 'SHE', 'คู่มือการจัดการด้านอาชีวอนามัยและความปลอดภัย', '#e06666'),
 (9, 'EM', 'คู่มือระบบการจัดการด้านสิ่งแวดล้อม', '#666666');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `chat_messages`
+--
+
+DROP TABLE IF EXISTS `chat_messages`;
+CREATE TABLE IF NOT EXISTS `chat_messages` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `sender` varchar(255) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `chat_messages`
+--
+
+INSERT INTO `chat_messages` (`id`, `sender`, `message`, `created_at`) VALUES
+(1, '1', 's', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -515,7 +539,7 @@ CREATE TABLE IF NOT EXISTS `document_logs` (
   `document_revision` varchar(45) DEFAULT NULL,
   `document_fullname` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `document_logs`
@@ -526,7 +550,10 @@ INSERT INTO `document_logs` (`id`, `requester_id`, `reviewer_id`, `created_at`, 
 (2, 17, NULL, NULL, NULL, NULL, NULL, NULL),
 (3, 18, NULL, NULL, NULL, NULL, NULL, NULL),
 (4, 19, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 20, NULL, NULL, NULL, NULL, NULL, NULL);
+(5, 20, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 21, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 23, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 24, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -558,7 +585,14 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `approve_at` varchar(45) DEFAULT NULL,
   `approver_comment` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `logs`
+--
+
+INSERT INTO `logs` (`id`, `document_number`, `document_revision`, `document_title`, `requester_by`, `requester_at`, `details`, `covenant`, `docs`, `document_age`, `document_public_at`, `stamps_id`, `document_tags`, `points_id`, `additional_training`, `reviewer_by`, `reviewer_at`, `reviewer_comment`, `approve_by`, `approve_at`, `approver_comment`) VALUES
+(1, '1', '1', '1', 1, '1', '1', '1', '1', '1', '1', 1, '1', 1, '1', 1, '1', '1', 1, '1', '1');
 
 -- --------------------------------------------------------
 
@@ -723,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `requester` (
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `requester`
@@ -736,7 +770,7 @@ INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_a
 (5, 2, 1, '2023-05-14 08:07:55', '2023-05-10 08:07:55', 1, 1, 3, 7, 6, 'การตรวจติดตามและประเมินความเสี่ยงของผู้ขาย/ผู้ให้บริการ', 'QM-WH-001', '', NULL, '4jsA0oPZSRI_m8F0o8UetI', NULL, NULL, 'null'),
 (6, 2, 1, '2023-05-15 08:07:55', '2023-05-10 08:07:55', 1, 1, 4, 2, 6, 'การวางแผนการผลิต และการควบคุมการผลิต', 'ST-WH-001', '', NULL, 'CBM2KdQ_tsi_etWB_2G4Rs', NULL, NULL, 'null'),
 (7, 3, 3, '2023-05-16 08:07:55', '2023-05-17 11:55:13', 1, 1, 13, 1, 4, 'การวางแผนการสั่งซื้อวัตถุดิบและบรรจุภัณฑ์', 'PM-EN-001', '', NULL, '5EUzIsxnj_fy65fGacXL6c', NULL, NULL, 'null'),
-(8, 3, 4, '2023-05-17 08:07:55', '2023-05-17 11:35:11', 1, 1, 3, 1, 3, 'การทบทวนและเปลี่ยนแปลงข้อตกลง', 'PM-QC-001', '', NULL, 'wAlve3PwYRSorpNtDjsgHg', NULL, NULL, 'null'),
+(8, 1, 4, '2023-05-17 08:07:55', '2023-05-19 14:03:31', 1, 1, 3, 1, 3, 'การทบทวนและเปลี่ยนแปลงข้อตกลง', 'PM-QC-002', '', NULL, 'wAlve3PwYRSorpNtDjsgHg', NULL, NULL, 'null'),
 (9, 1, 1, '2023-05-18 08:07:55', '2023-05-17 12:50:48', 1, 1, 12, 8, 10, 'การวางแผนการผลิต', 'SHE-MM-002', '', NULL, 'R5T8SnBacTYyUdmcIzt8Bu', NULL, NULL, 'null'),
 (10, 2, 1, '2023-05-19 08:07:55', '2023-05-17 12:50:32', 1, 1, 15, 4, 5, 'กระบวนการผลิต', 'MM-PC-006', '', NULL, 'YYzgJPDPVcikzsu8e9E50p', NULL, NULL, 'null'),
 (11, 1, 1, '2023-05-10 08:07:55', '2023-05-18 08:55:18', 8, 1, 20, 4, 5, 'การสอบเทียบเครื่องมือและอุปกรณ์', 'MM-PC-007', '', NULL, 'u2z3rCi58jOZOexdu8DaSp', NULL, NULL, 'null'),
@@ -746,8 +780,12 @@ INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_a
 (16, 3, 3, '2023-05-17 11:32:50', '2023-05-17 14:18:09', 20, 4, 8, 6, 8, 'การตรวจปล่อยผลิตภัณฑ์', 'FM-AG-001', '', NULL, 'lmpC2NmdQyAdTh_GWWo5wq', NULL, NULL, 'null'),
 (17, 2, 4, '2023-05-17 11:34:37', '2023-05-17 13:12:10', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, NULL, 'null'),
 (18, 2, 4, '2023-05-17 11:34:37', '2023-05-17 15:28:40', 1, 1, 1, 5, 4, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', 'SP-EN-012', '', NULL, 'GMGAfj5tylZgdKAmTu-ZGt', NULL, '{\"9d92c9b09c3bce439464f1ddf826eaf9.pdf\":\"BK23002908.pdf\"}', 'null'),
-(19, 3, 3, '2023-05-17 16:28:33', '2023-05-17 16:57:28', 1, 1, 2, 3, 5, 'asdasdasds', 'WI-PC-011', '', NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, NULL, 'null'),
-(20, 3, 2, '2023-05-17 16:56:53', '2023-05-18 09:13:14', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-031', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, NULL, 'null');
+(19, 2, 1, '2023-05-17 16:28:33', '2023-05-19 16:38:12', 1, 2, 2, 3, 5, 'asdasdasds', 'WI-PC-017', '', NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, '{\"d5a4be45a23e38f01e90855692bb5f77.pdf\":\"BK23002908.pdf\"}', '{\"19729f52367dfd8e220db2ddb81e3c38.jpg\":\"278623677_5688512154512188_2642951835844879887_n.jpg\",\"8537ad4982bc722536bac2e621fa5e3c.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\",\"ab4fd591b536af92d4a9b631b2ae8562.doc\":\"FM-GR-14 Rev.07.doc\"}'),
+(20, 1, 1, '2023-05-17 16:56:53', '2023-05-19 13:26:24', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-043', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, '{\"22227125a70540cd498b545d3dcf6bf4.pdf\":\"FM-GR-150 Rev.01.pdf\"}', 'null'),
+(21, 1, 1, '2023-05-19 14:03:21', '2023-05-19 14:03:21', 1, 1, 2, 3, 7, 'tttttt', 'WI-RD-002', '', NULL, 'uiKUixu5gdhMhsk8_tijMZ', NULL, NULL, 'null'),
+(23, 2, 1, '2023-05-19 15:55:17', '2023-05-19 16:54:38', 1, 2, 2, 1, 4, 'asdasdas', 'SP-EN-015', '', NULL, 'Z-oTXQZ9CpJ7By0WiwKoPF', NULL, '{\"2191ed67e867e381392e30731d35be1a.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\"}', '{\"ca5a2a5a4f43fe3e92322ad2b1394b7d.jpg\":\"347127484_140089352385790_8097340672391811810_n.jpg\",\"d01553418c465351fb2e0fc8da4d148d.jpg\":\"346093680_6371086809614786_8227620584066180087_n.jpg\",\"fd915b053687f0be8578ab1d9bbb8ed1.jpg\":\"346484289_927645415136870_6849167580194324613_n.jpg\"}'),
+(24, 1, 1, '2023-05-19 16:00:02', '2023-05-19 16:00:02', 1, 1, 3, 3, 3, 'ytutyuty', 'WI-QC-001', '', NULL, '3hFzQwpCIa8TuXekNYQgzy', NULL, '{\"5505dcc03d1734d3aa0c26afa0377349.pdf\":\"PM-GR-05 Rev.33.pdf\"}', 'null'),
+(26, 2, 1, '2023-05-19 16:22:37', '2023-05-19 16:26:26', 1, 1, 1, 2, 3, 'dadddd', 'ST-QC-001', '', NULL, 'exEqcrLzsopj1ujvzXXfEk', NULL, '{\"de893f86dcba0dd087a31c93d098076a.pdf\":\"ตารางแสดงความเกี่ยวข้อง  Food  safety.pdf\"}', 'null');
 
 -- --------------------------------------------------------
 
@@ -778,7 +816,7 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
   KEY `fk_reviewer_stamps1_idx` (`stamps_id`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `reviewer`
@@ -801,8 +839,12 @@ INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `d
 (15, 16, 3, '2023-05-18', 5, 2, '2023-05-17', 1, '', '', 1, '', '', NULL, '', ''),
 (16, 17, 2, '2023-05-17', 5, NULL, '2023-05-18', 2, '', '', 1, '', '', 4, '2023-05-19', ''),
 (17, 18, 3, '2023-05-02', 2, 4, '2023-05-11', 3, '', '', 1, '', '', 2, '2023-05-19', ''),
-(18, 19, 5, '2023-05-18', 2, 2, '2023-06-09', 3, '22', '', 8, '2', '2', NULL, '', ''),
-(19, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(18, 19, 5, '2023-05-18', 2, 2, '2023-06-09', 3, '22', '', 8, '2', '2', 2, '2023-05-19', ''),
+(19, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -874,8 +916,8 @@ CREATE TABLE IF NOT EXISTS `status` (
 
 INSERT INTO `status` (`id`, `status_name`, `status_details`, `color`) VALUES
 (1, 'New', 'ใหม่', '#ff0000'),
-(2, 'Process Review', 'ดำเนินการทบทวน', '#ff9900'),
-(3, 'Process Approve', 'ดำเนินการอนุมัติ', '#0000ff'),
+(2, 'Review', 'รอทบทวน', '#ff9900'),
+(3, 'Approve', 'รออนุมัติ', '#0000ff'),
 (4, 'Success', 'เสร็จ', '#34870a');
 
 -- --------------------------------------------------------
@@ -923,7 +965,7 @@ CREATE TABLE IF NOT EXISTS `types` (
 --
 
 INSERT INTO `types` (`id`, `type_name`, `type_details`, `color`) VALUES
-(1, 'New Request', 'ขอจัดทำ', '#4a86e8'),
+(1, 'New Document', 'ขอจัดทำ', '#4a86e8'),
 (2, 'Edit', 'ขอแก้ไข', '#ff6000'),
 (3, 'Cancel', 'ขอยกเลิก', '#434343');
 
@@ -960,8 +1002,8 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684375982, 10, NULL),
-(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684376773, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684465018, 10, NULL),
+(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684488488, 10, NULL),
 (3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1683795258, 10, NULL),
 (4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684308358, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL),
