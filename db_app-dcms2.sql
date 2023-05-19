@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 19, 2023 at 09:56 AM
+-- Generation Time: May 19, 2023 at 10:02 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -429,7 +429,7 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('ST-WH-???', 1, 1, 1684117162),
 ('WI-EN-???', 1, 1, 1683941629),
 ('WI-MK-???', 1, 1, 1683942957),
-('WI-PC-???', 17, 1, 1684479863),
+('WI-PC-???', 18, 1, 1684490426),
 ('WI-QC-???', 1, 1, 1684486802),
 ('WI-RD-???', 2, 1, 1684479801);
 
@@ -757,7 +757,7 @@ CREATE TABLE IF NOT EXISTS `requester` (
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `requester`
@@ -778,14 +778,15 @@ INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_a
 (14, 1, 4, '2023-05-17 08:43:30', '2023-05-17 13:12:17', 1, 4, 25, 5, 4, 'การควบคุมกระบวนการผลิตและการแสดงสถานะ', 'SP-EN-009', '', NULL, 'M2W8vQBziy36J2cMDD5Kd5', NULL, NULL, 'null'),
 (15, 1, 1, '2023-05-17 11:31:37', '2023-05-18 08:55:07', 5, 1, 2, 5, 4, 'การติดตามตรวจสอบ การตรวจวัด และ การประเมินความสอดคล้อง', 'SP-EN-014', '', NULL, 'Yny1qaRt5LQ6EZ5N2uPqyD', NULL, NULL, 'null'),
 (16, 3, 3, '2023-05-17 11:32:50', '2023-05-17 14:18:09', 20, 4, 8, 6, 8, 'การตรวจปล่อยผลิตภัณฑ์', 'FM-AG-001', '', NULL, 'lmpC2NmdQyAdTh_GWWo5wq', NULL, NULL, 'null'),
-(17, 2, 4, '2023-05-17 11:34:37', '2023-05-17 13:12:10', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, NULL, 'null'),
+(17, 2, 1, '2023-05-17 11:34:37', '2023-05-19 17:00:02', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, '{\"62d739f4f67b2ea36cb7ebde2409c0de.pdf\":\"Peavey.pdf\"}', '{\"dcecd54ef79c40f092e3dbd3ecf5353d.jpg\":\"347023767_1386890032095727_6537520077498869560_n.jpg\",\"f2db74ec9aef96adaae56e612fc49ef3.jpg\":\"346282223_6037182342997895_2206992463809428455_n.jpg\"}'),
 (18, 2, 4, '2023-05-17 11:34:37', '2023-05-17 15:28:40', 1, 1, 1, 5, 4, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', 'SP-EN-012', '', NULL, 'GMGAfj5tylZgdKAmTu-ZGt', NULL, '{\"9d92c9b09c3bce439464f1ddf826eaf9.pdf\":\"BK23002908.pdf\"}', 'null'),
 (19, 2, 1, '2023-05-17 16:28:33', '2023-05-19 16:38:12', 1, 2, 2, 3, 5, 'asdasdasds', 'WI-PC-017', '', NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, '{\"d5a4be45a23e38f01e90855692bb5f77.pdf\":\"BK23002908.pdf\"}', '{\"19729f52367dfd8e220db2ddb81e3c38.jpg\":\"278623677_5688512154512188_2642951835844879887_n.jpg\",\"8537ad4982bc722536bac2e621fa5e3c.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\",\"ab4fd591b536af92d4a9b631b2ae8562.doc\":\"FM-GR-14 Rev.07.doc\"}'),
 (20, 1, 1, '2023-05-17 16:56:53', '2023-05-19 13:26:24', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-043', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, '{\"22227125a70540cd498b545d3dcf6bf4.pdf\":\"FM-GR-150 Rev.01.pdf\"}', 'null'),
 (21, 1, 1, '2023-05-19 14:03:21', '2023-05-19 14:03:21', 1, 1, 2, 3, 7, 'tttttt', 'WI-RD-002', '', NULL, 'uiKUixu5gdhMhsk8_tijMZ', NULL, NULL, 'null'),
 (23, 2, 1, '2023-05-19 15:55:17', '2023-05-19 16:54:38', 1, 2, 2, 1, 4, 'asdasdas', 'SP-EN-015', '', NULL, 'Z-oTXQZ9CpJ7By0WiwKoPF', NULL, '{\"2191ed67e867e381392e30731d35be1a.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\"}', '{\"ca5a2a5a4f43fe3e92322ad2b1394b7d.jpg\":\"347127484_140089352385790_8097340672391811810_n.jpg\",\"d01553418c465351fb2e0fc8da4d148d.jpg\":\"346093680_6371086809614786_8227620584066180087_n.jpg\",\"fd915b053687f0be8578ab1d9bbb8ed1.jpg\":\"346484289_927645415136870_6849167580194324613_n.jpg\"}'),
 (24, 1, 1, '2023-05-19 16:00:02', '2023-05-19 16:00:02', 1, 1, 3, 3, 3, 'ytutyuty', 'WI-QC-001', '', NULL, '3hFzQwpCIa8TuXekNYQgzy', NULL, '{\"5505dcc03d1734d3aa0c26afa0377349.pdf\":\"PM-GR-05 Rev.33.pdf\"}', 'null'),
-(26, 2, 1, '2023-05-19 16:22:37', '2023-05-19 16:26:26', 1, 1, 1, 2, 3, 'dadddd', 'ST-QC-001', '', NULL, 'exEqcrLzsopj1ujvzXXfEk', NULL, '{\"de893f86dcba0dd087a31c93d098076a.pdf\":\"ตารางแสดงความเกี่ยวข้อง  Food  safety.pdf\"}', 'null');
+(26, 2, 1, '2023-05-19 16:22:37', '2023-05-19 16:26:26', 1, 1, 1, 2, 3, 'dadddd', 'ST-QC-001', '', NULL, 'exEqcrLzsopj1ujvzXXfEk', NULL, '{\"de893f86dcba0dd087a31c93d098076a.pdf\":\"ตารางแสดงความเกี่ยวข้อง  Food  safety.pdf\"}', 'null'),
+(27, 2, 1, '2023-05-19 17:00:26', '2023-05-19 17:00:50', 4, 4, 4, 3, 5, 'asddddd', 'WI-PC-018', '', NULL, 'Nkorgfin1Rl8fqhZvQQ36F', NULL, '{\"304e1be32eddb85e1a07663cef38f5c9.pdf\":\"Peavey.pdf\"}', '{\"2725afa9c209ea1ce3e2f3d16dc9864f.png\":\"How production tracking is made. - YouTube12.png\"}');
 
 -- --------------------------------------------------------
 
@@ -816,7 +817,7 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
   KEY `fk_reviewer_stamps1_idx` (`stamps_id`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `reviewer`
@@ -844,7 +845,8 @@ INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `d
 (20, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (22, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (23, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+(25, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1005,7 +1007,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `con
 (1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684465018, 10, NULL),
 (2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684488488, 10, NULL),
 (3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1683795258, 10, NULL),
-(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684308358, 10, NULL),
+(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684490291, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL),
 (6, 'sawika', 'sawika@email.com', '$2y$12$O3tNFBcq9cpEtcHqCTolDucXMtIb5knWKjHOL2OSL5N7UKkXdtoui', 's4v4f4FElf3N2uPdx6GZYLMy5mS8rNCd', 1683792969, NULL, NULL, '::1', 1683792969, 1683793430, 0, 1683794565, 10, NULL),
 (7, 'araya', 'acc.nfcfa@gmail.com', '$2y$12$NrzWMCnFlYaX6ThguT8d9.PNE.euAzbH8Qse4.Y4qoj3fh33lqLSe', 'JLEI5sdHVlrhamckF6VXpy3heJfk6nQ9', 1683792990, NULL, NULL, '::1', 1683792990, 1683792990, 0, NULL, 10, NULL),
