@@ -11,6 +11,7 @@ use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\Stamps;
 use app\modules\operator\models\Status;
+use app\modules\operator\models\Types;
 use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
@@ -83,8 +84,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
 
-
-
+                    
                         [
                             'attribute' => 'requester.status_id',
                             'options' => ['style' => 'width:10%;'],
@@ -125,21 +125,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
+                       
                         // 'document_revision',
                         [
-                            'attribute' => 'document_revision',
+                            'attribute' => 'requester.latest_rev',
                             'label' => 'Revision',
                             'format' => 'html',
                             'options' => ['style' => 'width:5%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
-                                return $model->document_revision ? $model->document_revision : '';
+                                return $model->requester->latest_rev ? $model->requester->latest_rev : '';
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
-                                'attribute' => 'document_revision',
-                                'data' => ArrayHelper::map(Reviewer::find()->all(), 'document_revision', 'document_revision'),
+                                'attribute' => 'latest_rev',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -149,6 +150,70 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
+                        [
+                            'attribute' => 'requester.request_by',
+                            'format' => 'html',
+                            'options' => ['style' => 'width:10%;'],
+                            'value' => function ($model) {
+                                return $model->requester->requestBy ? $model->requester->requestBy->profile->name : '';
+                            },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'request_by',
+                                // 'data' => ArrayHelper::map(Reviewer::find()->all(), 'requester.request_by', 'requester.requestBy.profile.name'),
+                                'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
+
+                        [
+                            'attribute' => 'requester.document_public_at',
+                            'options' => ['style' => 'width:8%;'],
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                if ($model->requester->document_public_at !== null) {
+                                    return Yii::$app->formatter->asDate($model->requester->document_public_at);
+                                }
+                                return '';
+                            },
+                            'filter' => DatePicker::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_public_at', // Updated to use the correct attribute
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'pluginOptions' => [
+                                    'format' => 'yyyy-mm-dd',
+                                    'autoclose' => true,
+                                ]
+                            ]),
+                        ],
+
+                        [
+                            'attribute' => 'requester.types_id',
+                            'format' => 'html',
+                            'options' => ['style' => 'width:5%;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'value' => function ($model) {
+                                // return $model->requester->types->type_details ? $model->requester->types->type_details : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
+                                return '<span class="badge" style="background-color:' . $model->requester->types->color . ';"><b>' . $model->requester->types->type_details . '</b></span>';
+                            },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'types_id',
+                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
+                        
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
@@ -178,6 +243,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
+                        
 
                         // 'reviewer_name',
                         [
@@ -224,50 +290,8 @@ $this->params['breadcrumbs'][] = $this->title;
                   
                         // 'document_age',
                         // 'document_public_at',
-                        [
-                            'attribute' => 'document_public_at',
-                            'options' => ['style' => 'width:8%;'],
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                if ($model->document_public_at !== null) {
-                                    return Yii::$app->formatter->asDate($model->document_public_at);
-                                }
-                                return '';
-                            },
-                            'filter' => DatePicker::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_public_at',
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'pluginOptions' => [
-                                    'format' => 'yyyy-mm-dd',
-                                    'autoclose' => true,
-                                ]
-                            ]),
-                        ],
-                        // 'stamps_id',
-                        [
-                            'attribute' => 'stamps_id',
-                            'format' => 'html',
-                            'options' => ['style' => 'width:8%;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'value' => function ($model) {
-                                return $model->stamps && $model->stamps->stamp_name ? 
-                                '<span class="badge" style="background-color:' . $model->stamps->color . ';"><b>' . $model->stamps->stamp_name . '</b></span>' : 
-                                '';
-                            },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'stamps_id', ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'), ['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')])
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'stamps_id',
-                                'data' => ArrayHelper::map(Stamps::find()->all(), 'id', 'stamp_name'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
+                       
+                       
                         //'document_ref',
                         //'document_tags',
                         // 'points.point_name',
