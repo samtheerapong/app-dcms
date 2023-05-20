@@ -35,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="actions-form">
         <div class="box box-success box-solid">
             <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
+                <div class="box-title"><?= $this->title ?> : <small>เอกสารอ้างอิง > FM-GR-03 | FM-GR-04 | FM-GR-05 | FM-GR-06 | FM-GR-105</small></div>
             </div>
             <div class="box-body">
                 <?= GridView::widget([

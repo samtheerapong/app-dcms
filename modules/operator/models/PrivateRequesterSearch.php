@@ -43,7 +43,7 @@ class PrivateRequesterSearch extends PrivateRequester
     public function search($params)
     {
         // $query = PrivateRequester::find();
-        $query = Requester::find()->andFilterWhere([
+        $query = PrivateRequester::find()->andFilterWhere([
             'request_by' => Yii::$app->user->identity->profile->user_id,
             ]);
 

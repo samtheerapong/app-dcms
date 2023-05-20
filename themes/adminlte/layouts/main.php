@@ -30,7 +30,7 @@ if (Yii::$app->controller->action->id === 'login') {
     $this->registerCssFile(Yii::$app->request->baseUrl . '/css/custom.css', ['depends' => [AppAsset::class]]);
 
     //add costom js @path web/js/custom.css
-    $this->registerJsFile(Yii::$app->request->baseUrl . '/js/custom.js', ['depends' => [AppAsset::class]]);
+    // $this->registerJsFile(Yii::$app->request->baseUrl . '/js/custom.js', ['depends' => [AppAsset::class]]);
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
 

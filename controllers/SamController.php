@@ -1,34 +1,23 @@
 <?php
 
-namespace app\modules\operator\controllers;
+namespace app\controllers;
 
-use app\modules\operator\models\DocumentLogs;
-use app\modules\operator\models\Uploads;
 use Yii;
-use app\modules\operator\models\Requester;
-use app\modules\operator\models\RequesterSearch;
+use app\models\Sam;
+use app\models\SamSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\modules\operator\models\Reviewer;
-use mdm\autonumber\AutoNumber;
 
-//
 use yii\web\UploadedFile;
 use yii\helpers\BaseFileHelper;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
-//
-
-
 /**
- * RequesterController implements the CRUD actions for Requester model.
+ * SamController implements the CRUD actions for Sam model.
  */
-class RequesterController extends Controller
+class SamController extends Controller
 {
-
-
-
     /**
      * {@inheritdoc}
      */
@@ -36,7 +25,7 @@ class RequesterController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -45,12 +34,12 @@ class RequesterController extends Controller
     }
 
     /**
-     * Lists all Requester models.
+     * Lists all Sam models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RequesterSearch();
+        $searchModel = new SamSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,7 +49,7 @@ class RequesterController extends Controller
     }
 
     /**
-     * Displays a single Requester model.
+     * Displays a single Sam model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -73,50 +62,34 @@ class RequesterController extends Controller
     }
 
     /**
-     * Creates a new Requester model.
+     * Creates a new Sam model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Requester();
-        $modelReviewer = new Reviewer();
-        $modelDocumentLogs = new DocumentLogs();
-        $model->status_id = 1;
+        $model = new Sam();
 
         if ($model->load(Yii::$app->request->post())) {
 
-            $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);
-
             $model->covenant = $this->uploadSingleFile($model);
             $model->docs = $this->uploadMultipleFile($model);
 
-            // Get format nimber Ex. FM-GR-001
-            $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            $model->document_number = AutoNumber::generate($fullname . '-???');
-
             if ($model->save()) {
-                $modelReviewer->requester_id = $model->id;
-                $modelDocumentLogs->requester_id = $model->id;
-                $modelReviewer->save();
-                $modelDocumentLogs->save();
+                return $this->redirect(['view', 'id' => $model->id]);
             }
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-
-            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'modelReviewer' => $modelReviewer,
-            'modelDocumentLogs' => $modelDocumentLogs,
         ]);
     }
 
     /**
-     * Updates an existing Requester model.
+     * Updates an existing Sam model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -128,34 +101,24 @@ class RequesterController extends Controller
 
         $tempCovenant = $model->covenant;
         $tempDocs     = $model->docs;
-
-
         if ($model->load(Yii::$app->request->post())) {
 
             $this->CreateDir($model->ref);
             $model->covenant = $this->uploadSingleFile($model, $tempCovenant);
             $model->docs = $this->uploadMultipleFile($model, $tempDocs);
 
-            // // Get format nimber Ex. FM-GR-001
-            // $fullname = $model->categories->category_code . '-' . $model->departments->department_code;
-            // $model->document_number = AutoNumber::generate($fullname . '-???');
-
-            $model->save();
-
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-
-            // return $this->redirect(['view', 'id' => $model->id]);
-            return $this->redirect(['index']);
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
-
         return $this->render('update', [
-            'model' => $model,
+            'model' => $model
         ]);
     }
 
     /**
-     * Deletes an existing Requester model.
+     * Deletes an existing Sam model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -166,7 +129,7 @@ class RequesterController extends Controller
         $model = $this->findModel($id);
         //remove upload file & data
         $this->removeUploadDir($model->ref);
-        Uploads::deleteAll(['ref' => $model->ref]);
+        // Uploads::deleteAll(['ref' => $model->ref]);
 
         $model->delete();
 
@@ -174,24 +137,21 @@ class RequesterController extends Controller
     }
 
     /**
-     * Finds the Requester model based on its primary key value.
+     * Finds the Sam model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Requester the loaded model
+     * @return Sam the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Requester::findOne($id)) !== null) {
+        if (($model = Sam::findOne($id)) !== null) {
             return $model;
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-
-
-    /***************** Deletefile ******************/
     public function actionDeletefile($id, $field, $fileName)
     {
         $status = ['success' => false];
@@ -214,9 +174,9 @@ class RequesterController extends Controller
     {
         if (in_array($type, ['file', 'thumbnail'])) {
             if ($type === 'file') {
-                $filePath = Requester::getUploadPath() . $ref . '/' . $fileName;
+                $filePath = Sam::getUploadPath() . $ref . '/' . $fileName;
             } else {
-                $filePath = Requester::getUploadPath() . $ref . '/thumbnail/' . $fileName;
+                $filePath = Sam::getUploadPath() . $ref . '/thumbnail/' . $fileName;
             }
             @unlink($filePath);
             return true;
@@ -225,19 +185,16 @@ class RequesterController extends Controller
         }
     }
 
-    /***************** Download ******************/
-    public function actionDownload($id, $file, $fullname)
+    public function actionDownload($id, $file, $file_name)
     {
         $model = $this->findModel($id);
         if (!empty($model->ref) && !empty($model->covenant)) {
-            Yii::$app->response->sendFile($model->getUploadPath() . '/' . $model->ref . '/' . $file, $fullname);
+            Yii::$app->response->sendFile($model->getUploadPath() . '/' . $model->ref . '/' . $file, $file_name);
         } else {
-            $this->redirect(['/requester/view', 'id' => $id]);
+            $this->redirect(['/sam/view', 'id' => $id]);
         }
     }
 
-
-    /***************** upload SingleFile ******************/
     private function uploadSingleFile($model, $tempFile = null)
     {
         $file = [];
@@ -246,8 +203,8 @@ class RequesterController extends Controller
             $UploadedFile = UploadedFile::getInstance($model, 'covenant');
             if ($UploadedFile !== null) {
                 $oldFileName = $UploadedFile->basename . '.' . $UploadedFile->extension;
-                $newFileName = md5($UploadedFile->basename . time()) . '.' . $UploadedFile->extension;
-                $UploadedFile->saveAs(Requester::UPLOAD_FOLDER . '/' . $model->ref . '/' . $newFileName);
+                $newFileName = time() . '.' . $UploadedFile->extension;
+                $UploadedFile->saveAs(Sam::UPLOAD_FOLDER . '/' . $model->ref . '/' . $newFileName);
                 $file[$newFileName] = $oldFileName;
                 $json = Json::encode($file);
             } else {
@@ -259,7 +216,6 @@ class RequesterController extends Controller
         return $json;
     }
 
-    /***************** upload MultipleFile ******************/
     private function uploadMultipleFile($model, $tempFile = null)
     {
         $files = [];
@@ -271,7 +227,7 @@ class RequesterController extends Controller
                 try {
                     $oldFileName = $file->basename . '.' . $file->extension;
                     $newFileName = md5($file->basename . time()) . '.' . $file->extension;
-                    $file->saveAs(Requester::UPLOAD_FOLDER . '/' . $model->ref . '/' . $newFileName);
+                    $file->saveAs(Sam::UPLOAD_FOLDER . '/' . $model->ref . '/' . $newFileName);
                     $files[$newFileName] = $oldFileName;
                 } catch (Exception $e) {
                 }
@@ -283,11 +239,10 @@ class RequesterController extends Controller
         return $json;
     }
 
-    /***************** Create Dir ******************/
     private function CreateDir($folderName)
     {
         if ($folderName != NULL) {
-            $basePath = Requester::getUploadPath();
+            $basePath = Sam::getUploadPath();
             if (BaseFileHelper::createDirectory($basePath . $folderName, 0777)) {
                 BaseFileHelper::createDirectory($basePath . $folderName . '/thumbnail', 0777);
             }
@@ -295,9 +250,9 @@ class RequesterController extends Controller
         return;
     }
 
-    /***************** Remove Upload Dir ******************/
     private function removeUploadDir($dir)
     {
-        BaseFileHelper::removeDirectory(Requester::getUploadPath() . $dir);
+        BaseFileHelper::removeDirectory(Sam::getUploadPath() . $dir);
     }
+
 }

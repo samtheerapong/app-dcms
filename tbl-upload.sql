@@ -1,0 +1,100 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.0
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 20, 2023 at 04:03 AM
+-- Server version: 8.0.31
+-- PHP Version: 7.4.33
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `yii2-learning-source`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploads`
+--
+
+DROP TABLE IF EXISTS `uploads`;
+CREATE TABLE IF NOT EXISTS `uploads` (
+  `upload_id` int NOT NULL AUTO_INCREMENT,
+  `ref` varchar(50) DEFAULT NULL,
+  `file_name` varchar(150) DEFAULT NULL COMMENT 'ชื่อไฟล์',
+  `real_filename` varchar(150) DEFAULT NULL COMMENT 'ชื่อไฟล์จริง',
+  `create_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `type` int DEFAULT NULL COMMENT 'ประเภท',
+  PRIMARY KEY (`upload_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=112 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `uploads`
+--
+
+INSERT INTO `uploads` (`upload_id`, `ref`, `file_name`, `real_filename`, `create_date`, `type`) VALUES
+(21, 'iOOxVkSwrurplsO0DicB-K', 'DSC05017.jpg', '63b9ec8d31e909eedea284d346983e17.jpg', '2015-03-19 19:10:43', NULL),
+(22, 'iOOxVkSwrurplsO0DicB-K', 'dimple-logo-wallper.png', 'b582f9a54aa139c40ef8bff7bf1aa34f.png', '2015-03-19 19:10:44', NULL),
+(38, 'ulqHch76LQGjKHHTQGjnjM', 'images (4).jpg', 'a5c3fab2e36e83fdc9ef5de68773e275.jpg', '2015-03-27 15:05:03', NULL),
+(39, 'ulqHch76LQGjKHHTQGjnjM', 'images (6) (1).jpg', '34633deaa8795c249a7e28d6b7b2a666.jpg', '2015-03-27 15:05:03', NULL),
+(40, 'ulqHch76LQGjKHHTQGjnjM', 'images (6).jpg', 'a0b1295cc902e1173f98d2bb21e9ce99.jpg', '2015-03-27 15:05:03', NULL),
+(41, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0003.jpg', '4345002b4f8b59366cdcfda567139dc7.jpg', '2015-03-29 04:29:54', NULL),
+(42, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0002.jpg', '6795af6aa96dd0fcb16a1d2402fd069a.jpg', '2015-03-29 04:29:54', NULL),
+(43, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0004.jpg', '6612805742ff5f74fb1a425b0c078d55.jpg', '2015-03-29 04:29:54', NULL),
+(44, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0001.jpg', '0c72bb8fef418d71b1de37a47bb688f5.jpg', '2015-03-29 04:29:54', NULL),
+(45, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0006.jpg', 'eddb4df3b2b6437b2a1193c7cc871636.jpg', '2015-03-29 04:29:54', NULL),
+(46, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0005.jpg', '0b89d9df62d23dc62aab2d58736f6d6d.jpg', '2015-03-29 04:29:55', NULL),
+(47, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0008.jpg', 'bfe2af5b7bec99eeacfbca4ca7571d3e.jpg', '2015-03-29 04:29:57', NULL),
+(48, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0007.jpg', '39b90b01f97617bf280fbbddfd76f9b8.jpg', '2015-03-29 04:29:57', NULL),
+(49, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0009.jpg', 'c2159c08d7670d7ed8231ffeef3e1b50.jpg', '2015-03-29 04:29:57', NULL),
+(50, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0010.jpg', '26f8f0736676f645a115ac35eaf410f2.jpg', '2015-03-29 04:29:57', NULL),
+(51, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0011.jpg', '07ec56dd42fbb2fa3a8298663fa75c5f.jpg', '2015-03-29 04:29:57', NULL),
+(52, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0012.jpg', 'ebf0715269f0477071fd9fa103827c77.jpg', '2015-03-29 04:29:57', NULL),
+(53, 'TGW9_0pt3mZI9nZR_KGWh5', 'DSCN0013.jpg', '14015fc5a2f8e97170a8d391ada5c23f.jpg', '2015-03-29 04:29:58', NULL),
+(54, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0001.jpg', '57b260bd7413868b0f7bd810caeb91aa.jpg', '2015-03-29 04:38:15', NULL),
+(55, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0002.jpg', '6720248638a1459241bf52fd87280379.jpg', '2015-03-29 04:38:15', NULL),
+(56, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0006.jpg', '9275f9f03959eab63300d5a09260a84d.jpg', '2015-03-29 04:38:15', NULL),
+(57, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0003.jpg', '0d46343b038f6bc1b415dac7eaf7c090.jpg', '2015-03-29 04:38:15', NULL),
+(58, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0004.jpg', 'cf6eaf0d71e988249128470e1c3b4449.jpg', '2015-03-29 04:38:15', NULL),
+(59, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0005.jpg', '92ffe44313f8d01de26486b7a1c232d2.jpg', '2015-03-29 04:38:15', NULL),
+(60, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0008.jpg', 'b65b4200f3d9ff9b44ef737037c267a5.jpg', '2015-03-29 04:38:18', NULL),
+(61, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0007.jpg', '31582d80c131b5b97a1ea36d5ad5db1d.jpg', '2015-03-29 04:38:18', NULL),
+(62, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0009.jpg', '9feed510329885a9c3c10033da3d135b.jpg', '2015-03-29 04:38:18', NULL),
+(63, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0010.jpg', 'ccc0ecf6abb712db1287d5cbf52fb938.jpg', '2015-03-29 04:38:18', NULL),
+(64, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0011.jpg', 'beeb548ad929ed703eb29894cced6dc4.jpg', '2015-03-29 04:38:18', NULL),
+(65, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0012.jpg', 'dad9f2c6f4b65e85dc8f6b1531697456.jpg', '2015-03-29 04:38:18', NULL),
+(66, 'B8NCq0YUMW2tXLCiIT6K00', 'DSCN0013.jpg', '7db6f5519a53efed44a45696c0156830.jpg', '2015-03-29 04:38:19', NULL),
+(67, 'gGLS1cqznyya6YIxbd6d39', 'DSCN0013.jpg', '8f5d6cc81108df308c560c962bdad30a.jpg', '2015-03-29 04:40:21', NULL),
+(68, 'gGLS1cqznyya6YIxbd6d39', 'DSCN0011.jpg', 'e8b656a1dc898713dfcf1ff3c913f3cc.jpg', '2015-03-29 04:40:21', NULL),
+(69, 'gGLS1cqznyya6YIxbd6d39', 'DSCN0012.jpg', '8181408f983071fbe07bcc17db9504c1.jpg', '2015-03-29 04:40:21', NULL),
+(81, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2624.jpg', 'ea8d13a73df757b0839c7b649e65ca52.jpg', '2015-03-29 15:26:33', NULL),
+(82, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2625.jpg', 'b86a108fa450c5fb3d9c55f87661fd09.jpg', '2015-03-29 15:26:34', NULL),
+(84, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2627.jpg', '181880c3d439cc64ad25e1e9f69568fd.jpg', '2015-03-29 15:26:35', NULL),
+(86, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2629.jpg', 'b86b5d85f6f7b51ec4fbaff8c5b3ae19.jpg', '2015-03-29 15:26:37', NULL),
+(89, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2632.jpg', 'df3dbb2ef010a4ff19e6497a1ce124e6.jpg', '2015-03-29 15:26:39', NULL),
+(92, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2635.jpg', '5173dfd54c720768e8f36307b7f4f2bb.jpg', '2015-03-29 15:26:41', NULL),
+(94, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2637.jpg', '18fce2b7964373337fa7eada41bbbd6d.jpg', '2015-03-29 15:26:42', NULL),
+(100, '6f6VTlqDp-V6nrU4KAMjh1', 'DSCN2656.jpg', '135986dcf78c72bb7e738992248d6833.jpg', '2015-03-29 15:26:46', NULL),
+(101, '4WABbPsblCVqufuOXdpr1j', '300-ml.PCG-010.jpg', '0098967d68de2c5918ef5d5746867dd9.jpg', '2023-03-27 07:25:06', NULL),
+(102, '4WABbPsblCVqufuOXdpr1j', '510-p031l F.jpg', '10bb8f82d6289d3eb04f94e21db8fdc2.jpg', '2023-03-27 07:25:06', NULL),
+(103, 'tYo2UQY2_vSttp4rGOKPvp', '230-ml.PCG-012.jpg', '0a8d6d9df56f197e95b396a2151bb31e.jpg', '2023-03-27 07:25:38', NULL),
+(104, 'tYo2UQY2_vSttp4rGOKPvp', '300-ml.PCG-010.jpg', 'b5d260f8fe94e46b7c45fa9498030b30.jpg', '2023-03-27 07:25:38', NULL),
+(105, 'tYo2UQY2_vSttp4rGOKPvp', '510-p031l F.jpg', '122297b9f93e12bc4e068aebcb3bac0f.jpg', '2023-03-27 07:25:38', NULL),
+(106, 'j_indF1DSd1qQS_qmI9BRY', '200-ml.PCG-003.jpg', '0730d3ce5bae29c41025ce829f252855.jpg', '2023-03-27 07:56:20', NULL),
+(107, 'j_indF1DSd1qQS_qmI9BRY', '230-ml.PCG-012.jpg', 'c93b8696cbc6f2aff54fc86a26eb0eb6.jpg', '2023-03-27 07:56:20', NULL),
+(111, 'ahVM9kAlEt1smAyHsyBscM', 'BK23002908.pdf', '0317cb70fa6bd392d1de1b831e2f94f7.pdf', '2023-05-08 08:39:41', NULL);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

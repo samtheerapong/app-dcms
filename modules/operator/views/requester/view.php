@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="requester-view">
-     <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
+    <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
         <p>
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
@@ -43,16 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
                     'attributes' => [
 
-                        [
-                            'attribute' => 'document_number',
-                            'format' => 'html',
-                            // 'value' => $model->document_number,
-                            'value' => function ($model) {
-                                return '<span style="color:'
-                                    . $model->status->color
-                                    . ';"><b>' . $model->document_number . '</b></span>';
-                            },
-                        ],
+                        
                         [
                             'attribute' => 'status.status_name',
                             'format' => 'html',
@@ -64,6 +55,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                     . '</b></span>';
                             },
                         ],
+
+                        [
+                            'attribute' => 'document_number',
+                            'format' => 'html',
+                            // 'value' => $model->document_number,
+                            'value' => function ($model) {
+                                return '<span style="color:'
+                                    . $model->status->color
+                                    . ';"><b>' . $model->document_number . ' Rev. ' . $model->latest_rev . '</b></span>';
+                            },
+                        ],
+
                         [
                             'attribute' => 'types_id',
                             'format' => 'html',
@@ -76,11 +79,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                         ],
 
+                        'type_details:ntext',
+
                         [
                             'attribute' => 'request_by',
                             'format' => 'html',
                             'value' => $model->requestBy->profile->name,
-
                         ],
 
                         [
@@ -108,26 +112,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                         'document_title',
                         'details:ntext',
+                        'document_age',
+                        'document_public_at:date',
                         // 'created_at:date',
-                        [
-                            'attribute' => 'created_at',
-                            'format' => 'date',
-                            'value' => function ($model) {
-                                return $model->created_at;
-                            },
-                        ],
-                        [
-                            'attribute' => 'created_by',
-                            'format' => 'html',
-                            'value' => $model->createdBy->profile->name,
-
-                        ],
-                        'updated_at:date',
-                        [
-                            'attribute' => 'updated_by',
-                            'format' => 'html',
-                            'value' => $model->updatedBy->profile->name,
-                        ],
+                        
                         [
                             'attribute' => 'covenant',
                             'format' => 'html',
@@ -137,6 +125,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'docs',
                             'format' => 'html',
                             'value' => $model->listDownloadFiles('docs')
+                        ],
+
+                        'created_at:date',
+                        [
+                            'attribute' => 'created_by',
+                            'format' => 'html',
+                            'value' => $model->createdBy->profile->name,
+
+                        ],
+                        'updated_at:date',
+
+                        [
+                            'attribute' => 'updated_by',
+                            'format' => 'html',
+                            'value' => $model->updatedBy->profile->name,
                         ],
                     ],
                 ]) ?>

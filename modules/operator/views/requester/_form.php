@@ -12,6 +12,7 @@ use app\modules\operator\models\Types;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
 use app\modules\operator\models\User;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
@@ -43,7 +44,14 @@ use app\modules\operator\models\User;
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-3">
+
+                    <div class="col-md-9">
+                        <?= $form->field($model, 'type_details')->textInput(['maxlength' => true]) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
                         <?= $form->field($model, 'request_by')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -55,7 +63,7 @@ use app\modules\operator\models\User;
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -67,7 +75,7 @@ use app\modules\operator\models\User;
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -94,9 +102,33 @@ use app\modules\operator\models\User;
                 </div>
 
                 <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'document_public_at')->widget(
+                            DatePicker::class,
+                            [
+                                'language' => 'th',
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'pluginOptions' => [
+                                    'format' => 'yyyy-mm-dd',
+                                    'todayHighlight' => true,
+                                    'autoclose' => true,
+                                ]
+                            ]
+                        ); ?>
+                    </div>
+                </div>
+
+
+                <div class="row">
                     <div class="col-md-6">
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
-                            //'options' => ['accept' => 'image/*'],
+                            'options' => ['accept' => 'application/pdf'],
                             'pluginOptions' => [
                                 'initialPreview' => $model->initialPreview($model->covenant, 'covenant', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->covenant, 'covenant', 'config'),

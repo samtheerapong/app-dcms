@@ -15,6 +15,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
+        'ex' => [
+            'class' => 'app\modules\ex\Module',
+        ],
         'operator' => [
             'class' => 'app\modules\operator\Module',
         ],
@@ -55,10 +58,14 @@ $config = [
             'user/security/auth',
             'user/registration/register',
             'site/*',
-            // '*', //Allow All For Dev
+            '*', //Allow All For Dev
         ]
     ],
     'components' => [
+        'image' => [
+            'class' => 'yii\image\ImageDriver',
+            'driver' => 'GD',  //GD or Imagick
+        ],
         'pdf' => [
             'class' => 'kartik\mpdf\Pdf',
             'format' => 'A4',
