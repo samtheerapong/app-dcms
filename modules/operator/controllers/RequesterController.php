@@ -84,7 +84,7 @@ class RequesterController extends Controller
         $modelDocumentLogs = new DocumentLogs();
         $model->status_id = 1;
 
-        if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post() )) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);
@@ -129,7 +129,6 @@ class RequesterController extends Controller
         $tempCovenant = $model->covenant;
         $tempDocs     = $model->docs;
 
-
         if ($model->load(Yii::$app->request->post())) {
 
             $this->CreateDir($model->ref);
@@ -151,6 +150,7 @@ class RequesterController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            
         ]);
     }
 

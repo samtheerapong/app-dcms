@@ -130,6 +130,7 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
                             'options' => ['accept' => 'application/pdf'],
                             'pluginOptions' => [
+                                'previewFileType' => 'any',
                                 'initialPreview' => $model->initialPreview($model->covenant, 'covenant', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->covenant, 'covenant', 'config'),
                                 'allowedFileExtensions' => ['pdf'],

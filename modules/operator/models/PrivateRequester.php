@@ -83,7 +83,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
             [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
             [['types_id'], 'exist', 'skipOnError' => true, 'targetClass' => Types::class, 'targetAttribute' => ['types_id' => 'id']],
             [['request_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['request_by' => 'id']],
-            [['covenant'], 'file', 'maxFiles' => 1,'skipOnEmpty' => true],
+            [['covenant'], 'file', 'maxFiles' => 1, 'skipOnEmpty' => true],
             [['docs'], 'file', 'maxFiles' => 10, 'skipOnEmpty' => true],
         ];
     }
@@ -197,23 +197,40 @@ class PrivateRequester extends \yii\db\ActiveRecord
 
 
     /**************** initialPreview ********************/
+
+    public function isImage($filePath)
+    {
+        return @is_array(getimagesize($filePath)) ? true : false;
+    }
+
+
     public function initialPreview($data, $field, $type = 'file')
     {
         $initial = [];
         $files = Json::decode($data);
         if (is_array($files)) {
             foreach ($files as $key => $value) {
+                $filePath = self::getUploadUrl() . $this->ref . '/' . $value;
+                $filePathDownload = self::getUploadUrl() . $this->ref . '/' . $value;
+
+                $isImage = $this->isImage($filePath);
+
                 if ($type == 'file') {
                     $initial[] = "<div class='file-preview-other'><h2><i class='glyphicon glyphicon-file'></i></h2></div>";
                 } elseif ($type == 'config') {
                     $initial[] = [
                         'caption' => $value,
                         'width'  => '120px',
-                        'url'    => Url::to(['/operator/requester/deletefile', 'id' => $this->id, 'fullname' => $key, 'field' => $field]),
+                        'url'    => Url::to(['requester/deletefile', 'id' => $this->id, 'fileName' => $key, 'field' => $field]),
                         'key'    => $key
                     ];
                 } else {
-                    $initial[] = Html::img(self::getUploadUrl() . $value, ['class' => 'file-preview-image', 'alt' => $this->fullname, 'title' => $this->fullname]);
+                    if ($isImage) {
+                        $file = Html::img($filePath, ['class' => 'file-preview-image', 'alt' => $this->file_name, 'title' => $this->file_name]);
+                    } else {
+                        $file = Html::a('View File', $filePathDownload, ['target' => '_blank']);
+                    }
+                    $initial[] = $file;
                 }
             }
         }

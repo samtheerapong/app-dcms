@@ -173,7 +173,48 @@ class Requester extends \yii\db\ActiveRecord
         return $docs_file;
     }
 
-    /**************** initialPreview ********************/
+
+
+    public function isImage($filePath)
+    {
+        return @is_array(getimagesize($filePath)) ? true : false;
+    }
+
+
+    public function initialPreview($data, $field, $type = 'file')
+    {
+        $initial = [];
+        $files = Json::decode($data);
+        if (is_array($files)) {
+            foreach ($files as $key => $value) {
+                $filePath = self::getUploadUrl() . $this->ref . '/' . $value;
+                $filePathDownload = self::getUploadUrl() . $this->ref . '/' . $value;
+    
+                $isImage = $this->isImage($filePath);
+    
+                if ($type == 'file') {
+                    $initial[] = "<div class='file-preview-other'><h2><i class='glyphicon glyphicon-file'></i></h2></div>";
+                } elseif ($type == 'config') {
+                    $initial[] = [
+                        'caption' => $value,
+                        'width'  => '120px',
+                        'url'    => Url::to(['requester/deletefile', 'id' => $this->id, 'fileName' => $key, 'field' => $field]),
+                        'key'    => $key
+                    ];
+                } else {
+                    if ($isImage) {
+                        $file = Html::img($filePath, ['class' => 'file-preview-image', 'alt' => $this->file_name, 'title' => $this->file_name]);
+                    } else {
+                        $file = Html::a('View File', $filePathDownload, ['target' => '_blank']);
+                    }
+                    $initial[] = $file;
+                }
+            }
+        }
+        return $initial;
+    }
+
+
     // public function initialPreview($data, $field, $type = 'file')
     // {
     //     $initial = [];
@@ -186,37 +227,14 @@ class Requester extends \yii\db\ActiveRecord
     //                 $initial[] = [
     //                     'caption' => $value,
     //                     'width'  => '120px',
-    //                     'url'    => Url::to(['/operator/requester/deletefile', 'id' => $this->id, 'file' => $key, 'field' => $field]),
+    //                     'url'    => Url::to(['requester/deletefile', 'id' => $this->id, 'fileName' => $key, 'field' => $field]),
     //                     'key'    => $key
     //                 ];
     //             } else {
-    //                 $initial[] = Html::img(self::getUploadUrl() . $value, ['class' => 'file-preview-image', 'alt' => $this->file, 'title' => $this->file]);
+    //                 $initial[] = Html::img(self::getUploadUrl() . $this->ref . '/' . $value, ['class' => 'file-preview-image', 'alt' => $model->file_name, 'title' => $model->file_name]);
     //             }
     //         }
     //     }
     //     return $initial;
     // }
-
-    public function initialPreview($data, $field, $type = 'file')
-    {
-        $initial = [];
-        $files = Json::decode($data);
-        if (is_array($files)) {
-            foreach ($files as $key => $value) {
-                if ($type == 'file') {
-                    $initial[] = "<div class='file-preview-other'><h2><i class='glyphicon glyphicon-file'></i></h2></div>";
-                } elseif ($type == 'config') {
-                    $initial[] = [
-                        'caption' => $value,
-                        'width'  => '120px',
-                        'url'    => Url::to(['requester/deletefile', 'id' => $this->id, 'fileName' => $key, 'field' => $field]),
-                        'key'    => $key
-                    ];
-                } else {
-                    $initial[] = Html::img(self::getUploadUrl() . $this->ref . '/' . $value, ['class' => 'file-preview-image', 'alt' => $model->file_name, 'title' => $model->file_name]);
-                }
-            }
-        }
-        return $initial;
-    }
 }

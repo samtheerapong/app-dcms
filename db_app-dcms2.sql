@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 19, 2023 at 10:02 AM
+-- Generation Time: May 20, 2023 at 07:44 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_app-dcms`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `approver`
+--
+
+DROP TABLE IF EXISTS `approver`;
+CREATE TABLE IF NOT EXISTS `approver` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `requester_id` int DEFAULT NULL COMMENT 'เอกสารที่ร้องขอ',
+  `approver_by` int DEFAULT NULL COMMENT 'อนุมัติโดย',
+  `approver_at` varchar(45) DEFAULT NULL COMMENT 'อนุมัติเมื่อ',
+  `approver_comment` text COMMENT 'ความคิดเห็นของผู้อนุมัติ',
+  PRIMARY KEY (`id`),
+  KEY `fk_approver_requester1_idx` (`requester_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -365,7 +382,8 @@ INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
 ('Actor', '/operator/reviewer/*'),
 ('Admin', '/rbac/*'),
 ('Admin', '/site/*'),
-('Admin', '/user/*');
+('Admin', '/user/*'),
+('Actor', 'User');
 
 -- --------------------------------------------------------
 
@@ -410,6 +428,7 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('FM-PC-???', 2, 1, 1683884207),
 ('FM-WH-???', 1, 1, 1683883958),
 ('MM-AG-???', 1, 1, 1683882730),
+('MM-EN-???', 1, 1, 1684568511),
 ('MM-PC-???', 7, 1, 1684374918),
 ('PM-EN-???', 1, 1, 1684117280),
 ('PM-QC-???', 2, 1, 1684479811),
@@ -425,12 +444,14 @@ INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) 
 ('SP-QC-???', 2, 1, 1684315140),
 ('SP-RD-???', 1, 1, 1683946262),
 ('SP-WH-???', 43, 1, 1684477584),
+('ST-PD-???', 2, 1, 1684555228),
 ('ST-QC-???', 1, 1, 1684488157),
 ('ST-WH-???', 1, 1, 1684117162),
 ('WI-EN-???', 1, 1, 1683941629),
 ('WI-MK-???', 1, 1, 1683942957),
 ('WI-PC-???', 18, 1, 1684490426),
-('WI-QC-???', 1, 1, 1684486802),
+('WI-PD-???', 1, 1, 1684555144),
+('WI-QC-???', 6, 1, 1684556433),
 ('WI-RD-???', 2, 1, 1684479801);
 
 -- --------------------------------------------------------
@@ -525,6 +546,27 @@ INSERT INTO `departments` (`id`, `department_code`, `department_details`, `color
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `documents`
+--
+
+DROP TABLE IF EXISTS `documents`;
+CREATE TABLE IF NOT EXISTS `documents` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ref` varchar(45) DEFAULT NULL,
+  `event_name` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `documents`
+--
+
+INSERT INTO `documents` (`id`, `ref`, `event_name`) VALUES
+(3, 'kE5aS7EjNumiRZ9dFUHpmZ', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `document_logs`
 --
 
@@ -539,7 +581,7 @@ CREATE TABLE IF NOT EXISTS `document_logs` (
   `document_revision` varchar(45) DEFAULT NULL,
   `document_fullname` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `document_logs`
@@ -553,7 +595,13 @@ INSERT INTO `document_logs` (`id`, `requester_id`, `reviewer_id`, `created_at`, 
 (5, 20, NULL, NULL, NULL, NULL, NULL, NULL),
 (6, 21, NULL, NULL, NULL, NULL, NULL, NULL),
 (7, 23, NULL, NULL, NULL, NULL, NULL, NULL),
-(8, 24, NULL, NULL, NULL, NULL, NULL, NULL);
+(8, 24, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 31, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 32, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 33, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 34, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 35, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 36, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -735,6 +783,7 @@ DROP TABLE IF EXISTS `requester`;
 CREATE TABLE IF NOT EXISTS `requester` (
   `id` int NOT NULL AUTO_INCREMENT,
   `types_id` int DEFAULT NULL COMMENT 'ประเภทการร้องขอ',
+  `type_details` varchar(255) DEFAULT NULL COMMENT 'รายละเอียดการร้องขอ',
   `status_id` int DEFAULT NULL COMMENT 'สถานะ',
   `created_at` varchar(45) DEFAULT NULL COMMENT 'สร้างเมื่อ',
   `updated_at` varchar(45) DEFAULT NULL COMMENT 'ปรับปรุงล่าสุดเมื่อ',
@@ -747,6 +796,9 @@ CREATE TABLE IF NOT EXISTS `requester` (
   `document_number` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'ชื่อเอกสาร',
   `details` text COMMENT 'รายละเอียดเอกสาร',
   `document_name` varchar(255) DEFAULT NULL COMMENT 'ชื่อเอกสาร',
+  `latest_rev` float DEFAULT NULL COMMENT 'ริวิชั่น ล่าสุด',
+  `document_age` float DEFAULT NULL COMMENT 'อายุของเอกสาร(ปี)',
+  `document_public_at` varchar(45) DEFAULT NULL COMMENT 'วันที่มีผลใช้เอกสาร',
   `ref` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'ref',
   `fullname` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'เลขที่เอกสาร',
   `covenant` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'PDF',
@@ -757,36 +809,38 @@ CREATE TABLE IF NOT EXISTS `requester` (
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `requester`
 --
 
-INSERT INTO `requester` (`id`, `types_id`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `document_number`, `details`, `document_name`, `ref`, `fullname`, `covenant`, `docs`) VALUES
-(2, 1, 3, '2023-05-11 08:07:55', '2023-05-17 14:18:40', 1, 4, 21, 9, 1, 'การชี้บ่งอันตราย และ การประเมินความเสี่ยง', 'EM-MK-003', '', NULL, 'cektOJbBgsDWCLmmGLzYF9', NULL, NULL, 'null'),
-(3, 2, 1, '2023-05-12 08:07:55', '2023-05-17 16:19:00', 1, 1, 18, 5, 3, 'การรายงาน การสอบสวน การติดตาม การแก้ไขอุบัติเหตุ หรืออุบัติการณ์', 'SP-QC-002', '', NULL, '3n2YDBOCT3BEN2HcvyY5eB', NULL, NULL, 'null'),
-(4, 1, 1, '2023-05-13 08:07:55', '2023-05-10 08:07:55', 1, 1, 19, 3, 7, 'การจัดซื้อ-จัดจ้าง', 'WI-RD-001', '', NULL, '-aOsLaBMVpC5nK07xZI1Fk', NULL, NULL, 'null'),
-(5, 2, 1, '2023-05-14 08:07:55', '2023-05-10 08:07:55', 1, 1, 3, 7, 6, 'การตรวจติดตามและประเมินความเสี่ยงของผู้ขาย/ผู้ให้บริการ', 'QM-WH-001', '', NULL, '4jsA0oPZSRI_m8F0o8UetI', NULL, NULL, 'null'),
-(6, 2, 1, '2023-05-15 08:07:55', '2023-05-10 08:07:55', 1, 1, 4, 2, 6, 'การวางแผนการผลิต และการควบคุมการผลิต', 'ST-WH-001', '', NULL, 'CBM2KdQ_tsi_etWB_2G4Rs', NULL, NULL, 'null'),
-(7, 3, 3, '2023-05-16 08:07:55', '2023-05-17 11:55:13', 1, 1, 13, 1, 4, 'การวางแผนการสั่งซื้อวัตถุดิบและบรรจุภัณฑ์', 'PM-EN-001', '', NULL, '5EUzIsxnj_fy65fGacXL6c', NULL, NULL, 'null'),
-(8, 1, 4, '2023-05-17 08:07:55', '2023-05-19 14:03:31', 1, 1, 3, 1, 3, 'การทบทวนและเปลี่ยนแปลงข้อตกลง', 'PM-QC-002', '', NULL, 'wAlve3PwYRSorpNtDjsgHg', NULL, NULL, 'null'),
-(9, 1, 1, '2023-05-18 08:07:55', '2023-05-17 12:50:48', 1, 1, 12, 8, 10, 'การวางแผนการผลิต', 'SHE-MM-002', '', NULL, 'R5T8SnBacTYyUdmcIzt8Bu', NULL, NULL, 'null'),
-(10, 2, 1, '2023-05-19 08:07:55', '2023-05-17 12:50:32', 1, 1, 15, 4, 5, 'กระบวนการผลิต', 'MM-PC-006', '', NULL, 'YYzgJPDPVcikzsu8e9E50p', NULL, NULL, 'null'),
-(11, 1, 1, '2023-05-10 08:07:55', '2023-05-18 08:55:18', 8, 1, 20, 4, 5, 'การสอบเทียบเครื่องมือและอุปกรณ์', 'MM-PC-007', '', NULL, 'u2z3rCi58jOZOexdu8DaSp', NULL, NULL, 'null'),
-(12, 1, 1, '2023-05-20 08:07:55', '2023-05-17 12:50:04', 11, 1, 21, 7, 5, 'การควบคุมผลิตภัณฑ์ที่ไม่เป็นไปตามข้อกำหนด', 'QM-PC-003', '', NULL, 'vgFYbLvuwiWy6xJrie3Boy', NULL, NULL, 'null'),
-(14, 1, 4, '2023-05-17 08:43:30', '2023-05-17 13:12:17', 1, 4, 25, 5, 4, 'การควบคุมกระบวนการผลิตและการแสดงสถานะ', 'SP-EN-009', '', NULL, 'M2W8vQBziy36J2cMDD5Kd5', NULL, NULL, 'null'),
-(15, 1, 1, '2023-05-17 11:31:37', '2023-05-18 08:55:07', 5, 1, 2, 5, 4, 'การติดตามตรวจสอบ การตรวจวัด และ การประเมินความสอดคล้อง', 'SP-EN-014', '', NULL, 'Yny1qaRt5LQ6EZ5N2uPqyD', NULL, NULL, 'null'),
-(16, 3, 3, '2023-05-17 11:32:50', '2023-05-17 14:18:09', 20, 4, 8, 6, 8, 'การตรวจปล่อยผลิตภัณฑ์', 'FM-AG-001', '', NULL, 'lmpC2NmdQyAdTh_GWWo5wq', NULL, NULL, 'null'),
-(17, 2, 1, '2023-05-17 11:34:37', '2023-05-19 17:00:02', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, '{\"62d739f4f67b2ea36cb7ebde2409c0de.pdf\":\"Peavey.pdf\"}', '{\"dcecd54ef79c40f092e3dbd3ecf5353d.jpg\":\"347023767_1386890032095727_6537520077498869560_n.jpg\",\"f2db74ec9aef96adaae56e612fc49ef3.jpg\":\"346282223_6037182342997895_2206992463809428455_n.jpg\"}'),
-(18, 2, 4, '2023-05-17 11:34:37', '2023-05-17 15:28:40', 1, 1, 1, 5, 4, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', 'SP-EN-012', '', NULL, 'GMGAfj5tylZgdKAmTu-ZGt', NULL, '{\"9d92c9b09c3bce439464f1ddf826eaf9.pdf\":\"BK23002908.pdf\"}', 'null'),
-(19, 2, 1, '2023-05-17 16:28:33', '2023-05-19 16:38:12', 1, 2, 2, 3, 5, 'asdasdasds', 'WI-PC-017', '', NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, '{\"d5a4be45a23e38f01e90855692bb5f77.pdf\":\"BK23002908.pdf\"}', '{\"19729f52367dfd8e220db2ddb81e3c38.jpg\":\"278623677_5688512154512188_2642951835844879887_n.jpg\",\"8537ad4982bc722536bac2e621fa5e3c.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\",\"ab4fd591b536af92d4a9b631b2ae8562.doc\":\"FM-GR-14 Rev.07.doc\"}'),
-(20, 1, 1, '2023-05-17 16:56:53', '2023-05-19 13:26:24', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-043', '', NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, '{\"22227125a70540cd498b545d3dcf6bf4.pdf\":\"FM-GR-150 Rev.01.pdf\"}', 'null'),
-(21, 1, 1, '2023-05-19 14:03:21', '2023-05-19 14:03:21', 1, 1, 2, 3, 7, 'tttttt', 'WI-RD-002', '', NULL, 'uiKUixu5gdhMhsk8_tijMZ', NULL, NULL, 'null'),
-(23, 2, 1, '2023-05-19 15:55:17', '2023-05-19 16:54:38', 1, 2, 2, 1, 4, 'asdasdas', 'SP-EN-015', '', NULL, 'Z-oTXQZ9CpJ7By0WiwKoPF', NULL, '{\"2191ed67e867e381392e30731d35be1a.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\"}', '{\"ca5a2a5a4f43fe3e92322ad2b1394b7d.jpg\":\"347127484_140089352385790_8097340672391811810_n.jpg\",\"d01553418c465351fb2e0fc8da4d148d.jpg\":\"346093680_6371086809614786_8227620584066180087_n.jpg\",\"fd915b053687f0be8578ab1d9bbb8ed1.jpg\":\"346484289_927645415136870_6849167580194324613_n.jpg\"}'),
-(24, 1, 1, '2023-05-19 16:00:02', '2023-05-19 16:00:02', 1, 1, 3, 3, 3, 'ytutyuty', 'WI-QC-001', '', NULL, '3hFzQwpCIa8TuXekNYQgzy', NULL, '{\"5505dcc03d1734d3aa0c26afa0377349.pdf\":\"PM-GR-05 Rev.33.pdf\"}', 'null'),
-(26, 2, 1, '2023-05-19 16:22:37', '2023-05-19 16:26:26', 1, 1, 1, 2, 3, 'dadddd', 'ST-QC-001', '', NULL, 'exEqcrLzsopj1ujvzXXfEk', NULL, '{\"de893f86dcba0dd087a31c93d098076a.pdf\":\"ตารางแสดงความเกี่ยวข้อง  Food  safety.pdf\"}', 'null'),
-(27, 2, 1, '2023-05-19 17:00:26', '2023-05-19 17:00:50', 4, 4, 4, 3, 5, 'asddddd', 'WI-PC-018', '', NULL, 'Nkorgfin1Rl8fqhZvQQ36F', NULL, '{\"304e1be32eddb85e1a07663cef38f5c9.pdf\":\"Peavey.pdf\"}', '{\"2725afa9c209ea1ce3e2f3d16dc9864f.png\":\"How production tracking is made. - YouTube12.png\"}');
+INSERT INTO `requester` (`id`, `types_id`, `type_details`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `document_number`, `details`, `document_name`, `latest_rev`, `document_age`, `document_public_at`, `ref`, `fullname`, `covenant`, `docs`) VALUES
+(2, 1, NULL, 3, '2023-05-11 08:07:55', '2023-05-17 14:18:40', 1, 4, 21, 9, 1, 'การชี้บ่งอันตราย และ การประเมินความเสี่ยง', 'EM-MK-003', '', NULL, NULL, NULL, NULL, 'cektOJbBgsDWCLmmGLzYF9', NULL, NULL, 'null'),
+(3, 2, NULL, 1, '2023-05-12 08:07:55', '2023-05-17 16:19:00', 1, 1, 18, 5, 3, 'การรายงาน การสอบสวน การติดตาม การแก้ไขอุบัติเหตุ หรืออุบัติการณ์', 'SP-QC-002', '', NULL, NULL, NULL, NULL, '3n2YDBOCT3BEN2HcvyY5eB', NULL, NULL, 'null'),
+(4, 1, NULL, 1, '2023-05-13 08:07:55', '2023-05-10 08:07:55', 1, 1, 19, 3, 7, 'การจัดซื้อ-จัดจ้าง', 'WI-RD-001', '', NULL, NULL, NULL, NULL, '-aOsLaBMVpC5nK07xZI1Fk', NULL, NULL, 'null'),
+(5, 2, NULL, 1, '2023-05-14 08:07:55', '2023-05-10 08:07:55', 1, 1, 3, 7, 6, 'การตรวจติดตามและประเมินความเสี่ยงของผู้ขาย/ผู้ให้บริการ', 'QM-WH-001', '', NULL, NULL, NULL, NULL, '4jsA0oPZSRI_m8F0o8UetI', NULL, NULL, 'null'),
+(6, 2, NULL, 1, '2023-05-15 08:07:55', '2023-05-10 08:07:55', 1, 1, 4, 2, 6, 'การวางแผนการผลิต และการควบคุมการผลิต', 'ST-WH-001', '', NULL, NULL, NULL, NULL, 'CBM2KdQ_tsi_etWB_2G4Rs', NULL, NULL, 'null'),
+(7, 3, NULL, 3, '2023-05-16 08:07:55', '2023-05-17 11:55:13', 1, 1, 13, 1, 4, 'การวางแผนการสั่งซื้อวัตถุดิบและบรรจุภัณฑ์', 'PM-EN-001', '', NULL, NULL, NULL, NULL, '5EUzIsxnj_fy65fGacXL6c', NULL, NULL, 'null'),
+(8, 1, NULL, 4, '2023-05-17 08:07:55', '2023-05-19 14:03:31', 1, 1, 3, 1, 3, 'การทบทวนและเปลี่ยนแปลงข้อตกลง', 'PM-QC-002', '', NULL, NULL, NULL, NULL, 'wAlve3PwYRSorpNtDjsgHg', NULL, NULL, 'null'),
+(9, 1, NULL, 1, '2023-05-18 08:07:55', '2023-05-17 12:50:48', 1, 1, 12, 8, 10, 'การวางแผนการผลิต', 'SHE-MM-002', '', NULL, NULL, NULL, NULL, 'R5T8SnBacTYyUdmcIzt8Bu', NULL, NULL, 'null'),
+(10, 2, NULL, 1, '2023-05-19 08:07:55', '2023-05-17 12:50:32', 1, 1, 15, 4, 5, 'กระบวนการผลิต', 'MM-PC-006', '', NULL, NULL, NULL, NULL, 'YYzgJPDPVcikzsu8e9E50p', NULL, NULL, 'null'),
+(11, 1, NULL, 1, '2023-05-10 08:07:55', '2023-05-18 08:55:18', 8, 1, 20, 4, 5, 'การสอบเทียบเครื่องมือและอุปกรณ์', 'MM-PC-007', '', NULL, NULL, NULL, NULL, 'u2z3rCi58jOZOexdu8DaSp', NULL, NULL, 'null'),
+(12, 1, NULL, 1, '2023-05-20 08:07:55', '2023-05-17 12:50:04', 11, 1, 21, 7, 5, 'การควบคุมผลิตภัณฑ์ที่ไม่เป็นไปตามข้อกำหนด', 'QM-PC-003', '', NULL, NULL, NULL, NULL, 'vgFYbLvuwiWy6xJrie3Boy', NULL, NULL, 'null'),
+(14, 1, NULL, 4, '2023-05-17 08:43:30', '2023-05-17 13:12:17', 1, 4, 25, 5, 4, 'การควบคุมกระบวนการผลิตและการแสดงสถานะ', 'SP-EN-009', '', NULL, NULL, NULL, NULL, 'M2W8vQBziy36J2cMDD5Kd5', NULL, NULL, 'null'),
+(15, 1, NULL, 1, '2023-05-17 11:31:37', '2023-05-18 08:55:07', 5, 1, 2, 5, 4, 'การติดตามตรวจสอบ การตรวจวัด และ การประเมินความสอดคล้อง', 'SP-EN-014', '', NULL, NULL, NULL, NULL, 'Yny1qaRt5LQ6EZ5N2uPqyD', NULL, NULL, 'null'),
+(16, 3, NULL, 3, '2023-05-17 11:32:50', '2023-05-17 14:18:09', 20, 4, 8, 6, 8, 'การตรวจปล่อยผลิตภัณฑ์', 'FM-AG-001', '', NULL, NULL, NULL, NULL, 'lmpC2NmdQyAdTh_GWWo5wq', NULL, NULL, 'null'),
+(17, 2, NULL, 1, '2023-05-17 11:34:37', '2023-05-19 17:00:02', 1, 4, 4, 5, 4, 'การทดสอบความชำนาญ (Proficiency Testing)', 'SP-EN-008', '', NULL, NULL, NULL, NULL, '9CpDYZTYRocwpcRieuTz_z', NULL, '{\"62d739f4f67b2ea36cb7ebde2409c0de.pdf\":\"Peavey.pdf\"}', '{\"dcecd54ef79c40f092e3dbd3ecf5353d.jpg\":\"347023767_1386890032095727_6537520077498869560_n.jpg\",\"f2db74ec9aef96adaae56e612fc49ef3.jpg\":\"346282223_6037182342997895_2206992463809428455_n.jpg\"}'),
+(18, 2, 'การพัฒนาผลิตภัณฑ์ใหมการพัฒนาผลิตภัณฑ์ใหม', 4, '2023-05-17 11:34:37', '2023-05-20 09:59:18', 1, 4, 1, 5, 4, 'การพัฒนาผลิตภัณฑ์ใหม่ และการส่งตัวอย่าง', 'SP-EN-012', '', NULL, 7, 1, '2023-05-27', 'GMGAfj5tylZgdKAmTu-ZGt', NULL, '{\"9d92c9b09c3bce439464f1ddf826eaf9.pdf\":\"BK23002908.pdf\"}', 'null'),
+(19, 2, NULL, 1, '2023-05-17 16:28:33', '2023-05-19 16:38:12', 1, 2, 2, 3, 5, 'asdasdasds', 'WI-PC-017', '', NULL, NULL, NULL, NULL, 'NFYLrrMDMrTH3RSxJ81Z6X', NULL, '{\"d5a4be45a23e38f01e90855692bb5f77.pdf\":\"BK23002908.pdf\"}', '{\"19729f52367dfd8e220db2ddb81e3c38.jpg\":\"278623677_5688512154512188_2642951835844879887_n.jpg\",\"8537ad4982bc722536bac2e621fa5e3c.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\",\"ab4fd591b536af92d4a9b631b2ae8562.doc\":\"FM-GR-14 Rev.07.doc\"}'),
+(20, 1, NULL, 1, '2023-05-17 16:56:53', '2023-05-19 13:26:24', 1, 1, 2, 5, 6, 'asasafaf', 'SP-WH-043', '', NULL, NULL, NULL, NULL, 'hkIxEXgrDPyuFAiFPjYKsn', NULL, '{\"22227125a70540cd498b545d3dcf6bf4.pdf\":\"FM-GR-150 Rev.01.pdf\"}', 'null'),
+(21, 1, NULL, 1, '2023-05-19 14:03:21', '2023-05-19 14:03:21', 1, 1, 2, 3, 7, 'tttttt', 'WI-RD-002', '', NULL, NULL, NULL, NULL, 'uiKUixu5gdhMhsk8_tijMZ', NULL, NULL, 'null'),
+(23, 2, NULL, 1, '2023-05-19 15:55:17', '2023-05-19 16:54:38', 1, 2, 2, 1, 4, 'asdasdas', 'SP-EN-015', '', NULL, NULL, NULL, NULL, 'Z-oTXQZ9CpJ7By0WiwKoPF', NULL, '{\"2191ed67e867e381392e30731d35be1a.pdf\":\"ตารางแสดงความเกี่ยวข้องISO14001.pdf\"}', '{\"ca5a2a5a4f43fe3e92322ad2b1394b7d.jpg\":\"347127484_140089352385790_8097340672391811810_n.jpg\",\"d01553418c465351fb2e0fc8da4d148d.jpg\":\"346093680_6371086809614786_8227620584066180087_n.jpg\",\"fd915b053687f0be8578ab1d9bbb8ed1.jpg\":\"346484289_927645415136870_6849167580194324613_n.jpg\"}'),
+(24, 1, NULL, 1, '2023-05-19 16:00:02', '2023-05-19 16:00:02', 1, 1, 3, 3, 3, 'ytutyuty', 'WI-QC-001', '', NULL, NULL, NULL, NULL, '3hFzQwpCIa8TuXekNYQgzy', NULL, '{\"5505dcc03d1734d3aa0c26afa0377349.pdf\":\"PM-GR-05 Rev.33.pdf\"}', 'null'),
+(26, 5, 'ขอสำเนาจำนวน 10 ชุด', 1, '2023-05-19 16:22:37', '2023-05-20 10:00:52', 1, 4, 1, 2, 3, 'dadddd', 'ST-QC-001', '', NULL, 1, 20, '2023-05-24', 'exEqcrLzsopj1ujvzXXfEk', NULL, '{\"de893f86dcba0dd087a31c93d098076a.pdf\":\"ตารางแสดงความเกี่ยวข้อง  Food  safety.pdf\"}', 'null'),
+(27, 4, 'การทบทวนและเปลี่ยนแปลงข้อตกลงการทบทวนและเปลี่ยนแปลงข้อตกลงการทบทวนและเปลี่ยนแปลงข้อตกลง', 1, '2023-05-19 17:00:26', '2023-05-20 10:13:50', 4, 4, 4, 3, 5, 'การทบทวนและเปลี่ยนแปลงข้อตกลงการทบทวนและเปลี่ยนแปลงข้อตกลง', 'WI-PC-018', '', NULL, 2, 8, '2023-05-23', 'Nkorgfin1Rl8fqhZvQQ36F', NULL, '{\"304e1be32eddb85e1a07663cef38f5c9.pdf\":\"Peavey.pdf\"}', '{\"2725afa9c209ea1ce3e2f3d16dc9864f.png\":\"How production tracking is made. - YouTube12.png\",\"e9ef29f911689dbca1a101a8a9f74d14.png\":\"How production tracking is made. - YouTube12.png\",\"f8643c0a566af3fb92a19907aca701f6.png\":\"How production tracking is made. - YouTube11.png\",\"54a0279f54175e6165690e4ea607075d.png\":\"How production tracking is made. - YouTube10.png\"}'),
+(33, 3, 'sdasddd', 1, '2023-05-20 10:59:04', '2023-05-20 14:41:23', 4, 1, 3, 3, 2, 'fasfasfasf', 'WI-PD-001', '', NULL, NULL, NULL, '', 'xBRA3xru1yYztDSbdWC6iD', NULL, '[]', '[]'),
+(36, 4, 'การพัฒนาผลิตภัณฑ์ใหมการพัฒนาผลิตภัณฑ์ใหม', 1, '2023-05-20 14:41:51', '2023-05-20 14:43:22', 1, 1, 3, 4, 4, 'adddd', 'MM-EN-001', '', NULL, NULL, NULL, '', 'B426prYGtTDwRzm2rXXdb1', NULL, '{\"2cb25ab5646451e8e8e2df206e2a3aef.pdf\":\"PR-6603-0149- ups phase 1.pdf\"}', 'null');
 
 -- --------------------------------------------------------
 
@@ -801,52 +855,69 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   `reviewer_name` int DEFAULT NULL COMMENT 'ทบทวนโดย',
   `reviewer_at` varchar(45) DEFAULT NULL COMMENT 'ทบทวนเมื่อ',
   `document_revision` float DEFAULT NULL COMMENT 'แก้ไขครั้งที่',
-  `document_age` float DEFAULT NULL COMMENT 'อายุของเอกสาร',
-  `document_public_at` varchar(45) DEFAULT NULL COMMENT 'วันที่ประกาศใช้',
-  `stamps_id` int DEFAULT NULL COMMENT 'ประทับตรา',
   `document_ref` varchar(255) DEFAULT NULL COMMENT 'เอกสารอ้างอิง',
   `document_tags` varchar(255) DEFAULT NULL COMMENT '#tag',
   `points_id` int DEFAULT NULL COMMENT 'จุดรับเอกสาร',
   `reviewer_comment` text COMMENT 'ความคิดเห็นของผู้ทบทวน',
   `additional_training` text COMMENT 'การอบรมเพิ่มเติม',
-  `approver_name` int DEFAULT NULL COMMENT 'ผู้อนุมัติ',
-  `approver_at` varchar(45) DEFAULT NULL COMMENT 'อนุมัติเมื่อ',
-  `approver_comment` text COMMENT 'ความคิดเห็นผู้อนุมัติ',
   PRIMARY KEY (`id`),
   KEY `fk_reviewer_requester1_idx` (`requester_id`),
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
-  KEY `fk_reviewer_stamps1_idx` (`stamps_id`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `reviewer`
 --
 
-INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `document_revision`, `document_age`, `document_public_at`, `stamps_id`, `document_ref`, `document_tags`, `points_id`, `reviewer_comment`, `additional_training`, `approver_name`, `approver_at`, `approver_comment`) VALUES
-(2, 2, 4, '2023-05-19', 1, 3, '2023-05-19', 2, '', '', 3, '', '', NULL, '', ''),
-(3, 3, 2, '2023-05-03', 1, 2, '2023-05-05', 2, '', '', 7, '', '', 4, '2023-05-15', ''),
-(4, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(5, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 7, 3, '2023-05-10', 5, 4, '2023-05-18', 1, '', '', 1, '', '', NULL, '', ''),
-(8, 8, 2, '2023-05-15', 1, 2, '2023-05-15', 4, '', '', 2, '', '', 3, '2023-06-02', ''),
-(9, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(10, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(11, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(12, 12, 4, '2023-05-18', 6, 6, '2023-05-19', 2, '', '', 3, '', '', NULL, '', ''),
-(13, 14, 3, '2023-05-24', 2, 2, '2023-05-19', 1, '', '', 1, '', '', 4, '2023-05-18', ''),
-(14, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(15, 16, 3, '2023-05-18', 5, 2, '2023-05-17', 1, '', '', 1, '', '', NULL, '', ''),
-(16, 17, 2, '2023-05-17', 5, NULL, '2023-05-18', 2, '', '', 1, '', '', 4, '2023-05-19', ''),
-(17, 18, 3, '2023-05-02', 2, 4, '2023-05-11', 3, '', '', 1, '', '', 2, '2023-05-19', ''),
-(18, 19, 5, '2023-05-18', 2, 2, '2023-06-09', 3, '22', '', 8, '2', '2', 2, '2023-05-19', ''),
-(19, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(20, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(22, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(23, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(25, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(26, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `document_revision`, `document_ref`, `document_tags`, `points_id`, `reviewer_comment`, `additional_training`) VALUES
+(2, 2, 4, '2023-05-19', 1, '', '', 3, '', ''),
+(3, 3, 2, '2023-05-03', 1, '', '', 7, '', ''),
+(4, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 5, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 7, 3, '2023-05-10', 5, '', '', 1, '', ''),
+(8, 8, 2, '2023-05-15', 1, '', '', 2, '', ''),
+(9, 9, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(10, 10, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(11, 11, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 12, 4, '2023-05-18', 6, '', '', 3, '', ''),
+(13, 14, 3, '2023-05-24', 2, '', '', 1, '', ''),
+(14, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(15, 16, 3, '2023-05-18', 5, '', '', 1, '', ''),
+(16, 17, 2, '2023-05-17', 5, '', '', 1, '', ''),
+(17, 18, 3, '2023-05-02', 2, '', '', 1, '', ''),
+(18, 19, 5, '2023-05-18', 2, '22', '', 8, '2', '2'),
+(19, 20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(20, 21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(22, 23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(23, 24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(25, 26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(26, 27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(29, 33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(32, 36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sam`
+--
+
+DROP TABLE IF EXISTS `sam`;
+CREATE TABLE IF NOT EXISTS `sam` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `ref` varchar(50) DEFAULT NULL,
+  `covenant` varchar(255) DEFAULT NULL,
+  `docs` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `sam`
+--
+
+INSERT INTO `sam` (`id`, `ref`, `covenant`, `docs`) VALUES
+(2, 'DK-zL98nbRKpIDsyqjtJPa', '{\"1684558077.pdf\":\"FM-GR-150 Rev.01.pdf\"}', 'null');
 
 -- --------------------------------------------------------
 
@@ -960,7 +1031,7 @@ CREATE TABLE IF NOT EXISTS `types` (
   `type_details` text COMMENT 'รายละเอียด',
   `color` varchar(45) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL COMMENT 'สี',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `types`
@@ -969,7 +1040,33 @@ CREATE TABLE IF NOT EXISTS `types` (
 INSERT INTO `types` (`id`, `type_name`, `type_details`, `color`) VALUES
 (1, 'New Document', 'ขอจัดทำ', '#4a86e8'),
 (2, 'Edit', 'ขอแก้ไข', '#ff6000'),
-(3, 'Cancel', 'ขอยกเลิก', '#434343');
+(3, 'Cancel', 'ขอยกเลิก', '#434343'),
+(4, 'Copy Control', 'ขอสำเนา ควบคุมเอกสาร', '#6aa84f'),
+(5, 'Copy Not Control', 'ขอสำเนา ไม่ควบคุมเอกสาร', '#cc0000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `uploads`
+--
+
+DROP TABLE IF EXISTS `uploads`;
+CREATE TABLE IF NOT EXISTS `uploads` (
+  `upload_id` int NOT NULL AUTO_INCREMENT,
+  `ref` varchar(45) DEFAULT NULL,
+  `file_name` varchar(200) DEFAULT NULL,
+  `real_filename` varchar(200) DEFAULT NULL,
+  `create_date` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`upload_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `uploads`
+--
+
+INSERT INTO `uploads` (`upload_id`, `ref`, `file_name`, `real_filename`, `create_date`) VALUES
+(12, 'kE5aS7EjNumiRZ9dFUHpmZ', 'FM-GR-07 Rev.13.pdf', 'f301641a8ef176f070e41afdf1499852.pdf', NULL),
+(13, 'kE5aS7EjNumiRZ9dFUHpmZ', 'How production tracking is made. - YouTube10.png', 'e6404e80a8daa717be8d34d809eb38e0.png', NULL);
 
 -- --------------------------------------------------------
 
@@ -1004,10 +1101,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684465018, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684555537, 10, NULL),
 (2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684488488, 10, NULL),
-(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1683795258, 10, NULL),
-(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684490291, 10, NULL),
+(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1684545043, 10, NULL),
+(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684554007, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL),
 (6, 'sawika', 'sawika@email.com', '$2y$12$O3tNFBcq9cpEtcHqCTolDucXMtIb5knWKjHOL2OSL5N7UKkXdtoui', 's4v4f4FElf3N2uPdx6GZYLMy5mS8rNCd', 1683792969, NULL, NULL, '::1', 1683792969, 1683793430, 0, 1683794565, 10, NULL),
 (7, 'araya', 'acc.nfcfa@gmail.com', '$2y$12$NrzWMCnFlYaX6ThguT8d9.PNE.euAzbH8Qse4.Y4qoj3fh33lqLSe', 'JLEI5sdHVlrhamckF6VXpy3heJfk6nQ9', 1683792990, NULL, NULL, '::1', 1683792990, 1683792990, 0, NULL, 10, NULL),
@@ -1035,6 +1132,12 @@ INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `con
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `approver`
+--
+ALTER TABLE `approver`
+  ADD CONSTRAINT `fk_approver_requester1` FOREIGN KEY (`requester_id`) REFERENCES `requester` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `auth_assignment`
@@ -1083,7 +1186,6 @@ ALTER TABLE `requester`
 ALTER TABLE `reviewer`
   ADD CONSTRAINT `fk_reviewer_points1` FOREIGN KEY (`points_id`) REFERENCES `points` (`id`),
   ADD CONSTRAINT `fk_reviewer_requester1` FOREIGN KEY (`requester_id`) REFERENCES `requester` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_reviewer_stamps1` FOREIGN KEY (`stamps_id`) REFERENCES `stamps` (`id`),
   ADD CONSTRAINT `fk_reviewer_user1` FOREIGN KEY (`reviewer_name`) REFERENCES `user` (`id`);
 
 --
