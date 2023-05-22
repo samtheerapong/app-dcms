@@ -36,6 +36,7 @@ return [
     'report status' => 'รายงาน (สถานะ)',
     // Requester
     'Reviewer' => 'ทบทวน',
+    'status_id' => 'ประเภทการร้องขอ',
     'requester_id' => 'เอกสารที่ร้องขอ',
     'reviewer_name' => 'ทบทวนโดย',
     'reviewer_at' => 'ทบทวนเมื่อ',
@@ -58,6 +59,7 @@ return [
     'Requester Page' => 'หน้าร้องขอ',
     'Reviewer Page' => 'หน้าทบทวน',
     'Requester' => 'ร้องขอ',
+    'document_age_caption' => 'ค่าเริ่มต้น 10 ปี',
     // Categories
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',
@@ -70,7 +72,10 @@ return [
     'type_details' => 'ประเภทการร้องขอ',
     'status_details' => 'สถานะ',
     'group data' => 'กลุ่มข้อมูล',
-
+    // Reviewer
+    'document_revision_caption' => 'หากขอแก้ไข Rev. ใหม่ ต้องมากกว่า Rev. ผู้ขอ',
+    'document_status_caption' => 'ผู้ขอจะแก้เอกสารได้เมื่อเปลี่ยนสถานะเป็น "อนุญาตผู้ขอแก้ไขได้"',
+    
 
     
     

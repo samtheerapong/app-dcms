@@ -3,6 +3,9 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "reviewer".
@@ -29,6 +32,31 @@ use Yii;
  */
 class Reviewer extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    self::EVENT_BEFORE_INSERT => ['reviewer_at'],
+                    self::EVENT_BEFORE_UPDATE => ['reviewer_at'],
+                ],
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                },
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['reviewer_name'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['reviewer_name'],
+                ],
+            ],
+        ];
+    }
+
+
     /**
      * {@inheritdoc}
      */

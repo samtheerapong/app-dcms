@@ -92,28 +92,35 @@ class ReviewerController extends Controller
         $model = $this->findModel($id);
         $modelRequester = $this->findModelRequester($model->requester_id);
 
+        if($modelRequester->types_id === 2){
+            $model->document_revision = $modelRequester->latest_rev + 1;
+        } else {
+            $model->document_revision = $modelRequester->latest_rev;
+        }
 
         if (
-            $model->load(Yii::$app->request->post()) &&
-            $modelRequester->load(Yii::$app->request->post())
+            $model->load(Yii::$app->request->post())
+            && $modelRequester->load(Yii::$app->request->post())
         ) {
 
+            // $modelRequester->status_id = 3; 
 
-            if ($model->reviewer_name == null) {
-                $modelRequester->status_id = 2;
-            } else if ($model->approver_name == null) {
-                $modelRequester->status_id = 3;
-            } else {
-                $modelRequester->status_id = 4;
+            if ($modelRequester->latest_rev >= $model->document_revision) { // ถ้า rev ผู้ขอ มีค่าน้อยกว่าหรือเท่ากับ rev ผู้ทบทวน
+                $modelRequester->latest_rev = $modelRequester->latest_rev;  //  ให้ทำ rev ผู้ขอ บันทึกใหม่ ให้เหมือนผู้ทบทวน 
+            } else { 
+                $modelRequester->latest_rev = $model->document_revision; // หากไม่ตรงเงือนไขด้านบน ให้ rev ผู้ขอ มีค่าเท่าเดิม
             }
+            $model->document_revision = $modelRequester->latest_rev; // ให้ rev ผู้ทบทวน มีค่าเท่ากับ ผู้ขอเดิม
+
 
             if ($modelRequester->save()) {
                 $model->save();
             }
+
             $model->save();
 
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-            
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Reviewer Successfully'));
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

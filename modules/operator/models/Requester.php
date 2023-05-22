@@ -28,6 +28,10 @@ class Requester extends \yii\db\ActiveRecord
             ],
             [
                 'class' => BlameableBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['request_by','created_by','updated_by'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by'],
+                ],
             ],
         ];
     }
@@ -46,7 +50,7 @@ class Requester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['types_id', 'request_by', 'categories_id', 'departments_id', 'document_title'], 'required'],
+            [['types_id', 'categories_id', 'departments_id', 'document_title','latest_rev','document_public_at'], 'required'],
             [['created_at', 'updated_at', 'document_public_at'], 'string', 'max' => 45],
             [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname'], 'string'],
@@ -77,10 +81,10 @@ class Requester extends \yii\db\ActiveRecord
             'created_by' => Yii::t('app', 'สร้างโดย'),
             'updated_by' => Yii::t('app', 'ปรับปรุงโดย'),
             'request_by' => Yii::t('app', 'จัดทำโดย'),
-            'categories_id' => Yii::t('app', 'ระดับเอกสาร'),
+            'categories_id' => Yii::t('app', 'ระดับ'),
             'departments_id' => Yii::t('app', 'แผนกที่รับผิดชอบ'),
             'document_number' => Yii::t('app', 'เลขที่เอกสาร'),
-            'latest_rev' => Yii::t('app', 'Rev.'),
+            'latest_rev' => Yii::t('app', 'ริวิชั่นล่าสุด'),
             'document_age' => Yii::t('app', 'อายุ (ปี)'),
             'document_public_at' => Yii::t('app', 'วันที่ประกาศใช้'),
             'document_title' => Yii::t('app', 'เรื่อง'),

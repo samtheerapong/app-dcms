@@ -51,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:8%;'],
+                            'options' => ['style' => 'width:150px'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
                             'buttons' => [
@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'status_id',
-                            'options' => ['style' => 'width:7%'],
+                            'options' => ['style' => 'width:120px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -106,39 +106,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        [
-                            'attribute' => 'type_details',
-                            'format' => 'ntext',
-                            'options' => ['style' => 'width:14%'],
-                            'value' => function ($model) {
-                                // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
-                                $text = $model->type_details;
-                                if (mb_strlen($text) > 20) {
-                                    $text = mb_substr($text, 0, 20) . '...';
-                                }
-                                return $text;
-                            },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'type_details',
-                                'data' =>  array_map(function ($value) {
-                                    if (mb_strlen($value) > 20) {
-                                        $value = mb_substr($value, 0, 20) . '...';
-                                    }
-                                    return $value;
-                                }, ArrayHelper::map(Requester::find()->all(), 'type_details', 'type_details')),
-                                'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
 
                         [
                             'attribute' => 'document_number',
-                            'options' => ['style' => 'width:7%'],
+                            'options' => ['style' => 'width:150px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -160,11 +131,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'latest_rev',
                             // 'label' => 'Rev.',
-                            'options' => ['style' => 'width:5%'],
+                            'options' => ['style' => 'width:50px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => ['decimal', 1], // รูปแบบเลขทศนิยม
                             'value' => function ($model) {
-                                return  $model->latest_rev;
+                                return $model->latest_rev ?? 0;
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -188,7 +159,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_age',
                             // 'label' => 'อายุ',
-                            'options' => ['style' => 'width:5%'],
+                            'options' => ['style' => 'width:50px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -210,7 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
-                            'options' => ['style' => 'width:15%'],
+                            // 'options' => ['style' => 'width:30%'],
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
@@ -240,9 +211,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'created_at:date',
                         [
                             'attribute' => 'document_public_at',
-                            'options' => ['style' => 'width:10%'],
+                            'options' => ['style' => 'width:120px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'date',
+                            'value' => function ($model) {
+                                return $model->document_public_at ?? '';
+                            },
                             'filter' => DatePicker::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'document_public_at',
@@ -257,7 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'request_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:10%'],
+                            'options' => ['style' => 'width:160px'],
                             'value' => 'requestBy.profile.name',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -276,7 +250,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'categories_id',
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:10%'],
+                            'options' => ['style' => 'width:50px'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
@@ -299,7 +273,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'label' => 'แผนก',
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:10%'],
+                            'options' => ['style' => 'width:50px'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
@@ -320,7 +294,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'document_title:ntext',
                         [
                             'attribute' => 'types_id',
-                            'options' => ['style' => 'width:10%'],
+                            'options' => ['style' => 'width:170px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -340,7 +314,37 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
+                        // [
+                        //     'attribute' => 'type_details',
+                        //     'format' => 'ntext',
+                        //     'options' => ['style' => 'width:10%'],
+                        //     'value' => function ($model) {
+                        //         // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
+                        //         $text = $model->type_details;
+                        //         if (mb_strlen($text) > 10) {
+                        //             $text = mb_substr($text, 0, 10) . '...';
+                        //         }
+                        //         return $text;
+                        //     },
+                        //     'filter' => Select2::widget([
+                        //         'model' => $searchModel,
+                        //         'attribute' => 'type_details',
+                        //         'data' =>  array_map(function ($value) {
+                        //             if (mb_strlen($value) > 10) {
+                        //                 $value = mb_substr($value, 0, 10) . '...';
+                        //             }
+                        //             return $value;
+                        //         }, ArrayHelper::map(Requester::find()->all(), 'type_details', 'type_details')),
+                        //         'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
+                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        //         'language' => 'th',
+                        //         'pluginOptions' => [
+                        //             'allowClear' => true
+                        //         ],
+                        //     ])
+                        // ],
                     ],
+
                 ]); ?>
             </div>
         </div>

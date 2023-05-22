@@ -32,7 +32,7 @@ use kartik\widgets\DatePicker;
 
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <?= $form->field($model, 'types_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -45,25 +45,13 @@ use kartik\widgets\DatePicker;
                         ?>
                     </div>
 
-                    <div class="col-md-9">
+                    <div class="col-md-4">
                         <?= $form->field($model, 'type_details')->textInput(['maxlength' => true]) ?>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <?= $form->field($model, 'request_by')->widget(Select2::class, [
-                            'language' => 'th',
-                            'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
-                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                            'pluginOptions' => [
-                                'allowClear' => true
-                            ],
-                        ]);
-                        ?>
-                    </div>
-                    <div class="col-md-4">
+
+
+                    <div class="col-md-3">
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -75,7 +63,7 @@ use kartik\widgets\DatePicker;
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
@@ -106,7 +94,10 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-md-4">
-                        <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?>
+                        <!-- <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?> -->
+                        <?= $form->field($model, 'document_age')->textInput([
+                            'maxlength' => true
+                        ])->label(Yii::t('app', 'document_age') . '<span class="text-muted">' . ' (' . Yii::t('app', 'document_age_caption') . ')</span>') ?>
                     </div>
                     <div class="col-md-4">
                         <?= $form->field($model, 'document_public_at')->widget(
