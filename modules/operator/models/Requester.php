@@ -137,9 +137,15 @@ class Requester extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
-    public function getReviewers()
+    // public function getReviewers()
+    // {
+    //     return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
+    // }
+
+    public function getReviewer()
     {
-        return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
+        // Assuming there is a foreign key relationship between Requester and Reviewer using requester_id
+        return $this->hasOne(Reviewer::class, ['requester_id' => 'id']);
     }
 
     /**************** Upload docs ********************/

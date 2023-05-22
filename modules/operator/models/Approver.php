@@ -61,4 +61,16 @@ class Approver extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Requester::className(), ['id' => 'requester_id']);
     }
+
+    public function getApproverBy()
+    {
+        return $this->hasOne(User::class, ['id' => 'approver_by']);
+    }
+
+    public function getReviewer()
+    {
+        // Assuming there is a foreign key relationship between Requester and Reviewer using requester_id
+        return $this->hasOne(Reviewer::class, ['requester_id' => 'id']);
+    }
+  
 }

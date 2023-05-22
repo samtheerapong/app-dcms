@@ -2,6 +2,7 @@
 
 namespace app\modules\operator\controllers;
 
+use app\modules\operator\models\Approver;
 use Yii;
 use app\modules\operator\models\PrivateRequester;
 use app\modules\operator\models\PrivateRequesterSearch;
@@ -74,6 +75,7 @@ class PrivateRequesterController extends Controller
     {
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
+        $modelApprover = new Approver();
         $model->status_id = 1;
         $model->document_age = 10;
 
@@ -91,8 +93,11 @@ class PrivateRequesterController extends Controller
             $model->document_number = AutoNumber::generate($fullname . '-???');
 
             if ($model->save()) {
-                $modelReviewer->requester_id = $model->id;
-                $modelReviewer->save();
+                $modelReviewer->requester_id = $model->id; // เพิ่ม requester_id ในตาราง Reviewer
+                if ($modelReviewer->save()) {
+                    $modelApprover->requester_id = $model->id; // เพิ่ม requester_id ในตาราง Approver
+                    $modelApprover->save();
+                }
             }
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
@@ -102,7 +107,8 @@ class PrivateRequesterController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelReviewer' => $modelReviewer,
+            'modelReviewer' => $modelReviewer, // หากไม่มีการ create requester ใน form ไม่ต้อง ใช้งานก็ได้ ให้ใส่ใน create.php ด้วย
+            'modelApprover' => $modelApprover, // หากไม่มีการ create requester ใน form ไม่ต้อง ใช้งานก็ได้ ให้ใส่ใน create.php ด้วย
         ]);
     }
 

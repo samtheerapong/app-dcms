@@ -101,6 +101,7 @@ class Reviewer extends \yii\db\ActiveRecord
             //
             'categories_id' => Yii::t('app', 'categories_id'),
             'reviewerName.profile.name' => Yii::t('app', 'reviewerName.profile.name'),
+            'approverName.profile.name' => Yii::t('app', 'approverName.profile.name'),
         ];
     }
 
@@ -118,6 +119,12 @@ class Reviewer extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'reviewer_name']);
     }
+
+    public function getApproverName()
+    {
+        return $this->hasOne(User::class, ['id' => 'approver_by']);
+    }
+
 
    
 }

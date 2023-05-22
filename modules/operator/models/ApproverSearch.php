@@ -17,6 +17,7 @@ class ApproverSearch extends Approver
     public $document_number;
     public $latest_rev;
     public $request_by;
+    public $reviewer_name;
 
 
     /**
@@ -27,7 +28,7 @@ class ApproverSearch extends Approver
         return [
             [['id', 'requester_id', 'approver_by'], 'integer'],
             [['approver_at', 'approver_comment', 'document_number'], 'safe'],
-            [['status_id', 'latest_rev', 'request_by'], 'integer'], // **************** เพิ่ม  2 ********************
+            [['status_id', 'latest_rev', 'request_by','reviewer_name'], 'integer'], // **************** เพิ่ม  2 ********************
             [['latest_rev'], 'number'], // **************** เพิ่ม  2 ********************
         ];
     }
@@ -54,12 +55,15 @@ class ApproverSearch extends Approver
         // **************** เพิ่ม  3 ********************
         $query = Approver::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [3, 4]]);
 
+        // $query->joinWith('requester.reviewer');
+
 
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
         ]);
 
         $this->load($params);
@@ -72,7 +76,9 @@ class ApproverSearch extends Approver
 
         // **************** เพิ่ม  4 ********************
         $query->andFilterWhere(['status.id' => $this->status_id]);
+        // $query->andFilterWhere(['reviewer.reviewer_name' => $this->reviewer_name]);
         $query->andFilterWhere(['requester.request_by' => $this->request_by]);
+        $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
         $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
         $query->andFilterWhere(['like', 'requester.latest_rev', $this->latest_rev]);
 

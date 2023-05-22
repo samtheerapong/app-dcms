@@ -2,6 +2,7 @@
 
 namespace app\modules\operator\controllers;
 
+use app\modules\operator\models\Approver;
 use app\modules\operator\models\DocumentLogs;
 use app\modules\operator\models\Uploads;
 use Yii;
@@ -81,12 +82,12 @@ class RequesterController extends Controller
     {
         $model = new Requester();
         $modelReviewer = new Reviewer();
-        $modelDocumentLogs = new DocumentLogs();
+        $modelApprover = new Approver();
         $model->status_id = 1;
         $model->document_age = 10;
 
-        
-        if ($model->load(Yii::$app->request->post() )) {
+
+        if ($model->load(Yii::$app->request->post())) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);
@@ -99,8 +100,11 @@ class RequesterController extends Controller
             $model->document_number = AutoNumber::generate($fullname . '-???');
 
             if ($model->save()) {
-                $modelReviewer->requester_id = $model->id;
-                $modelReviewer->save();
+                $modelReviewer->requester_id = $model->id; // เพิ่ม requester_id ในตาราง Reviewer
+                if ($modelReviewer->save()) {
+                    $modelApprover->requester_id = $model->id; // เพิ่ม requester_id ในตาราง Approver
+                    $modelApprover->save();
+                }
             }
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
@@ -110,7 +114,8 @@ class RequesterController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'modelReviewer' => $modelReviewer,
+            'modelReviewer' => $modelReviewer, // หากไม่มีการ create requester ใน form ไม่ต้อง ใช้งานก็ได้ ให้ใส่ใน create.php ด้วย
+            'modelApprover' => $modelApprover, // หากไม่มีการ create requester ใน form ไม่ต้อง ใช้งานก็ได้ ให้ใส่ใน create.php ด้วย
         ]);
     }
 
@@ -149,7 +154,7 @@ class RequesterController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            
+
         ]);
     }
 
