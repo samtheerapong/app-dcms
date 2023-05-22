@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-// use yii\grid\GridView;
 use kartik\grid\GridView;
 
 //
@@ -13,17 +12,11 @@ use app\modules\operator\models\Types;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
-use app\modules\operator\models\Requester;
-use app\modules\operator\models\User;
-
-/* @var $this yii\web\View */
-/* @var $searchModel app\modules\operator\models\RequesterSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Requesters');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="requester-index">
+<div class="private-requester-index">
 
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
@@ -35,9 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     </div>
 
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
    <div class="actions-form">
         <div class="box box-info box-solid">
             <div class="box-header">
@@ -92,7 +82,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 $blinkClass = $model->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList( $searchModel,'status_id', ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),['class' => 'form-control', 'prompt' => Yii::t('app', 'Select...')]),
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'status_id',
@@ -115,73 +104,33 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return  $model->document_number;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_number',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
                         ],
 
                         [
                             'attribute' => 'latest_rev',
-                            // 'label' => 'Rev.',
-                            'options' => ['style' => 'width:50px'],
+                            'options' => ['style' => 'width:100px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => ['decimal', 0], // รูปแบบเลขทศนิยม
                             'value' => function ($model) {
                                 return $model->latest_rev ?? 0;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'latest_rev',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true,
-                                    'format' => [
-                                        'formatNumber' => true,
-                                    ],
-                                ],
-                                // 'pluginEvents' => [
-                                //     'select2:open' => 'function() { $(".select2-search__field").attr("placeholder", "ค้นหา..."); }',
-                                // ],
-                            ])
+                          
                         ],
 
                         [
                             'attribute' => 'document_age',
-                            // 'label' => 'อายุ',
-                            'options' => ['style' => 'width:50px'],
+                            'options' => ['style' => 'width:100px'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
                                 return  $model->document_age;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_age',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_age', 'document_age'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                            
                         ],
 
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
-                            // 'options' => ['style' => 'width:30%'],
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
@@ -190,25 +139,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                                 return $text;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_title',
-                                'data' =>  array_map(function ($value) {
-                                    if (mb_strlen($value) > 20) {
-                                        $value = mb_substr($value, 0, 20) . '...';
-                                    }
-                                    return $value;
-                                }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
-                                'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                           
                         ],
 
-                        // 'created_at:date',
                         [
                             'attribute' => 'document_public_at',
                             'options' => ['style' => 'width:120px'],
@@ -233,17 +166,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             'options' => ['style' => 'width:160px'],
                             'value' => 'requestBy.profile.name',
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'request_by',
-                                'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                           
                         ],
 
                         [
@@ -254,7 +177,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'categories_id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'categories_id',
@@ -277,7 +199,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'departments_id', ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'departments_id',
@@ -291,7 +212,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'document_title:ntext',
                         [
                             'attribute' => 'types_id',
                             'options' => ['style' => 'width:170px'],
@@ -300,7 +220,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'types_id', ArrayHelper::map(Types::find()->all(), 'id', 'type_details'), ['class' => 'form-control', 'prompt' => 'เลือก...'])
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'types_id',
@@ -313,36 +232,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
-
-                        // [
-                        //     'attribute' => 'type_details',
-                        //     'format' => 'ntext',
-                        //     'options' => ['style' => 'width:10%'],
-                        //     'value' => function ($model) {
-                        //         // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
-                        //         $text = $model->type_details;
-                        //         if (mb_strlen($text) > 10) {
-                        //             $text = mb_substr($text, 0, 10) . '...';
-                        //         }
-                        //         return $text;
-                        //     },
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'type_details',
-                        //         'data' =>  array_map(function ($value) {
-                        //             if (mb_strlen($value) > 10) {
-                        //                 $value = mb_substr($value, 0, 10) . '...';
-                        //             }
-                        //             return $value;
-                        //         }, ArrayHelper::map(Requester::find()->all(), 'type_details', 'type_details')),
-                        //         'theme' => Select2::THEME_DEFAULT, // Set the theme to 'bootstrap'
-                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
                     ],
 
                 ]); ?>

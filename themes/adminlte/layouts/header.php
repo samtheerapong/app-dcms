@@ -54,8 +54,9 @@ use yii\bootstrap\Nav;
                         ['label' => Yii::t('app', 'Private Document'), 'url' => ['/operator/private-requester/index']],
                         ['label' => Yii::t('app', 'Reviewer'), 'url' => ['/operator/reviewer/index']],
                         ['label' => Yii::t('app', 'Approver'), 'url' => ['/operator/approver/index']],
-                        ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
 
+
+                        
                         [
                             'label' => Yii::t('app', 'Reports'), 'options' => ['class' => 'report-link'],'icon' => 'fas fa-chart-pie', 'items' => [
                                 ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/index']],
@@ -64,17 +65,17 @@ use yii\bootstrap\Nav;
                                 ['label' => Yii::t('app', 'report3 Calendar'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
                                 ['label' => Yii::t('app', 'Ex.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
                                 ['label' => Yii::t('app', 'Logs.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/document-logs/index']],
-                            ]
-                        ],
-
-                        [
-                            'label' => 'สมัครสมาชิก',
-                            'url' => ['/user/registration/register'],
-                            'options' => ['class' => 'register-link'],
-                            'visible' => Yii::$app->user->isGuest,
-                        ],
-
-                        Yii::$app->user->isGuest ?
+                                ]
+                            ],
+                            
+                            [
+                                'label' => 'สมัครสมาชิก',
+                                'url' => ['/user/registration/register'],
+                                'options' => ['class' => 'register-link'],
+                                'visible' => Yii::$app->user->isGuest,
+                            ],
+                            
+                            Yii::$app->user->isGuest ?
                             ['label' => 'เข้าสู่ระบบ', 'url' => ['/user/security/login'], 'options' => ['class' => 'sign-in-link'],] :
                             [
                                 'label' => '<i class="fa fa-child"></i> สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
@@ -89,6 +90,7 @@ use yii\bootstrap\Nav;
                                         'label' => '<i class="fa fa-cogs"></i>' . Yii::t('app', 'Backend'),
                                         'options' => ['class' => 'backend-link'],
                                         'items' => [
+                                            ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
                                             ['label' => Yii::t('app', 'categories'), 'url' => ['/operator/categories/index']],
                                             ['label' => Yii::t('app', 'departments'), 'url' => ['/operator/departments/index']],
                                             ['label' => Yii::t('app', 'points'), 'url' => ['/operator/points/index']],

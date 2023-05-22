@@ -21,7 +21,7 @@ class PrivateRequesterSearch extends PrivateRequester
         return [
             [['latest_rev', 'document_age'], 'number'],
             [['id', 'types_id', 'status_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
-            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at', 'document_number', 'document_name', 'updated_at', 'type_details','document_public_at'], 'safe'],
+            [['document_title', 'details', 'covenant', 'docs', 'ref', 'fullname', 'created_at', 'document_number', 'document_name', 'updated_at', 'type_details', 'document_public_at'], 'safe'],
         ];
     }
 
@@ -44,10 +44,7 @@ class PrivateRequesterSearch extends PrivateRequester
     public function search($params)
     {
         // $query = PrivateRequester::find();
-        $query = PrivateRequester::find()->andFilterWhere([
-            'request_by' => Yii::$app->user->identity->profile->user_id,
-            ]);
-
+        $query = PrivateRequester::find()->andFilterWhere(['request_by' => Yii::$app->user->identity->profile->user_id,]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -62,7 +59,7 @@ class PrivateRequesterSearch extends PrivateRequester
             // $query->where('0=1');
             return $dataProvider;
         }
-        
+
         $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
 
 
@@ -70,8 +67,6 @@ class PrivateRequesterSearch extends PrivateRequester
             'id' => $this->id,
             'types_id' => $this->types_id,
             'status_id' => $this->status_id,
-            // 'created_at' => $this->created_at,
-            // 'updated_at' => $this->updated_at,
             'created_by' => $this->created_by,
             'updated_by' => $this->updated_by,
             'request_by' => $this->request_by,
@@ -82,8 +77,6 @@ class PrivateRequesterSearch extends PrivateRequester
         $query->andFilterWhere(['like', 'document_title', $this->document_title])
             ->andFilterWhere(['like', 'type_details', $this->type_details])
             ->andFilterWhere(['like', 'document_number', $this->document_number])
-            // ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`created_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->created_at])
-            // ->andFilterWhere(['like', "(date_format( FROM_UNIXTIME(`updated_at` ), '%d-%m-%Y %h:%i:%s %p' ))", $this->updated_at])
             ->andFilterWhere(['like', 'created_at', $this->created_at])
             ->andFilterWhere(['like', 'updated_at', $this->updated_at])
             ->andFilterWhere(['like', 'document_public_at', $this->document_public_at])

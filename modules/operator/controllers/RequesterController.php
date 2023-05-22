@@ -100,9 +100,7 @@ class RequesterController extends Controller
 
             if ($model->save()) {
                 $modelReviewer->requester_id = $model->id;
-                $modelDocumentLogs->requester_id = $model->id;
                 $modelReviewer->save();
-                $modelDocumentLogs->save();
             }
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
@@ -113,7 +111,6 @@ class RequesterController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelReviewer' => $modelReviewer,
-            'modelDocumentLogs' => $modelDocumentLogs,
         ]);
     }
 

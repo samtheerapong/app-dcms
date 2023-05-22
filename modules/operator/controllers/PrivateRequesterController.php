@@ -75,8 +75,10 @@ class PrivateRequesterController extends Controller
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
         $model->status_id = 1;
+        $model->document_age = 10;
 
-        if ($model->load(Yii::$app->request->post() )) {
+
+        if ($model->load(Yii::$app->request->post())) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
             $this->CreateDir($model->ref);
@@ -139,6 +141,7 @@ class PrivateRequesterController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+
         ]);
     }
 

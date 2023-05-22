@@ -119,8 +119,9 @@ use app\modules\operator\models\Status;
                             '3' => 'รออนุมัติ',
                             '2' => 'รอทบทวน',
                             '1' => 'ใหม่'
-                        ], ['required' =>  true])
-                        ?>
+                        ], [
+                            'required' => true,
+                        ]) ?>
 
                     </div>
                     <div class="col-md-4">

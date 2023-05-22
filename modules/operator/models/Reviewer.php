@@ -49,7 +49,7 @@ class Reviewer extends \yii\db\ActiveRecord
             [
                 'class' => BlameableBehavior::class,
                 'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['reviewer_name'],
+                    // BaseActiveRecord::EVENT_BEFORE_INSERT => ['reviewer_name'],
                     BaseActiveRecord::EVENT_BEFORE_UPDATE => ['reviewer_name'],
                 ],
             ],

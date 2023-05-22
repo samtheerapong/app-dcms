@@ -4,6 +4,7 @@ return [
     'Login' => 'เข้าสู่ระบบ',
     'Logout' => 'ออกจากระบบ',
     'Save' => 'บันทึก',
+    'Manage Requester' => 'จัดการเอกสาร',
     'Are you sure you want to log out?' => 'คุณแน่ใจว่าคุณต้องการที่จะออกจากระบบ?',
     'Are you sure you want to delete this item?' => 'คุณแน่ใจหรือว่าต้องการลบข้อมูลนี้หรือไม่?',
     'System' => 'ตั้งค่าระบบ',
