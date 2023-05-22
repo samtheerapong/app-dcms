@@ -96,7 +96,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
-                                $blinkClass = $model->requester->status->id == 1 ? 'blink' : '';
+
+                                $blinkClass = ($model->requester->status->id == 1 || $model->requester->status->id == 2) ? 'blink' : '';
+
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
                             'filter' => Select2::widget([
