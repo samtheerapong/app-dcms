@@ -51,9 +51,10 @@ use yii\bootstrap\Nav;
                         ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
                         // ['label' => 'About', 'url' => ['/site/about']],
                         // ['label' => 'Contact', 'url' => ['/site/contact']],
-                        ['label' => Yii::t('app', 'Request'), 'url' => ['/operator/requester/index']],
-                        ['label' => Yii::t('app', 'Reviewer'), 'url' => ['/operator/reviewer/index']],
                         ['label' => Yii::t('app', 'Private Document'), 'url' => ['/operator/private-requester/index']],
+                        ['label' => Yii::t('app', 'Reviewer'), 'url' => ['/operator/reviewer/index']],
+                        ['label' => Yii::t('app', 'Approver'), 'url' => ['/operator/approver/index']],
+                        ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
 
                         [
                             'label' => Yii::t('app', 'Reports'), 'options' => ['class' => 'report-link'],'icon' => 'fas fa-chart-pie', 'items' => [
@@ -94,6 +95,7 @@ use yii\bootstrap\Nav;
                                             ['label' => Yii::t('app', 'stamps'), 'url' => ['/operator/stamps/index']],
                                             ['label' => Yii::t('app', 'status'), 'url' => ['/operator/status/index']],
                                             ['label' => Yii::t('app', 'types'), 'url' => ['/operator/types/index']],
+                                            ['label' => Yii::t('app', 'Number'), 'url' => ['/operator/auto-number/index']],
                                         ]
                                     ],
                                     [

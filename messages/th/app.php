@@ -63,7 +63,7 @@ return [
     // Categories
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',
-    'Private Document' => 'เอกสารส่วนตัว',
+    'Private Document' => 'ร้องขอเอกสาร',
     'No Data' => 'ไม่มีข้อมูล',
     'No Reviewer' => 'ยังไม่ได้รับการทบทวนเอกสาร',
     'No Approver' => 'ยังไม่ได้รับการอนุมัติเอกสาร',

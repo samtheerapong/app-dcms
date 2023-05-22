@@ -12,18 +12,19 @@ use app\modules\operator\models\Types;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
 use app\modules\operator\models\User;
+use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Requester */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="requester-form">
+<div class="private-requester-form">
 
-    <p><?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
+    <p><?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
 
     <div class="actions-form">
-        <div class="box box-info box-solid">
+        <div class="box box-success box-solid">
             <div class="box-header">
                 <div class="box-title"><?= $this->title ?></div>
             </div>
@@ -31,12 +32,12 @@ use app\modules\operator\models\User;
 
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <?= $form->field($model, 'types_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
                             'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
-                            'options' => ['placeholder' => 'เลือก ...'],
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
@@ -45,23 +46,29 @@ use app\modules\operator\models\User;
                     </div>
 
                     <div class="col-md-4">
+                        <?= $form->field($model, 'type_details')->textInput(['maxlength' => true]) ?>
+                    </div>
+
+
+
+                    <div class="col-md-3">
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
                             'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'),
-                            'options' => ['placeholder' => 'เลือก ...'],
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
                         ]);
                         ?>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-3">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
-                            'options' => ['placeholder' => 'เลือก ...'],
+                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_details'),
+                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
                             ],
@@ -83,19 +90,50 @@ use app\modules\operator\models\User;
                 </div>
 
                 <div class="row">
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
+                    </div>
+                    <div class="col-md-4">
+                        <!-- <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?> -->
+                        <?= $form->field($model, 'document_age')->textInput([
+                            'maxlength' => true
+                        ])->label(Yii::t('app', 'document_age') . '<span class="text-muted">' . ' (' . Yii::t('app', 'document_age_caption') . ')</span>') ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($model, 'document_public_at')->widget(
+                            DatePicker::class,
+                            [
+                                'language' => 'th',
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'pluginOptions' => [
+                                    'format' => 'yyyy-mm-dd',
+                                    'todayHighlight' => true,
+                                    'autoclose' => true,
+                                ]
+                            ]
+                        ); ?>
+                    </div>
+                </div>
+
+
+                <div class="row">
                     <div class="col-md-6">
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
                             'options' => ['accept' => 'application/pdf'],
                             'pluginOptions' => [
+                                'previewFileType' => 'any',
                                 'initialPreview' => $model->initialPreview($model->covenant, 'covenant', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->covenant, 'covenant', 'config'),
                                 'allowedFileExtensions' => ['pdf'],
-                                'maxFileSize' => 10240, // Size in KB (10MB = 10 * 1024 KB)
                                 'showPreview' => true,
                                 'showCaption' => true,
                                 'showRemove' => true,
                                 'showUpload' => false
                             ],
+                            // 'options' => [
+                            //     'required' => true,
+                            // ]
+
                         ]); ?>
 
                     </div>
@@ -110,7 +148,6 @@ use app\modules\operator\models\User;
                                 'initialPreview' => $model->initialPreview($model->docs, 'docs', 'file'),
                                 'initialPreviewConfig' => $model->initialPreview($model->docs, 'docs', 'config'),
                                 'allowedFileExtensions' => ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'jpg', 'odt', 'png'],
-                                'maxFileSize' => 10240, // Size in KB (10MB = 10 * 1024 KB)
                                 'showPreview' => true,
                                 'showCaption' => true,
                                 'showRemove' => true,
@@ -123,15 +160,13 @@ use app\modules\operator\models\User;
                     </div>
                 </div>
 
-                <?php echo $form->field($model, 'status_id')->hiddenInput(['value' => 1])->label(false); ?>
-                <?php //echo $form->field($model, 'status_id')->textInput(['value' => 1]); 
-                ?>
+
 
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?= Html::submitButton('<span class="glyphicon glyphicon-floppy-saved"></span> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
                             </div>
                         </div>
                     </div>
