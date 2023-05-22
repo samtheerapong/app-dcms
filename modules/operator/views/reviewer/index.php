@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return '';
                                     } else {
                                         return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                            'title' => Yii::t('app', 'Approver'),
+                                            'title' => Yii::t('app', 'Reviewer'),
                                             'class' => 'btn btn-warning',
                                         ]);
                                     }

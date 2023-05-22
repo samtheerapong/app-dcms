@@ -20,8 +20,9 @@ use kartik\widgets\DatePicker;
 ?>
 
 <div class="private-requester-form">
-
-    <p><?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
+<p>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <div class="actions-form">
         <div class="box box-success box-solid">

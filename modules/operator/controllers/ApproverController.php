@@ -5,6 +5,7 @@ namespace app\modules\operator\controllers;
 use Yii;
 use app\modules\operator\models\Approver;
 use app\modules\operator\models\ApproverSearch;
+use app\modules\operator\models\Requester;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -85,14 +86,37 @@ class ApproverController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelRequester = $this->findModelRequester($model->requester_id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if (
+            $model->load(Yii::$app->request->post())
+            && $modelRequester->load(Yii::$app->request->post())
+        ) {
+
+            if ($modelRequester->save()) {
+                $model->save();
+            }
+
+            $model->save();
+
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Reviewer Successfully'));
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelRequester' => $modelRequester,
         ]);
+    }
+
+    protected function findModelRequester($id)
+    {
+        if (($model = Requester::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

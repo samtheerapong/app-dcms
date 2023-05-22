@@ -3,6 +3,9 @@
 namespace app\modules\operator\models;
 
 use Yii;
+use yii\behaviors\BlameableBehavior;
+use yii\behaviors\TimestampBehavior;
+use yii\db\BaseActiveRecord;
 
 /**
  * This is the model class for table "approver".
@@ -17,6 +20,31 @@ use Yii;
  */
 class Approver extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    // self::EVENT_BEFORE_INSERT => ['approver_at'],
+                    self::EVENT_BEFORE_UPDATE => ['approver_at'],
+                ],
+                'value' => function () {
+                    return date('Y-m-d H:i:s');
+                },
+            ],
+            [
+                'class' => BlameableBehavior::class,
+                'attributes' => [
+                    // BaseActiveRecord::EVENT_BEFORE_INSERT => ['reviewer_name'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['approver_by'],
+                ],
+            ],
+        ];
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -72,5 +100,15 @@ class Approver extends \yii\db\ActiveRecord
         // Assuming there is a foreign key relationship between Requester and Reviewer using requester_id
         return $this->hasOne(Reviewer::class, ['requester_id' => 'id']);
     }
-  
+
+    public function getApproverName()
+    {
+        // Assuming there is a foreign key relationship between Requester and Reviewer using requester_id
+        return $this->hasOne(Reviewer::class, ['requester_id' => 'id']);
+    }
+
+    public function getReviewerName()
+    {
+        return $this->hasOne(Reviewer::class, ['reviewer_name' => 'reviewer_name']);
+    }
 }

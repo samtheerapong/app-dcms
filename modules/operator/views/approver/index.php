@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     } else {
                                         return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
                                             'title' => Yii::t('app', 'Approver'),
-                                            'class' => 'btn btn-warning',
+                                            'class' => 'btn btn-success',
                                         ]);
                                     }
                                 },
@@ -200,7 +200,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             // 'options' => ['style' => 'width:180px;'],
                             'value' => function ($model) {
-                                return $model->approver_by ? $model->reviewerName->profile->name : '';
+                                return $model->approver_by ? $model->approverBy->profile->name : ''; 
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,

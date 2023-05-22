@@ -20,6 +20,10 @@ use app\modules\operator\models\Status;
 ?>
 
 <div class="reviewer-form">
+    <p>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+    </p>
+
     <div class="actions-form">
         <?php $form = ActiveForm::begin(); ?>
         <div class="box box-info box-solid">
@@ -116,13 +120,15 @@ use app\modules\operator\models\Status;
                     </div>
                     <div class="col-md-4">
                         <?= $form->field($modelRequester, 'status_id')->dropDownList([
-                            '3' => 'รออนุมัติ',
-                            '2' => 'รอทบทวน',
-                            '1' => 'ใหม่'
+                            '1' => 'ให้ผู้ขอแก้ไขใหม่',
+                            '2' => 'ทำการทบทวนอีกครั้ง',
+                            '3' => 'ดำเนินการทบทวน (รออนุมัติ)',
                         ], [
                             'required' => true,
+                            'options' => [
+                                '3' => ['selected' => true] // Set '3' as the default selected option
+                            ]
                         ]) ?>
-
                     </div>
                     <div class="col-md-4">
                         <?= $form->field($model, 'points_id')->widget(Select2::class, [
@@ -165,17 +171,11 @@ use app\modules\operator\models\Status;
                     <div class="row">
                         <div class="col-md-126">
                             <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton(Yii::t('app', Yii::t('app', 'Save')), ['class' => 'btn btn-success btn-block btn-lg']) ?>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
             </div>
         </div>
     </div>

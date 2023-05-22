@@ -204,18 +204,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                         
                                         // 'reviewer.reviewer_name',
                                         [
-                                            'attribute' => 'reviewer.reviewer_name',
+                                            'attribute' => 'requester.reviewer.reviewer_name',
                                             'format' => 'html',
-                                            'value' => $model->reviewer->reviewerName->profile->name,
+                                            'value' => $model->requester->reviewer->reviewerName->profile->name,
         
                                         ],
+                                        // [
+                                        //     'attribute' => 'reviewer.re',
+                                        //     // 'value' => $model->requester_by,
+                                        //     'value' => function ($model) {
+                                        //         return $model->reviewerName ? $model->reviewerName->profile->name : Yii::t('app', 'No Reviewer');
+                                        //     },
+                                        // ],
                                         
                                         [
-                                            'attribute' => 'reviewer.reviewer_at',
+                                            'attribute' => 'requester.reviewer.reviewer_at',
                                             'format' => 'html',
                                             'value' => function ($model) {
-                                                if ($model->reviewer->reviewer_at !== null) {
-                                                    $timestamp = strtotime($model->reviewer->reviewer_at);
+                                                if ($model->requester->reviewer->reviewer_at !== null) {
+                                                    $timestamp = strtotime($model->requester->reviewer->reviewer_at);
                                                     $monthNames = [
                                                         'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
                                                         'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
@@ -233,42 +240,42 @@ $this->params['breadcrumbs'][] = $this->title;
         
         
                                         [
-                                            'attribute' => 'reviewer.document_revision',
+                                            'attribute' => 'requester.reviewer.document_revision',
                                             'format' => 'html',
                                             'value' => function ($model) {
-                                                return $model->reviewer->document_revision ? $model->reviewer->document_revision : Yii::t('app', '0');
+                                                return $model->requester->reviewer->document_revision ? $model->requester->reviewer->document_revision : Yii::t('app', '0');
                                             },
                                         ],
         
                                         [
-                                            'attribute' => 'reviewer.document_ref',
+                                            'attribute' => 'requester.reviewer.document_ref',
                                             'format' => 'html',
                                             'value' => function ($model) {
-                                                return $model->reviewer->document_ref ? $model->reviewer->document_ref : Yii::t('app', '');
+                                                return $model->requester->reviewer->document_ref ? $model->requester->reviewer->document_ref : Yii::t('app', '');
                                             },
                                         ],
         
                                         [
-                                            'attribute' => 'reviewer.points_id',
+                                            'attribute' => 'requester.reviewer.points_id',
                                             'format' => 'html',
                                             'value' => function ($model) {
-                                                return $model->reviewer->points ? $model->reviewer->points->point_name : Yii::t('app', '');
+                                                return $model->requester->reviewer->points ? $model->requester->reviewer->points->point_name : Yii::t('app', '');
                                             },
                                         ],
                                         // // 'reviewer_comment:ntext',
                                         [
-                                            'attribute' => 'reviewer.reviewer_comment',
+                                            'attribute' => 'requester.reviewer.reviewer_comment',
                                             'format' => 'ntext',
                                             'value' => function ($model) {
-                                                return $model->reviewer->reviewer_comment ? $model->reviewer->reviewer_comment : Yii::t('app', '');
+                                                return $model->requester->reviewer->reviewer_comment ? $model->requester->reviewer->reviewer_comment : Yii::t('app', '');
                                             },
                                         ],
                                         // // 'additional_training:ntext',
                                         [
-                                            'attribute' => 'reviewer.additional_training',
+                                            'attribute' => 'requester.reviewer.additional_training',
                                             'format' => 'ntext',
                                             'value' => function ($model) {
-                                                return $model->reviewer->additional_training ? $model->reviewer->additional_training : Yii::t('app', '');
+                                                return $model->requester->reviewer->additional_training ? $model->requester->reviewer->additional_training : Yii::t('app', '');
                                             },
                                         ],
                                         // // 'document_tags',
@@ -315,7 +322,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             'attribute' => 'approver_by',
                                             // 'value' => $model->requester_by,
                                             'value' => function ($model) {
-                                                return $model->approver_by ? $model->approverName->profile->name : Yii::t('app', 'No Approver');
+                                                return $model->approver_by ? $model->approverBy->profile->name : Yii::t('app', 'No Approver');
                                             },
                                         ],
                                         // 'approver_at:date',
@@ -356,7 +363,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                         <p>
-                            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Approver'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-success btn-block']) ?>
+                            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Approver'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-danger btn-block']) ?>
                         </p>
                     </div>
                 </div>
