@@ -83,7 +83,9 @@ class RequesterController extends Controller
         $modelReviewer = new Reviewer();
         $modelDocumentLogs = new DocumentLogs();
         $model->status_id = 1;
+        $model->document_age = 10;
 
+        
         if ($model->load(Yii::$app->request->post() )) {
 
             $model->ref = substr(Yii::$app->getSecurity()->generateRandomString(), 10);
