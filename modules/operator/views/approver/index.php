@@ -1,5 +1,6 @@
 <?php
 
+use app\modules\operator\models\Approver;
 use app\modules\operator\models\Points;
 use yii\helpers\Html;
 // use yii\grid\GridView;
@@ -15,36 +16,28 @@ use app\modules\operator\models\Types;
 use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
-/* @var $searchModel app\modules\operator\models\ReviewerSearch */
+/* @var $searchModel app\modules\operator\models\ApproverSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Reviewer');
+$this->title = Yii::t('app', 'Approvers');
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
-
-
-
-<div class="reviewer-index">
-
+<div class="approver-index">
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
-            <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-info']) ?>
+            <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Reviewer Page'), ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
             <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', ''), [''], ['class' => 'btn btn-danger']) ?>
         </p>
-
-        <p style="text-align: right;">
-            <?= Html::a(Yii::t('app', 'Approver Page') . ' <i class="fas fa-arrow-circle-right"></i> ', ['approver/index'], ['class' => 'btn btn-success']) ?>
-        </p>
     </div>
-
     <div class="actions-form">
-        <div class="box box-warning box-solid">
+        <div class="box box-success box-solid">
             <div class="box-header">
                 <div class="box-title"><?= $this->title ?> : <small></small></div>
             </div>
             <div class="box-body">
                 <?= GridView::widget([
+                    
+
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
@@ -89,13 +82,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
 
-
+                       
+                        
                         [
                             'attribute' => 'requester.status_id',
-                            'options' => ['style' => 'width:120px;'],
+                            // 'options' => ['style' => 'width:120px;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
+                                // return $model->requester->status->status_details;
                                 $blinkClass = $model->requester->status->id == 1 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
@@ -112,7 +107,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
                             'options' => ['style' => 'width:150px;'],
@@ -131,7 +125,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'document_revision',
                         [
                             'attribute' => 'requester.latest_rev',
                             'label' => 'Revision',
@@ -174,49 +167,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 
                         [
-                            'attribute' => 'requester.document_public_at',
-                            'options' => ['style' => 'width:120px;'],
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                if ($model->requester->document_public_at !== null) {
-                                    return Yii::$app->formatter->asDate($model->requester->document_public_at);
-                                }
-                                return '';
-                            },
-                            'filter' => DatePicker::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_public_at', // Updated to use the correct attribute
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'pluginOptions' => [
-                                    'format' => 'yyyy-mm-dd',
-                                    'autoclose' => true,
-                                ]
-                            ]),
-                        ],
-
-                        [
-                            'attribute' => 'requester.types_id',
-                            'format' => 'html',
-                            'options' => ['style' => 'width:160px'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'value' => function ($model) {
-                                // return $model->requester->types->type_details ? $model->requester->types->type_details : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
-                                return '<span class="badge" style="background-color:' . $model->requester->types->color . ';"><b>' . $model->requester->types->type_details . '</b></span>';
-                            },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'types_id',
-                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
-
-                        [
                             'attribute' => 'requester_id',
                             'format' => 'html',
                             // 'options' => ['style' => 'width:18%;'],
@@ -245,21 +195,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-
-
-                        // 'reviewer_name',
-
                         [
-                            'attribute' => 'reviewer_name',
+                            'attribute' => 'approver_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:180px;'],
+                            // 'options' => ['style' => 'width:180px;'],
                             'value' => function ($model) {
-                                return $model->reviewer_name ? $model->reviewerName->profile->name : '';
+                                return $model->approver_by ? $model->reviewerName->profile->name : '';
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
-                                'attribute' => 'reviewer_name',
-                                'data' => ArrayHelper::map(Reviewer::find()->all(), 'reviewer_name', 'reviewerName.profile.name'),
+                                'attribute' => 'approver_by',
+                                'data' => ArrayHelper::map(Approver::find()->all(), 'approver_by', 'reviewerName.profile.name'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -269,20 +215,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'reviewer_at:date',
+                        // 'approver_at',
                         [
-                            'attribute' => 'reviewer_at',
-                            'options' => ['style' => 'width:120px'],
+                            'attribute' => 'approver_at',
+                            // 'options' => ['style' => 'width:120px'],
                             'format' => 'html',
                             'value' => function ($model) {
-                                if ($model->reviewer_at !== null) {
-                                    return Yii::$app->formatter->asDate($model->reviewer_at);
+                                if ($model->approver_at !== null) {
+                                    return Yii::$app->formatter->asDate($model->approver_at);
                                 }
                                 return '';
                             },
                             'filter' => DatePicker::widget([
                                 'model' => $searchModel,
-                                'attribute' => 'reviewer_at',
+                                'attribute' => 'approver_at',
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'pluginOptions' => [
                                     'format' => 'yyyy-mm-dd',
@@ -290,50 +236,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-
-                        // 'document_age',
-                        // 'document_public_at',
-
-
-                        //'document_ref',
-                        //'document_tags',
-                        // 'points.point_name',
-                        // [
-                        //     'attribute' => 'points_id',
-                        //     'format' => 'html',
-                        //     'options' => ['style' => 'width:9%;'],
-                        //     'value' => function ($model) {
-                        //         $value = $model->points ? $model->points->point_name :  '';
-                        //         if (mb_strlen($value) > 20) {
-                        //             $value = mb_substr($value, 0, 20) . '...';
-                        //         }
-                        //         return $value;
-                        //     },
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'points_id',
-                        //         'data' =>  array_map(function ($value) {
-                        //             if (mb_strlen($value) > 18) {
-                        //                 $value = mb_substr($value, 0, 18) . '...';
-                        //             }
-                        //             return $value;
-                        //         }, ArrayHelper::map(Points::find()->all(), 'id', 'point_name')),
-                        //         'theme' => Select2::THEME_DEFAULT,
-                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
-                        //'reviewer_comment:ntext',
-                        //'additional_training:ntext',
-
+                        // 'approver_comment:ntext',
                     ],
                 ]); ?>
-
             </div>
-
         </div>
     </div>
 </div>
