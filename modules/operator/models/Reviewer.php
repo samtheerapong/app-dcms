@@ -76,11 +76,6 @@ class Reviewer extends \yii\db\ActiveRecord
         ];
     }
 
-    // public function getApprovers()
-    // {
-    //     return $this->hasMany(Approver::class, ['reviewer_id' => 'id']);
-    // }
-
     public function getPoints()
     {
         return $this->hasOne(Points::class, ['id' => 'points_id']);
@@ -95,4 +90,6 @@ class Reviewer extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'reviewer_name']);
     }
+
+   
 }

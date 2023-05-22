@@ -5,8 +5,6 @@ namespace app\modules\operator\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\operator\models\Reviewer;
-use app\modules\operator\models\Status;
-use app\modules\operator\models\Requester;
 
 /**
  * ReviewerSearch represents the model behind the search form of `app\modules\operator\models\Reviewer`.
@@ -30,11 +28,10 @@ class ReviewerSearch extends Reviewer
     public function rules()
     {
         return [
-            [['id', 'requester_id', 'reviewer_name', 'points_id','stamps_id','request_by'], 'integer'],
+            [['id', 'requester_id', 'reviewer_name', 'points_id','stamps_id'], 'integer'],
             [['reviewer_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment','document_number','document_public_at'], 'safe'],
             [['document_revision','latest_rev'], 'number'],
-            [['status_id','types_id'], 'integer'], // **************** เพิ่ม  2 ********************
-            // ['request_by', 'exist', 'targetClass' => Requester::class, 'targetAttribute' => 'id'], // Add the rule for request_by FK
+            [['status_id','types_id','request_by'], 'integer'], // **************** เพิ่ม  2 ********************
         ];
     }
 
@@ -78,13 +75,11 @@ class ReviewerSearch extends Reviewer
 
         // **************** เพิ่ม  4 ********************
         $query->andFilterWhere(['status.id' => $this->status_id]);
-        // $query->andFilterWhere(['types.id' => $this->types_id]);
         $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
         $query->andFilterWhere(['like', 'requester.document_public_at', $this->document_public_at]);
         $query->andFilterWhere(['like', 'requester.stamps_id', $this->stamps_id]);
         $query->andFilterWhere(['like', 'requester.latest_rev', $this->latest_rev]);
         $query->andFilterWhere(['like', 'requester.types_id', $this->types_id]);
-        $query->andFilterWhere(['like', 'requester.request_by', $this->request_by]);
         
 
 
@@ -95,6 +90,7 @@ class ReviewerSearch extends Reviewer
             'reviewer_name' => $this->reviewer_name,
             'document_revision' => $this->document_revision,
             'points_id' => $this->points_id,
+            'request_by' => $this->request_by,
         ]);
 
         $query->andFilterWhere(['like', 'reviewer_at', $this->reviewer_at])

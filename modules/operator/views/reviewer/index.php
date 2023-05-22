@@ -154,14 +154,11 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'requester.request_by',
                             'format' => 'html',
                             'options' => ['style' => 'width:10%;'],
-                            'value' => function ($model) {
-                                return $model->requester->requestBy ? $model->requester->requestBy->profile->name : '';
-                            },
+                            'value' => 'requester.requestBy.profile.name',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'request_by',
-                                // 'data' => ArrayHelper::map(Reviewer::find()->all(), 'requester.request_by', 'requester.requestBy.profile.name'),
-                                'data' => ArrayHelper::map(User::find()->all(), 'id', 'profile.name'),
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'request_by', 'requestBy.profile.name'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
