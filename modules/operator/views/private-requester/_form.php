@@ -56,7 +56,7 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'),
+                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
@@ -68,7 +68,7 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_details'),
+                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true

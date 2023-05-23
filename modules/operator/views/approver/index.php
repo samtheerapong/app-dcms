@@ -14,6 +14,7 @@ use app\modules\operator\models\Stamps;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Types;
 use kartik\widgets\DatePicker;
+use yii\web\Request;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ApproverSearch */
@@ -45,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:120px'],
+                            'options' => ['style' => 'width:100px'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} </div>',
                             'buttons' => [
@@ -86,7 +87,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         
                         [
                             'attribute' => 'requester.status_id',
-                            // 'options' => ['style' => 'width:120px;'],
+                            'options' => ['style' => 'width:100px;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -129,7 +130,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'requester.latest_rev',
                             'label' => 'Revision',
                             'format' => 'html',
-                            'options' => ['style' => 'width:60px;'],
+                            'options' => ['style' => 'width:80px;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
@@ -167,9 +168,32 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 
                         [
+                            'attribute' => 'requester.reviewer.reviewer_name',
+                            'format' => 'html',
+                            'options' => ['style' => 'width:180px;'],
+                            'value' => 'requester.reviewer.reviewerName.profile.name',
+                            'value' => function ($model) {
+                                return $model->requester->reviewer->reviewerName->profile->name;
+                            },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'reviewer_name', //
+                                'data' => ArrayHelper::map(reviewer::find()->all(), 'reviewer_name', 'requester.reviewer.reviewerName.profile.name'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
+
+
+
+                        [
                             'attribute' => 'requester_id',
                             'format' => 'html',
-                            // 'options' => ['style' => 'width:18%;'],
+                            'options' => ['style' => 'width:250px;'],
                             'value' => function ($model) {
                                 $text = $model->requester->document_title ?? '';
                                 if (mb_strlen($text) > 20) {
@@ -198,14 +222,14 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'approver_by',
                             'format' => 'html',
-                            // 'options' => ['style' => 'width:180px;'],
+                            'options' => ['style' => 'width:180px;'],
                             'value' => function ($model) {
                                 return $model->approver_by ? $model->approverBy->profile->name : ''; 
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'approver_by',
-                                'data' => ArrayHelper::map(Approver::find()->all(), 'approver_by', 'reviewerName.profile.name'),
+                                'data' => ArrayHelper::map(Approver::find()->all(), 'approver_by', 'approverBy.profile.name'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -218,11 +242,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'approver_at',
                         [
                             'attribute' => 'approver_at',
-                            // 'options' => ['style' => 'width:120px'],
+                            'options' => ['style' => 'width:120px'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->approver_at !== null) {
-                                    return Yii::$app->formatter->asDate($model->approver_at);
+                                    $formatter = Yii::$app->formatter;
+                                    $formatter->timeZone = 'Asia/Bangkok'; // Set the timezone to Asia/Bangkok
+                                    return $formatter->asDate($model->approver_at);
                                 }
                                 return '';
                             },

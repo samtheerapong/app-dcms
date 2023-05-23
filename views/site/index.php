@@ -21,7 +21,7 @@ $this->title = 'Documents Control';
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-purple"><i class="fa fa-file"></i></span>
+                        <span class="info-box-icon bg-purple"><i class="fas fa-file"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">เอกสารทั้งหมด</span>
                             <span class="info-box-number">
@@ -34,9 +34,9 @@ $this->title = 'Documents Control';
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fa fa-hourglass"></i></span>
+                        <span class="info-box-icon bg-yellow"><i class="fas fa-edit"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">รอดำเนินการ</span>
+                            <span class="info-box-text">ดำเนินการ</span>
                             <span class="info-box-number"> <?= $process ?></span>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ $this->title = 'Documents Control';
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fa fa-check-square-o"></i></span>
+                        <span class="info-box-icon bg-green"><i class="fas fa-check-square"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">สำเร็จ</span>
                             <span class="info-box-number"><?= $success ?></span>
@@ -56,7 +56,7 @@ $this->title = 'Documents Control';
 
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
-                        <span class="info-box-icon bg-blue"><i class="fa fa-users"></i></span>
+                        <span class="info-box-icon bg-blue"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">ผู้ใช้งานทังหมด</span>
                             <span class="info-box-number">

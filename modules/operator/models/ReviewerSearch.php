@@ -57,7 +57,7 @@ class ReviewerSearch extends Reviewer
 
         // **************** เพิ่ม  3 ********************
         // $query = Reviewer::find()->joinWith('requester.status');
-        $query = Reviewer::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [1,2,3,4]]);
+        $query = Reviewer::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [1,2,3]]);
 
         // add conditions that should always apply here
 

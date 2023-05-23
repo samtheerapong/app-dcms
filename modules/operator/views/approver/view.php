@@ -201,13 +201,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     . ';"><b>' . $model->requester->document_number . '</b></span>';
                                             },
                                         ],
-                                        
+
                                         // 'reviewer.reviewer_name',
                                         [
                                             'attribute' => 'requester.reviewer.reviewer_name',
                                             'format' => 'html',
                                             'value' => $model->requester->reviewer->reviewerName->profile->name,
-        
+
                                         ],
                                         // [
                                         //     'attribute' => 'reviewer.re',
@@ -216,7 +216,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         //         return $model->reviewerName ? $model->reviewerName->profile->name : Yii::t('app', 'No Reviewer');
                                         //     },
                                         // ],
-                                        
+
                                         [
                                             'attribute' => 'requester.reviewer.reviewer_at',
                                             'format' => 'html',
@@ -237,8 +237,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 }
                                             },
                                         ],
-        
-        
+
+
                                         [
                                             'attribute' => 'requester.reviewer.document_revision',
                                             'format' => 'html',
@@ -246,7 +246,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 return $model->requester->reviewer->document_revision ? $model->requester->reviewer->document_revision : Yii::t('app', '0');
                                             },
                                         ],
-        
+
                                         [
                                             'attribute' => 'requester.reviewer.document_ref',
                                             'format' => 'html',
@@ -254,7 +254,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 return $model->requester->reviewer->document_ref ? $model->requester->reviewer->document_ref : Yii::t('app', '');
                                             },
                                         ],
-        
+
                                         [
                                             'attribute' => 'requester.reviewer.points_id',
                                             'format' => 'html',
@@ -292,7 +292,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
 
                         </div>
-                       
+
 
                     </div>
                     <div class="col-md-12">
@@ -306,7 +306,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                                     'attributes' => [
                                         // 'approverName.profile.name',
-                                         [
+                                        [
                                             'attribute' => 'requester.document_number',
                                             'format' => 'html',
                                             // 'value' => $model->requester->document_number,
@@ -316,7 +316,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     . ';"><b>' . $model->requester->document_number . '</b></span>';
                                             },
                                         ],
-                                      
+
                                         // 'approver_by',
                                         [
                                             'attribute' => 'approver_by',
@@ -346,7 +346,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 }
                                             },
                                         ],
-                                        
+
                                         // 'approver_comment:ntext',
                                         [
                                             'attribute' => 'approver_comment',
@@ -362,9 +362,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             </div>
                         </div>
-                        <p>
-                            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Approver'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-danger btn-block']) ?>
-                        </p>
+                        <?php if ($model->requester->status->id != 4) : ?>
+                            <p>
+                                <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Approver'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-danger btn-block']) ?>
+                            </p>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
