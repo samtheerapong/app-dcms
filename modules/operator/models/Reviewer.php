@@ -39,7 +39,7 @@ class Reviewer extends \yii\db\ActiveRecord
             [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
-                    self::EVENT_BEFORE_INSERT => ['reviewer_at'],
+                    // self::EVENT_BEFORE_INSERT => ['reviewer_at'],
                     self::EVENT_BEFORE_UPDATE => ['reviewer_at'],
                 ],
                 'value' => function () {
