@@ -11,26 +11,48 @@
 }
 
 .home-link {
+  background-color: #5534A5;
+}
+
+.register-link {
+  background-color: #ff6d60;
+}
+
+.sign-in-link {
   background-color: #ff3442;
 }
-.register-link {
-  background-color: #678052;
+
+.backend-link {
+  background-color: #f9f5eb;
 }
-.sign-in-link {
-  background-color: #0f1ee0;
+
+.report-link {
+  background-color: #0d4c92;
+}
+
+.requester-link {
+  background-color: #00c0ef;
+}
+
+.reviewer-link {
+  background-color: #f39c12;
+}
+
+.approver-link {
+  background-color: #00a65a;
 }
 
 @keyframes blink {
   0% {
-      opacity: 1;
+    opacity: 1;
   }
 
   50% {
-      opacity: 0;
+    opacity: 0;
   }
 
   100% {
-      opacity: 1;
+    opacity: 1;
   }
 }
 
@@ -40,6 +62,6 @@
 
 @media print {
   body *:not(.print-area) {
-      display: none !important;
+    display: none !important;
   }
 }

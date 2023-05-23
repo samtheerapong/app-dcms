@@ -8,26 +8,6 @@ use yii\bootstrap\Nav;
 /* @var $content string */
 
 ?>
-<style>
-    .home-link {
-        background-color: #ff3442;
-    }
-
-    .register-link {
-        background-color: #FF6D60;
-    }
-
-    .sign-in-link {
-        background-color: #1363DF;
-    }
-
-    .backend-link {
-        background-color: #F9F5EB;
-    }
-    .report-link {
-        background-color: #1B9C85;
-    }
-</style>
 
 <header class="main-header">
 
@@ -48,38 +28,55 @@ use yii\bootstrap\Nav;
                     <?php
 
                     $menuItems = [
-                        ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']],
-                        // ['label' => 'About', 'url' => ['/site/about']],
-                        // ['label' => 'Contact', 'url' => ['/site/contact']],
-                        ['label' => Yii::t('app', 'Private Document'), 'url' => ['/operator/private-requester/index']],
-                        ['label' => Yii::t('app', 'Reviewer'), 'url' => ['/operator/reviewer/index']],
-                        ['label' => Yii::t('app', 'Approver'), 'url' => ['/operator/approver/index']],
-
-
-                        
                         [
-                            'label' => Yii::t('app', 'Reports'), 'options' => ['class' => 'report-link'],'icon' => 'fas fa-chart-pie', 'items' => [
+                            'label' => Yii::t('app', 'Home'),
+                            'options' => ['class' => 'home-link'],
+                            'url' => ['/site/index']
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Private Document'),
+                            'options' => ['class' => 'requester-link'],
+                            'url' => ['/operator/private-requester/index'],
+                            'visible' => !Yii::$app->user->isGuest,
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Reviewer'),
+                            'options' => ['class' => 'reviewer-link'],
+                            'url' => ['/operator/reviewer/index'],
+                            'visible' => !Yii::$app->user->isGuest,
+                        ],
+                        [
+                            'label' => Yii::t('app', 'Approver'),
+                            'options' => ['class' => 'approver-link'],
+                            'url' => ['/operator/approver/index'],
+                            'visible' => !Yii::$app->user->isGuest,
+                        ],
+
+                        [
+                            'label' => Yii::t('app', 'Reports'), 'options' => ['class' => 'report-link'], 'icon' => 'fas fa-chart-pie', 'items' => [
                                 ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/index']],
                                 ['label' => Yii::t('app', 'types'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report1']],
                                 ['label' => Yii::t('app', 'status'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report2']],
                                 ['label' => Yii::t('app', 'report3 Calendar'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
                                 ['label' => Yii::t('app', 'Ex.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
                                 ['label' => Yii::t('app', 'Logs.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/document-logs/index']],
-                                ]
                             ],
-                            
-                            [
-                                'label' => 'สมัครสมาชิก',
-                                'url' => ['/user/registration/register'],
-                                'options' => ['class' => 'register-link'],
-                                'visible' => Yii::$app->user->isGuest,
-                            ],
-                            
-                            Yii::$app->user->isGuest ?
+                            'visible' => !Yii::$app->user->isGuest,
+
+                        ],
+
+                        [
+                            'label' => 'สมัครสมาชิก',
+                            'url' => ['/user/registration/register'],
+                            'options' => ['class' => 'register-link'],
+                            'visible' => Yii::$app->user->isGuest,
+                        ],
+
+                        Yii::$app->user->isGuest ?
                             ['label' => 'เข้าสู่ระบบ', 'url' => ['/user/security/login'], 'options' => ['class' => 'sign-in-link'],] :
                             [
                                 'label' => '<i class="fa fa-child"></i> สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
-                                'options' => ['class' => 'home-link'],
+                                'options' => ['class' => 'sign-in-link'],
                                 'items' => [
                                     ['label' => '<i class="fa fa-file"></i>' . Yii::t('app', 'Private Document'), 'url' => ['/operator/private-requester/index']],
                                     ['label' => '<i class="fa fa-id-card"></i> โปรไฟล์', 'url' => ['/user/settings/profile']],
