@@ -2,8 +2,13 @@
 
 namespace app\modules\operator\controllers;
 
+use app\modules\operator\models\Requester;
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\web\Response;
+use app\modules\timetrack\models\Timetable;
+use yii2fullcalendar\models\Event;
+use yii\helpers\Url;
 
 class ReportController extends \yii\web\Controller
 {
@@ -26,7 +31,7 @@ class ReportController extends \yii\web\Controller
             ];
         }
 
-       
+
         //ArrayDataProvider ส่งให้ตาราง
         $dataProvider = new ArrayDataProvider([
             'allModels' => $data,
@@ -60,7 +65,7 @@ class ReportController extends \yii\web\Controller
             ];
         }
 
-       
+
         //ArrayDataProvider ส่งให้ตาราง
         $dataProvider = new ArrayDataProvider([
             'allModels' => $data,
@@ -75,7 +80,7 @@ class ReportController extends \yii\web\Controller
         ]);
     }
 
-    
+
     public function actionReport2()
     {
         $sql = " SELECT  COUNT(m.id) AS mid , r.status_details
@@ -95,7 +100,7 @@ class ReportController extends \yii\web\Controller
             ];
         }
 
-       
+
         //ArrayDataProvider ส่งให้ตาราง
         $dataProvider = new ArrayDataProvider([
             'allModels' => $data,
@@ -112,15 +117,30 @@ class ReportController extends \yii\web\Controller
 
     public function actionReport3()
     {
-
-        return $this->render('report3', [
-           
-        ]);
-   
+        return $this->render('report3');
     }
 
-    public function actionReport4()
-    {
-        return $this->render('report4');
-    }
+    public function actionJsoncalendar($start=NULL,$end=NULL,$_=NULL){
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+    
+        //$times = \app\modules\timetrack\models\Timetable::find()->where(array('category'=>\app\modules\timetrack\models\Timetable::CAT_TIMETRACK))->all();
+        $Requestertimes = Requester::find()->all();
+
+
+        $events = [];
+    
+        foreach ($Requestertimes as $time){
+            $Event = new Event();
+            $Event->id = $time->id;
+            $Event->title = date("Y/m/d");
+            $Event->start = date("Y/m/d");
+            $Event->end = date("Y/m/d");
+            $Event->color = '';
+            $Event->url = Url::to(['/operator/requester/view', 'id' => $time->id]);
+            $events[] = $Event;
+        }
+    
+        return $events;
+      }
 }

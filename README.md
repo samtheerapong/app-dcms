@@ -58,3 +58,5 @@ use mdm\autonumber\AutoNumber;
 http://mdmsoft.github.io/yii2-autonumber/index.html
 
 <hr>
+
+"philippfrenzel/yii2fullcalendar":"3.9.0"

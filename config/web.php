@@ -58,10 +58,13 @@ $config = [
             'user/security/auth',
             // 'user/registration/register',
             'site/*',
-            // '*', //Allow All For Dev
+            '*', //Allow All For Dev
         ]
     ],
     'components' => [
+        // 'fullcalendar' => [
+        //     'class' => 'philippfrenzel\yii2fullcalendar\Fullcalendar',
+        // ],
         'image' => [
             'class' => 'yii\image\ImageDriver',
             'driver' => 'GD',  //GD or Imagick
