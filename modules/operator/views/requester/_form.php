@@ -17,7 +17,9 @@ use kartik\widgets\DatePicker;
 
 <div class="requester-form">
 
-    <p><?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?></p>
+    <p>
+        <?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+    </p>
 
     <div class="actions-form">
         <div class="box box-success box-solid">
@@ -57,7 +59,7 @@ use kartik\widgets\DatePicker;
                         ]);
                         ?>
                     </div>
-                    
+
                     <div class="col-md-3">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
