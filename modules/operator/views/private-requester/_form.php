@@ -2,16 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-//
 use yii\helpers\ArrayHelper;
-//
 use kartik\widgets\Select2;
 use kartik\widgets\FileInput;
-//
 use app\modules\operator\models\Types;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
-use app\modules\operator\models\User;
 use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
@@ -20,7 +16,7 @@ use kartik\widgets\DatePicker;
 ?>
 
 <div class="private-requester-form">
-<p>
+    <p>
         <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
@@ -49,8 +45,6 @@ use kartik\widgets\DatePicker;
                     <div class="col-md-4">
                         <?= $form->field($model, 'type_details')->textInput(['maxlength' => true]) ?>
                     </div>
-
-
 
                     <div class="col-md-3">
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
@@ -95,7 +89,6 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-md-4">
-                        <!-- <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?> -->
                         <?= $form->field($model, 'document_age')->textInput([
                             'maxlength' => true
                         ])->label(Yii::t('app', 'document_age') . '<span class="text-muted">' . ' (' . Yii::t('app', 'document_age_caption') . ')</span>') ?>
@@ -116,7 +109,6 @@ use kartik\widgets\DatePicker;
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-6">
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
@@ -131,13 +123,9 @@ use kartik\widgets\DatePicker;
                                 'showRemove' => true,
                                 'showUpload' => false
                             ],
-                            // 'options' => [
-                            //     'required' => true,
-                            // ]
-
                         ]); ?>
-
                     </div>
+
                     <div class="col-md-6">
                         <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
@@ -157,17 +145,14 @@ use kartik\widgets\DatePicker;
                                 'maxFileCount' => 3,
                             ]
                         ]); ?>
-
                     </div>
                 </div>
-
-
 
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                            <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg btn-block']) ?>
+                                <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg btn-block']) ?>
                             </div>
                         </div>
                     </div>
