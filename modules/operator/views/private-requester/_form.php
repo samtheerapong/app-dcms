@@ -167,7 +167,7 @@ use kartik\widgets\DatePicker;
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                            <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg btn-block']) ?>
                             </div>
                         </div>
                     </div>

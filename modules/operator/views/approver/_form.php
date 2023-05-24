@@ -38,7 +38,7 @@ use yii\widgets\ActiveForm;
                     </div>
                 </div>
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'Approve'), ['class' => 'btn btn-success btn-block btn-lg']) ?>
+                    <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-danger btn-lg btn-block']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -46,6 +46,4 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
     </div>
-</div>
-</div>
 </div>

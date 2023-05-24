@@ -57,6 +57,7 @@ use kartik\widgets\DatePicker;
                         ]);
                         ?>
                     </div>
+                    
                     <div class="col-md-3">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
@@ -108,7 +109,6 @@ use kartik\widgets\DatePicker;
                     </div>
                 </div>
 
-
                 <div class="row">
                     <div class="col-md-6">
                         <?= $form->field($model, 'covenant')->widget(FileInput::class, [
@@ -130,7 +130,6 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
                                 'options' => [
-                                    // 'accept' => '.pdf,.doc,.docx,.xls,.xlsx,.jpg,.odt,.png',
                                     'multiple' => true
                                 ],
                                 'multiple' => true
@@ -152,13 +151,11 @@ use kartik\widgets\DatePicker;
                     </div>
                 </div>
 
-
-
                 <div class="box-footer">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+                                <?= Html::submitButton('<i class="fas fa-save"></i> ' . Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-lg btn-block']) ?>
                             </div>
                         </div>
                     </div>
