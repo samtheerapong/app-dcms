@@ -193,7 +193,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
-                            'options' => ['style' => 'width:250px;'],
+                            // 'options' => ['style' => 'width:250px;'],
                             'value' => function ($model) {
                                 $text = $model->requester->document_title ?? '';
                                 if (mb_strlen($text) > 20) {
@@ -242,7 +242,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'approver_at',
                         [
                             'attribute' => 'approver_at',
-                            'options' => ['style' => 'width:120px'],
+                            // 'options' => ['style' => 'width:120px'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->approver_at !== null) {

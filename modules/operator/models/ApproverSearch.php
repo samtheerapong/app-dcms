@@ -28,7 +28,7 @@ class ApproverSearch extends Approver
         return [
             [['id', 'requester_id', 'approver_by'], 'integer'],
             [['approver_at', 'approver_comment', 'document_number'], 'safe'],
-            [['status_id', 'latest_rev', 'request_by','reviewer_name'], 'integer'], // **************** เพิ่ม  2 ********************
+            [['status_id', 'latest_rev', 'request_by', 'reviewer_name'], 'integer'], // **************** เพิ่ม  2 ********************
             [['latest_rev'], 'number'], // **************** เพิ่ม  2 ********************
         ];
     }
@@ -53,7 +53,12 @@ class ApproverSearch extends Approver
     {
         // $query = Approver::find();
         // **************** เพิ่ม  3 ********************
-        $query = Approver::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [3, 4]]);
+        $query = Approver::find();
+        $query->andFilterWhere(['status.id' => [3, 4]]);  // เลือกสถานะแค่ 3 และ 4 มาแสดง
+        $query->joinWith(['requester.status']); // Join the necessary tables -> 'status_id'
+        $query->joinWith(['requester.reviewer']); // Join the necessary tables -> 'reviewer_name'
+        
+
 
         // $query->joinWith('requester.reviewer');
 
@@ -76,7 +81,7 @@ class ApproverSearch extends Approver
 
         // **************** เพิ่ม  4 ********************
         $query->andFilterWhere(['status.id' => $this->status_id]);
-        // $query->andFilterWhere(['reviewer.reviewer_name' => $this->reviewer_name]);
+        // $query->andFilterWhere(['rreviewer.reviewer_name' => $this->reviewer_name]);
         $query->andFilterWhere(['requester.request_by' => $this->request_by]);
         $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
         $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
@@ -90,7 +95,9 @@ class ApproverSearch extends Approver
         ]);
 
         $query->andFilterWhere(['like', 'approver_at', $this->approver_at])
-            ->andFilterWhere(['like', 'approver_comment', $this->approver_comment]);
+            ->andFilterWhere(['like', 'approver_comment', $this->approver_comment])
+            ->andFilterWhere(['like', 'reviewer.reviewer_name', $this->reviewer_name]); // Reference the correct column
+
 
         return $dataProvider;
     }
