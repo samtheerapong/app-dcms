@@ -151,7 +151,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             'options' => ['style' => 'width:10%;'],
                             'value' => function ($model) {
-                                return $model->approver_by ? $model->approverBy->profile->name : ''; 
+                                return $model->approver_by ? $model->approverBy->profile->name : '';
                             },
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -168,15 +168,24 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'approver_at',
-                            'options' => ['style' => 'width:10%'],
-                            'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->approver_at !== null) {
-                                    $formatter = Yii::$app->formatter;
-                                    $formatter->timeZone = 'Asia/Bangkok';
-                                    return $formatter->asDate($model->approver_at);
+                                    $timestamp = strtotime($model->approver_at);
+                                    if ($model->approver_at !== null) {
+                                        $timestamp = strtotime($model->approver_at);
+                                        $monthNames = [
+                                            'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                                            'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                                            'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                        ];
+                                        $day = date('d', $timestamp);
+                                        $month = $monthNames[date('n', $timestamp) - 1];
+                                        $year = date('Y', $timestamp);
+                                        return "$day $month $year";
+                                    } else {
+                                        return '';
+                                    }
                                 }
-                                return '';
                             },
                             'filter' => DatePicker::widget([
                                 'model' => $searchModel,
@@ -188,7 +197,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-                        
+
                         [
                             'attribute' => 'requester.status_id',
                             'options' => ['style' => 'width:10%;'],

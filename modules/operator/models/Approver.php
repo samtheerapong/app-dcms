@@ -27,7 +27,7 @@ class Approver extends \yii\db\ActiveRecord
             [
                 'class' => TimestampBehavior::class,
                 'attributes' => [
-                    self::EVENT_BEFORE_UPDATE => ['approver_at'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['approver_at'],
                 ],
                 'value' => function () {
                     return date('Y-m-d H:i:s');
