@@ -2,8 +2,6 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
-// use kartik\detail\DetailView;
-
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Reviewer */
@@ -19,13 +17,10 @@ $this->params['breadcrumbs'][] = $this->title;
         <p style="text-align: left;">
             <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
-        <!-- <p style="text-align: right;">
-            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Reviewer'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-
-        </p> -->
     </div>
 
     <div class="actions-form">
+
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-info box-solid">
@@ -37,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                             'attributes' => [
-
                                 [
                                     'attribute' => 'requester.document_number',
                                     'format' => 'html',
@@ -46,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             . $model->requester->status->color
                                             . ';"><b>' . $model->requester->document_number . '</b></span>';
                                     },
-
                                 ],
 
                                 [
@@ -71,6 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             . '</b></span>';
                                     },
                                 ],
+
                                 [
                                     'attribute' => 'requester.types_id',
                                     'format' => 'html',
@@ -101,6 +95,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             . $model->requester->categories->category_details;
                                     },
                                 ],
+
                                 [
                                     'attribute' => 'requester.departments_id',
                                     'format' => 'html',
@@ -113,7 +108,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
 
                                 ],
+
                                 'requester.document_title',
+
                                 'requester.details:ntext',
 
                                 [
@@ -150,7 +147,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     'format' => 'html',
                                     'value' => $model->requester->listDownloadFiles('covenant')
                                 ],
-                                
+
 
                                 [
                                     'attribute' => 'requester.docs',
@@ -159,7 +156,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
 
                                 'requester.created_at:date',
-                               
+
                                 [
                                     'attribute' => 'requester.created_by',
                                     'format' => 'html',
@@ -179,7 +176,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
 
             <div class="col-md-6">
-
                 <div class="box box-warning box-solid">
                     <div class="box-header">
                         <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
@@ -190,24 +186,24 @@ $this->params['breadcrumbs'][] = $this->title;
                             'model' => $model,
                             'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
                             'attributes' => [
-                         
+
                                 [
                                     'attribute' => 'requester.document_number',
                                     'format' => 'html',
-                                    // 'value' => $model->requester->document_number,
                                     'value' => function ($model) {
                                         return '<span style="color:'
                                             . $model->requester->status->color
                                             . ';"><b>' . $model->requester->document_number . '</b></span>';
                                     },
                                 ],
+
                                 [
                                     'attribute' => 'reviewerName.profile.name',
-                                    // 'value' => $model->requester_by,
                                     'value' => function ($model) {
                                         return $model->reviewer_name ? $model->reviewerName->profile->name : Yii::t('app', 'No Reviewer');
                                     },
                                 ],
+
                                 [
                                     'attribute' => 'reviewer_at',
                                     'format' => 'html',
@@ -229,7 +225,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                     },
                                 ],
 
-
                                 [
                                     'attribute' => 'document_revision',
                                     'format' => 'html',
@@ -237,11 +232,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->document_revision ? $model->document_revision : Yii::t('app', '0');
                                     },
                                 ],
-
-
-                               
-                                // 'document_public_at',
-                                
 
                                 [
                                     'attribute' => 'document_ref',
@@ -258,7 +248,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->points ? $model->points->point_name : Yii::t('app', '');
                                     },
                                 ],
-                                // 'reviewer_comment:ntext',
+
                                 [
                                     'attribute' => 'reviewer_comment',
                                     'format' => 'ntext',
@@ -266,7 +256,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->reviewer_comment ? $model->reviewer_comment : Yii::t('app', '');
                                     },
                                 ],
-                                // 'additional_training:ntext',
+
                                 [
                                     'attribute' => 'additional_training',
                                     'format' => 'ntext',
@@ -274,7 +264,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $model->additional_training ? $model->additional_training : Yii::t('app', '');
                                     },
                                 ],
-                                // 'document_tags',
+
                                 [
                                     'attribute' => 'document_tags',
                                     'format' => 'html',
@@ -284,40 +274,14 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ],
                         ]) ?>
-                      
                     </div>
-                    
                 </div>
+
                 <p>
-                            <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Reviewer'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-danger btn-block']) ?>
-                        </p>
-
+                    <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Reviewer'), ['update', 'id' => $model->id], ['class' => 'btn-lg btn btn-danger btn-block']) ?>
+                </p>
             </div>
-            <!-- <div class="col-md-4">
-                <div class="box box-success box-solid">
-                    <div class="box-header">
-                        <div class="box-title"><?= Yii::t('app', 'Approver') ?></div>
-                    </div>
-                    <div class="box-body">
-                        <?= DetailView::widget([
-                            'model' => $model,
-                            'template' => '<tr><th style="width: 200px;">{label}</th><td> {value}</td></tr>',
-                            'attributes' => [
-                                // 'approverName.profile.name',
-                                [
-                                    'attribute' => 'requester.document_number',
-                                    'format' => 'html',
-                                    'value' => $model->requester->document_number,
 
-                                ],
-
-                            ],
-                        ]) ?>
-
-
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

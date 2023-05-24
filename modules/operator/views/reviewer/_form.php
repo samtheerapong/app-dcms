@@ -10,7 +10,7 @@ use kartik\widgets\Select2;
 /* @var $model app\modules\operator\models\Reviewer */
 /* @var $form yii\widgets\ActiveForm */
 ?>
- 
+
 <div class="reviewer-form">
     <p>
         <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
@@ -80,9 +80,7 @@ use kartik\widgets\Select2;
                             '3' => 'ดำเนินการทบทวน (รออนุมัติ)',
                         ], [
                             'required' => true,
-                            'options' => [
-                                '3' => ['selected' => true] // Set '3' as the default selected option
-                            ]
+                            'options' => ['3' => ['selected' => true]]
                         ]) ?>
                     </div>
                     <div class="col-md-4">
@@ -93,9 +91,7 @@ use kartik\widgets\Select2;
                             'options' => [
                                 'placeholder' => Yii::t('app', 'Select...'),
                             ],
-                            'pluginOptions' => [
-                                'allowClear' => true,
-                            ],
+                            'pluginOptions' => ['allowClear' => true],
                         ]);
                         ?>
                     </div>

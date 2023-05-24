@@ -1,15 +1,11 @@
 <?php
 
-use app\modules\operator\models\Points;
 use yii\helpers\Html;
-// use yii\grid\GridView;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use app\modules\operator\models\Reviewer;
-use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
-use app\modules\operator\models\Stamps;
 use app\modules\operator\models\Status;
 use app\modules\operator\models\Types;
 use kartik\widgets\DatePicker;
@@ -22,8 +18,6 @@ $this->title = Yii::t('app', 'Reviewer');
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
-
-
 
 <div class="reviewer-index">
 
@@ -89,16 +83,13 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
                         ],
 
-
                         [
                             'attribute' => 'requester.status_id',
                             'options' => ['style' => 'width:120px;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'contentOptions' => ['class' => 'text-center'],
                             'format' => 'html',
                             'value' => function ($model) {
-
                                 $blinkClass = ($model->requester->status->id == 1 || $model->requester->status->id == 2) ? 'blink' : '';
-
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
                             'filter' => Select2::widget([
@@ -114,11 +105,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'requester.document_number',
                         [
                             'attribute' => 'requester.document_number',
                             'options' => ['style' => 'width:150px;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'contentOptions' => ['class' => 'text-center'],
                             'format' => 'html',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -133,13 +123,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'document_revision',
                         [
                             'attribute' => 'requester.latest_rev',
                             'label' => 'Revision',
                             'format' => 'html',
                             'options' => ['style' => 'width:60px;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'contentOptions' => ['class' => 'text-center'],
                             'value' => function ($model) {
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
                                 return $model->requester->latest_rev ? $model->requester->latest_rev : '0';
@@ -200,9 +189,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'requester.types_id',
                             'format' => 'html',
                             'options' => ['style' => 'width:160px'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'contentOptions' => ['class' => 'text-center'],
                             'value' => function ($model) {
-                                // return $model->requester->types->type_details ? $model->requester->types->type_details : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
                                 return '<span class="badge" style="background-color:' . $model->requester->types->color . ';"><b>' . $model->requester->types->type_details . '</b></span>';
                             },
                             'filter' => Select2::widget([
@@ -247,10 +235,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-
-
-                        // 'reviewer_name',
-
                         [
                             'attribute' => 'reviewer_name',
                             'format' => 'html',
@@ -271,7 +255,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'reviewer_at:date',
                         [
                             'attribute' => 'reviewer_at',
                             'options' => ['style' => 'width:120px'],
@@ -292,50 +275,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-
-                        // 'document_age',
-                        // 'document_public_at',
-
-
-                        //'document_ref',
-                        //'document_tags',
-                        // 'points.point_name',
-                        // [
-                        //     'attribute' => 'points_id',
-                        //     'format' => 'html',
-                        //     'options' => ['style' => 'width:9%;'],
-                        //     'value' => function ($model) {
-                        //         $value = $model->points ? $model->points->point_name :  '';
-                        //         if (mb_strlen($value) > 20) {
-                        //             $value = mb_substr($value, 0, 20) . '...';
-                        //         }
-                        //         return $value;
-                        //     },
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'points_id',
-                        //         'data' =>  array_map(function ($value) {
-                        //             if (mb_strlen($value) > 18) {
-                        //                 $value = mb_substr($value, 0, 18) . '...';
-                        //             }
-                        //             return $value;
-                        //         }, ArrayHelper::map(Points::find()->all(), 'id', 'point_name')),
-                        //         'theme' => Select2::THEME_DEFAULT,
-                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
-                        //'reviewer_comment:ntext',
-                        //'additional_training:ntext',
-
                     ],
                 ]); ?>
-
             </div>
-
         </div>
     </div>
 </div>
