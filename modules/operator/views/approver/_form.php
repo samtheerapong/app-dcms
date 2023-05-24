@@ -14,12 +14,13 @@ use yii\widgets\ActiveForm;
     </p>
 
     <div class="actions-form">
-        <?php $form = ActiveForm::begin(); ?>
         <div class="box box-success box-solid">
             <div class="box-header">
                 <div class="box-title"><?= Yii::t('app', 'Approver') ?></div>
             </div>
             <div class="box-body">
+
+            <?php $form = ActiveForm::begin(); ?>
                 <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($modelRequester, 'status_id')->dropDownList([
@@ -28,13 +29,12 @@ use yii\widgets\ActiveForm;
                         ], [
                             'required' => true,
                             'options' => [
-                                '4' => ['selected' => true] // Set '4' as the default selected option
+                                '4' => ['selected' => true]
                             ]
                         ]) ?>
-
                     </div>
                     <div class="col-md-12">
-                        <?= $form->field($model, 'approver_comment')->textarea(['rows' => 6]) ?>
+                        <?= $form->field($model, 'approver_comment')->textarea(['rows' => 3]) ?>
                     </div>
                 </div>
                 <div class="form-group">

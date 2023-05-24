@@ -1,26 +1,20 @@
 <?php
 
 use app\modules\operator\models\Approver;
-use app\modules\operator\models\Points;
 use yii\helpers\Html;
-// use yii\grid\GridView;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
 use kartik\select2\Select2;
 use app\modules\operator\models\Reviewer;
-use app\modules\operator\models\User;
 use app\modules\operator\models\Requester;
-use app\modules\operator\models\Stamps;
 use app\modules\operator\models\Status;
-use app\modules\operator\models\Types;
 use kartik\widgets\DatePicker;
-use yii\web\Request;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ApproverSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Approvers');
+$this->title = Yii::t('app', 'Approver');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="approver-index">
@@ -33,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="actions-form">
         <div class="box box-success box-solid">
             <div class="box-header">
-                <div class="box-title"><?= $this->title ?> : <small></small></div>
+                <div class="box-title"><?= $this->title ?></div>
             </div>
             <div class="box-body">
                 <?= GridView::widget([
@@ -67,7 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
-                                // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
                                 return $model->requester->latest_rev ? $model->requester->latest_rev : '0';
                             },
                             'filter' => Select2::widget([
@@ -101,6 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
+                        // ****** รอแก้ไข **** reviewer_name ไม่สามารถค้นหาได้
                         [
                             'attribute' => 'requester.reviewer.reviewer_name',
                             'format' => 'html',
@@ -121,6 +115,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                             ])
                         ],
+
 
                         [
                             'attribute' => 'requester_id',
@@ -178,7 +173,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 if ($model->approver_at !== null) {
                                     $formatter = Yii::$app->formatter;
-                                    $formatter->timeZone = 'Asia/Bangkok'; // Set the timezone to Asia/Bangkok
+                                    $formatter->timeZone = 'Asia/Bangkok';
                                     return $formatter->asDate($model->approver_at);
                                 }
                                 return '';
@@ -197,10 +192,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester.status_id',
                             'options' => ['style' => 'width:10%;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'contentOptions' => ['class' => 'text-center'],
                             'format' => 'html',
                             'value' => function ($model) {
-                                // return $model->requester->status->status_details;
                                 $blinkClass = $model->requester->status->id == 3 ? 'blink' : '';
                                 return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
                             },
@@ -221,7 +215,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:10%'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class=" btn-group-sm text-center" role="group">  {view}  </div>',
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group">  {update} {view}  </div>',
                             'buttons' => [
                                 'update' => function ($url, $model, $key) {
                                     if ($model->requester->status->id === 4) {

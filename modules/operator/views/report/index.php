@@ -58,15 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="panel-body">
                <?= GridView::widget([
                   'dataProvider' => $dataProvider,
-                  //'filterModel' => $searchModel,
-
                   'summary' => '',
                   'options' => [
                      'class' => 'table-responsive',
                   ],
                   'columns' => [
                      ['class' => 'yii\grid\SerialColumn'],
-                     //'mid',
+                     'mid',
                      [
                         'attribute' => 'category_details',
                         'label' => Yii::t('app', 'category_details'),

@@ -13,9 +13,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="auto-number-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->group], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->group], [
             'class' => 'btn btn-danger',
@@ -25,15 +24,24 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    <div class="actions-form">
+        <div class="box box-info box-solid">
+            <div class="box-header">
+                <div class="box-title"><?= Yii::t('app', 'Requester') ?> </div>
+            </div>
+            <div class="box-body">
+                <?= DetailView::widget([
+                    'model' => $model,
+                    'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
+                    'attributes' => [
+                        'group',
+                        'number',
+                        'optimistic_lock',
+                        'update_time:datetime',
+                    ],
+                ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'group',
-            'number',
-            'optimistic_lock',
-            'update_time:datetime',
-        ],
-    ]) ?>
-
+            </div>
+        </div>
+    </div>
 </div>

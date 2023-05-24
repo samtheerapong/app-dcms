@@ -129,7 +129,6 @@ use kartik\widgets\DatePicker;
                     <div class="col-md-6">
                         <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
-                                //'accept' => 'image/*',
                                 'multiple' => true
                             ],
                             'pluginOptions' => [

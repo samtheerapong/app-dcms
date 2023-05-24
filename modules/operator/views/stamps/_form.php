@@ -25,11 +25,8 @@ use kartik\widgets\FileInput;
     <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]); ?>
 
     <?= $form->field($model, 'content')->widget(CKEditor::class, [
-        'options' => ['rows' => 6],
+        'options' => ['rows' => 3],
         'preset' => 'advance',
-        // 'clientOptions' => [
-        //     'filebrowserUploadUrl' => yii\helpers\Url::to(['/operator/stamps/upload']), // replace with your controller action URL
-        // ],
     ]) ?>
 
     <div class="form-group">
