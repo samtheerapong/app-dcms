@@ -11,7 +11,7 @@
 }
 
 .home-link {
-  background-color: #5534A5;
+  background-color: #5534a5;
 }
 
 .register-link {
@@ -42,6 +42,7 @@
   background-color: #00a65a;
 }
 
+/* ข้อความกระพริบ */
 @keyframes blink {
   0% {
     opacity: 1;
@@ -55,13 +56,11 @@
     opacity: 1;
   }
 }
-
 .blink {
   animation: blink 1s infinite;
 }
 
-@media print {
-  body *:not(.print-area) {
-    display: none !important;
-  }
+/* ปิด highcharts-credits */
+.highcharts-credits {
+  display: none !important;
 }

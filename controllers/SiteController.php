@@ -9,8 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
-
-
+use app\modules\operator\models\RequesterSearch;
 use yii\data\ArrayDataProvider;
 
 class SiteController extends Controller
@@ -22,7 +21,7 @@ class SiteController extends Controller
     {
         return [
             'access' => [
-                'class' => AccessControl::className(),
+                'class' => AccessControl::class,
                 'only' => ['logout'],
                 'rules' => [
                     [
@@ -33,7 +32,7 @@ class SiteController extends Controller
                 ],
             ],
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'logout' => ['post'],
                 ],
@@ -64,35 +63,64 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $sql = " SELECT  COUNT(m.id) AS mid , r.category_details
-                    FROM requester m
-                    LEFT JOIN categories r 
-                    ON r.id = m.categories_id
-                    GROUP BY m.categories_id";
+        // **************** table Requester ********************
+        $searchModel = new RequesterSearch();
+        $dataProviderRequester = $searchModel->search(Yii::$app->request->queryParams);
 
-        $data = Yii::$app->db->createCommand($sql)->queryAll();
-
-        $graph = [];
-        foreach ($data as $d) {
-            $graph[] = [
-                'type' => 'column',
-                'name' => $d['category_details'],
-                'data' => [intval($d['mid'])],
+        // **************** report Category ********************
+        $sqlCategory = "SELECT COUNT(m.id) AS count, r.category_code
+                FROM requester m
+                LEFT JOIN categories r 
+                ON r.id = m.categories_id
+                GROUP BY m.categories_id";
+        $dataCategory = Yii::$app->db->createCommand($sqlCategory)->queryAll();
+        $graphCategory = [];
+        foreach ($dataCategory as $d) {
+            $graphCategory[] = [
+                'name' => $d['category_code'],
+                'y' => intval($d['count']),
             ];
         }
 
-       
-        //ArrayDataProvider ส่งให้ตาราง
-        $dataProvider = new ArrayDataProvider([
-            'allModels' => $data,
-            'sort' => [
-                'attributes' => ['mid', 'category_details'],
-            ],
-        ]);
+        // **************** report Type ********************
+        $sqlType = "SELECT COUNT(m.id) AS count, r.type_details
+         FROM requester m
+         LEFT JOIN types r 
+         ON r.id = m.types_id
+         GROUP BY m.types_id";
+        $dataType = Yii::$app->db->createCommand($sqlType)->queryAll();
+        $graphType = [];
+        foreach ($dataType as $d) {
+            $graphType[] = [
+                'name' => $d['type_details'],
+                'y' => intval($d['count']),
+            ];
+        }
 
+        // **************** report Status ********************
+        $sqlStatus = "SELECT COUNT(m.id) AS count, r.status_details
+              FROM requester m
+              LEFT JOIN status r ON r.id = m.status_id
+              GROUP BY m.status_id";
+        $dataStatus = Yii::$app->db->createCommand($sqlStatus)->queryAll();
+        $graphStatus = [];
+        foreach ($dataStatus as $d) {
+            $graphStatus[] = [
+                'name' => $d['status_details'],
+                'y' => intval($d['count']),
+            ];
+        }
+
+        // *********************** return index *******************
         return $this->render('index', [
-            'graph' => $graph,
-            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel, //able Requester
+            'dataProviderRequester' => $dataProviderRequester, //able Requester
+
+            'graphCategory' => $graphCategory, //report Category
+            'graphType' => $graphType, //report Type
+            'graphStatus' => $graphStatus, //report Status
+
+
         ]);
     }
 

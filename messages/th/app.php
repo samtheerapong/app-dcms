@@ -1,5 +1,8 @@
 <?php
 return [
+    // *** config
+    'Fonts' => 'Chakra Petch',
+    // *** navbar
     'Home' => 'หน้าหลัก',
     'Login' => 'เข้าสู่ระบบ',
     'Logout' => 'ออกจากระบบ',
@@ -30,10 +33,21 @@ return [
     'Public Email' => 'อีเมล',
     'Successfully' => 'สำเร็จ',
     'Refresh' => 'ฟื้นฟู',
+
+
+    // *** site/index
     'Times' => 'จำนวน',
     'report category' => 'รายงาน (ระดับเอกสาร)',
     'report type' => 'รายงาน (ประเภทการร้องขอ)',
     'report status' => 'รายงาน (สถานะ)',
+    'Table of all requests' => 'ตารางการขอทั้งหมด',
+    'Grap of Category' => 'กราฟสรุปแยกเป็น ระดับเอกสาร',
+    'Grap of Type' => 'กราฟสรุปแยกเป็น การร้องขอ',
+    'Grap of Status' => 'กราฟสรุปแยกเป็น สถานะ',
+    'Table of Category' => 'ตารางสรุปแยกเป็น ระดับเอกสาร',
+    'Table of Type' => 'ตารางสรุปแยกเป็น การร้องขอ',
+    'Table of Status' => 'ตารางสรุปแยกเป็น สถานะ',
+
     // Requester
     'Reviewer' => 'ทบทวน',
     'status_id' => 'ประเภทการร้องขอ',
@@ -60,6 +74,7 @@ return [
     'Reviewer Page' => 'หน้าทบทวน',
     'Requester' => 'ร้องขอ',
     'document_age_caption' => 'ค่าเริ่มต้น 10 ปี',
+
     // Categories
     'Categories' => 'ระดับเอกสาร',
     'Category' => 'ระดับเอกสาร',
@@ -72,11 +87,12 @@ return [
     'type_details' => 'ประเภทการร้องขอ',
     'status_details' => 'สถานะ',
     'group data' => 'กลุ่มข้อมูล',
+
     // Reviewer
     'document_revision_caption' => 'หากขอแก้ไข Rev. ใหม่ ต้องมากกว่า Rev. ผู้ขอ',
     'document_status_caption' => 'ผู้ขอจะแก้เอกสารได้เมื่อเปลี่ยนสถานะเป็น "อนุญาตผู้ขอแก้ไขได้"',
-    
 
-    
-    
+
+
+
 ];

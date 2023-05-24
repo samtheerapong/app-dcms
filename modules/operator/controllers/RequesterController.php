@@ -3,7 +3,6 @@
 namespace app\modules\operator\controllers;
 
 use app\modules\operator\models\Approver;
-use app\modules\operator\models\DocumentLogs;
 use app\modules\operator\models\Uploads;
 use Yii;
 use app\modules\operator\models\Requester;

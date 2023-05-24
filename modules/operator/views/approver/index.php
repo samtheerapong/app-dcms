@@ -37,80 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="box-body">
                 <?= GridView::widget([
-                    
-
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 
                         [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:100px'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} </div>',
-                            'buttons' => [
-                                'update' => function ($url, $model, $key) {
-                                    if ($model->requester->status->id === 4) {
-                                        return '';
-                                    } else {
-                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                            'title' => Yii::t('app', 'Approver'),
-                                            'class' => 'btn btn-success',
-                                        ]);
-                                    }
-                                },
-                                'delete' => function ($url, $model, $key) {
-                                    if ($model->requester->status->id === 4) {
-                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                            'title' => Yii::t('app', 'Delete'),
-                                            'class' => 'btn btn-danger',
-                                            'data' => [
-                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                                'method' => 'post',
-                                            ],
-                                        ]);
-                                    } else {
-                                        return '';
-                                    }
-                                },
-                                'view' => function ($url, $model, $key) {
-                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                                        'title' => Yii::t('app', 'View'),
-                                        'class' => 'btn btn-info',
-                                    ]);
-                                },
-                            ],
-                        ],
-
-                       
-                        
-                        [
-                            'attribute' => 'requester.status_id',
-                            'options' => ['style' => 'width:100px;'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                // return $model->requester->status->status_details;
-                                $blinkClass = $model->requester->status->id == 3 ? 'blink' : '';
-                                return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
-                            },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'status_id',
-                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
-
-                        [
                             'attribute' => 'requester.document_number',
-                            'options' => ['style' => 'width:150px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'filter' => Select2::widget([
@@ -130,7 +64,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'requester.latest_rev',
                             'label' => 'Revision',
                             'format' => 'html',
-                            'options' => ['style' => 'width:80px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'value' => function ($model) {
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
@@ -152,7 +86,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester.request_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:180px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'value' => 'requester.requestBy.profile.name',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -170,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'requester.reviewer.reviewer_name',
                             'format' => 'html',
-                            'options' => ['style' => 'width:180px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'value' => 'requester.reviewer.reviewerName.profile.name',
                             'value' => function ($model) {
                                 return $model->requester->reviewer->reviewerName->profile->name;
@@ -188,12 +122,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-
-
                         [
                             'attribute' => 'requester_id',
                             'format' => 'html',
-                            // 'options' => ['style' => 'width:250px;'],
+                            'options' => ['style' => 'width:20%;'],
                             'value' => function ($model) {
                                 $text = $model->requester->document_title ?? '';
                                 if (mb_strlen($text) > 20) {
@@ -222,7 +154,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'approver_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:180px;'],
+                            'options' => ['style' => 'width:10%;'],
                             'value' => function ($model) {
                                 return $model->approver_by ? $model->approverBy->profile->name : ''; 
                             },
@@ -239,10 +171,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // 'approver_at',
                         [
                             'attribute' => 'approver_at',
-                            // 'options' => ['style' => 'width:120px'],
+                            'options' => ['style' => 'width:10%'],
                             'format' => 'html',
                             'value' => function ($model) {
                                 if ($model->approver_at !== null) {
@@ -262,7 +193,68 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ]
                             ]),
                         ],
-                        // 'approver_comment:ntext',
+                        
+                        [
+                            'attribute' => 'requester.status_id',
+                            'options' => ['style' => 'width:10%;'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                // return $model->requester->status->status_details;
+                                $blinkClass = $model->requester->status->id == 3 ? 'blink' : '';
+                                return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->requester->status->color . ';"><b>' . $model->requester->status->status_details . '</b></span>';
+                            },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'status_id',
+                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
+
+                        [
+                            'class' => 'kartik\grid\ActionColumn',
+                            'options' => ['style' => 'width:10%'],
+                            'buttonOptions' => ['class' => 'btn btn-default'],
+                            'template' => '<div class=" btn-group-sm text-center" role="group">  {view}  </div>',
+                            'buttons' => [
+                                'update' => function ($url, $model, $key) {
+                                    if ($model->requester->status->id === 4) {
+                                        return '';
+                                    } else {
+                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                            'title' => Yii::t('app', 'Approver'),
+                                            'class' => 'btn btn-danger',
+                                        ]);
+                                    }
+                                },
+                                'delete' => function ($url, $model, $key) {
+                                    if ($model->requester->status->id === 4) {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                            'title' => Yii::t('app', 'Delete'),
+                                            'class' => 'btn btn-danger',
+                                            'data' => [
+                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                'method' => 'post',
+                                            ],
+                                        ]);
+                                    } else {
+                                        return '';
+                                    }
+                                },
+                                'view' => function ($url, $model, $key) {
+                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                        'title' => Yii::t('app', 'View'),
+                                        'class' => 'btn btn-info',
+                                    ]);
+                                },
+                            ],
+                        ],
                     ],
                 ]); ?>
             </div>

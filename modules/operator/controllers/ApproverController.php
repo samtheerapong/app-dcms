@@ -99,7 +99,7 @@ class ApproverController extends Controller
 
             $model->save();
 
-            Yii::$app->session->setFlash('success', Yii::t('app', 'Reviewer Successfully'));
+            Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
