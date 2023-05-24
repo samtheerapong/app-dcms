@@ -2,16 +2,12 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-//
 use yii\helpers\ArrayHelper;
-//
 use kartik\widgets\Select2;
 use kartik\widgets\FileInput;
-//
 use app\modules\operator\models\Types;
 use app\modules\operator\models\Categories;
 use app\modules\operator\models\Departments;
-use app\modules\operator\models\User;
 use kartik\widgets\DatePicker;
 
 /* @var $this yii\web\View */
@@ -49,13 +45,11 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'type_details')->textInput(['maxlength' => true]) ?>
                     </div>
 
-
-
                     <div class="col-md-3">
                         <?= $form->field($model, 'categories_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_details'),
+                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
@@ -67,7 +61,7 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
                             'theme' => Select2::THEME_DEFAULT,
-                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_details'),
+                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             'pluginOptions' => [
                                 'allowClear' => true
@@ -94,7 +88,6 @@ use kartik\widgets\DatePicker;
                         <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
                     </div>
                     <div class="col-md-4">
-                        <!-- <?= $form->field($model, 'document_age')->textInput(['maxlength' => true]) ?> -->
                         <?= $form->field($model, 'document_age')->textInput([
                             'maxlength' => true
                         ])->label(Yii::t('app', 'document_age') . '<span class="text-muted">' . ' (' . Yii::t('app', 'document_age_caption') . ')</span>') ?>
@@ -130,17 +123,16 @@ use kartik\widgets\DatePicker;
                                 'showRemove' => true,
                                 'showUpload' => false
                             ],
-                            // 'options' => [
-                            //     'required' => true,
-                            // ]
-
                         ]); ?>
 
                     </div>
                     <div class="col-md-6">
                         <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
-                                //'accept' => 'image/*',
+                                'options' => [
+                                    // 'accept' => '.pdf,.doc,.docx,.xls,.xlsx,.jpg,.odt,.png',
+                                    'multiple' => true
+                                ],
                                 'multiple' => true
                             ],
                             'pluginOptions' => [
@@ -153,7 +145,7 @@ use kartik\widgets\DatePicker;
                                 'showRemove' => true,
                                 'showUpload' => false,
                                 'overwriteInitial' => false,
-                                'maxFileCount' => 3,
+                                'maxFileCount' => 6,
                             ]
                         ]); ?>
 

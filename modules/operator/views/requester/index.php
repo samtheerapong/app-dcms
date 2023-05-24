@@ -10,7 +10,7 @@ use kartik\date\DatePicker;
 //
 use app\modules\operator\models\Requester;
 
-$this->title = Yii::t('app', 'Requesters');
+$this->title = Yii::t('app', 'Requester');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="requester-index">
@@ -135,26 +135,26 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        // [
-                        //     'attribute' => 'document_age',
-                        //     'options' => ['style' => 'width:100px'],
-                        //     'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                        //     'format' => 'html',
-                        //     'value' => function ($model) {
-                        //         return  $model->document_age;
-                        //     },
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'document_age',
-                        //         'data' => ArrayHelper::map(Requester::find()->all(), 'document_age', 'document_age'),
-                        //         'theme' => Select2::THEME_DEFAULT,
-                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
+                        [
+                            'attribute' => 'document_age',
+                            'options' => ['style' => 'width:100px'],
+                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                            'format' => 'html',
+                            'value' => function ($model) {
+                                return  $model->document_age;
+                            },
+                            'filter' => Select2::widget([
+                                'model' => $searchModel,
+                                'attribute' => 'document_age',
+                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_age', 'document_age'),
+                                'theme' => Select2::THEME_DEFAULT,
+                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                'language' => 'th',
+                                'pluginOptions' => [
+                                    'allowClear' => true
+                                ],
+                            ])
+                        ],
 
                         [
                             'attribute' => 'document_title',

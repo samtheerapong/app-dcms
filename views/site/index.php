@@ -261,120 +261,120 @@ $this->title = 'Documents Control';
                     </div>
                 </div>
             </div>
+    </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-4">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?= Yii::t('app', 'Grap of Category') ?></h3>
+                    </div>
+                    <div class="panel-body">
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><?= Yii::t('app', 'Grap of Category') ?></h3>
-                            </div>
-                            <div class="panel-body">
-
-                                 <?= Highcharts::widget([
-                                    'scripts' => ['modules/exporting', 'themes/grid-light'],
-                                    'options' => [
-                                        'title' => ['text' => Yii::t('app', 'Grap of Category'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
-                                        'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
-                                        'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts'),]]],
-                                        'series' => [
-                                            [
-                                                'type' => 'pie',
-                                                'name' => 'Category',
-                                                'data' => $graphCategory,
-                                                'tooltip' => [
-                                                    'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%',
-                                                ],
-                                                'dataLabels' => [
-                                                    'style' => [
-                                                        'color' => '#000', 
-                                                    ],
-                                                ],
+                        <?= Highcharts::widget([
+                            'scripts' => ['modules/exporting', 'themes/grid-light'],
+                            'options' => [
+                                'title' => ['text' => Yii::t('app', 'Grap of Category'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
+                                'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
+                                'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts'),]]],
+                                'series' => [
+                                    [
+                                        'type' => 'pie',
+                                        'name' => 'Category',
+                                        'data' => $graphCategory,
+                                        'tooltip' => [
+                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%',
+                                        ],
+                                        'dataLabels' => [
+                                            'style' => [
+                                                'color' => '#000',
                                             ],
                                         ],
                                     ],
-                                ]);
-                                ?>
-                            </div>
-                        </div>
+                                ],
+                            ],
+                        ]);
+                        ?>
                     </div>
-
-
-                    <div class="col-md-4">
-                        <div class="panel panel-warning">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><?= Yii::t('app', 'Grap of Type') ?></h3>
-                            </div>
-                            <div class="panel-body">
-
-                                <?= Highcharts::widget([
-                                    'scripts' => ['modules/exporting', 'themes/grid-light'],
-                                    'options' => [
-                                        'title' => ['text' => Yii::t('app', 'Grap of Type'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
-                                        'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
-                                        'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]]],
-                                        'series' => [
-                                            [
-                                                'type' => 'pie',
-                                                'name' => 'Status',
-                                                'data' => $graphType,
-                                                'keys' => ['name', 'y'], 
-                                                'tooltip' => [
-                                                    'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
-                                                ],
-                                                'dataLabels' => [
-                                                    'style' => [
-                                                        'color' => '#000', 
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]);
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><?= Yii::t('app', 'Grap of Status') ?></h3>
-                            </div>
-                            <div class="panel-body">
-
-                                <?= Highcharts::widget([
-                                    'scripts' => ['modules/exporting', 'themes/grid-light'],
-                                    'options' => [
-                                        'title' => ['text' => Yii::t('app', 'Grap of Status'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
-                                        'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
-                                        'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]]],
-                                        'series' => [
-                                            [
-                                                'type' => 'pie',
-                                                'name' => 'Status',
-                                                'data' => $graphStatus,
-                                                'keys' => ['name', 'y'],
-                                                'tooltip' => [
-                                                    'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
-                                                ],
-                                                'dataLabels' => [
-                                                    'style' => [
-                                                        'color' => '#000',
-                                                    ],
-                                                ],
-                                            ],
-                                        ],
-                                    ],
-                                ]);
-                                ?>
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+            </div>
+
+
+            <div class="col-md-4">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?= Yii::t('app', 'Grap of Type') ?></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <?= Highcharts::widget([
+                            'scripts' => ['modules/exporting', 'themes/grid-light'],
+                            'options' => [
+                                'title' => ['text' => Yii::t('app', 'Grap of Type'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
+                                'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
+                                'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]]],
+                                'series' => [
+                                    [
+                                        'type' => 'pie',
+                                        'name' => 'Status',
+                                        'data' => $graphType,
+                                        'keys' => ['name', 'y'],
+                                        'tooltip' => [
+                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                        ],
+                                        'dataLabels' => [
+                                            'style' => [
+                                                'color' => '#000',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]);
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><?= Yii::t('app', 'Grap of Status') ?></h3>
+                    </div>
+                    <div class="panel-body">
+
+                        <?= Highcharts::widget([
+                            'scripts' => ['modules/exporting', 'themes/grid-light'],
+                            'options' => [
+                                'title' => ['text' => Yii::t('app', 'Grap of Status'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
+                                'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
+                                'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]]],
+                                'series' => [
+                                    [
+                                        'type' => 'pie',
+                                        'name' => 'Status',
+                                        'data' => $graphStatus,
+                                        'keys' => ['name', 'y'],
+                                        'tooltip' => [
+                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                        ],
+                                        'dataLabels' => [
+                                            'style' => [
+                                                'color' => '#000',
+                                            ],
+                                        ],
+                                    ],
+                                ],
+                            ],
+                        ]);
+                        ?>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
         </section>
     </div>
 </div>
