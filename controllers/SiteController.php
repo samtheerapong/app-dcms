@@ -119,8 +119,6 @@ class SiteController extends Controller
             'graphCategory' => $graphCategory, //report Category
             'graphType' => $graphType, //report Type
             'graphStatus' => $graphStatus, //report Status
-
-
         ]);
     }
 

@@ -277,15 +277,19 @@ $this->title = 'Documents Control';
                                     'options' => [
                                         'title' => ['text' => Yii::t('app', 'Grap of Category'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]],
                                         'xAxis' => ['categories' => [Yii::t('app', 'group data')]],
-                                        'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts')]]],
+                                        'yAxis' => ['title' => ['text' => Yii::t('app', 'Times'), 'style' => ['fontFamily' => Yii::t('app', 'Fonts'),]]],
                                         'series' => [
                                             [
                                                 'type' => 'pie',
-                                                'name' => 'Status',
+                                                'name' => 'Category',
                                                 'data' => $graphCategory,
-                                                'keys' => ['name', 'y'], // Specify the keys for name and y values
                                                 'tooltip' => [
-                                                    'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                                    'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%',
+                                                ],
+                                                'dataLabels' => [
+                                                    'style' => [
+                                                        'color' => '#000', 
+                                                    ],
                                                 ],
                                             ],
                                         ],
@@ -315,9 +319,14 @@ $this->title = 'Documents Control';
                                                 'type' => 'pie',
                                                 'name' => 'Status',
                                                 'data' => $graphType,
-                                                'keys' => ['name', 'y'], // Specify the keys for name and y values
+                                                'keys' => ['name', 'y'], 
                                                 'tooltip' => [
                                                     'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                                ],
+                                                'dataLabels' => [
+                                                    'style' => [
+                                                        'color' => '#000', 
+                                                    ],
                                                 ],
                                             ],
                                         ],
@@ -346,9 +355,14 @@ $this->title = 'Documents Control';
                                                 'type' => 'pie',
                                                 'name' => 'Status',
                                                 'data' => $graphStatus,
-                                                'keys' => ['name', 'y'], // Specify the keys for name and y values
+                                                'keys' => ['name', 'y'],
                                                 'tooltip' => [
                                                     'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                                ],
+                                                'dataLabels' => [
+                                                    'style' => [
+                                                        'color' => '#000',
+                                                    ],
                                                 ],
                                             ],
                                         ],

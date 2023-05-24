@@ -58,8 +58,8 @@ use yii\bootstrap\Nav;
                                 ['label' => Yii::t('app', 'types'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report1']],
                                 ['label' => Yii::t('app', 'status'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report2']],
                                 ['label' => Yii::t('app', 'report3 Calendar'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
-                                ['label' => Yii::t('app', 'Ex.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
-                                ['label' => Yii::t('app', 'Logs.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/document-logs/index']],
+                                // ['label' => Yii::t('app', 'Ex.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
+                                // ['label' => Yii::t('app', 'Logs.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/document-logs/index']],
                             ],
                             'visible' => !Yii::$app->user->isGuest,
 
