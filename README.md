@@ -1,10 +1,13 @@
 # Install
+
 ```
 composer update
 ```
+
 <hr>
 
 ## Demo user
+
 ```
 User = admin
 Password = admin123456
@@ -55,8 +58,45 @@ use mdm\autonumber\AutoNumber;
         ]);
     }
 ```
+
 http://mdmsoft.github.io/yii2-autonumber/index.html
 
 <hr>
 
 "philippfrenzel/yii2fullcalendar":"3.9.0"
+
+
+## format date รูปแบบวันที่   24 พ.ค. 2023
+```php
+[
+        'attribute' => 'approver_at',
+        'value' => function ($model) {
+            if ($model->approver_at !== null) {
+                $timestamp = strtotime($model->approver_at);
+                if ($model->approver_at !== null) {
+                    $timestamp = strtotime($model->approver_at);
+                    $monthNames = [
+                        'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
+                        'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
+                        'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                    ];
+                    $day = date('d', $timestamp);
+                    $month = $monthNames[date('n', $timestamp) - 1];
+                    $year = date('Y', $timestamp);
+                    return "$day $month $year";
+                } else {
+                    return '';
+                }
+            }
+        },
+        'filter' => DatePicker::widget([
+            'model' => $searchModel,
+            'attribute' => 'approver_at',
+            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+            'pluginOptions' => [
+                'format' => 'yyyy-mm-dd',
+                'autoclose' => true,
+            ]
+        ]),
+    ],
+```
