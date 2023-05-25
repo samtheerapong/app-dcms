@@ -101,7 +101,7 @@ class PrivateRequesterController extends Controller
             }
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
-            
+
             $this->sendLine($model);
 
 
@@ -304,12 +304,12 @@ class PrivateRequesterController extends Controller
 
         // massage 
         $massage =  "แจ้งจากระบบ!!" . "\n" .
-            "รับแจ้งจาก : " . $model->requestBy->profile->name . "\n" .
-            "เอกสารเลขที่ : " . $model->document_number . " Rev. " . $model->latest_rev  . "\n" .
-            "การขอ : " . $model->types->type_details . "\n" .
-            "วันที่แจ้ง : " . $model->createdBy->profile->name . "\n" .
-            "สถานะ : " . $model->status->status_details . "\n" .
-            "http://www.northernfood-complex.com/app-dcms/web/operator/private-requester/view?id=" . $model->id;
+            "1) รับแจ้งจาก : " . $model->requestBy->profile->name . "\n" .
+            "2) เอกสารเลขที่ : " . $model->document_number . " Rev. " . $model->latest_rev  . "\n" .
+            "3) การขอ : " . $model->types->type_details . "\n" .
+            "4) วันที่แจ้ง : " . $model->createdBy->profile->name . "\n" .
+            "5) สถานะ : " . $model->status->status_details . "\n" .
+            "6) http://www.northernfood-complex.com/app-dcms/web/operator/private-requester/view?id=" . $model->id;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://notify-api.line.me/api/notify");
