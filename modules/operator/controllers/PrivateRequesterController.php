@@ -101,6 +101,9 @@ class PrivateRequesterController extends Controller
             }
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
+            
+            $this->sendLine($model);
+
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -137,7 +140,7 @@ class PrivateRequesterController extends Controller
             // $model->document_number = AutoNumber::generate($fullname . '-???');
 
             $model->save();
-
+            // $this->sendLine($model);
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
             // return $this->redirect(['view', 'id' => $model->id]);
@@ -292,5 +295,38 @@ class PrivateRequesterController extends Controller
     private function removeUploadDir($dir)
     {
         BaseFileHelper::removeDirectory(PrivateRequester::getUploadPath() . $dir);
+    }
+
+    public function sendLine($model)
+    {
+
+        $line_token = '9QPvacSX7VXuN7pWEtjylLeXnGStLttzTCmNG5o8j9C';
+
+        // massage 
+        $massage =  "แจ้งจากระบบ!!" . "\n" .
+            "รับแจ้งจาก : " . $model->requestBy->profile->name . "\n" .
+            "เอกสารเลขที่ : " . $model->document_number . " Rev. " . $model->latest_rev  . "\n" .
+            "การขอ : " . $model->types->type_details . "\n" .
+            "วันที่แจ้ง : " . $model->createdBy->profile->name . "\n" .
+            "สถานะ : " . $model->status->status_details . "\n" .
+            "http://www.northernfood-complex.com/app-dcms/web/operator/private-requester/view?id=" . $model->id;
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://notify-api.line.me/api/notify");
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, "message=" . $massage);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'Content-type: application/x-www-form-urlencoded',
+            'Authorization: Bearer ' . $line_token,
+        ]);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+        $server_output = curl_exec($ch);
+
+        curl_close($ch);
     }
 }
