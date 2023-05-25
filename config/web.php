@@ -57,6 +57,7 @@ $config = [
             'user/security/logout',
             'user/security/auth',
             'user/registration/register',
+            'operator/report/jsoncalendar',
             'site/*',
             // '*', //Allow All For Dev
         ]

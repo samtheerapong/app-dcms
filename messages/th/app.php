@@ -7,8 +7,14 @@ return [
     'Login' => 'เข้าสู่ระบบ',
     'Logout' => 'ออกจากระบบ',
     'Save' => 'บันทึก',
-    'Manage Requester' => 'จัดการเอกสาร',
+    'Hi,' => 'สวัสดี!!',
+    'Profile' => 'โปรไฟล์',
+    'Account' => 'บัญชี',
     'Are you sure you want to log out?' => 'คุณแน่ใจว่าคุณต้องการที่จะออกจากระบบ?',
+    'Approver Page' => 'หน้าอนุมัติ',
+    'Refresh' => 'ฟื้นฟู',
+
+    'Manage Requester' => 'จัดการเอกสาร',
     'Are you sure you want to delete this item?' => 'คุณแน่ใจหรือว่าต้องการลบข้อมูลนี้หรือไม่?',
     'System' => 'ตั้งค่าระบบ',
     'Requesters' => 'ผู้ร้องขอ',
@@ -32,10 +38,13 @@ return [
     'Name' => 'ชื่อ',
     'Public Email' => 'อีเมล',
     'Successfully' => 'สำเร็จ',
-    'Refresh' => 'ฟื้นฟู',
 
-
-    // *** site/index
+    // Dashboard
+    'Dashboard' => 'แผงควบคุม',
+    'All Requests' => 'ทั้งหมด',
+    'Status Pending' => 'ดำเนินการ',
+    'Status Success' => 'เสร็จสิ้น',
+    'All Users' => 'ผู้ใช้งานทั้งหมด',
     'Times' => 'จำนวน',
     'report category' => 'รายงาน (ระดับเอกสาร)',
     'report type' => 'รายงาน (ประเภทการร้องขอ)',

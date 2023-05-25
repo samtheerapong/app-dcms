@@ -10,23 +10,24 @@ use yii\helpers\Html;
                 'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
                 'items' => [
                     ['label' => 'Menu', 'options' => ['class' => 'header']],
-                    ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'glyphicon glyphicon-dashboard', 'url' => ['/site/index']],
+                    ['label' => Yii::t('app', 'Dashboard'), 'icon' => 'fas fa-dashboard', 'url' => ['/site/index']],
 
-                    ['label' => Yii::t('app', 'Request'), 'icon' => 'fas fa-send text-danger', 'url' => ['/operator/private-requester/index']],
-                    ['label' => Yii::t('app', 'Calendar'), 'icon' => 'fas fa-calendar text-danger', 'url' => ['/operator/report/report3']],
-                    ['label' => Yii::t('app', 'Reviewer'), 'icon' => 'fas fa-comments text-warning', 'url' => ['/operator/reviewer/index']],
-                    ['label' => Yii::t('app', 'Approver'), 'icon' => 'far fa-paper-plane text-success', 'url' => ['/operator/approver/index']],
+                    ['label' => Yii::t('app', 'Request'), 'icon' => 'fas fa-send', 'url' => ['/operator/private-requester/index']],
+                    ['label' => Yii::t('app', 'Calendar'), 'icon' => 'fas fa-calendar', 'url' => ['/operator/report/report3']],
+                    // ['label' => Yii::t('app', 'Reviewer'), 'icon' => 'fas fa-comments text-warning', 'url' => ['/operator/reviewer/index']],
+                    // ['label' => Yii::t('app', 'Approver'), 'icon' => 'far fa-paper-plane text-success', 'url' => ['/operator/approver/index']],
                     Yii::$app->user->isGuest ?
                         [
-                            'label' => 'เข้าสู่ระบบ',
+                            'label' => Yii::t('app','Login'),
+                            'icon' => 'circle-o text-danger',
                             'url' => ['/user/security/login']
                         ] :
                         [
-                            'label' => 'สวัสดี!! (' . Yii::$app->user->identity->profile->name . ')',
+                            'label' => Yii::t('app','Hi,').' (' . Yii::$app->user->identity->profile->name . ')',
                             'icon' => 'fas fa-child',
                             'items' => [
-                                ['label' => 'โปรไฟล์', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/profile']],
-                                ['label' => 'บัญชี', 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/account']],
+                                ['label' => Yii::t('app','Profile'), 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/profile']],
+                                ['label' => Yii::t('app','Account'), 'icon' => 'circle-o text-primary', 'url' => ['/user/settings/account']],
                                 [
                                     'label' => Yii::t('app', 'Logout'),
                                     'icon' => 'file-code-o',

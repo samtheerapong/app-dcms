@@ -17,7 +17,7 @@ $alldocs = Requester::find()->count();
 $process = Requester::find()->where(['status_id' => 2])->orWhere(['status_id' => 3])->orWhere(['status_id' => 1])->count();
 $success = Requester::find()->where(['status_id' => 4])->count();
 
-$this->title = 'Documents Control';
+$this->title = Yii::t('app', 'Dashboard');
 ?>
 <div class="row">
     <div class="site-index">
@@ -27,7 +27,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-purple"><i class="fas fa-file"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All requests') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'All Requests') ?></span>
                             <span class="info-box-number">
                                 <?= $alldocs ?>
                             </span>
@@ -39,7 +39,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-yellow"><i class="fas fa-folder-open"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status pending') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'Status Pending') ?></span>
                             <span class="info-box-number"> <?= $process ?></span>
                         </div>
                     </div>
@@ -49,7 +49,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="fas fa-folder"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status success') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'Status Success') ?></span>
                             <span class="info-box-number"><?= $success ?></span>
                         </div>
                     </div>
@@ -59,7 +59,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-blue"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All users') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'All Users') ?></span>
                             <span class="info-box-number">
                                 <?= $users ?>
                             </span>
@@ -381,7 +381,7 @@ $this->title = 'Documents Control';
 
 <div class="row">
     <div class="col-md-12">
-        <div class="box box-success box-solid">
+        <div class="box box-danger box-solid">
             <div class="box-header">
                 <div class="box-title"> <?= $this->title ?></div>
             </div>
