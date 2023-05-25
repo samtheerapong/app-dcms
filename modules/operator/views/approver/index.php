@@ -1,14 +1,14 @@
 <?php
 
 use app\modules\operator\models\Approver;
-use yii\helpers\Html;
-use kartik\grid\GridView;
-use yii\helpers\ArrayHelper;
-use kartik\select2\Select2;
-use app\modules\operator\models\Reviewer;
 use app\modules\operator\models\Requester;
+use app\modules\operator\models\Reviewer;
 use app\modules\operator\models\Status;
+use kartik\grid\GridView;
+use kartik\select2\Select2;
 use kartik\widgets\DatePicker;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\ApproverSearch */
@@ -21,7 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
             <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Reviewer Page'), ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
+        </p>
+        <p style="text-align: right;">
             <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', ''), [''], ['class' => 'btn btn-danger']) ?>
+            <?= Html::a('<i class="fa fa-tachometer"></i> ' . Yii::t('app', 'Dashboard'), ['/site/index'], ['class' => 'btn btn-primary']) ?>
         </p>
     </div>
     <div class="actions-form">
@@ -49,9 +52,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         [
@@ -71,9 +74,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         [
@@ -89,9 +92,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         // ****** รอแก้ไข **** reviewer_name ไม่สามารถค้นหาได้
@@ -111,11 +114,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
-
 
                         [
                             'attribute' => 'requester_id',
@@ -131,7 +133,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'requester_id',
-                                'data' =>  array_map(function ($value) {
+                                'data' => array_map(function ($value) {
                                     if (mb_strlen($value) > 20) {
                                         $value = mb_substr($value, 0, 20) . '...';
                                     }
@@ -141,9 +143,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         [
@@ -161,9 +163,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         [
@@ -176,7 +178,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         $monthNames = [
                                             'ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.',
                                             'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.',
-                                            'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'
+                                            'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.',
                                         ];
                                         $day = date('d', $timestamp);
                                         $month = $monthNames[date('n', $timestamp) - 1];
@@ -194,7 +196,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'pluginOptions' => [
                                     'format' => 'yyyy-mm-dd',
                                     'autoclose' => true,
-                                ]
+                                ],
                             ]),
                         ],
 
@@ -215,9 +217,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
                                 'pluginOptions' => [
-                                    'allowClear' => true
+                                    'allowClear' => true,
                                 ],
-                            ])
+                            ]),
                         ],
 
                         [
