@@ -305,9 +305,9 @@ class PrivateRequesterController extends Controller
         // massage 
         $massage =  "แจ้งจากระบบ!!" . "\n" .
             "1) รับแจ้งจาก : " . $model->requestBy->profile->name . "\n" .
+            "3) " . $model->types->type_details . "\n" .
             "2) เอกสารเลขที่ : " . $model->document_number . " Rev. " . $model->latest_rev  . "\n" .
-            "3) การขอ : " . $model->types->type_details . "\n" .
-            "4) วันที่แจ้ง : " . $model->createdBy->profile->name . "\n" .
+            "4) วันที่แจ้ง : " . $model->created_at . "\n" .
             "5) สถานะ : " . $model->status->status_details . "\n" .
             "6) http://www.northernfood-complex.com/app-dcms/web/operator/private-requester/view?id=" . $model->id;
 
