@@ -1,4 +1,5 @@
 <?php
+
 use yii\widgets\Breadcrumbs;
 use dmstr\widgets\Alert;
 
@@ -40,7 +41,7 @@ use dmstr\widgets\Alert;
         <b>Dev Version</b> 1.0
     </div>
     <strong>Copyright &copy; 2023 <a href="http://www.northernfood-complex.com/" target="_blank">Northern Food Complex</a>.</strong> All rights
-    reserved. <b><a href="https://github.com/samtheerapong/app-dcms" target="_blank">พัฒนาโดย นายธีรพงศ์ ขันตา </a></b> <small>: 087-087-3830</small> 
+    reserved. <b><a href="https://github.com/samtheerapong/app-dcms" target="_blank">พัฒนาโดย นายธีรพงศ์ ขันตา </a></b> <small>: 087-087-3830</small>
 </footer>
 
 <!-- Control Sidebar -->
@@ -167,7 +168,7 @@ use dmstr\widgets\Alert;
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Report panel usage
-                        <input type="checkbox" class="pull-right" checked/>
+                        <input type="checkbox" class="pull-right" checked />
                     </label>
 
                     <p>
@@ -179,7 +180,7 @@ use dmstr\widgets\Alert;
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Allow mail redirect
-                        <input type="checkbox" class="pull-right" checked/>
+                        <input type="checkbox" class="pull-right" checked />
                     </label>
 
                     <p>
@@ -191,7 +192,7 @@ use dmstr\widgets\Alert;
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Expose author name in posts
-                        <input type="checkbox" class="pull-right" checked/>
+                        <input type="checkbox" class="pull-right" checked />
                     </label>
 
                     <p>
@@ -205,7 +206,7 @@ use dmstr\widgets\Alert;
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Show me as online
-                        <input type="checkbox" class="pull-right" checked/>
+                        <input type="checkbox" class="pull-right" checked />
                     </label>
                 </div>
                 <!-- /.form-group -->
@@ -213,7 +214,7 @@ use dmstr\widgets\Alert;
                 <div class="form-group">
                     <label class="control-sidebar-subheading">
                         Turn off notifications
-                        <input type="checkbox" class="pull-right"/>
+                        <input type="checkbox" class="pull-right" />
                     </label>
                 </div>
                 <!-- /.form-group -->

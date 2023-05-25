@@ -183,4 +183,29 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    public function actionJsoncalendar($start = null, $end = null, $_ = null)
+    {
+        \Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $times = Requester::find()->all();
+
+        $events = [];
+
+        foreach ($times as $time) {
+            //Testing
+            $Event = new Event();
+            $Event->id = $time->id;
+            $Event->title = $time->document_number . ' Rev. ' . $time->latest_rev;
+            $Event->start = date($time->created_at);
+            $Event->end = date($time->reviewer->reviewer_at);
+            $Event->backgroundColor = $time->status->color;
+            $Event->borderColor = $time->types->color;
+            $Event->url = url::to(['/operator/requester/view', 'id' => $time->id]);
+
+            $events[] = $Event;
+        }
+
+        return $events;
+    }
 }

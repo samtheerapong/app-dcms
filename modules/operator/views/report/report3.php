@@ -12,7 +12,7 @@ use yii2fullcalendar\yii2fullcalendar;
 /* @var $searchModel app\models\OrdersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'ปฏิทิน';
+$this->title = Yii::t('app','Calendar');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="orders-index">

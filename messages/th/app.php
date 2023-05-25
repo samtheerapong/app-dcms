@@ -47,6 +47,7 @@ return [
     'Table of Category' => 'ตารางสรุปแยกเป็น ระดับเอกสาร',
     'Table of Type' => 'ตารางสรุปแยกเป็น การร้องขอ',
     'Table of Status' => 'ตารางสรุปแยกเป็น สถานะ',
+    'Calendar' => 'ปฏิทิน',
 
     // Requester
     'Requester' => 'ร้องขอ',

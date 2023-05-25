@@ -7,7 +7,9 @@ use miloschuman\highcharts\Highcharts;
 use kartik\grid\GridView;
 use kartik\widgets\DatePicker;
 use kartik\widgets\Select2;
+use yii2fullcalendar\yii2fullcalendar;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 //data
 $users = User::find()->count();
@@ -20,7 +22,6 @@ $this->title = 'Documents Control';
 <div class="row">
     <div class="site-index">
         <section class="content">
-
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
@@ -261,6 +262,7 @@ $this->title = 'Documents Control';
                     </div>
                 </div>
             </div>
+        </section>
     </div>
 
     <div class="row">
@@ -373,8 +375,33 @@ $this->title = 'Documents Control';
                     </div>
                 </div>
             </div>
-
         </div>
-        </section>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-success box-solid">
+            <div class="box-header">
+                <div class="box-title"> <?= $this->title ?></div>
+            </div>
+            <div class="box-body">
+                <?= yii2fullcalendar::widget([
+                    'header' => [
+                        'left' => 'prev,next today',
+                        'center' => 'title',
+                        'right' => 'month,agendaWeek,agendaDay',
+                    ],
+                    'clientOptions' => [
+                        'lang' => 'th',
+                        'lazyFetching' => true,
+                        'timeFormat' => '', // Remove the timeFormat option
+                        'forceEventDuration' => true,
+                        'ignoreTimezone' => true,
+                    ],
+                    'ajaxEvents' => Url::to(['/operator/report/jsoncalendar']),
+                ]) ?>
+            </div>
+        </div>
     </div>
 </div>

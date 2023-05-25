@@ -16,42 +16,28 @@ $this->title = 'ปฏิทินการจอง';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="orders-index">
-    <?php
-    // echo $this->render('_search', ['model' => $searchModel]);
-    ?>
-    <p>
-        <?= Html::a(
-            'เพิ่มการจอง',
-            ['meeting/create'],
-            ['class' => 'btn btn-danger']
-        ) ?>
-    </p>
 
-    <div class="card card-success">
-        <div class="card-header">
-            <div class="box box-success box-solid">
-                <div class="box-header">
-                    <div class="box-title"> ปฏิทินการจอง</div>
-                </div>
-                <div class="box-body">
-                    <?= yii2fullcalendar::widget([
-                        'header' => [
-                            'left' => 'prev,next today',
-                            'center' => 'title',
-                            'right' => 'month,agendaWeek,agendaDay',
-                        ],
-                        'clientOptions' => [
-                            'lang' => 'th',
-                            'lazyFetching' => true,
-                            'timeFormat' => '', // Remove the timeFormat option
-                            'forceEventDuration' => true,
-                            'ignoreTimezone' => true,
-                        ],
-                        'ajaxEvents' => Url::to(['/default/jsoncalendar']),
-                    ]) ?>
-                </div>
-            </div>
-
+    <div class="box box-success box-solid">
+        <div class="box-header">
+            <div class="box-title"> ปฏิทินการจอง</div>
+        </div>
+        <div class="box-body">
+            <?= yii2fullcalendar::widget([
+                'header' => [
+                    'left' => 'prev,next today',
+                    'center' => 'title',
+                    'right' => 'month,agendaWeek,agendaDay',
+                ],
+                'clientOptions' => [
+                    'lang' => 'th',
+                    'lazyFetching' => true,
+                    'timeFormat' => '', // Remove the timeFormat option
+                    'forceEventDuration' => true,
+                    'ignoreTimezone' => true,
+                ],
+                'ajaxEvents' => Url::to(['/default/jsoncalendar']),
+            ]) ?>
         </div>
     </div>
+
 </div>
