@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 
+\Yii::$app->language = 'th';
+
 if (Yii::$app->controller->action->id === 'login') {
 
     echo $this->render('main-login', ['content' => $content]);
