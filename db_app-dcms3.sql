@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 22, 2023 at 09:50 AM
+-- Generation Time: May 25, 2023 at 08:09 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -36,19 +36,20 @@ CREATE TABLE IF NOT EXISTS `approver` (
   `approver_comment` text COMMENT 'ความคิดเห็นของผู้อนุมัติ',
   PRIMARY KEY (`id`),
   KEY `fk_approver_requester1_idx` (`requester_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `approver`
 --
 
 INSERT INTO `approver` (`id`, `requester_id`, `approver_by`, `approver_at`, `approver_comment`) VALUES
-(1, 1, NULL, NULL, NULL),
-(2, 2, NULL, NULL, NULL),
-(3, 3, NULL, NULL, NULL),
-(4, 5, NULL, NULL, NULL),
-(5, 6, NULL, NULL, NULL),
-(6, 7, NULL, NULL, NULL);
+(10, 11, 1, '2023-05-25 11:12:04', ''),
+(11, 12, NULL, NULL, NULL),
+(12, 13, NULL, NULL, NULL),
+(13, 14, 4, '2023-05-25 14:37:55', ''),
+(14, 15, NULL, NULL, NULL),
+(15, 16, NULL, NULL, NULL),
+(16, 17, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -244,6 +245,7 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 ('/operator/profile/view', 2, NULL, NULL, NULL, 1683767079, 1683767079),
 ('/operator/report/*', 2, NULL, NULL, NULL, 1683767079, 1683767079),
 ('/operator/report/index', 2, NULL, NULL, NULL, 1683767079, 1683767079),
+('/operator/report/jsoncalendar', 2, NULL, NULL, NULL, 1684996052, 1684996052),
 ('/operator/report/report1', 2, NULL, NULL, NULL, 1683767079, 1683767079),
 ('/operator/report/report2', 2, NULL, NULL, NULL, 1683767079, 1683767079),
 ('/operator/report/report3', 2, NULL, NULL, NULL, 1683767079, 1683767079),
@@ -433,12 +435,42 @@ CREATE TABLE IF NOT EXISTS `auto_number` (
 
 INSERT INTO `auto_number` (`group`, `number`, `optimistic_lock`, `update_time`) VALUES
 ('FM-AG-???', 1, 1, 1684743775),
+('FM-QC-???', 1, 1, 1684999864),
+('MM-EN-???', 1, 1, 1685000030),
 ('MM-PD-???', 1, 1, 1684744714),
+('PM-EN-???', 1, 1, 1684999997),
+('PM-PD-???', 1, 1, 1684979194),
+('PM-QC-???', 1, 1, 1684999845),
+('SP-IT-???', 1, 1, 1684807015),
 ('SP-PC-???', 1, 1, 1684744168),
-('ST-EN-???', 1, 1, 1684744811),
+('SP-QC-???', 2, 1, 1684999732),
+('ST-EN-???', 2, 1, 1684988110),
 ('ST-PC-???', 1, 1, 1684744983),
 ('ST-QC-???', 1, 1, 1684744368),
-('WI-EN-???', 5, 1, 1684743556);
+('WI-EN-???', 6, 1, 1684902808);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `calendar`
+--
+
+DROP TABLE IF EXISTS `calendar`;
+CREATE TABLE IF NOT EXISTS `calendar` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `date_start` datetime DEFAULT NULL,
+  `date_end` datetime DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
+
+--
+-- Dumping data for table `calendar`
+--
+
+INSERT INTO `calendar` (`id`, `title`, `date_start`, `date_end`, `color`) VALUES
+(1, 'sss', '2023-05-25 10:00:00', '2023-05-25 10:00:00', '#E55807');
 
 -- --------------------------------------------------------
 
@@ -802,19 +834,20 @@ CREATE TABLE IF NOT EXISTS `requester` (
   KEY `fk_requester_categories1_idx` (`categories_id`),
   KEY `fk_requester_types1_idx` (`types_id`),
   KEY `fk_requester_departments1_idx` (`departments_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `requester`
 --
 
 INSERT INTO `requester` (`id`, `types_id`, `type_details`, `status_id`, `created_at`, `updated_at`, `created_by`, `updated_by`, `request_by`, `categories_id`, `departments_id`, `document_title`, `document_number`, `details`, `document_name`, `latest_rev`, `document_age`, `document_public_at`, `ref`, `fullname`, `covenant`, `docs`) VALUES
-(1, 1, '', 4, '2023-05-22 15:19:16', '2023-05-22 15:24:08', 1, 1, 1, 3, 7, 'Water Activity รุ่น Labswift', 'WI-RD-005', '', NULL, 0, 10, '2021-08-16', 'MbtTr1VekuZZ7JydpLoay7', NULL, '{\"c6a75e37530d47addd6e91595d0e5d45.pdf\":\"WI-RD-05_Rev_00.pdf\"}', '{\"72eb5ba0921fa12444e5312dcae24fd9.jpg\":\"22-5-2566 15-23-51.jpg\"}'),
-(2, 1, '', 3, '2023-05-22 15:22:55', '2023-05-22 16:49:21', 1, 1, 1, 6, 8, 'บันทึกการเก็บตัวอย่างน้ำ', 'FM-AG-001', '', NULL, 0, 10, '2023-01-02', 'qPWRq7-tvDYg8BJwXYIwrm', NULL, '{\"47a019b9c07efe18c6e2f622c7552468.pdf\":\"FM-AG-01_Rev_00.pdf\"}', '{\"e6bdc077ba4fca633b8b6f0b03433f3f.png\":\"How production tracking is made. - YouTube12.png\"}'),
-(3, 1, '', 2, '2023-05-22 15:29:28', '2023-05-22 16:49:26', 19, 1, 19, 5, 5, 'คู่มือการใช้งาน MrpPower ของงานจัดซื้อ', 'SP-PC-001', '', NULL, 0, 10, '2023-05-01', 'bw4NPzQVUwZ9XQdZNfmy1s', NULL, '{\"fe55515c3e74bc99f3bb5fa08a8309a0.pdf\":\"SP-PC-01_Rev_00.pdf\"}', 'null'),
-(5, 4, '', 1, '2023-05-22 15:38:34', '2023-05-22 15:38:34', 3, 3, 3, 4, 2, 'fsdfsdfsdf', 'MM-PD-001', '', NULL, 2, 10, '2023-05-23', 'HVwbIKzdz7Q2qU3ynQCYmH', NULL, NULL, 'null'),
-(6, 2, '', 1, '2023-05-22 15:40:11', '2023-05-22 15:40:11', 3, 3, 3, 2, 4, 'jghghjg', 'ST-EN-001', '', NULL, 0, 10, '2023-05-17', '_9Dp6UdGi35AyxdK7goA3J', NULL, NULL, 'null'),
-(7, 2, '', 1, '2023-05-22 15:43:03', '2023-05-22 15:43:03', 3, 3, 3, 2, 5, 'asdasdasd', 'ST-PC-001', '', NULL, 0, 10, '2023-05-11', 'SH9HXf8ig-7ZMrfz-ausQY', NULL, NULL, 'null');
+(11, 1, 'ทดสอบ', 4, '2023-05-20 01:46:34', '2023-05-25 11:12:04', 1, 1, 1, 1, 2, 'บันทึกการเก็บตัวอย่างน้ำ', 'PM-PD-001', '', NULL, 1, 10, '2023-05-25', 'd2j0iJp5UQY6dFmccUQNa6', NULL, NULL, 'null'),
+(12, 2, '', 1, '2023-05-25 11:15:10', '2023-05-25 11:15:10', 9, 1, 9, 2, 4, 'รายการการเตือนอันตรายจากกิจกรรมที่มีความเสี่ยง', 'ST-EN-002', '', NULL, 1, 10, '2023-05-25', 'BPNaAUB-xfnocqUXmLTslk', NULL, NULL, 'null'),
+(13, 5, '', 1, '2023-05-01 14:28:52', '2023-05-25 14:28:52', 3, 3, 3, 5, 3, 'Water Activity รุ่น Labswift', 'SP-QC-002', '', NULL, 1, 10, '2023-05-29', 'I9z_-pVRPO6bZl1ZKPLw_j', NULL, NULL, 'null'),
+(14, 2, '', 4, '2023-05-02 14:30:45', '2023-05-25 14:37:55', 15, 4, 12, 1, 3, 'ผลการชี้บ่งและประเมินประเด็นปัญหาสิ่งแวดล้อมผลกระทบ (Impact) ด้านการใช้ทรัพยการ', 'PM-QC-001', '', NULL, 2, 10, '2023-05-19', '7f8qdj7kSBshkusgc_WAR4', NULL, NULL, 'null'),
+(15, 3, '', 1, '2023-05-03 14:31:04', '2023-05-25 14:31:54', 8, 3, 25, 6, 3, 'การเพิ่มเติม/แก้ไข/ยกเลิกแผนการจัดการด้านสิ่งแวดล้อม', 'FM-QC-001', '', NULL, 2, 10, '2023-05-18', 'ZEaQb_p3QqpyDpnFsl5EgP', NULL, NULL, 'null'),
+(16, 4, '', 1, '2023-05-25 14:33:17', '2023-05-25 14:33:17', 24, 24, 27, 1, 4, 'แผนงานและโครงการ', 'PM-EN-001', '', NULL, 4, 10, '2023-05-26', 'TnF2AZaqn2uzyDXvD8zApW', NULL, NULL, 'null'),
+(17, 5, '', 3, '2023-05-02 14:33:50', '2023-05-25 14:34:57', 20, 3, 24, 4, 4, 'แบบตรวจความพร้อมใช้วัสดุดูดซับ ขอบปูนกันรั่ว และพื้นที่เก็บแก๊ส', 'MM-EN-001', '', NULL, 4, 10, '2023-05-24', 'nrJWcub85G19itZdz3ROEZ', NULL, NULL, 'null');
 
 -- --------------------------------------------------------
 
@@ -838,19 +871,20 @@ CREATE TABLE IF NOT EXISTS `reviewer` (
   KEY `fk_reviewer_requester1_idx` (`requester_id`),
   KEY `fk_reviewer_user1_idx` (`reviewer_name`),
   KEY `fk_reviewer_points1_idx` (`points_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb3;
 
 --
 -- Dumping data for table `reviewer`
 --
 
 INSERT INTO `reviewer` (`id`, `requester_id`, `reviewer_name`, `reviewer_at`, `document_revision`, `document_ref`, `document_tags`, `points_id`, `reviewer_comment`, `additional_training`) VALUES
-(1, 1, 1, '2023-05-22 15:19:16', NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 2, 1, '2023-05-22 16:49:21', 0, '', '', 1, '', ''),
-(3, 3, 1, '2023-05-22 16:49:26', 0, '', '', NULL, '', ''),
-(5, 5, 3, '2023-05-22 15:38:34', NULL, NULL, NULL, NULL, NULL, NULL),
-(6, 6, 3, '2023-05-22 15:40:11', NULL, NULL, NULL, NULL, NULL, NULL),
-(7, 7, NULL, '2023-05-22 15:43:03', NULL, NULL, NULL, NULL, NULL, NULL);
+(11, 11, 1, '2023-05-23 11:04:01', 1, '', '', 3, '', ''),
+(12, 12, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(14, 14, 3, '2023-05-6 14:36:57', 2, '', '', 2, '', ''),
+(15, 15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 17, 3, '2023-05-03 14:34:57', 4, '', '', 18, '', '');
 
 -- --------------------------------------------------------
 
@@ -1056,10 +1090,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`, `status`, `role`) VALUES
-(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684745402, 10, NULL),
-(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684738457, 10, NULL),
-(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1684744584, 10, NULL),
-(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1684554007, 10, NULL),
+(1, 'admin', 'admin@admin.com', '$2y$12$M0hFXxztKZxCnaOnGJjrpOmQtnEPHqRbvE7spj4xkCVnT11VBcOaO', 'VPaMQzLRVu6gsDMqaZL9rwHiVdWwVFe3', 1682481192, NULL, NULL, '::1', 1682481077, 1682481077, 0, 1684995954, 10, NULL),
+(2, 'theerapong', 'theerapong.khan@gmail.com', '$2y$12$wgw0evelJYnHo.OYJ6Oy7uSXkJuj/hc.KyN5Ua69k9EVzMZSPWH8S', 'l8eCAXjpfUIMnx1YKbKqw3xcBEA0D1T-', 1682481206, NULL, NULL, '::1', 1682481093, 1682481093, 0, 1684996343, 10, NULL),
+(3, 'onanong', 'onanong@gmail.com', '$2y$12$hZYzUyddqbQgj.ZhVpYnk.HLsxue7JE6X10xAisAm97RV9O4Baque', 'GtUzBcGWelbaJ9MVBMz8I6o1XVUVhsMM', 1682481209, NULL, NULL, '::1', 1682481101, 1682481101, 0, 1685000180, 10, NULL),
+(4, 'supanna', 'supanna@email.com', '$2y$12$JrgSpLqoe07bm0bVnPKR7O3/uZ1ubwIKHy5QOLxHMqThm24kf/ZLK', 'H4Gv7l_-KVl-TfLQo39JXcJJKHvz0o7c', 1682481210, NULL, NULL, '::1', 1682481110, 1682481110, 0, 1685000264, 10, NULL),
 (5, 'peeranai', 'peeranai@gmail.com', '$2y$12$pkdao7ym04wlz08kyxj.l.5undNMHcst/0EzM1mzHebUMoqxVt436', 'kbcu9EyXHp2BeliynrSsZ5Skq1ASeLe8', 1682481212, NULL, NULL, '::1', 1682481121, 1682481121, 0, NULL, 10, NULL),
 (6, 'sawika', 'sawika@email.com', '$2y$12$O3tNFBcq9cpEtcHqCTolDucXMtIb5knWKjHOL2OSL5N7UKkXdtoui', 's4v4f4FElf3N2uPdx6GZYLMy5mS8rNCd', 1683792969, NULL, NULL, '::1', 1683792969, 1683793430, 0, 1684744049, 10, NULL),
 (7, 'araya', 'acc.nfcfa@gmail.com', '$2y$12$NrzWMCnFlYaX6ThguT8d9.PNE.euAzbH8Qse4.Y4qoj3fh33lqLSe', 'JLEI5sdHVlrhamckF6VXpy3heJfk6nQ9', 1683792990, NULL, NULL, '::1', 1683792990, 1683792990, 0, NULL, 10, NULL),
@@ -1079,7 +1113,7 @@ INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `con
 (21, 'charinee', 'charinee@nfc.com', '$2y$12$DhVkil5ut9Cs04ezhdfp1ulkgoyDSD9nw8j9OMzYVptJnYid6LarG', '1oImVHdvLcJfCDpM2HvrOSu7cmqGBh-Y', 1683793203, NULL, NULL, '::1', 1683793203, 1683793203, 0, NULL, 10, NULL),
 (22, 'prakaiwan', 'prakaiwan4213@gmail.com', '$2y$12$RB52vDO.vrWheFBqg4Zeo.RuWqkwvOn1rZPS85KFCZ3dRv6CQ9yGa', 'UQQF5MDyCqFDzForMDbe6vZJpv95X8Al', 1683793214, NULL, NULL, '::1', 1683793214, 1683793214, 0, NULL, 10, NULL),
 (23, 'suriya', 'suriyasompatch@gmail.com', '$2y$12$C4xc4c3Lg.l7DVsyg4BQYe1cKnQOAmzYjro4K4ucGcT0Jy4JqbIFK', '7yTvVQ07qAL3hyoze5O46NbNhvs5QH9i', 1683793225, NULL, NULL, '::1', 1683793225, 1683793225, 0, NULL, 10, NULL),
-(24, 'suphot', 'changkhong.8777@gmail.com', '$2y$12$qtUlDIw66IXTDrfoABmq/.eRz.9wMw/KF31AwZgCab3EEDCrYw5fm', 'eYevE-riqu1KNIfQHmgR_59NCbDVgvxH', 1683793236, NULL, NULL, '::1', 1683793236, 1683793236, 0, NULL, 10, NULL),
+(24, 'suphot', 'changkhong.8777@gmail.com', '$2y$12$qtUlDIw66IXTDrfoABmq/.eRz.9wMw/KF31AwZgCab3EEDCrYw5fm', 'eYevE-riqu1KNIfQHmgR_59NCbDVgvxH', 1683793236, NULL, NULL, '::1', 1683793236, 1683793236, 0, 1684999963, 10, NULL),
 (25, 'natthaphon', 'natthaphon@nfc.com', '$2y$12$a9mtTJ0gxfhUcsq8j.fp5O41G5wzWbE9b/zvOFcavISZJ4Bep46V.', '45a51OLBtvaN5JfVVAYp5omrDcaD5tKs', 1683793247, NULL, NULL, '::1', 1683793247, 1683793247, 0, NULL, 10, NULL),
 (26, 'sarawut', 'en.nfc2016@gmail.com', '$2y$12$YmNAxic6cTsLgvI1ed9O5efepj684pVoEDle.ClzThUJV6/SUzS82', 'XVG744_T2RsUjT1SZ_D_ANro3khRALsB', 1683793260, NULL, NULL, '::1', 1683793260, 1683793260, 0, 1684303771, 10, NULL),
 (27, 'yosapon', 'yosapon@nfc.com', '$2y$12$PnOyJpgIVrlFq05kgKG0ru0nCkxvr381oh9j9POnYkstmuFYe8io.', '_zCG57x3OZ-SSXYr3m7aNLyR9ddbKY7N', 1683793273, NULL, NULL, '::1', 1683793273, 1683793273, 0, 1683793890, 10, NULL);

@@ -383,7 +383,7 @@ $this->title = Yii::t('app', 'Dashboard');
     <div class="col-md-12">
         <div class="box box-danger box-solid">
             <div class="box-header">
-                <div class="box-title"> <?= $this->title ?></div>
+                <div class="box-title"> <?= Yii::t('app', 'Calendar') ?></div>
             </div>
             <div class="box-body">
                 <?= yii2fullcalendar::widget([
