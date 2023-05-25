@@ -24,10 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
             <?= Html::a('<i class="fas fa-arrow-circle-left"></i> ' . Yii::t('app', 'Requester Page'), ['requester/index'], ['class' => 'btn btn-info']) ?>
-            <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', ''), [''], ['class' => 'btn btn-danger']) ?>
         </p>
-
         <p style="text-align: right;">
+            <?= Html::a('<i class="fas fa-refresh"></i> ' . Yii::t('app', ''), [''], ['class' => 'btn btn-danger']) ?>
             <?= Html::a(Yii::t('app', 'Approver Page') . ' <i class="fas fa-arrow-circle-right"></i> ', ['approver/index'], ['class' => 'btn btn-success']) ?>
         </p>
     </div>

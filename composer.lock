@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "950fee585817eb4d6326cf91f7e8fceb",
+    "content-hash": "d422fc84b0b3a5c60b42eeef1b5a78cd",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -286,7 +286,7 @@
             "version": "3.6.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/jquery/jquery-dist.git",
+                "url": "git@github.com:jquery/jquery-dist.git",
                 "reference": "91ef2d8836342875f2519b5815197ea0f23613cf"
             },
             "dist": {
@@ -3899,16 +3899,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.48",
+            "version": "2.0.48.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "ec2d0a57815a4ee1277fab7492e1bc552e537751"
+                "reference": "de92f154eefe322fc1b1b2a52cce46677441ced4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ec2d0a57815a4ee1277fab7492e1bc552e537751",
-                "reference": "ec2d0a57815a4ee1277fab7492e1bc552e537751",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/de92f154eefe322fc1b1b2a52cce46677441ced4",
+                "reference": "de92f154eefe322fc1b1b2a52cce46677441ced4",
                 "shasum": ""
             },
             "require": {
@@ -4017,7 +4017,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-22T06:32:53+00:00"
+            "time": "2023-05-24T19:04:02+00:00"
         },
         {
             "name": "yiisoft/yii2-authclient",

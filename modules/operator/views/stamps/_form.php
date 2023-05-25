@@ -21,7 +21,6 @@ use kartik\widgets\FileInput;
 
     <?= $form->field($model, 'stamp_name')->textInput(['maxlength' => true]) ?>
 
-
     <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]); ?>
 
     <?= $form->field($model, 'content')->widget(CKEditor::class, [

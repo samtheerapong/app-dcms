@@ -7,7 +7,9 @@ use miloschuman\highcharts\Highcharts;
 use kartik\grid\GridView;
 use kartik\widgets\DatePicker;
 use kartik\widgets\Select2;
+use yii2fullcalendar\yii2fullcalendar;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 //data
 $users = User::find()->count();
@@ -15,18 +17,17 @@ $alldocs = Requester::find()->count();
 $process = Requester::find()->where(['status_id' => 2])->orWhere(['status_id' => 3])->orWhere(['status_id' => 1])->count();
 $success = Requester::find()->where(['status_id' => 4])->count();
 
-$this->title = 'Documents Control';
+$this->title = Yii::t('app', 'Dashboard');
 ?>
 <div class="row">
     <div class="site-index">
         <section class="content">
-
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-purple"><i class="fas fa-file"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All requests') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'All Requests') ?></span>
                             <span class="info-box-number">
                                 <?= $alldocs ?>
                             </span>
@@ -38,7 +39,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-yellow"><i class="fas fa-folder-open"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status pending') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'Status Pending') ?></span>
                             <span class="info-box-number"> <?= $process ?></span>
                         </div>
                     </div>
@@ -48,7 +49,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-green"><i class="fas fa-folder"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status success') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'Status Success') ?></span>
                             <span class="info-box-number"><?= $success ?></span>
                         </div>
                     </div>
@@ -58,7 +59,7 @@ $this->title = 'Documents Control';
                     <div class="info-box">
                         <span class="info-box-icon bg-blue"><i class="fas fa-users"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All users') ?></span>
+                            <span class="info-box-text"><?= Yii::t('app', 'All Users') ?></span>
                             <span class="info-box-number">
                                 <?= $users ?>
                             </span>
@@ -261,6 +262,7 @@ $this->title = 'Documents Control';
                     </div>
                 </div>
             </div>
+        </section>
     </div>
 
     <div class="row">
@@ -373,8 +375,33 @@ $this->title = 'Documents Control';
                     </div>
                 </div>
             </div>
-
         </div>
-        </section>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-danger box-solid">
+            <div class="box-header">
+                <div class="box-title"> <?= Yii::t('app', 'Calendar') ?></div>
+            </div>
+            <div class="box-body">
+                <?= yii2fullcalendar::widget([
+                    'header' => [
+                        'left' => 'prev,next today',
+                        'center' => 'title',
+                        'right' => 'month,agendaWeek,agendaDay',
+                    ],
+                    'clientOptions' => [
+                        'lang' => 'th',
+                        'lazyFetching' => true,
+                        'timeFormat' => '', // Remove the timeFormat option
+                        'forceEventDuration' => true,
+                        'ignoreTimezone' => true,
+                    ],
+                    'ajaxEvents' => Url::to(['/operator/report/jsoncalendar']),
+                ]) ?>
+            </div>
+        </div>
     </div>
 </div>

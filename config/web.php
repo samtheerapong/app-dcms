@@ -5,9 +5,9 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'DCMS',
-    'language' => 'th',
+    // 'language' => 'th',
     'name' => 'Documents Control',
-    // 'timezone' => 'Asia/Bangkok',
+    'timezone' => 'Asia/Bangkok',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -57,6 +57,7 @@ $config = [
             'user/security/logout',
             'user/security/auth',
             'user/registration/register',
+            'operator/report/jsoncalendar',
             'site/*',
             // '*', //Allow All For Dev
         ]

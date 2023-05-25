@@ -20,11 +20,8 @@ use yii\bootstrap\Nav;
         </a>
 
         <div class="navbar-custom-menu">
-
             <ul class="nav navbar-nav">
-
                 <li class="dropdown user user-menu">
-
                     <?php
 
                     $menuItems = [
@@ -57,7 +54,7 @@ use yii\bootstrap\Nav;
                                 ['label' => Yii::t('app', 'categories'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/index']],
                                 ['label' => Yii::t('app', 'types'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report1']],
                                 ['label' => Yii::t('app', 'status'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report2']],
-                                ['label' => Yii::t('app', 'report3 Calendar'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
+                                ['label' => Yii::t('app', 'Calendar'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report3']],
                                 // ['label' => Yii::t('app', 'Ex.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/report/report4']],
                                 // ['label' => Yii::t('app', 'Logs.'), 'icon' => 'circle-o text-primary', 'url' => ['/operator/document-logs/index']],
                             ],

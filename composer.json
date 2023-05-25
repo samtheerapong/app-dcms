@@ -32,7 +32,6 @@
         "kartik-v/yii2-mpdf": "^1.0",
         "yurkinx/yii2-image": "dev-master",
         "2amigos/yii2-gallery-widget": "*",
-        "bower-asset/fullcalendar": "*",
         "philippfrenzel/yii2fullcalendar":"3.9.0"
         
     },
