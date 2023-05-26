@@ -76,8 +76,8 @@ class PrivateRequesterController extends Controller
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
         $modelApprover = new Approver();
-        $model->status_id = 1;
-        $model->document_age = 10;
+        $model->status_id = 4; // dev = 4  , prduction = 1
+        $model->document_age = 5;
 
 
         if ($model->load(Yii::$app->request->post())) {
@@ -102,7 +102,7 @@ class PrivateRequesterController extends Controller
 
             Yii::$app->session->setFlash('success', Yii::t('app', 'Successfully'));
 
-            $this->sendLine($model);
+            // $this->sendLine($model);
 
 
             return $this->redirect(['view', 'id' => $model->id]);

@@ -14,31 +14,6 @@ return [
     'Approver Page' => 'หน้าอนุมัติ',
     'Refresh' => 'ฟื้นฟู',
 
-    'Manage Requester' => 'จัดการเอกสาร',
-    'Are you sure you want to delete this item?' => 'คุณแน่ใจหรือว่าต้องการลบข้อมูลนี้หรือไม่?',
-    'System' => 'ตั้งค่าระบบ',
-    'Requesters' => 'ผู้ร้องขอ',
-    'Create New' => 'เพิ่มข้อมูล',
-    'Create' => 'เพิ่มข้อมูล',
-    'Update' => 'ปรับปรุง',
-    'Delete' => 'ลบข้อมูล',
-    'Back' => 'ย้อนกลับ',
-    'Tasks' => 'ตารางงาน',
-    'Request' => 'ร้องขอ',
-    'Approver' => 'อนุมัติ',
-    'Backend' => 'หลังบ้าน',
-    'categories' => 'ระดับเอกสาร',
-    'departments' => 'แผนก',
-    'points' => 'หลังบ้าน',
-    'stamps' => 'ประทับตรา',
-    'status' => 'สถานะ',
-    'types' => 'ประเภทการร้องขอ',
-    'Select...' => 'เลือก...',
-    'Reports' => 'รายงาน',
-    'Name' => 'ชื่อ',
-    'Public Email' => 'อีเมล',
-    'Successfully' => 'สำเร็จ',
-
     // Dashboard
     'Dashboard' => 'แผงควบคุม',
     'All Requests' => 'ทั้งหมด',
@@ -59,7 +34,7 @@ return [
     'Calendar' => 'ปฏิทิน',
 
     // Requester
-    'Requester' => 'ร้องขอ',
+    'Requester' => 'ผู้ร้องขอ',
     'types_id' => 'ประเภทการร้องขอ',
     'type_details' => 'รายละเอียดการร้องขอ',
     'status_id' => 'สถานะ',
@@ -81,6 +56,42 @@ return [
     'covenant' => 'แนบไฟล์ PDF',
     'docs' => 'แนบไฟล์เอกสาร',
 
+    // Approver
+    'Approver' => 'ผู้อนุมัติ',
+    'Approve' => 'อนุมัติ',
+    'requester_id' => 'เอกสารที่ร้องขอ',
+    'approver_by' => 'อนุมัติโดย',
+    'approver_at' => 'อนุมัติเมื่อ',
+    'approver_comment' => 'ความคิดเห็นของผู้อนุมัติ',
+
+    // System
+    'Manage Requester' => 'จัดการเอกสาร',
+    'Are you sure you want to delete this item?' => 'คุณแน่ใจหรือว่าต้องการลบข้อมูลนี้หรือไม่?',
+    'System' => 'ตั้งค่าระบบ',
+    'Create New' => 'เพิ่มข้อมูล',
+    'Create' => 'เพิ่มข้อมูล',
+    'Update' => 'ปรับปรุง',
+    'Delete' => 'ลบข้อมูล',
+    'Back' => 'ย้อนกลับ',
+    'Tasks' => 'ตารางงาน',
+    'Request' => 'ร้องขอ',
+    'Backend' => 'หลังบ้าน',
+    'categories' => 'ระดับเอกสาร',
+    'departments' => 'แผนก',
+    'points' => 'หลังบ้าน',
+    'stamps' => 'ประทับตรา',
+    'status' => 'สถานะ',
+    'types' => 'ประเภทการร้องขอ',
+    'Select...' => 'เลือก...',
+    'Reports' => 'รายงาน',
+    'Name' => 'ชื่อ',
+    'Public Email' => 'อีเมล',
+    'Successfully' => 'สำเร็จ',
+
+    
+
+    
+
 
 
     'Reviewer' => 'ทบทวน',
@@ -96,13 +107,11 @@ return [
     'reviewer_comment' => 'ความคิดเห็นของผู้ทบทวน',
     'additional_training' => 'การอบรมเพิ่มเติม',
     'reviewerName.profile.name' => 'ผู้ทบทวน',
-    'approver_name' => 'ผู้อนุมัติ',
-    'approver_at' => 'อนุมัติเมื่อ',
-    'approver_comment' => 'ความคิดเห็นของผู้อนุมัติ',
-    'Approve' => 'อนุมัติ',
+
+
     'Requester Page' => 'หน้าร้องขอ',
     'Reviewer Page' => 'หน้าทบทวน',
-    'document_age_caption' => 'ค่าเริ่มต้น 10 ปี',
+    'document_age_caption' => 'ค่าเริ่มต้น 5 ปี',
 
     // Categories
     'Categories' => 'ระดับเอกสาร',
@@ -120,8 +129,6 @@ return [
     // Reviewer
     'document_revision_caption' => 'หากขอแก้ไข Rev. ใหม่ ต้องมากกว่า Rev. ผู้ขอ',
     'document_status_caption' => 'ผู้ขอจะแก้เอกสารได้เมื่อเปลี่ยนสถานะเป็น "อนุญาตผู้ขอแก้ไขได้"',
-
-
 
 
 ];

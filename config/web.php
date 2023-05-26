@@ -5,7 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'DCMS',
-    // 'language' => 'th',
+    'language' => 'th',
     'name' => 'Documents Control',
     'timezone' => 'Asia/Bangkok',
     'basePath' => dirname(__DIR__),

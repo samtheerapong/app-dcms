@@ -9,6 +9,7 @@ use kartik\widgets\DatePicker;
 use kartik\widgets\Select2;
 use yii2fullcalendar\yii2fullcalendar;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 use yii\helpers\Url;
 
 //data
@@ -82,24 +83,39 @@ $this->title = Yii::t('app', 'Dashboard');
                                 'columns' => [
                                     ['class' => 'yii\grid\SerialColumn'],
                                     [
-                                        'attribute' => 'status_id',
-                                        'options' => ['style' => 'width:120px'],
+                                        'class' => 'kartik\grid\ActionColumn',
+                                        'options' => ['style' => 'width:10%'],
+                                        'buttonOptions' => ['class' => 'btn btn-default'],
+                                        'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
+                                        'buttons' => [
+                                            'view' => function ($url, $model, $key) {
+                                                $url = ['/operator/requester/view', 'id' => $model->id]; // Update the URL to include the appropriate ID
+                                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                    'title' => Yii::t('app', 'View'),
+                                                    'class' => 'btn btn-info',
+                                                ]);
+                                            },
+                                        ],
+                                    ],
+                                    [
+                                        'attribute' => 'types_id',
+                                        'options' => ['style' => 'width:170px'],
                                         'contentOptions' => ['class' => 'text-center'],
                                         'format' => 'html',
                                         'value' => function ($model) {
-                                            $blinkClass = $model->status->id == 1 ? 'blink' : '';
-                                            return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
+                                            return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
                                         },
                                         'filter' => Select2::widget([
                                             'model' => $searchModel,
-                                            'attribute' => 'status_id',
-                                            'data' => ArrayHelper::map(Requester::find()->all(), 'status_id', 'status.status_details'),
+                                            'attribute' => 'types_id',
+                                            'data' => ArrayHelper::map(Requester::find()->all(), 'types_id', 'types.type_details'),
                                             'theme' => Select2::THEME_DEFAULT,
                                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                             'language' => 'th',
                                             'pluginOptions' => ['allowClear' => true],
                                         ])
                                     ],
+
 
                                     [
                                         'attribute' => 'document_number',
@@ -238,17 +254,18 @@ $this->title = Yii::t('app', 'Dashboard');
                                     ],
 
                                     [
-                                        'attribute' => 'types_id',
-                                        'options' => ['style' => 'width:170px'],
+                                        'attribute' => 'status_id',
+                                        'options' => ['style' => 'width:120px'],
                                         'contentOptions' => ['class' => 'text-center'],
                                         'format' => 'html',
                                         'value' => function ($model) {
-                                            return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
+                                            $blinkClass = $model->status->id == 1 ? 'blink' : '';
+                                            return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
                                         },
                                         'filter' => Select2::widget([
                                             'model' => $searchModel,
-                                            'attribute' => 'types_id',
-                                            'data' => ArrayHelper::map(Requester::find()->all(), 'types_id', 'types.type_details'),
+                                            'attribute' => 'status_id',
+                                            'data' => ArrayHelper::map(Requester::find()->all(), 'status_id', 'status.status_details'),
                                             'theme' => Select2::THEME_DEFAULT,
                                             'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                             'language' => 'th',

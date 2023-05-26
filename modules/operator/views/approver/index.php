@@ -98,26 +98,26 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
 
                         // ****** รอแก้ไข **** reviewer_name ไม่สามารถค้นหาได้
-                        [
-                            'attribute' => 'requester.reviewer.reviewer_name',
-                            'format' => 'html',
-                            'options' => ['style' => 'width:10%;'],
-                            'value' => 'requester.reviewer.reviewerName.profile.name',
-                            'value' => function ($model) {
-                                return $model->requester->reviewer->reviewerName->profile->name;
-                            },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'reviewer_name', //
-                                'data' => ArrayHelper::map(reviewer::find()->all(), 'reviewer_name', 'requester.reviewer.reviewerName.profile.name'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true,
-                                ],
-                            ]),
-                        ],
+                        // [
+                        //     'attribute' => 'requester.reviewer.reviewer_name',
+                        //     'format' => 'html',
+                        //     'options' => ['style' => 'width:10%;'],
+                        //     'value' => 'requester.reviewer.reviewerName.profile.name',
+                        //     'value' => function ($model) {
+                        //         return $model->requester->reviewer->reviewerName->profile->name;
+                        //     },
+                        //     'filter' => Select2::widget([
+                        //         'model' => $searchModel,
+                        //         'attribute' => 'reviewer_name', //
+                        //         'data' => ArrayHelper::map(reviewer::find()->all(), 'reviewer_name', 'requester.reviewer.reviewerName.profile.name'),
+                        //         'theme' => Select2::THEME_DEFAULT,
+                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        //         'language' => 'th',
+                        //         'pluginOptions' => [
+                        //             'allowClear' => true,
+                        //         ],
+                        //     ]),
+                        // ],
 
                         [
                             'attribute' => 'requester_id',

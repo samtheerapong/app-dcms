@@ -132,8 +132,10 @@ class ReportController extends \yii\web\Controller
             $Event = new Event();
             $Event->id = $time->id;
             $Event->title = $time->document_number . ' Rev. ' . $time->latest_rev;
-            $Event->start = date($time->created_at);
-            $Event->end = date($time->reviewer->reviewer_at);
+            // $Event->start = date($time->created_at);
+            $Event->start = date($time->document_public_at);
+            // $Event->end = date($time->reviewer->reviewer_at);
+            $Event->end = date($time->document_public_at);
             $Event->backgroundColor = $time->status->color;
             $Event->borderColor = $time->types->color;
             $Event->url = url::to(['/operator/requester/view', 'id' => $time->id]);

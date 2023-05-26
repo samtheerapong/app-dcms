@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'attribute' => 'requester.request_by',
                                     'format' => 'html',
-                                    'value' => $model->requester->requestBy->profile->name,
+                                    'value' => $model->requester->requestBy->profile->name ?? '',
 
                                 ],
 
@@ -158,13 +158,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     'attribute' => 'requester.created_by',
                                     'format' => 'html',
-                                    'value' => $model->requester->createdBy->profile->name,
+                                    'value' => $model->requester->createdBy->profile->name ?? '', 
                                 ],
                                 'requester.updated_at:date',
                                 [
                                     'attribute' => 'requester.updated_by',
                                     'format' => 'html',
-                                    'value' => $model->requester->updatedBy->profile->name,
+                                    'value' => $model->requester->updatedBy->profile->name ?? '',
                                 ],
                             ],
                         ]) ?>
@@ -198,7 +198,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         [
                                             'attribute' => 'requester.reviewer.reviewer_name',
                                             'format' => 'html',
-                                            'value' => $model->requester->reviewer->reviewerName->profile->name,
+                                            'value' => $model->requester->reviewer->reviewerName->profile->name ?? '',
 
                                         ],
 

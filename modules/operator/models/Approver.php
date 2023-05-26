@@ -71,10 +71,10 @@ class Approver extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'requester_id' => Yii::t('app', 'เอกสารที่ร้องขอ'),
-            'approver_by' => Yii::t('app', 'อนุมัติโดย'),
-            'approver_at' => Yii::t('app', 'อนุมัติเมื่อ'),
-            'approver_comment' => Yii::t('app', 'ความคิดเห็นของผู้อนุมัติ'),
+            'requester_id' => Yii::t('app', 'requester_id'),
+            'approver_by' => Yii::t('app', 'approver_by'),
+            'approver_at' => Yii::t('app', 'approver_at'),
+            'approver_comment' => Yii::t('app', 'approver_comment'),
         ];
     }
 

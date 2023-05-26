@@ -39,7 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:150px'],
+                            'options' => ['style' => 'width:180px'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
                             'buttons' => [
@@ -136,26 +136,26 @@ $this->params['breadcrumbs'][] = $this->title;
                             ])
                         ],
 
-                        [
-                            'attribute' => 'document_age',
-                            'options' => ['style' => 'width:100px'],
-                            'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'format' => 'html',
-                            'value' => function ($model) {
-                                return  $model->document_age;
-                            },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_age',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_age', 'document_age'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
+                        // [
+                        //     'attribute' => 'document_age',
+                        //     'options' => ['style' => 'width:100px'],
+                        //     'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
+                        //     'format' => 'html',
+                        //     'value' => function ($model) {
+                        //         return  $model->document_age;
+                        //     },
+                        //     'filter' => Select2::widget([
+                        //         'model' => $searchModel,
+                        //         'attribute' => 'document_age',
+                        //         'data' => ArrayHelper::map(Requester::find()->all(), 'document_age', 'document_age'),
+                        //         'theme' => Select2::THEME_DEFAULT,
+                        //         'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        //         'language' => 'th',
+                        //         'pluginOptions' => [
+                        //             'allowClear' => true
+                        //         ],
+                        //     ])
+                        // ],
 
                         [
                             'attribute' => 'document_title',
