@@ -161,8 +161,8 @@ $this->title = Yii::t('app', 'Dashboard');
                                         'options' => ['style' => 'width:auto'],
                                         'value' => function ($model) {
                                             $text = $model->document_title;
-                                            if (mb_strlen($text) > 25) {
-                                                $text = mb_substr($text, 0, 25) . '...';
+                                            if (mb_strlen($text) > 50) {
+                                                $text = mb_substr($text, 0, 50) . '...';
                                             }
                                             return $text;
                                         },
@@ -170,8 +170,8 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'model' => $searchModel,
                                             'attribute' => 'document_title',
                                             'data' =>  array_map(function ($value) {
-                                                if (mb_strlen($value) > 24) {
-                                                    $value = mb_substr($value, 0, 24) . '...';
+                                                if (mb_strlen($value) > 50) {
+                                                    $value = mb_substr($value, 0, 50) . '...';
                                                 }
                                                 return $value;
                                             }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
