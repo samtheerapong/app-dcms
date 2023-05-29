@@ -80,7 +80,7 @@ class PrivateRequesterController extends Controller
         $model->document_age = 5;
         $model->types_id = 6;
         $model->categories_id = 6;
-        $model->departments_id = 4;
+        $model->departments_id = 5;
 
 
         if ($model->load(Yii::$app->request->post())) {
