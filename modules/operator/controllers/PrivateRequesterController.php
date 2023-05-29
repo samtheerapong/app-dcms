@@ -78,6 +78,9 @@ class PrivateRequesterController extends Controller
         $modelApprover = new Approver();
         $model->status_id = 4; // dev = 4  , prduction = 1
         $model->document_age = 5;
+        $model->types_id = 6;
+        $model->categories_id = 6;
+        $model->departments_id = 4;
 
 
         if ($model->load(Yii::$app->request->post())) {

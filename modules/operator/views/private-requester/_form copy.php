@@ -28,7 +28,7 @@ use kartik\widgets\DatePicker;
             <div class="box-body">
 
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-2">
                         <?= $form->field($model, 'types_id')->widget(Select2::class, [
                             'language' => 'th',
@@ -70,7 +70,7 @@ use kartik\widgets\DatePicker;
                         ]);
                         ?>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="row">
                     <div class="col-md-12">
@@ -78,21 +78,21 @@ use kartik\widgets\DatePicker;
                     </div>
                 </div>
 
-                <!-- <div class="row">
+                <div class="row">
                     <div class="col-md-12">
                         <?= $form->field($model, 'details')->textarea(['rows' => 3]) ?>
                     </div>
-                </div> -->
+                </div>
 
                 <div class="row">
                     <div class="col-md-4">
                         <?= $form->field($model, 'latest_rev')->textInput(['maxlength' => true]) ?>
                     </div>
-                    <!-- <div class="col-md-4">
+                    <div class="col-md-4">
                         <?= $form->field($model, 'document_age')->textInput([
                             'maxlength' => true
                         ])->label(Yii::t('app', 'document_age') . '<span class="text-muted">' . ' (' . Yii::t('app', 'document_age_caption') . ')</span>') ?>
-                    </div> -->
+                    </div>
                     <div class="col-md-4">
                         <?= $form->field($model, 'document_public_at')->widget(
                             DatePicker::class,
