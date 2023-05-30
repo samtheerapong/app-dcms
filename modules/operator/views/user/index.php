@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
-$filterOptions = ['' => 'All', '1' => 'yes', '2' => 'No']; // Replace with your desired filter options
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
