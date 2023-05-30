@@ -102,6 +102,27 @@ $this->title = Yii::t('app', 'Dashboard');
                                             },
                                         ],
                                     ],
+
+                                    [
+                                        'attribute' => 'status_id',
+                                        'options' => ['style' => 'width:120px'],
+                                        'contentOptions' => ['class' => 'text-center'],
+                                        'format' => 'html',
+                                        'value' => function ($model) {
+                                            $blinkClass = $model->status->id == 1 ? 'blink' : '';
+                                            return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
+                                        },
+                                        'filter' => Select2::widget([
+                                            'model' => $searchModel,
+                                            'attribute' => 'status_id',
+                                            'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                            'theme' => Select2::THEME_DEFAULT,
+                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                            'language' => 'th',
+                                            'pluginOptions' => ['allowClear' => true],
+                                        ])
+                                    ],
+                                    
                                     [
                                         'attribute' => 'types_id',
                                         'options' => ['style' => 'width:170px'],
@@ -258,25 +279,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                         ])
                                     ],
 
-                                    [
-                                        'attribute' => 'status_id',
-                                        'options' => ['style' => 'width:120px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => 'html',
-                                        'value' => function ($model) {
-                                            $blinkClass = $model->status->id == 1 ? 'blink' : '';
-                                            return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
-                                        },
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
-                                            'attribute' => 'status_id',
-                                            'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
-                                    ],
+                                    
                                     [
                                         'attribute' => 'covenant',
                                         'value' => function ($model) {

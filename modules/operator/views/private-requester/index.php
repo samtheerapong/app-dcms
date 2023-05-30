@@ -17,6 +17,8 @@ use app\modules\operator\models\Types;
 
 $this->title = Yii::t('app', 'Requester');
 $this->params['breadcrumbs'][] = $this->title;
+
+
 ?>
 <div class="private-requester-index">
 
@@ -29,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a(Yii::t('app', 'Reviewer Page') . ' <i class="fas fa-arrow-circle-right"></i> ', ['reviewer/index'], ['class' => 'btn btn-warning']) ?>
         </p>
     </div>
-   
+
 
     <div class="actions-form">
         <div class="box box-info box-solid">
@@ -37,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="box-title"><?= $this->title ?></div>
             </div>
             <div class="box-body">
+
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
@@ -46,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:180px'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>',
                             'buttons' => [
                                 'view' => function ($url, $model, $key) {
                                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
@@ -55,22 +58,34 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 },
                                 'update' => function ($url, $model, $key) {
-
-                                    return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                        'title' => Yii::t('app', 'Approver'),
-                                        'class' => 'btn btn-warning',
-                                    ]);
+                                    if (Yii::$app->user->identity->id === 1) {
+                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                            'title' => Yii::t('app', 'Update'),
+                                            'class' => 'btn btn-warning',
+                                        ]);
+                                    }
+                                    if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
+                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                            'title' => Yii::t('app', 'Update'),
+                                            'class' => 'btn btn-warning',
+                                        ]);
+                                    } else {
+                                        return '';
+                                    }
                                 },
                                 'delete' => function ($url, $model, $key) {
-
-                                    return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                        'title' => Yii::t('app', 'Delete'),
-                                        'class' => 'btn btn-danger',
-                                        'data' => [
-                                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                                            'method' => 'post',
-                                        ],
-                                    ]);
+                                    if ($model->departments_id != 2) {
+                                        return '';
+                                    } else {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                            'title' => Yii::t('app', 'Delete'),
+                                            'class' => 'btn btn-danger',
+                                            'data' => [
+                                                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                                                'method' => 'post',
+                                            ],
+                                        ]);
+                                    }
                                 },
 
                             ],
@@ -170,8 +185,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
-                                if (mb_strlen($text) > 25) {
-                                    $text = mb_substr($text, 0, 25) . '...';
+                                if (mb_strlen($text) > 50) {
+                                    $text = mb_substr($text, 0, 50) . '...';
                                 }
                                 return $text;
                             },
@@ -299,7 +314,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         ],
                     ],
 
-                ]); ?>
+                ]);
+
+                ?>
             </div>
         </div>
     </div>

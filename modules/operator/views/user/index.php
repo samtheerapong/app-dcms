@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Html;
-// use yii\grid\GridView;
 use kartik\grid\GridView;
 
+$filterOptions = ['' => 'All', '1' => 'yes', '2' => 'No']; // Replace with your desired filter options
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -13,52 +13,109 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
+    <div class="box box-info box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= Yii::t('app', 'Requester') ?></div>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            // 'username',
+                            [
+                                'attribute' => 'username',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:50%'],
+                                'value' => function ($model) {
+                                    return $model->profile->name ?? '';
+                                },
+                            ],
+                            // 'departments',
+                            [
+                                'attribute' => 'department',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->departments->department_code ?? '';
+                                },
+                            ],
+                            // 'request',
+                            [
+                                'attribute' => 'request',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->request == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                },
+                            ],
+                            // 'review',
+                            [
+                                'attribute' => 'review',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    $value = $model->review == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                    return $value;
+                                },
+                            ],
+                            // 'approve',
+                            [
+                                'attribute' => 'approve',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->approve == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                },
+                            ],
+                            // 'status',
+                            [
+                                'attribute' => 'status',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->status == 10 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                },
+                            ],
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+                            [
+                                'class' => 'kartik\grid\ActionColumn',
+                                'options' => ['style' => 'width:180px'],
+                                'buttonOptions' => ['class' => 'btn btn-default'],
+                                'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>',
+                                'buttons' => [
+                                    'view' => function ($url, $model, $key) {
+                                        return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                            'title' => Yii::t('app', 'View'),
+                                            'class' => 'btn btn-info',
+                                        ]);
+                                    },
+                                    'update' => function ($url, $model, $key) {
+                                        if (Yii::$app->user->identity->id === 1) {
+                                            return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                                'title' => Yii::t('app', 'Update'),
+                                                'class' => 'btn btn-warning',
+                                            ]);
+                                        }
+                                        if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
+                                            return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                                'title' => Yii::t('app', 'Update'),
+                                                'class' => 'btn btn-warning',
+                                            ]);
+                                        } else {
+                                            return '';
+                                        }
+                                    },
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
-    <div class="actions-form">
-        <div class="box box-primary box-solid">
-            <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
-            </div>
-            <div class="box-body">
-                <?= GridView::widget([
-                    'dataProvider' => $dataProvider,
-                    'filterModel' => $searchModel,
-                    'columns' => [
-                        ['class' => 'yii\grid\SerialColumn'],
 
-                        // 'id',
-                        'username',
-                        'email:email',
-                        // 'password_hash',
-                        // 'auth_key',
-                        //'confirmed_at',
-                        //'unconfirmed_email:email',
-                        //'blocked_at',
-                        //'registration_ip',
-                        //'created_at',
-                        //'updated_at',
-                        //'flags',
-                        //'last_login_at',
-                        // 'status',
-                        // 'role',
-
-                        [
-                            'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:120px;'],
-                            'buttonOptions' => ['class' => 'btn btn-default'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>'
+                                ],
+                            ],
                         ],
-                    ],
-                ]); ?>
+                    ]); ?>
 
-
+                </div>
             </div>
         </div>
     </div>

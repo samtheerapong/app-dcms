@@ -37,6 +37,9 @@ class UserController extends Controller
     {
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = [
+            'pageSize' => 100, // Number of items per page
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -87,7 +90,7 @@ class UserController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['index']);
         }
 
         return $this->render('update', [

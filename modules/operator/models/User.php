@@ -10,6 +10,10 @@ use Yii;
  * @property int $id
  * @property string $username
  * @property string $email
+ * @property int|null $department
+ * @property int|null $request
+ * @property int|null $review
+ * @property int|null $approve
  * @property string $password_hash
  * @property string $auth_key
  * @property int|null $confirmed_at
@@ -21,9 +25,7 @@ use Yii;
  * @property int $flags
  * @property int|null $last_login_at
  * @property int|null $status
- * @property int $role
  *
- * @property Approver[] $approvers
  * @property Departments[] $departments
  * @property Profile $profile
  * @property Requester[] $requesters
@@ -47,8 +49,8 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at', 'role'], 'required'],
-            [['confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status', 'role'], 'integer'],
+            [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
+            [['department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
             [['username', 'email', 'unconfirmed_email'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],
@@ -67,6 +69,10 @@ class User extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
             'email' => Yii::t('app', 'Email'),
+            'department' => Yii::t('app', 'Department'),
+            'request' => Yii::t('app', 'Request'),
+            'review' => Yii::t('app', 'Review'),
+            'approve' => Yii::t('app', 'Approve'),
             'password_hash' => Yii::t('app', 'Password Hash'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'confirmed_at' => Yii::t('app', 'Confirmed At'),
@@ -78,18 +84,7 @@ class User extends \yii\db\ActiveRecord
             'flags' => Yii::t('app', 'Flags'),
             'last_login_at' => Yii::t('app', 'Last Login At'),
             'status' => Yii::t('app', 'Status'),
-            'role' => Yii::t('app', 'Role'),
         ];
-    }
-
-    /**
-     * Gets query for [[Approvers]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getApprovers()
-    {
-        return $this->hasMany(Approver::className(), ['approve_name' => 'id']);
     }
 
     /**
@@ -99,7 +94,8 @@ class User extends \yii\db\ActiveRecord
      */
     public function getDepartments()
     {
-        return $this->hasMany(Departments::className(), ['user_id' => 'id']);
+        // return $this->hasMany(Departments::className(), ['user_id' => 'id']);
+        return $this->hasOne(Departments::class, ['id' => 'department']);
     }
 
     /**

@@ -43,6 +43,7 @@ class Profile extends \yii\db\ActiveRecord
             [['timezone'], 'string', 'max' => 40],
             [['user_id'], 'unique'],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
+            [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Departments::className(), 'targetAttribute' => ['department_id' => 'id']],
         ];
     }
 
@@ -61,6 +62,7 @@ class Profile extends \yii\db\ActiveRecord
             'website' => Yii::t('app', 'Website'),
             'bio' => Yii::t('app', 'Bio'),
             'timezone' => Yii::t('app', 'Timezone'),
+            'role_id' => Yii::t('app', 'Role'),
         ];
     }
 
@@ -72,5 +74,10 @@ class Profile extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getDepartmentRole()
+    {
+        return $this->hasOne(Departments::className(), ['id' => 'role_id']);
     }
 }

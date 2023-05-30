@@ -21,9 +21,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email') ?>
 
-    <?= $form->field($model, 'password_hash') ?>
+    <?= $form->field($model, 'department') ?>
 
-    <?= $form->field($model, 'auth_key') ?>
+    <?= $form->field($model, 'request') ?>
+
+    <?php // echo $form->field($model, 'review') ?>
+
+    <?php // echo $form->field($model, 'approve') ?>
+
+    <?php // echo $form->field($model, 'password_hash') ?>
+
+    <?php // echo $form->field($model, 'auth_key') ?>
 
     <?php // echo $form->field($model, 'confirmed_at') ?>
 
@@ -42,8 +50,6 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'last_login_at') ?>
 
     <?php // echo $form->field($model, 'status') ?>
-
-    <?php // echo $form->field($model, 'role') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

@@ -1,5 +1,8 @@
 <?php
 
+use app\modules\operator\models\Departments;
+use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -10,40 +13,70 @@ use yii\widgets\ActiveForm;
 
 <div class="user-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <div class="box box-info box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= Yii::t('app', 'Requester') ?></div>
+        </div>
+        <div class="box-body">
+            <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+            <div class="row">
+                <div class="col-md-5">
+                    <?= $form->field($model, 'username')->textInput([
+                        'value' => Yii::$app->user->identity->profile->name,
+                        'disabled' =>  true
+                    ])
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'department')->widget(Select2::class, [
+                        'language' => 'th',
+                        'theme' => Select2::THEME_DEFAULT,
+                        'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
 
-    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'request')->dropDownList([
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
 
-    <?= $form->field($model, 'auth_key')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'review')->dropDownList([
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
 
-    <?= $form->field($model, 'confirmed_at')->textInput() ?>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'approve')->dropDownList([
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
 
-    <?= $form->field($model, 'unconfirmed_email')->textInput(['maxlength' => true]) ?>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'status')->dropDownList([
+                        '10' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
 
-    <?= $form->field($model, 'blocked_at')->textInput() ?>
+                <div class="col-md-2">
+                    <br>
+                    <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
+                </div>
+            </div>
+            <?php ActiveForm::end(); ?>
 
-    <?= $form->field($model, 'registration_ip')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'flags')->textInput() ?>
-
-    <?= $form->field($model, 'last_login_at')->textInput() ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'role')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

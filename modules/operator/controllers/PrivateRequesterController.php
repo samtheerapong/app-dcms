@@ -79,7 +79,7 @@ class PrivateRequesterController extends Controller
         $model = new PrivateRequester();
         $modelReviewer = new Reviewer();
         $modelApprover = new Approver();
-        $model->status_id = 4; // dev = 4  , prduction = 1
+        $model->status_id = 1; // dev = 4  , prduction = 1
         $model->document_age = 5;
         // $model->types_id = 6;
         // $model->categories_id = 7; //qm
