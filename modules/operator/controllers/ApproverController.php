@@ -38,6 +38,9 @@ class ApproverController extends Controller
     {
         $searchModel = new ApproverSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = [
+            'pageSize' => 10, // Number of items per page
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,

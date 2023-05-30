@@ -277,7 +277,14 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'pluginOptions' => ['allowClear' => true],
                                         ])
                                     ],
-                                    // ['attribute'=>'covenant','value'=>function($model){return $model->listDownloadFiles('covenant');},'format'=>'html'],
+                                    [
+                                        'attribute' => 'covenant',
+                                        'value' => function ($model) {
+                                            return $model->listDownloadFiles('covenant');
+                                        },
+                                        'format' => 'html',
+                                        'filter' => false
+                                    ],
                                     // ['attribute'=>'docs','value'=>function($model){return $model->listDownloadFiles('docs');},'format'=>'html'],
                                 ],
                             ]); ?>
