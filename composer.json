@@ -1,7 +1,12 @@
 {
     "name": "yiisoft/yii2-app-basic",
     "description": "Yii 2 Basic Project Template",
-    "keywords": ["yii2", "framework", "basic", "project template"],
+    "keywords": [
+        "yii2",
+        "framework",
+        "basic",
+        "project template"
+    ],
     "homepage": "http://www.yiiframework.com/",
     "type": "project",
     "license": "BSD-3-Clause",
@@ -24,16 +29,16 @@
         "kartik-v/yii2-widgets": "*",
         "kartik-v/yii2-grid": "^3.5",
         "kartik-v/yii2-detail-view": "*",
+        "kartik-v/yii2-export": "*",
+        "kartik-v/yii2-dropdown-x": "dev-master",
+        "kartik-v/yii2-mpdf": "*",
         "dmstr/yii2-adminlte-asset": "^2.6",
         "miloschuman/yii2-highcharts-widget": "*",
         "2amigos/yii2-ckeditor-widget": "^2.1",
         "mdmsoft/yii2-autonumber": "*",
-        "kartik-v/yii2-dropdown-x": "dev-master",
-        "kartik-v/yii2-mpdf": "^1.0",
         "yurkinx/yii2-image": "dev-master",
         "2amigos/yii2-gallery-widget": "*",
-        "philippfrenzel/yii2fullcalendar":"3.9.0"
-        
+        "philippfrenzel/yii2fullcalendar": "3.9.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

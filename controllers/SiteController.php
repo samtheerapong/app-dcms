@@ -9,8 +9,11 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
 use yii\data\ArrayDataProvider;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -63,9 +66,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+
         // **************** table Requester ********************
         $searchModel = new RequesterSearch();
         $dataProviderRequester = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProviderRequester->pagination = [
+            'pageSize' => 10, // Number of items per page
+        ];
 
         // **************** report Category ********************
         $sqlCategory = "SELECT COUNT(m.id) AS count, r.category_code
@@ -113,12 +120,30 @@ class SiteController extends Controller
 
         // *********************** return index *******************
         return $this->render('index', [
-            'searchModel' => $searchModel, //able Requester
-            'dataProviderRequester' => $dataProviderRequester, //able Requester
+            'searchModel' => $searchModel, //table Requester
+            'dataProviderRequester' => $dataProviderRequester, //table Requester
 
             'graphCategory' => $graphCategory, //report Category
             'graphType' => $graphType, //report Type
             'graphStatus' => $graphStatus, //report Status
+        ]);
+    }
+
+
+
+    public function actionTableList()
+    {
+        $searchModel = new RequesterSearch();
+        $dataProvider = new ActiveDataProvider([
+            'query' => Requester::find(), // Query ของคุณ
+            'pagination' => [
+                'pageSize' => 5, // จำนวนรายการต่อหน้า
+            ],
+        ]);
+
+        return $this->render('table-list', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
         ]);
     }
 

@@ -1,5 +1,8 @@
 <?php
 
+use app\modules\operator\models\Categories;
+use app\modules\operator\models\Departments;
+use app\modules\operator\models\Profile;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
@@ -9,6 +12,8 @@ use kartik\select2\Select2;
 use kartik\date\DatePicker;
 //
 use app\modules\operator\models\Requester;
+use app\modules\operator\models\Status;
+use app\modules\operator\models\Types;
 
 $this->title = Yii::t('app', 'Requester');
 $this->params['breadcrumbs'][] = $this->title;
@@ -83,7 +88,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'status_id',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'status_id', 'status.status_details'),
+                                // 'data' => ArrayHelper::map(Requester::find()->all(), 'status_id', 'status.status_details'),
+                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -102,17 +108,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return  $model->document_number;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_number',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                            // 'filter' => Select2::widget([
+                            //     'model' => $searchModel,
+                            //     'attribute' => 'document_number',
+                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
+                            //     'theme' => Select2::THEME_DEFAULT,
+                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            //     'language' => 'th',
+                            //     'pluginOptions' => [
+                            //         'allowClear' => true
+                            //     ],
+                            // ])
                         ],
 
                         [
@@ -123,17 +129,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return $model->latest_rev ?? 0;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'latest_rev',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                            // 'filter' => Select2::widget([
+                            //     'model' => $searchModel,
+                            //     'attribute' => 'latest_rev',
+                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
+                            //     'theme' => Select2::THEME_DEFAULT,
+                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            //     'language' => 'th',
+                            //     'pluginOptions' => [
+                            //         'allowClear' => true
+                            //     ],
+                            // ])
                         ],
 
                         // [
@@ -169,22 +175,22 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                                 return $text;
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'document_title',
-                                'data' =>  array_map(function ($value) {
-                                    if (mb_strlen($value) > 24) {
-                                        $value = mb_substr($value, 0, 24) . '...';
-                                    }
-                                    return $value;
-                                }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
+                            // 'filter' => Select2::widget([
+                            //     'model' => $searchModel,
+                            //     'attribute' => 'document_title',
+                            //     'data' =>  array_map(function ($value) {
+                            //         if (mb_strlen($value) > 24) {
+                            //             $value = mb_substr($value, 0, 24) . '...';
+                            //         }
+                            //         return $value;
+                            //     }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
+                            //     'theme' => Select2::THEME_DEFAULT,
+                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                            //     'language' => 'th',
+                            //     'pluginOptions' => [
+                            //         'allowClear' => true
+                            //     ],
+                            // ])
                         ],
 
                         [
@@ -214,7 +220,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'request_by',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'request_by', 'requestBy.profile.name'),
+                                // 'data' => ArrayHelper::map(Requester::find()->all(), 'request_by', 'requestBy.profile.name'),
+                                'data' => ArrayHelper::map(Profile::find()->all(), 'user.id', 'name'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -235,7 +242,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'categories_id',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'categories_id', 'categories.category_code'),
+                                // 'data' => ArrayHelper::map(Requester::find()->all(), 'categories_id', 'categories.category_code'),
+                                'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -257,7 +265,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'departments_id',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'departments_id', 'departments.department_code'),
+                                // 'data' => ArrayHelper::map(Requester::find()->all(), 'departments_id', 'departments.department_code'),
+                                'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',
@@ -278,7 +287,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
                                 'attribute' => 'types_id',
-                                'data' => ArrayHelper::map(Requester::find()->all(), 'types_id', 'types.type_details'),
+                                // 'data' => ArrayHelper::map(Requester::find()->all(), 'types_id', 'types.type_details'),
+                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
                                 'theme' => Select2::THEME_DEFAULT,
                                 'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                 'language' => 'th',

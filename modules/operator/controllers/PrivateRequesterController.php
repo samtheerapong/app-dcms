@@ -46,6 +46,9 @@ class PrivateRequesterController extends Controller
     {
         $searchModel = new PrivateRequesterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination = [
+            'pageSize' => 10, // Number of items per page
+        ];
 
         return $this->render('index', [
             'searchModel' => $searchModel,

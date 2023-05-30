@@ -36,6 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
+                    'floatHeader' => true, // floats header to top
+                    'floatPageSummary' => true, // floats page summary to bottom
+                    'headerContainer' => ['class' => 'kv-table-header', 'style' => 'top:50px'], // offset from top
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
 

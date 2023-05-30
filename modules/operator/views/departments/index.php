@@ -32,6 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
             <div class="box-body">
                 <?= GridView::widget([
+                    'tableOptions' => [
+                        'class' => 'table table-striped table-hover',
+                        'width' => '100%',
+                        'cellspacing' => '0'
+                    ],
+                    'panel' => [
+                        'before' => ' '
+                    ],
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
