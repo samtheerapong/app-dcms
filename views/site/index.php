@@ -79,7 +79,7 @@ $this->title = Yii::t('app', 'Dashboard');
                         <div class="icon">
                             <i class="ion ion-stats-bars"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/app-dcms/web/operator/reviewer/index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
@@ -103,9 +103,9 @@ $this->title = Yii::t('app', 'Dashboard');
                             <p><?= Yii::t('app', 'All Users') ?></p>
                         </div>
                         <div class="icon">
-                            <i class="ion ion-stats-bars"></i>
+                            <i class="ion ion-person-add"></i>
                         </div>
-                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="/app-dcms/web/user/admin/index" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
