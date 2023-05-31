@@ -25,6 +25,33 @@ $success = Requester::find()->where(['status_id' => 4])->count();
 
 $this->title = Yii::t('app', 'Dashboard');
 ?>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">ความคืบหน้า</h3>
+            </div>
+
+            <div class="panel panel-body">
+                <div class="clearfix">
+                    <span class="pull-left">ความสำเร็จในการพัฒนาเว็บไซต์</span>
+                    <small class="pull-right">75%</small>
+                </div>
+                <div class="progress xs">
+                    <div class="progress-bar progress-bar-danger" style="width: 75%;"></div>
+                </div>
+                <div class="clearfix">
+                    <span class="pull-left">ความสำเร็จในการนำเข้าข้อมูล</span>
+                    <small class="pull-right">80%</small>
+                </div>
+                <div class="progress xs">
+                    <div class="progress-bar progress-bar-primary" style="width: 80%;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="site-index">
         <section class="content">
@@ -89,7 +116,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                     ['class' => 'yii\grid\SerialColumn'],
                                     [
                                         'class' => 'kartik\grid\ActionColumn',
-                                        'options' => ['style' => 'width:10%'],
+                                        'options' => ['style' => 'width:50px'],
                                         'buttonOptions' => ['class' => 'btn btn-default'],
                                         'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
                                         'buttons' => [
@@ -105,7 +132,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                     [
                                         'attribute' => 'status_id',
-                                        'options' => ['style' => 'width:120px'],
+                                        'options' => ['style' => 'width:100px'],
                                         'contentOptions' => ['class' => 'text-center'],
                                         'format' => 'html',
                                         'value' => function ($model) {
@@ -122,7 +149,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'pluginOptions' => ['allowClear' => true],
                                         ])
                                     ],
-                                    
+
                                     [
                                         'attribute' => 'types_id',
                                         'options' => ['style' => 'width:170px'],
@@ -227,7 +254,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                     [
                                         'attribute' => 'request_by',
                                         'format' => 'html',
-                                        'options' => ['style' => 'width:160px'],
+                                        'options' => ['style' => 'width:200px'],
                                         'value' => 'requestBy.profile.name',
                                         'filter' => Select2::widget([
                                             'model' => $searchModel,
@@ -279,15 +306,16 @@ $this->title = Yii::t('app', 'Dashboard');
                                         ])
                                     ],
 
-                                    
-                                    [
-                                        'attribute' => 'covenant',
-                                        'value' => function ($model) {
-                                            return $model->listDownloadFiles('covenant');
-                                        },
-                                        'format' => 'html',
-                                        'filter' => false
-                                    ],
+
+                                    // [
+                                    //     'attribute' => 'covenant',
+                                    //     'format' => 'html',
+                                    //     // 'options' => ['style' => 'width:150px'],
+                                    //     'value' => function ($model) {
+                                    //         return $model->listDownloadFiles('covenant');
+                                    //     },
+                                    //     'filter' => false
+                                    // ],
                                     // ['attribute'=>'docs','value'=>function($model){return $model->listDownloadFiles('docs');},'format'=>'html'],
                                 ],
                             ]); ?>
@@ -320,7 +348,8 @@ $this->title = Yii::t('app', 'Dashboard');
                                         'name' => 'Category',
                                         'data' => $graphCategory,
                                         'tooltip' => [
-                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%',
+                                            // 'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%',
+                                            'pointFormat' => '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)',
                                         ],
                                         'dataLabels' => [
                                             'style' => [
@@ -357,7 +386,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                         'data' => $graphType,
                                         'keys' => ['name', 'y'],
                                         'tooltip' => [
-                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                            'pointFormat' => '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)',
                                         ],
                                         'dataLabels' => [
                                             'style' => [
@@ -393,7 +422,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                         'data' => $graphStatus,
                                         'keys' => ['name', 'y'],
                                         'tooltip' => [
-                                            'pointFormat' => '<b>{point.name}</b>: {point.percentage:.1f}%'
+                                            'pointFormat' => '<b>{point.name}</b>: {point.y} ({point.percentage:.1f}%)',
                                         ],
                                         'dataLabels' => [
                                             'style' => [

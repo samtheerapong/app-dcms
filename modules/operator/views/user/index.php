@@ -95,20 +95,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                         if (Yii::$app->user->identity->id === 1) {
                                             return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
                                                 'title' => Yii::t('app', 'Update'),
-                                                'class' => 'btn btn-warning',
-                                            ]);
-                                        }
-                                        if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
-                                            return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                                'title' => Yii::t('app', 'Update'),
-                                                'class' => 'btn btn-warning',
-                                            ]);
-                                        } else {
-                                            return '';
+                                                'class' => 'btn btn-warning'
+                                            ]); {
+                                                return '';
+                                            }
                                         }
                                     },
-
-
                                 ],
                             ],
                         ],

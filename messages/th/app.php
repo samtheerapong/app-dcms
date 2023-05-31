@@ -13,6 +13,10 @@ return [
     'Are you sure you want to log out?' => 'คุณแน่ใจว่าคุณต้องการที่จะออกจากระบบ?',
     'Approver Page' => 'หน้าอนุมัติ',
     'Refresh' => 'ฟื้นฟู',
+    'User Manage' => 'จัดการผู้ใช้',
+    'Permission Manage' => 'จัดการสิทธิ์',
+    'Role Manage' => 'จัดการบทบาท',
+    'Auto Number' => 'รหัสอัตโนมัติ',
 
     // Dashboard
     'Dashboard' => 'แผงควบคุม',
@@ -88,9 +92,11 @@ return [
     'Public Email' => 'อีเมล',
     'Successfully' => 'สำเร็จ',
 
-    
+    // Permission
+    'Department' => 'แผนก',
+    'Review' => 'ทบทวน',
+    'Status' => 'สถานะ',
 
-    
 
 
 

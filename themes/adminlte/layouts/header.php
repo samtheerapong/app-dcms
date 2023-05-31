@@ -63,6 +63,25 @@ use yii\bootstrap\Nav;
                         ],
 
                         [
+                            'label' => Yii::t('app', 'Backend'),
+                            'options' => ['class' => 'backend-link'],
+                            'items' => [
+                                ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
+                                ['label' => Yii::t('app', 'categories'), 'url' => ['/operator/categories/index']],
+                                ['label' => Yii::t('app', 'departments'), 'url' => ['/operator/departments/index']],
+                                ['label' => Yii::t('app', 'points'), 'url' => ['/operator/points/index']],
+                                ['label' => Yii::t('app', 'stamps'), 'url' => ['/operator/stamps/index']],
+                                ['label' => Yii::t('app', 'status'), 'url' => ['/operator/status/index']],
+                                ['label' => Yii::t('app', 'types'), 'url' => ['/operator/types/index']],
+                                ['label' => Yii::t('app', 'Auto Number'), 'url' => ['/operator/auto-number/index']],
+                                ['label' => Yii::t('app', 'User Manage'), 'url' => ['/user/admin/index']],
+                                ['label' => Yii::t('app', 'Permission Manage'), 'url' => ['/operator/user/index']],
+                                ['label' => Yii::t('app', 'Role Manage'), 'url' => ['/admin/role']],
+                            ],
+                            'visible' => !Yii::$app->user->isGuest,
+                        ],
+
+                        [
                             'label' => 'สมัครสมาชิก',
                             'url' => ['/user/registration/register'],
                             'options' => ['class' => 'register-link'],
@@ -78,22 +97,23 @@ use yii\bootstrap\Nav;
                                     ['label' => '<i class="fa fa-file"></i>' . Yii::t('app', 'Private Document'), 'url' => ['/operator/private-requester/index']],
                                     ['label' => '<i class="fa fa-id-card"></i> โปรไฟล์', 'url' => ['/user/settings/profile']],
                                     ['label' => '<i class="fa fa-vcard"></i> บัญชี', 'url' => ['/user/settings/account']],
-                                    ['label' => '<i class="fa fa-book"></i> จัดการสิทธิ์', 'url' => ['/admin']],
-                                    ['label' => '<i class="fa fa-users"></i> จัดการผู้ใช้งาน', 'url' => ['/user/admin/index']],
-                                    [
-                                        'label' => '<i class="fa fa-cogs"></i>' . Yii::t('app', 'Backend'),
-                                        'options' => ['class' => 'backend-link'],
-                                        'items' => [
-                                            ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
-                                            ['label' => Yii::t('app', 'categories'), 'url' => ['/operator/categories/index']],
-                                            ['label' => Yii::t('app', 'departments'), 'url' => ['/operator/departments/index']],
-                                            ['label' => Yii::t('app', 'points'), 'url' => ['/operator/points/index']],
-                                            ['label' => Yii::t('app', 'stamps'), 'url' => ['/operator/stamps/index']],
-                                            ['label' => Yii::t('app', 'status'), 'url' => ['/operator/status/index']],
-                                            ['label' => Yii::t('app', 'types'), 'url' => ['/operator/types/index']],
-                                            ['label' => Yii::t('app', 'Number'), 'url' => ['/operator/auto-number/index']],
-                                        ]
-                                    ],
+                                    // [
+                                    //     'label' => '<i class="fa fa-cogs"></i>' . Yii::t('app', 'Backend'),
+                                    //     'options' => ['class' => 'backend-link'],
+                                    //     'items' => [
+                                    //         ['label' => Yii::t('app', 'Manage Requester'), 'url' => ['/operator/requester/index']],
+                                    //         ['label' => Yii::t('app', 'categories'), 'url' => ['/operator/categories/index']],
+                                    //         ['label' => Yii::t('app', 'departments'), 'url' => ['/operator/departments/index']],
+                                    //         ['label' => Yii::t('app', 'points'), 'url' => ['/operator/points/index']],
+                                    //         ['label' => Yii::t('app', 'stamps'), 'url' => ['/operator/stamps/index']],
+                                    //         ['label' => Yii::t('app', 'status'), 'url' => ['/operator/status/index']],
+                                    //         ['label' => Yii::t('app', 'types'), 'url' => ['/operator/types/index']],
+                                    //         ['label' => Yii::t('app', 'Auto Number'), 'url' => ['/operator/auto-number/index']],
+                                    //         ['label' => Yii::t('app', 'User Manage'), 'url' => ['/user/admin/index']],
+                                    //         ['label' => Yii::t('app', 'Permission Manage'), 'url' => ['/operator/user/index']],
+                                    //         ['label' => Yii::t('app', 'Role Manage'), 'url' => ['/admin/role']],
+                                    //     ]
+                                    // ],
                                     [
                                         'label' => '<i class="fa fa-sign-out"></i> ออกจากระบบ',
                                         'url' => ['/user/security/logout'],
