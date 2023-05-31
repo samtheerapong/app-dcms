@@ -56,274 +56,285 @@ $this->title = Yii::t('app', 'Dashboard');
     <div class="site-index">
         <section class="content">
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-purple"><i class="fas fa-file"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All Requests') ?></span>
-                            <span class="info-box-number">
-                                <?= $alldocs ?>
-                            </span>
+
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3><?= $alldocs ?></h3>
+                            <p><?= Yii::t('app', 'All Requests') ?></p>
                         </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-yellow"><i class="fas fa-folder-open"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status Pending') ?></span>
-                            <span class="info-box-number"> <?= $process ?></span>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3> <?= $process ?></h3>
+                            <p><?= Yii::t('app', 'Status Pending') ?></p>
                         </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-green"><i class="fas fa-folder"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'Status Success') ?></span>
-                            <span class="info-box-number"><?= $success ?></span>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3> <?= $success ?></h3>
+                            <p><?= Yii::t('app', 'Status Success') ?></p>
                         </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
 
-                <div class="col-md-3 col-sm-6 col-xs-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-blue"><i class="fas fa-users"></i></span>
-                        <div class="info-box-content">
-                            <span class="info-box-text"><?= Yii::t('app', 'All Users') ?></span>
-                            <span class="info-box-number">
-                                <?= $users ?>
-                            </span>
+                <div class="col-lg-3 col-xs-6">
+                    <div class="small-box bg-blue">
+                        <div class="inner">
+                            <h3> <?= $users ?></h3>
+                            <p><?= Yii::t('app', 'All Users') ?></p>
                         </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div>
-            </div>
 
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h3 class="panel-title"><?= Yii::t('app', 'Table of all requests') ?></h3>
-                        </div>
-                        <div class="panel-body">
+                </div>
 
-                            <?= GridView::widget([
-                                'dataProvider' => $dataProviderRequester,
-                                'filterModel' => $searchModel,
-                                'columns' => [
-                                    ['class' => 'yii\grid\SerialColumn'],
-                                    [
-                                        'class' => 'kartik\grid\ActionColumn',
-                                        'options' => ['style' => 'width:50px'],
-                                        'buttonOptions' => ['class' => 'btn btn-default'],
-                                        'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
-                                        'buttons' => [
-                                            'view' => function ($url, $model, $key) {
-                                                $url = ['/operator/requester/view', 'id' => $model->id]; // Update the URL to include the appropriate ID
-                                                return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
-                                                    'title' => Yii::t('app', 'View'),
-                                                    'class' => 'btn btn-info',
-                                                ]);
-                                            },
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><?= Yii::t('app', 'Table of all requests') ?></h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <?= GridView::widget([
+                                    'dataProvider' => $dataProviderRequester,
+                                    'filterModel' => $searchModel,
+                                    'columns' => [
+                                        ['class' => 'yii\grid\SerialColumn'],
+                                        [
+                                            'class' => 'kartik\grid\ActionColumn',
+                                            'options' => ['style' => 'width:50px'],
+                                            'buttonOptions' => ['class' => 'btn btn-default'],
+                                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
+                                            'buttons' => [
+                                                'view' => function ($url, $model, $key) {
+                                                    $url = ['/operator/requester/view', 'id' => $model->id]; // Update the URL to include the appropriate ID
+                                                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
+                                                        'title' => Yii::t('app', 'View'),
+                                                        'class' => 'btn btn-info',
+                                                    ]);
+                                                },
+                                            ],
                                         ],
-                                    ],
 
-                                    [
-                                        'attribute' => 'status_id',
-                                        'options' => ['style' => 'width:100px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => 'html',
-                                        'value' => function ($model) {
-                                            $blinkClass = $model->status->id == 1 ? 'blink' : '';
-                                            return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
-                                        },
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'status_id',
-                                            'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
-                                    ],
+                                            'options' => ['style' => 'width:100px'],
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'format' => 'html',
+                                            'value' => function ($model) {
+                                                $blinkClass = $model->status->id == 1 ? 'blink' : '';
+                                                return '<span class="badge ' . $blinkClass . '" style="background-color:' . $model->status->color . ';"><b>' . $model->status->status_details . '</b></span>';
+                                            },
+                                            'filter' => Select2::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'status_id',
+                                                'data' => ArrayHelper::map(Status::find()->all(), 'id', 'status_details'),
+                                                'theme' => Select2::THEME_DEFAULT,
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'language' => 'th',
+                                                'pluginOptions' => ['allowClear' => true],
+                                            ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'types_id',
-                                        'options' => ['style' => 'width:170px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => 'html',
-                                        'value' => function ($model) {
-                                            return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
-                                        },
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'types_id',
-                                            'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
-                                    ],
+                                            'options' => ['style' => 'width:170px'],
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'format' => 'html',
+                                            'value' => function ($model) {
+                                                return '<span class="badge" style="background-color:' . $model->types->color . ';"><b>' . $model->types->type_details . '</b></span>';
+                                            },
+                                            'filter' => Select2::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'types_id',
+                                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
+                                                'theme' => Select2::THEME_DEFAULT,
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'language' => 'th',
+                                                'pluginOptions' => ['allowClear' => true],
+                                            ])
+                                        ],
 
 
-                                    [
-                                        'attribute' => 'document_number',
-                                        'options' => ['style' => 'width:150px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => 'html',
-                                        'value' => function ($model) {
-                                            return  $model->document_number;
-                                        },
-                                        // 'filter' => Select2::widget([
-                                        //     'model' => $searchModel,
-                                        //     'attribute' => 'document_number',
-                                        //     'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
-                                        //     'theme' => Select2::THEME_DEFAULT,
-                                        //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                        //     'language' => 'th',
-                                        //     'pluginOptions' => ['allowClear' => true],
-                                        // ])
-                                    ],
+                                        [
+                                            'attribute' => 'document_number',
+                                            'options' => ['style' => 'width:150px'],
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'format' => 'html',
+                                            'value' => function ($model) {
+                                                return  $model->document_number;
+                                            },
+                                            // 'filter' => Select2::widget([
+                                            //     'model' => $searchModel,
+                                            //     'attribute' => 'document_number',
+                                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
+                                            //     'theme' => Select2::THEME_DEFAULT,
+                                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                            //     'language' => 'th',
+                                            //     'pluginOptions' => ['allowClear' => true],
+                                            // ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'latest_rev',
-                                        'options' => ['style' => 'width:100px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => ['decimal', 0],
-                                        'value' => function ($model) {
-                                            return $model->latest_rev ?? 0;
-                                        },
-                                        // 'filter' => Select2::widget([
-                                        //     'model' => $searchModel,
-                                        //     'attribute' => 'latest_rev',
-                                        //     'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
-                                        //     'theme' => Select2::THEME_DEFAULT,
-                                        //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                        //     'language' => 'th',
-                                        //     'pluginOptions' => ['allowClear' => true],
-                                        // ])
-                                    ],
+                                        [
+                                            'attribute' => 'latest_rev',
+                                            'options' => ['style' => 'width:100px'],
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'format' => ['decimal', 0],
+                                            'value' => function ($model) {
+                                                return $model->latest_rev ?? 0;
+                                            },
+                                            // 'filter' => Select2::widget([
+                                            //     'model' => $searchModel,
+                                            //     'attribute' => 'latest_rev',
+                                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
+                                            //     'theme' => Select2::THEME_DEFAULT,
+                                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                            //     'language' => 'th',
+                                            //     'pluginOptions' => ['allowClear' => true],
+                                            // ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'document_title',
-                                        'format' => 'ntext',
-                                        'options' => ['style' => 'width:auto'],
-                                        'value' => function ($model) {
-                                            $text = $model->document_title;
-                                            if (mb_strlen($text) > 50) {
-                                                $text = mb_substr($text, 0, 50) . '...';
-                                            }
-                                            return $text;
-                                        },
-                                        // 'filter' => Select2::widget([
-                                        //     'model' => $searchModel,
-                                        //     'attribute' => 'document_title',
-                                        //     'data' =>  array_map(function ($value) {
-                                        //         if (mb_strlen($value) > 50) {
-                                        //             $value = mb_substr($value, 0, 50) . '...';
-                                        //         }
-                                        //         return $value;
-                                        //     }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
-                                        //     'theme' => Select2::THEME_DEFAULT,
-                                        //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                        //     'language' => 'th',
-                                        //     'pluginOptions' => ['allowClear' => true],
-                                        // ])
-                                    ],
+                                        [
+                                            'attribute' => 'document_title',
+                                            'format' => 'ntext',
+                                            'options' => ['style' => 'width:auto'],
+                                            'value' => function ($model) {
+                                                $text = $model->document_title;
+                                                if (mb_strlen($text) > 50) {
+                                                    $text = mb_substr($text, 0, 50) . '...';
+                                                }
+                                                return $text;
+                                            },
+                                            // 'filter' => Select2::widget([
+                                            //     'model' => $searchModel,
+                                            //     'attribute' => 'document_title',
+                                            //     'data' =>  array_map(function ($value) {
+                                            //         if (mb_strlen($value) > 50) {
+                                            //             $value = mb_substr($value, 0, 50) . '...';
+                                            //         }
+                                            //         return $value;
+                                            //     }, ArrayHelper::map(Requester::find()->all(), 'document_title', 'document_title')),
+                                            //     'theme' => Select2::THEME_DEFAULT,
+                                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                            //     'language' => 'th',
+                                            //     'pluginOptions' => ['allowClear' => true],
+                                            // ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'document_public_at',
-                                        'options' => ['style' => 'width:100px'],
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'format' => 'date',
-                                        'value' => function ($model) {
-                                            return $model->document_public_at ?? '';
-                                        },
-                                        'filter' => DatePicker::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'document_public_at',
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'pluginOptions' => ['format' => 'yyyy-mm-dd', 'autoclose' => true]
-                                        ]),
-                                    ],
+                                            'options' => ['style' => 'width:100px'],
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'format' => 'date',
+                                            'value' => function ($model) {
+                                                return $model->document_public_at ?? '';
+                                            },
+                                            'filter' => DatePicker::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'document_public_at',
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'pluginOptions' => ['format' => 'yyyy-mm-dd', 'autoclose' => true]
+                                            ]),
+                                        ],
 
-                                    [
-                                        'attribute' => 'request_by',
-                                        'format' => 'html',
-                                        'options' => ['style' => 'width:200px'],
-                                        'value' => 'requestBy.profile.name',
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'request_by',
-                                            'data' => ArrayHelper::map(Profile::find()->all(), 'user.id', 'name'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
-                                    ],
+                                            'format' => 'html',
+                                            'options' => ['style' => 'width:200px'],
+                                            'value' => 'requestBy.profile.name',
+                                            'filter' => Select2::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'request_by',
+                                                'data' => ArrayHelper::map(Profile::find()->all(), 'user.id', 'name'),
+                                                'theme' => Select2::THEME_DEFAULT,
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'language' => 'th',
+                                                'pluginOptions' => ['allowClear' => true],
+                                            ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'categories_id',
-                                        'format' => 'html',
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'options' => ['style' => 'width:100px'],
-                                        'value' => function ($model) {
-                                            return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
-                                        },
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'categories_id',
-                                            'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
-                                    ],
+                                            'format' => 'html',
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'options' => ['style' => 'width:100px'],
+                                            'value' => function ($model) {
+                                                return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
+                                            },
+                                            'filter' => Select2::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'categories_id',
+                                                'data' => ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'),
+                                                'theme' => Select2::THEME_DEFAULT,
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'language' => 'th',
+                                                'pluginOptions' => ['allowClear' => true],
+                                            ])
+                                        ],
 
-                                    [
-                                        'attribute' => 'departments_id',
-                                        'label' => 'แผนก',
-                                        'format' => 'html',
-                                        'contentOptions' => ['class' => 'text-center'],
-                                        'options' => ['style' => 'width:100px'],
-                                        'value' => function ($model) {
-                                            return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
-                                        },
-                                        'filter' => Select2::widget([
-                                            'model' => $searchModel,
+                                        [
                                             'attribute' => 'departments_id',
-                                            'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
-                                            'theme' => Select2::THEME_DEFAULT,
-                                            'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                            'language' => 'th',
-                                            'pluginOptions' => ['allowClear' => true],
-                                        ])
+                                            'label' => 'แผนก',
+                                            'format' => 'html',
+                                            'contentOptions' => ['class' => 'text-center'],
+                                            'options' => ['style' => 'width:100px'],
+                                            'value' => function ($model) {
+                                                return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
+                                            },
+                                            'filter' => Select2::widget([
+                                                'model' => $searchModel,
+                                                'attribute' => 'departments_id',
+                                                'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                                                'theme' => Select2::THEME_DEFAULT,
+                                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                                'language' => 'th',
+                                                'pluginOptions' => ['allowClear' => true],
+                                            ])
+                                        ],
+
+
+                                        // [
+                                        //     'attribute' => 'covenant',
+                                        //     'format' => 'html',
+                                        //     // 'options' => ['style' => 'width:150px'],
+                                        //     'value' => function ($model) {
+                                        //         return $model->listDownloadFiles('covenant');
+                                        //     },
+                                        //     'filter' => false
+                                        // ],
+                                        // ['attribute'=>'docs','value'=>function($model){return $model->listDownloadFiles('docs');},'format'=>'html'],
                                     ],
+                                ]); ?>
 
-
-                                    // [
-                                    //     'attribute' => 'covenant',
-                                    //     'format' => 'html',
-                                    //     // 'options' => ['style' => 'width:150px'],
-                                    //     'value' => function ($model) {
-                                    //         return $model->listDownloadFiles('covenant');
-                                    //     },
-                                    //     'filter' => false
-                                    // ],
-                                    // ['attribute'=>'docs','value'=>function($model){return $model->listDownloadFiles('docs');},'format'=>'html'],
-                                ],
-                            ]); ?>
-
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
     </div>
 
