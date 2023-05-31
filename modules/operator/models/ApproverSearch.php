@@ -54,17 +54,10 @@ class ApproverSearch extends Approver
         // $query = Approver::find();
         // **************** เพิ่ม  3 ********************
         $query = Approver::find();
-        $query->andFilterWhere(['status.id' => [3, 4]]);  // เลือกสถานะแค่ 3 และ 4 มาแสดง
+        $query->andFilterWhere(['status.id' => [3]]);  // เลือกสถานะแค่ 3 และ [3,4] มาแสดง
         $query->joinWith(['requester.status']); // Join the necessary tables -> 'status_id'
         $query->joinWith(['requester.reviewer']); // Join the necessary tables -> 'reviewer_name'
-        
-
-
         // $query->joinWith('requester.reviewer');
-
-
-
-        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -53,7 +53,7 @@ class ReviewerSearch extends Reviewer
      */
     public function search($params)
     {
-        // $query = Reviewer::find();
+        $query = Reviewer::find();
 
         // **************** เพิ่ม  3 ********************
         // $query = Reviewer::find()->joinWith('requester.status');

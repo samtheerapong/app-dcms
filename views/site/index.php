@@ -127,7 +127,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                         ['class' => 'yii\grid\SerialColumn'],
                                         [
                                             'class' => 'kartik\grid\ActionColumn',
-                                            'options' => ['style' => 'width:50px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'buttonOptions' => ['class' => 'btn btn-default'],
                                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
                                             'buttons' => [
@@ -143,7 +143,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'status_id',
-                                            'options' => ['style' => 'width:100px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'contentOptions' => ['class' => 'text-center'],
                                             'format' => 'html',
                                             'value' => function ($model) {
@@ -163,7 +163,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'types_id',
-                                            'options' => ['style' => 'width:170px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'contentOptions' => ['class' => 'text-center'],
                                             'format' => 'html',
                                             'value' => function ($model) {
@@ -183,7 +183,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'document_number',
-                                            'options' => ['style' => 'width:150px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'contentOptions' => ['class' => 'text-center'],
                                             'format' => 'html',
                                             'value' => function ($model) {
@@ -202,7 +202,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'latest_rev',
-                                            'options' => ['style' => 'width:100px'],
+                                            'options' => ['style' => 'width:5%'],
                                             'contentOptions' => ['class' => 'text-center'],
                                             'format' => ['decimal', 0],
                                             'value' => function ($model) {
@@ -221,12 +221,12 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'document_title',
-                                            'format' => 'ntext',
-                                            'options' => ['style' => 'width:auto'],
+                                            'options' => ['style' => 'width:450px'],
+                                            // 'format' => 'ntext',
                                             'value' => function ($model) {
                                                 $text = $model->document_title;
-                                                if (mb_strlen($text) > 50) {
-                                                    $text = mb_substr($text, 0, 50) . '...';
+                                                if (mb_strlen($text) > 55) {
+                                                    $text = mb_substr($text, 0, 55) . '...';
                                                 }
                                                 return $text;
                                             },
@@ -248,7 +248,7 @@ $this->title = Yii::t('app', 'Dashboard');
 
                                         [
                                             'attribute' => 'document_public_at',
-                                            'options' => ['style' => 'width:100px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'contentOptions' => ['class' => 'text-center'],
                                             'format' => 'date',
                                             'value' => function ($model) {
@@ -265,7 +265,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                         [
                                             'attribute' => 'request_by',
                                             'format' => 'html',
-                                            'options' => ['style' => 'width:200px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'value' => 'requestBy.profile.name',
                                             'filter' => Select2::widget([
                                                 'model' => $searchModel,
@@ -282,7 +282,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'attribute' => 'categories_id',
                                             'format' => 'html',
                                             'contentOptions' => ['class' => 'text-center'],
-                                            'options' => ['style' => 'width:100px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'value' => function ($model) {
                                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                                             },
@@ -302,7 +302,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'label' => 'แผนก',
                                             'format' => 'html',
                                             'contentOptions' => ['class' => 'text-center'],
-                                            'options' => ['style' => 'width:100px'],
+                                            'options' => ['style' => 'width:8%'],
                                             'value' => function ($model) {
                                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                                             },

@@ -5,6 +5,7 @@ namespace app\modules\operator\controllers;
 use Yii;
 use app\modules\operator\models\Approver;
 use app\modules\operator\models\ApproverSearch;
+use app\modules\operator\models\Profile;
 use app\modules\operator\models\Requester;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -42,9 +43,13 @@ class ApproverController extends Controller
             'pageSize' => 10, // Number of items per page
         ];
 
+        $query = Requester::find()->andFilterWhere(['status_id' => [3]]);
+        
+
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'query' => $query,
         ]);
     }
 

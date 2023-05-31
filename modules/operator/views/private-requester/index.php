@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ['class' => 'yii\grid\SerialColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
-                            'options' => ['style' => 'width:180px'],
+                            'options' => ['style' => 'width:8%'],
                             'buttonOptions' => ['class' => 'btn btn-default'],
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>',
                             'buttons' => [
@@ -93,7 +93,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'status_id',
-                            'options' => ['style' => 'width:120px'],
+                            'options' => ['style' => 'width:8%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'document_number',
-                            'options' => ['style' => 'width:150px'],
+                            'options' => ['style' => 'width:8%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {
@@ -138,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'latest_rev',
-                            'options' => ['style' => 'width:100px'],
+                            'options' => ['style' => 'width:5%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => ['decimal', 0], // รูปแบบเลขทศนิยม
                             'value' => function ($model) {
@@ -181,7 +181,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_title',
                             'format' => 'ntext',
-                            'options' => ['style' => 'width:auto'],
+                            'options' => ['style' => 'width:450px'],
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
@@ -210,7 +210,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'document_public_at',
-                            'options' => ['style' => 'width:100px'],
+                            'label' => 'ประกาศใช้',
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'date',
                             'value' => function ($model) {
@@ -230,7 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'request_by',
                             'format' => 'html',
-                            'options' => ['style' => 'width:160px'],
+                            'options' => ['style' => 'width:10%'],
                             'value' => 'requestBy.profile.name',
                             'filter' => Select2::widget([
                                 'model' => $searchModel,
@@ -250,7 +251,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'attribute' => 'categories_id',
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:100px'],
+                            'options' => ['style' => 'width:5%'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->categories->color . ';"><b>' . $model->categories->category_code . '</b></span>';
                             },
@@ -271,9 +272,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'departments_id',
                             'label' => 'แผนก',
+                            'options' => ['style' => 'width:5%'],
                             'format' => 'html',
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
-                            'options' => ['style' => 'width:100px'],
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                             },
@@ -293,7 +294,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                         [
                             'attribute' => 'types_id',
-                            'options' => ['style' => 'width:170px'],
+                            'options' => ['style' => 'width:10%'],
                             'contentOptions' => ['class' => 'text-center'], // จัดตรงกลาง
                             'format' => 'html',
                             'value' => function ($model) {

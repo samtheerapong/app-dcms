@@ -39,6 +39,7 @@ class ReviewerController extends Controller
     {
         $searchModel = new ReviewerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
         $dataProvider->pagination = [
             'pageSize' => 10, // Number of items per page
         ];

@@ -29,7 +29,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
             [
                 'class' => BlameableBehavior::class,
                 'attributes' => [
-                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['request_by','created_by','updated_by'],
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['request_by', 'created_by', 'updated_by'],
                     BaseActiveRecord::EVENT_BEFORE_UPDATE => ['updated_by'],
                 ],
             ],
@@ -50,7 +50,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['types_id', 'categories_id', 'departments_id', 'document_title','latest_rev','document_public_at'], 'required'],
+            [['types_id', 'categories_id', 'departments_id', 'document_title', 'latest_rev', 'document_public_at'], 'required'],
             [['created_at', 'updated_at', 'document_public_at'], 'string', 'max' => 45],
             [['types_id', 'created_by', 'updated_by', 'request_by', 'categories_id', 'departments_id'], 'integer'],
             [['details', 'fullname'], 'string'],
@@ -193,9 +193,9 @@ class PrivateRequester extends \yii\db\ActiveRecord
             foreach ($files as $key => $value) {
                 $filePath = self::getUploadUrl() . $this->ref . '/' . $value;
                 $filePathDownload = self::getUploadUrl() . $this->ref . '/' . $value;
-    
+
                 $isImage = $this->isImage($filePath);
-    
+
                 if ($type == 'file') {
                     $initial[] = "<div class='file-preview-other'><h2><i class='glyphicon glyphicon-file'></i></h2></div>";
                 } elseif ($type == 'config') {
@@ -218,4 +218,18 @@ class PrivateRequester extends \yii\db\ActiveRecord
         return $initial;
     }
 
+    public function getStatusPercentage()
+    {
+        $percentages = 0;
+        if ($this->status_id == 1) {
+            $percentages = 25;
+        } else if ($this->status_id == 2) {
+            $percentages = 50;
+        } else if ($this->status_id == 3) {
+            $percentages = 75;
+        } else if ($this->status_id == 4) {
+            $percentages = 100;
+        }
+        return $percentages;
+    }
 }

@@ -50,7 +50,7 @@ return [
     'categories_id' => 'ระดับ',
     'departments_id' => 'แผนกที่รับผิดชอบ',
     'document_number' => 'เลขที่เอกสาร',
-    'latest_rev' => 'ริวิชั่นล่าสุด',
+    'latest_rev' => 'Rev.',
     'document_age' => 'อายุ (ปี)',
     'document_public_at' => 'วันที่ประกาศใช้',
     'document_title' => 'เรื่อง',

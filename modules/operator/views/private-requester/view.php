@@ -18,12 +18,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
             <!-- <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-                'class' => 'btn btn-danger',
-                'data' => [
-                    'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                    'method' => 'post',
-                ],
-            ]) ?> -->
+                        'class' => 'btn btn-danger',
+                        'data' => [
+                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                            'method' => 'post',
+                        ],
+                    ]) ?> -->
             <!-- <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success btn-lg']) ?> -->
         </p>
     <?php } else { ?>
@@ -31,8 +31,17 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
     <?php } ?>
-
-
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="clearfix">
+                <?php $percentages = $model->getStatusPercentage(); ?>
+                <small class="badge bg-green pull-right"><?= $percentages ?>%</small>
+            </div>
+            <div class="progress lg">
+                <div class="progress-bar progress-bar-success" style="width: <?= $percentages ?>%;"></div>
+            </div>
+        </div>
+    </div>
     <div class="actions-form">
         <div class="box box-info box-solid">
             <div class="box-header">
@@ -44,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
                     'attributes' => [
 
-                        
+
                         [
                             'attribute' => 'status.status_name',
                             'format' => 'html',
@@ -116,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'document_age',
                         'document_public_at:date',
                         // 'created_at:date',
-                        
+
                         [
                             'attribute' => 'covenant',
                             'format' => 'html',

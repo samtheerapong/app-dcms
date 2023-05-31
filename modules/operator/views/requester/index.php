@@ -170,8 +170,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 // ******* ตัดตัวอักษรที่ xx แล้วใส่ ... ต่อท้าย ******* 
                                 $text = $model->document_title;
-                                if (mb_strlen($text) > 50) {
-                                    $text = mb_substr($text, 0, 50) . '...';
+                                if (mb_strlen($text) > 80) {
+                                    $text = mb_substr($text, 0, 80) . '...';
                                 }
                                 return $text;
                             },
