@@ -74,10 +74,8 @@ class ApproverSearch extends Approver
 
         // **************** เพิ่ม  4 ********************
         $query->andFilterWhere(['status.id' => $this->status_id]);
-        // $query->andFilterWhere(['rreviewer.reviewer_name' => $this->reviewer_name]);
         $query->andFilterWhere(['requester.request_by' => $this->request_by]);
-        $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
-        $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
+        $query->andFilterWhere(['like', 'number.document_number', $this->document_number]);
         $query->andFilterWhere(['like', 'requester.latest_rev', $this->latest_rev]);
 
         // grid filtering conditions

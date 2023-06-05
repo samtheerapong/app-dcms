@@ -110,17 +110,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'options' => ['style' => 'width:150px;'],
                             'contentOptions' => ['class' => 'text-center'],
                             'format' => 'html',
-                            // 'filter' => Select2::widget([
-                            //     'model' => $searchModel,
-                            //     'attribute' => 'document_number',
-                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'document_number', 'document_number'),
-                            //     'theme' => Select2::THEME_DEFAULT,
-                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                            //     'language' => 'th',
-                            //     'pluginOptions' => [
-                            //         'allowClear' => true
-                            //     ],
-                            // ])
+                            'filter' => \yii\helpers\Html::activeTextInput($searchModel, 'document_number', [
+                                'class' => 'form-control',
+                                'placeholder' => $searchModel->getAttributeLabel('requester.document_number'),
+                            ]),
                         ],
 
                         [
@@ -133,17 +126,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 // return $model->document_revision ? $model->document_revision : '<span style="color: red;"> ' . Yii::t('app', 'No Data') . '</span>';
                                 return $model->requester->latest_rev ? $model->requester->latest_rev : '0';
                             },
-                            // 'filter' => Select2::widget([
-                            //     'model' => $searchModel,
-                            //     'attribute' => 'latest_rev',
-                            //     'data' => ArrayHelper::map(Requester::find()->all(), 'latest_rev', 'latest_rev'),
-                            //     'theme' => Select2::THEME_DEFAULT,
-                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                            //     'language' => 'th',
-                            //     'pluginOptions' => [
-                            //         'allowClear' => true
-                            //     ],
-                            // ])
+                            'filter' => \yii\helpers\Html::activeTextInput($searchModel, 'latest_rev', [
+                                'class' => 'form-control',
+                                'placeholder' => $searchModel->getAttributeLabel('requester.latest_rev'),
+                            ]),
                         ],
 
                         [
@@ -175,16 +161,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 }
                                 return '';
                             },
-                            'filter' => false,
-                            // 'filter' => DatePicker::widget([
-                            //     'model' => $searchModel,
-                            //     'attribute' => 'document_public_at', // Updated to use the correct attribute
-                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                            //     'pluginOptions' => [
-                            //         'format' => 'yyyy-mm-dd',
-                            //         'autoclose' => true,
-                            //     ]
-                            // ]),
+                            'filter' => \yii\helpers\Html::activeTextInput($searchModel, 'document_public_at', [
+                                'class' => 'form-control',
+                                'placeholder' => $searchModel->getAttributeLabel('requester.document_public_at'),
+                            ]),
                         ],
 
                         [
@@ -195,40 +175,10 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->requester->types->color . ';"><b>' . $model->requester->types->type_details . '</b></span>';
                             },
-                            'filter' => Select2::widget([
-                                'model' => $searchModel,
-                                'attribute' => 'types_id',
-                                'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
-                                'theme' => Select2::THEME_DEFAULT,
-                                'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                'language' => 'th',
-                                'pluginOptions' => [
-                                    'allowClear' => true
-                                ],
-                            ])
-                        ],
-
-                        [
-                            'attribute' => 'requester_id',
-                            'format' => 'html',
-                            // 'options' => ['style' => 'width:18%;'],
-                            'value' => function ($model) {
-                                $text = $model->requester->document_title ?? '';
-                                if (mb_strlen($text) > 20) {
-                                    $text = mb_substr($text, 0, 20) . '...';
-                                }
-                                return $text;
-                            },
-                            'filter' => false,
                             // 'filter' => Select2::widget([
                             //     'model' => $searchModel,
-                            //     'attribute' => 'requester_id',
-                            //     'data' =>  array_map(function ($value) {
-                            //         if (mb_strlen($value) > 20) {
-                            //             $value = mb_substr($value, 0, 20) . '...';
-                            //         }
-                            //         return $value;
-                            //     }, ArrayHelper::map(Requester::find()->all(), 'id', 'document_title')),
+                            //     'attribute' => 'types_id',
+                            //     'data' => ArrayHelper::map(Types::find()->all(), 'id', 'type_details'),
                             //     'theme' => Select2::THEME_DEFAULT,
                             //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
                             //     'language' => 'th',
@@ -236,6 +186,23 @@ $this->params['breadcrumbs'][] = $this->title;
                             //         'allowClear' => true
                             //     ],
                             // ])
+                        ],
+
+                        [
+                            'attribute' => 'requester.document_title',
+                            'format' => 'html',
+                            // 'options' => ['style' => 'width:18%;'],
+                            'value' => function ($model) {
+                                $text = $model->requester->document_title ?? '';
+                                if (mb_strlen($text) > 45) {
+                                    $text = mb_substr($text, 0, 45) . '...';
+                                }
+                                return $text;
+                            },
+                            // 'filter' => \yii\helpers\Html::activeTextInput($searchModel, 'document_title', [
+                            //     'class' => 'form-control',
+                            //     'placeholder' => $searchModel->getAttributeLabel('requester.document_title'),
+                            // ]),
                         ],
 
                         [
@@ -246,17 +213,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 return $model->reviewer_name ? $model->reviewerName->profile->name : '';
                             },
                             'filter' => false,
-                            // 'filter' => Select2::widget([
-                            //     'model' => $searchModel,
-                            //     'attribute' => 'reviewer_name',
-                            //     'data' => ArrayHelper::map(Reviewer::find()->all(), 'reviewer_name', 'reviewerName.profile.name'),
-                            //     'theme' => Select2::THEME_DEFAULT,
-                            //     'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                            //     'language' => 'th',
-                            //     'pluginOptions' => [
-                            //         'allowClear' => true
-                            //     ],
-                            // ])
+                            // 'filter' => \yii\helpers\Html::activeTextInput($searchModel, 'reviewer_name', [
+                            //     'class' => 'form-control',
+                            //     'placeholder' => $searchModel->getAttributeLabel('requester.reviwerBy.profile.name'),
+                            // ]),
                         ],
 
                         [
