@@ -10,19 +10,32 @@ use kartik\widgets\ColorInput;
 ?>
 
 <div class="status-form">
-
+<p>
+    <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+</p>
     <?php $form = ActiveForm::begin(); ?>
+    <div class="box box-primary box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= $this->title ?></div>
+        </div>
+        <div class="box-body">
+            <div class="col-md-6">
+                <?= $form->field($model, 'status_name')->textInput(['maxlength' => true]) ?>
+            </div>
+            <div class="col-md-6">
+                <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => Yii::t('app', 'Select...')]]); ?>
+            </div>
+            <div class="col-md-12">
+                <?= $form->field($model, 'status_details')->textarea(['rows' => 3]) ?>
+            </div>
+        </div>
+        <div class="box-footer">
 
-    <?= $form->field($model, 'status_name')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status_details')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]);?>  
-
-    <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
+            <div class="form-group">
+                <?= Html::submitButton(Yii::t('app', Yii::t('app', 'Save')), ['class' => 'btn btn-success']) ?>
+            </div>
+        </div>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

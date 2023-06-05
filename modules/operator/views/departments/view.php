@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\Departments */
 
-$this->title = $model->id;
+$this->title = $model->department_code;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Departments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="departments-view">
 
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
         <?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -34,11 +34,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model' => $model,
                     'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
                     'attributes' => [
-                        'id',
+                        // 'id',
                         'department_code',
                         'department_details:ntext',
                         'color',
-                        'user_id',
+                        // 'user_id',
                     ],
                 ]) ?>
 

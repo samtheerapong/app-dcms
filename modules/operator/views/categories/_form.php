@@ -29,7 +29,7 @@ use kartik\widgets\ColorInput;
                     </div>
 
                     <div class="col-md-4">
-                        <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => 'เลือกสี'],]); ?>
+                        <?= $form->field($model, 'color')->widget(ColorInput::class, ['options' => ['placeholder' => Yii::t('app','Select...')],]);?>  
                     </div>
                 </div>
                 <div class="box-footer">

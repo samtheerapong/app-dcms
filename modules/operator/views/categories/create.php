@@ -11,7 +11,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-create">
 
-
     <?= $this->render('_form', [
         'model' => $model,
     ]) ?>

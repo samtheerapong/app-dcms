@@ -16,14 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="categories-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . Yii::t('app', Yii::t('app', 'Create New')), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success btn-lg']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
     <div class="actions-form">
         <div class="box box-info box-solid">
             <div class="box-header">
@@ -43,11 +39,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             'value' => function ($model) {
                                 return '<span class="badge" style="background-color:' . $model->color . ';"><b>' . $model->category_code . '</b></span>';
                             },
-                            // 'filter' => Html::activeDropDownList($searchModel, 'id', ArrayHelper::map(Categories::find()->all(), 'id', 'category_code'), ['class' => 'form-control', 'prompt' => 'ทั้งหมด...'])
                         ],
                         'category_details',
 
-                        // ['class' => 'yii\grid\ActionColumn'],
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:120px;'],

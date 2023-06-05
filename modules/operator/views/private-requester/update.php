@@ -5,9 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\PrivateRequester */
 
-$this->title = Yii::t('app', 'Update : {name}', [
-    'name' => $model->id,
-]);
+$this->title = Yii::t('app', 'Update') . ' : ' . $model->document_number;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Private Requesters'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');

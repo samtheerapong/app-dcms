@@ -16,9 +16,8 @@ use kartik\widgets\DatePicker;
 ?>
 
 <div class="requester-form">
-
     <p>
-        <?= Html::a(Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <div class="actions-form">
@@ -59,7 +58,6 @@ use kartik\widgets\DatePicker;
                         ]);
                         ?>
                     </div>
-
                     <div class="col-md-3">
                         <?= $form->field($model, 'departments_id')->widget(Select2::class, [
                             'language' => 'th',
@@ -126,14 +124,11 @@ use kartik\widgets\DatePicker;
                                 'showUpload' => false
                             ],
                         ]); ?>
-
                     </div>
+
                     <div class="col-md-6">
                         <?= $form->field($model, 'docs[]')->widget(FileInput::class, [
                             'options' => [
-                                'options' => [
-                                    'multiple' => true
-                                ],
                                 'multiple' => true
                             ],
                             'pluginOptions' => [
@@ -146,10 +141,9 @@ use kartik\widgets\DatePicker;
                                 'showRemove' => true,
                                 'showUpload' => false,
                                 'overwriteInitial' => false,
-                                'maxFileCount' => 6,
+                                'maxFileCount' => 3,
                             ]
                         ]); ?>
-
                     </div>
                 </div>
 

@@ -8,15 +8,13 @@ use kartik\grid\GridView;
 /* @var $searchModel app\modules\operator\models\StatusSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Statuses');
+$this->title = Yii::t('app', 'Status');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="status-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success btn-lg']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); 

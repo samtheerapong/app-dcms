@@ -15,20 +15,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="private-requester-view">
     <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
         <p>
-            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-            <!-- <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-                        'class' => 'btn btn-danger',
-                        'data' => [
-                            'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                            'method' => 'post',
-                        ],
-                    ]) ?> -->
-            <!-- <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success btn-lg']) ?> -->
         </p>
     <?php } else { ?>
         <p>
-            <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
     <?php } ?>
     <div class="row">
@@ -69,7 +61,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'attribute' => 'document_number',
                             'format' => 'html',
-                            // 'value' => $model->document_number,
                             'value' => function ($model) {
                                 return '<span style="color:'
                                     . $model->status->color
@@ -124,7 +115,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         'details:ntext',
                         'document_age',
                         'document_public_at:date',
-                        // 'created_at:date',
 
                         [
                             'attribute' => 'covenant',

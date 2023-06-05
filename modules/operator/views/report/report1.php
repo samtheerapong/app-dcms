@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="report-report">
 
     <div class="row">
-        <div class="col-md-7">
+        <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title"><?= Yii::t('app', 'report type') ?></h3>
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
 
 
-        <div class="col-md-5">
+        <div class="col-md-12">
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title"><?= Yii::t('app', 'report type') ?></h3>

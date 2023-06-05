@@ -453,7 +453,7 @@ $this->title = Yii::t('app', 'Dashboard');
     </div>
 </div>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-md-12">
         <div class="box box-danger box-solid">
             <div class="box-header">
@@ -478,4 +478,4 @@ $this->title = Yii::t('app', 'Dashboard');
             </div>
         </div>
     </div>
-</div>
+</div> -->

@@ -17,6 +17,15 @@ return [
     'Permission Manage' => 'จัดการสิทธิ์',
     'Role Manage' => 'จัดการบทบาท',
     'Auto Number' => 'รหัสอัตโนมัติ',
+    'Auto Numbers' => 'รหัสอัตโนมัติ',
+    'Points' => 'จุดรับเอกสาร',
+    'Types' => 'ประเภทการร้องขอ',
+    'Stamps' => 'ประทับตรา',
+    'Departments' => 'แผนกที่รับผิดชอบ',
+    'Go Back' => 'ย้อนกลับ',
+
+    // Department
+    'Create Department' => 'เพิ่มแผนก',
 
     // Dashboard
     'Dashboard' => 'แผงควบคุม',
@@ -38,6 +47,7 @@ return [
     'Calendar' => 'ปฏิทิน',
 
     // Requester
+    'Create Request' => 'เพิ่มการร้องขอ',
     'Requester' => 'ผู้ร้องขอ',
     'types_id' => 'ประเภทการร้องขอ',
     'type_details' => 'รายละเอียดการร้องขอ',
@@ -76,7 +86,6 @@ return [
     'Create' => 'เพิ่มข้อมูล',
     'Update' => 'ปรับปรุง',
     'Delete' => 'ลบข้อมูล',
-    'Back' => 'ย้อนกลับ',
     'Tasks' => 'ตารางงาน',
     'Request' => 'ร้องขอ',
     'Backend' => 'หลังบ้าน',
@@ -96,6 +105,12 @@ return [
     'Department' => 'แผนก',
     'Review' => 'ทบทวน',
     'Status' => 'สถานะ',
+
+    // Status
+    'Create Status' => 'เพิ่มสถานะ',
+    'Create Points' => 'เพิ่มจุดรับเอกสาร',
+
+    
 
 
 

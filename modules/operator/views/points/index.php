@@ -16,14 +16,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="points-index">
 
-    <!-- <h1><?= Html::encode($this->title) ?></h1> -->
-
     <p>
-        <?= Html::a(Yii::t('app', 'Create New'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('<i class="fas fa-plus"></i> ' . Yii::t('app', Yii::t('app', 'Create')), ['create'], ['class' => 'btn btn-success btn-lg']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); 
-    ?>
     <div class="actions-form">
         <div class="box box-primary box-solid">
             <div class="box-header">
@@ -39,23 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         // 'id',
                         'point_code',
                         'point_name',
-                        // 'sub_points',
-                        // [
-                        //     'attribute' => 'sub_points',
-                        //     'format' => 'html',
-                        //     'value' =>  'point_code',
-                        //     'filter' => Select2::widget([
-                        //         'model' => $searchModel,
-                        //         'attribute' => 'sub_points',
-                        //         'data' => ArrayHelper::map(Points::find()->all(), 'id', 'point_name'),
-                        //         'theme' => Select2::THEME_BOOTSTRAP,
-                        //         'options' => ['placeholder' => 'เลือก ...'],
-                        //         'language' => 'th',
-                        //         'pluginOptions' => [
-                        //             'allowClear' => true
-                        //         ],
-                        //     ])
-                        // ],
 
                         [
                             'class' => 'kartik\grid\ActionColumn',

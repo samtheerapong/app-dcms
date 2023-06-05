@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="requester-view">
     <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
         <p>
-            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
             <?= Html::a('<i class="fas fa-trash"></i> ' . Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
                 'class' => 'btn btn-danger',
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     <?php } else { ?>
         <p>
-            <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<span class="fas fa-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
     <?php } ?>
 
