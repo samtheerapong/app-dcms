@@ -26,7 +26,7 @@ $success = Requester::find()->where(['status_id' => 4])->count();
 $this->title = Yii::t('app', 'Dashboard');
 ?>
 
-<div class="row">
+<!-- <div class="row">
     <div class="col-sm-12">
         <div class="panel panel-danger">
             <div class="panel-heading">
@@ -51,7 +51,7 @@ $this->title = Yii::t('app', 'Dashboard');
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="row">
     <div class="site-index">
         <section class="content">
