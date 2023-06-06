@@ -1,6 +1,5 @@
 <?php
 
-use app\modules\operator\models\Profile;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -13,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="private-requester-view">
-    <?php if ($model->request_by == Yii::$app->user->identity->profile->user_id) { ?>
+    <?php if ( Yii::$app->user->identity->id === $model->request_by && Yii::$app->user->identity->updated === 1 || Yii::$app->user->identity->id === 1) { ?>
         <p>
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>

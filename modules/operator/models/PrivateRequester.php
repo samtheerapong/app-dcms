@@ -97,6 +97,8 @@ class PrivateRequester extends \yii\db\ActiveRecord
     }
 
     /****************  Relation   ********************/
+
+
     public function getCategories()
     {
         return $this->hasOne(Categories::class, ['id' => 'categories_id']);
@@ -141,6 +143,7 @@ class PrivateRequester extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
     }
+
 
     /**************** Upload docs ********************/
     public static function getUploadPath()
@@ -232,4 +235,5 @@ class PrivateRequester extends \yii\db\ActiveRecord
         }
         return $percentages;
     }
+
 }

@@ -56,21 +56,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 },
                                 'update' => function ($url, $model, $key) {
-                                    if (Yii::$app->user->identity->id === $model->request_by || Yii::$app->user->identity->id === 1) {
+                                    // if (Yii::$app->user->identity->id === $model->request_by || Yii::$app->user->identity->id === 1) {
+                                    if (Yii::$app->user->identity->id === $model->request_by && Yii::$app->user->identity->updated === 1 || Yii::$app->user->identity->id === 1) { // กำหนดให้ผู้ร้องขอ และ สิทธิ์ที่แก้ไขได้จากตาราง User
                                         return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
                                             'title' => Yii::t('app', 'Update'),
                                             'class' => 'btn btn-warning',
                                         ]);
                                     }
-                                    // if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
-                                    // if ($model->request_by === Yii::$app->user->identity->id) {
-                                    //     return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                    //         'title' => Yii::t('app', 'Update'),
-                                    //         'class' => 'btn btn-warning',
-                                    //     ]);
-                                    // } else {
-                                    //     return '';
-                                    // }
                                 },
                                 'delete' => function ($url, $model, $key) {
                                     if (Yii::$app->user->identity->id === 1) {
