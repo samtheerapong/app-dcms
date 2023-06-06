@@ -6,48 +6,95 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\operator\models\User */
 
-$this->title = $model->id;
+$this->title = $model->username . ' (' . $model->profile->name . ')';
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="user-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-edit"></span> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
     </p>
+    <div class="box box-primary box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= $this->title ?></div>
+        </div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'template' => '<tr><th style="width: 250px">{label}</th><td>{value}</td></tr>',
+                'model' => $model,
+                'attributes' => [
+                    // 'id',
+                    // 'username',
+                    [
+                        'attribute' => 'username',
+                        'value' => function ($model) {
+                            return $model->username . ' (' . $model->profile->name . ')';
+                        },
+                    ],
+                    'email:email',
+                    [
+                        'attribute' => 'department',
+                        'value' => function ($model) {
+                            return $model->departments->department_code . ' > ' . $model->departments->department_details;
+                        },
+                    ],
+                    [
+                        'attribute' => 'updated',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->updated == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                    [
+                        'attribute' => 'deleted',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->deleted == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                    [
+                        'attribute' => 'request',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->request == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                    [
+                        'attribute' => 'review',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->review == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                    [
+                        'attribute' => 'approve',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->approve == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                    // 'password_hash',
+                    // 'auth_key',
+                    // 'confirmed_at',
+                    // 'unconfirmed_email:email',
+                    // 'blocked_at',
+                    // 'registration_ip',
+                    // 'created_at',
+                    // 'updated_at',
+                    // 'flags',
+                    // 'last_login_at',
+                    [
+                        'attribute' => 'status',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->status == 10 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                        },
+                    ],
+                ],
+            ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'username',
-            'email:email',
-            'department',
-            'request',
-            'review',
-            'approve',
-            'password_hash',
-            'auth_key',
-            'confirmed_at',
-            'unconfirmed_email:email',
-            'blocked_at',
-            'registration_ip',
-            'created_at',
-            'updated_at',
-            'flags',
-            'last_login_at',
-            'status',
-        ],
-    ]) ?>
-
+        </div>
+    </div>
 </div>

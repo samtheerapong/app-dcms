@@ -100,6 +100,9 @@ return [
     'Name' => 'ชื่อ',
     'Public Email' => 'อีเมล',
     'Successfully' => 'สำเร็จ',
+    'Updated' => 'แก้ไขได้',
+    'Deleted' => 'ลบได้',
+    'Name' => 'ชื่อผู้ใช้',
 
     // Permission
     'Department' => 'แผนก',

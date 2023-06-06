@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'options' => ['style' => 'width:8%'],
-                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update}</div>',
+                            'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} {delete}</div>',
                             'buttons' => [
                                 'view' => function ($url, $model, $key) {
                                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
@@ -56,25 +56,24 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 },
                                 'update' => function ($url, $model, $key) {
-                                    if (Yii::$app->user->identity->id === 1) {
+                                    if (Yii::$app->user->identity->id === $model->request_by || Yii::$app->user->identity->id === 1) {
                                         return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
                                             'title' => Yii::t('app', 'Update'),
                                             'class' => 'btn btn-warning',
                                         ]);
                                     }
-                                    if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
-                                        return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
-                                            'title' => Yii::t('app', 'Update'),
-                                            'class' => 'btn btn-warning',
-                                        ]);
-                                    } else {
-                                        return '';
-                                    }
+                                    // if ($model->departments_id === Yii::$app->user->identity->department ||  $model->departments_id === 9) {
+                                    // if ($model->request_by === Yii::$app->user->identity->id) {
+                                    //     return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [
+                                    //         'title' => Yii::t('app', 'Update'),
+                                    //         'class' => 'btn btn-warning',
+                                    //     ]);
+                                    // } else {
+                                    //     return '';
+                                    // }
                                 },
                                 'delete' => function ($url, $model, $key) {
-                                    if ($model->departments_id != 2) {
-                                        return '';
-                                    } else {
+                                    if (Yii::$app->user->identity->id === 1) {
                                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                                             'title' => Yii::t('app', 'Delete'),
                                             'class' => 'btn btn-danger',

@@ -21,7 +21,7 @@ use yii\widgets\ActiveForm;
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <?= $form->field($model, 'username')->textInput([
                         'value' => Yii::$app->user->identity->profile->name,
                         'disabled' =>  true
@@ -42,6 +42,18 @@ use yii\widgets\ActiveForm;
                     ?>
                 </div>
 
+                <div class="col-md-1">
+                    <?= $form->field($model, 'updated')->dropDownList([
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
+                <div class="col-md-1">
+                    <?= $form->field($model, 'deleted')->dropDownList([
+                        '1' => 'Yes',
+                        '0' => 'No',
+                    ]) ?>
+                </div>
                 <div class="col-md-1">
                     <?= $form->field($model, 'request')->dropDownList([
                         '1' => 'Yes',
@@ -70,7 +82,7 @@ use yii\widgets\ActiveForm;
                     ]) ?>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-1">
                     <br>
                     <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success btn-block']) ?>
                 </div>

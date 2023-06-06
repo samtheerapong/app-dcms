@@ -1,24 +1,29 @@
 <?php
 
+use app\modules\operator\models\User;
+use app\modules\operator\models\Departments;
+use app\modules\operator\models\Profile;
 use yii\helpers\Html;
 use kartik\grid\GridView;
+use kartik\widgets\Select2;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\modules\operator\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Users');
+$this->title = Yii::t('app', 'Permission Manage');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
     <div class="box box-info box-solid">
         <div class="box-header">
-            <div class="box-title"><?= Yii::t('app', 'Requester') ?></div>
+            <div class="box-title"><?= Yii::t('app', 'Permission Manage') ?></div>
         </div>
         <div class="box-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
@@ -26,11 +31,23 @@ $this->params['breadcrumbs'][] = $this->title;
                             // 'username',
                             [
                                 'attribute' => 'username',
+                                'label' => Yii::t('app','Name'),
                                 'format' => 'html',
                                 'options' => ['style' => 'width:50%'],
                                 'value' => function ($model) {
                                     return $model->profile->name ?? '';
                                 },
+                                'filter' => Select2::widget([
+                                    'model' => $searchModel,
+                                    'attribute' => 'username',
+                                    'data' => ArrayHelper::map(User::find()->all(), 'username', 'profile.name'),
+                                    'theme' => Select2::THEME_DEFAULT,
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'language' => 'th',
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])
                             ],
                             // 'departments',
                             [
@@ -38,8 +55,45 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'html',
                                 'options' => ['style' => 'width:5%'],
                                 'value' => function ($model) {
-                                    return $model->departments->department_code ?? '';
+                                    return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
                                 },
+                                'filter' => Select2::widget([
+                                    'model' => $searchModel,
+                                    'attribute' => 'department',
+                                    'data' => ArrayHelper::map(User::find()->all(), 'department', 'departments.department_code'),
+                                    'theme' => Select2::THEME_DEFAULT,
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'language' => 'th',
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])
+                            ],
+                            [
+                                'attribute' => 'updated',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->updated == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                },
+                                'filter' => [
+                                    1 => 'Yes',
+                                    0 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            ],
+                            [
+                                'attribute' => 'deleted',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return $model->deleted == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                },
+                                'filter' => [
+                                    1 => 'Yes',
+                                    0 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
                             ],
                             // 'request',
                             [
@@ -49,6 +103,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function ($model) {
                                     return $model->request == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
                                 },
+                                'filter' => [
+                                    1 => 'Yes',
+                                    0 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
                             ],
                             // 'review',
                             [
@@ -59,6 +118,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                     $value = $model->review == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
                                     return $value;
                                 },
+                                'filter' => [
+                                    1 => 'Yes',
+                                    0 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
                             ],
                             // 'approve',
                             [
@@ -68,6 +132,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function ($model) {
                                     return $model->approve == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
                                 },
+                                'filter' => [
+                                    1 => 'Yes',
+                                    0 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
                             ],
                             // 'status',
                             [
@@ -77,6 +146,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'value' => function ($model) {
                                     return $model->status == 10 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
                                 },
+                                'filter' => [
+                                    10 => 'Yes',
+                                    9 => 'No',
+                                ],
+                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
                             ],
 
                             [

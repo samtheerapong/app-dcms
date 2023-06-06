@@ -10,6 +10,8 @@ use Yii;
  * @property int $id
  * @property string $username
  * @property string $email
+ * @property int|null $updated
+ * @property int|null $deleted
  * @property int|null $department
  * @property int|null $request
  * @property int|null $review
@@ -50,7 +52,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
-            [['department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
+            [['updated', 'deleted', 'department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
             [['username', 'email', 'unconfirmed_email'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],
@@ -69,6 +71,8 @@ class User extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
             'email' => Yii::t('app', 'Email'),
+            'updated' => Yii::t('app', 'Updated'),
+            'deleted' => Yii::t('app', 'Deleted'),
             'department' => Yii::t('app', 'Department'),
             'request' => Yii::t('app', 'Request'),
             'review' => Yii::t('app', 'Review'),
@@ -147,4 +151,5 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Token::className(), ['user_id' => 'id']);
     }
+
 }
