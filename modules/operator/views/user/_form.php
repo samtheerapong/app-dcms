@@ -1,6 +1,7 @@
 <?php
 
 use app\modules\operator\models\Departments;
+use app\modules\operator\models\Role;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -34,6 +35,19 @@ use yii\widgets\ActiveForm;
                         'language' => 'th',
                         'theme' => Select2::THEME_DEFAULT,
                         'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
+
+                <div class="col-md-1">
+                    <?= $form->field($model, 'role')->widget(Select2::class, [
+                        'language' => 'th',
+                        'theme' => Select2::THEME_DEFAULT,
+                        'data' => ArrayHelper::map(Role::find()->all(), 'id', 'role_code'),
                         'options' => ['placeholder' => Yii::t('app', 'Select...')],
                         'pluginOptions' => [
                             'allowClear' => true

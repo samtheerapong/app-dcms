@@ -3,6 +3,7 @@
 use app\modules\operator\models\User;
 use app\modules\operator\models\Departments;
 use app\modules\operator\models\Profile;
+use app\modules\operator\models\Role;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 use kartik\widgets\Select2;
@@ -49,6 +50,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ])
                             ],
+
+                            [
+                                'attribute' => 'role',
+                                'format' => 'html',
+                                'options' => ['style' => 'width:5%'],
+                                'value' => function ($model) {
+                                    return '<span class="badge" style="background-color:' . $model->roles->role_color . ';"><b>' . $model->roles->role_code . '</b></span>';
+                                },
+                                'filter' => Select2::widget([
+                                    'model' => $searchModel,
+                                    'attribute' => 'role',
+                                    'data' => ArrayHelper::map(Role::find()->all(), 'id', 'role_code'),
+                                    'theme' => Select2::THEME_DEFAULT,
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'language' => 'th',
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])
+                            ],
+                            
                             // 'departments',
                             [
                                 'attribute' => 'department',
@@ -69,6 +91,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                 ])
                             ],
+
+                          
                             [
                                 'attribute' => 'updated',
                                 'format' => 'html',

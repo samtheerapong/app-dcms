@@ -36,8 +36,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'email:email',
                     [
                         'attribute' => 'department',
+                        'format' => 'html',
                         'value' => function ($model) {
                             return $model->departments->department_code . ' > ' . $model->departments->department_details;
+                        },
+                    ],
+                    [
+                        'attribute' => 'role',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return '<span class="badge" style="background-color:' . $model->roles->role_color . ';"><b>' . $model->roles->role_code . '</b></span>';
                         },
                     ],
                     [

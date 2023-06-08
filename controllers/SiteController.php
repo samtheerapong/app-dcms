@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\modules\operator\models\PrivateRequesterSearch;
 use app\modules\operator\models\Requester;
 use app\modules\operator\models\RequesterSearch;
 use yii\data\ArrayDataProvider;
@@ -68,7 +69,9 @@ class SiteController extends Controller
     {
 
         // **************** table Requester ********************
-        $searchModel = new RequesterSearch();
+        
+        // $searchModel = new RequesterSearch();
+        $searchModel = new PrivateRequesterSearch();
         $dataProviderRequester = $searchModel->search(Yii::$app->request->queryParams);
         $dataProviderRequester->pagination = [
             'pageSize' => 10, // Number of items per page

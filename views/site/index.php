@@ -132,7 +132,7 @@ $this->title = Yii::t('app', 'Dashboard');
                                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view}  </div>',
                                             'buttons' => [
                                                 'view' => function ($url, $model, $key) {
-                                                    $url = ['/operator/requester/view', 'id' => $model->id]; // Update the URL to include the appropriate ID
+                                                    $url = ['/operator/private-requester/view', 'id' => $model->id]; // Update the URL to include the appropriate ID
                                                     return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                                                         'title' => Yii::t('app', 'View'),
                                                         'class' => 'btn btn-info',

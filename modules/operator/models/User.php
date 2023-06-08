@@ -52,7 +52,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
-            [['updated', 'deleted', 'department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status'], 'integer'],
+            [['updated', 'deleted', 'department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status','role'], 'integer'],
             [['username', 'email', 'unconfirmed_email'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],
@@ -71,6 +71,7 @@ class User extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'username' => Yii::t('app', 'Username'),
             'email' => Yii::t('app', 'Email'),
+            'role' => Yii::t('app', 'Role'),
             'updated' => Yii::t('app', 'Updated'),
             'deleted' => Yii::t('app', 'Deleted'),
             'department' => Yii::t('app', 'Department'),
@@ -89,6 +90,16 @@ class User extends \yii\db\ActiveRecord
             'last_login_at' => Yii::t('app', 'Last Login At'),
             'status' => Yii::t('app', 'Status'),
         ];
+    }
+
+    /**
+     * Gets query for [[Role]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoles()
+    {
+        return $this->hasOne(Role::class, ['id' => 'role']);
     }
 
     /**
