@@ -5,6 +5,7 @@ namespace app\modules\operator\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\operator\models\Approver;
+use Yii;
 
 /**
  * ApproverSearch represents the model behind the search form of `app\modules\operator\models\Approver`.
@@ -53,8 +54,18 @@ class ApproverSearch extends Approver
     {
         // $query = Approver::find();
         // **************** เพิ่ม  3 ********************
-        $query = Approver::find();
-        $query->andFilterWhere(['status.id' => [3]]);  // เลือกสถานะแค่ 3 และ [3,4] มาแสดง
+        if (Yii::$app->user->identity->role2 === 3) {
+            $query = Approver::find();
+            $query->andFilterWhere(['status.id' => [3]]);  // เลือกสถานะแค่ 3 หรือ [3,4] มาแสดง
+        } else {
+            $query = Approver::find();
+            $query
+                ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role1]])
+                ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role2]])
+                ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role3]])
+                ->andFilterWhere(['status.id' => [3]]);  // เลือกสถานะแค่ 3 หรือ [3,4] มาแสดง
+        }
+
         $query->joinWith(['requester.status']); // Join the necessary tables -> 'status_id'
         $query->joinWith(['requester.reviewer']); // Join the necessary tables -> 'reviewer_name'
         // $query->joinWith('requester.reviewer');

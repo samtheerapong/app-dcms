@@ -22,16 +22,16 @@ use yii\widgets\ActiveForm;
             <?php $form = ActiveForm::begin(); ?>
 
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <?= $form->field($model, 'username')->textInput([
-                        'value' => Yii::$app->user->identity->profile->name,
+                        'value' => $model->profile->name,
                         'disabled' =>  true
                     ])
                     ?>
                 </div>
 
                 <div class="col-md-1">
-                    <?= $form->field($model, 'department')->widget(Select2::class, [
+                    <?= $form->field($model, 'role1')->widget(Select2::class, [
                         'language' => 'th',
                         'theme' => Select2::THEME_DEFAULT,
                         'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
@@ -44,10 +44,10 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-1">
-                    <?= $form->field($model, 'role')->widget(Select2::class, [
+                    <?= $form->field($model, 'role2')->widget(Select2::class, [
                         'language' => 'th',
                         'theme' => Select2::THEME_DEFAULT,
-                        'data' => ArrayHelper::map(Role::find()->all(), 'id', 'role_code'),
+                        'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'role_name'),
                         'options' => ['placeholder' => Yii::t('app', 'Select...')],
                         'pluginOptions' => [
                             'allowClear' => true
@@ -57,6 +57,19 @@ use yii\widgets\ActiveForm;
                 </div>
 
                 <div class="col-md-1">
+                    <?= $form->field($model, 'role3')->widget(Select2::class, [
+                        'language' => 'th',
+                        'theme' => Select2::THEME_DEFAULT,
+                        'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'role_name'),
+                        'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]);
+                    ?>
+                </div>
+
+                <!-- <div class="col-md-1">
                     <?= $form->field($model, 'updated')->dropDownList([
                         '1' => 'Yes',
                         '0' => 'No',
@@ -94,7 +107,7 @@ use yii\widgets\ActiveForm;
                         '10' => 'Yes',
                         '0' => 'No',
                     ]) ?>
-                </div>
+                </div> -->
 
                 <div class="col-md-1">
                     <br>

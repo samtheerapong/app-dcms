@@ -51,7 +51,8 @@ $this->params['breadcrumbs'][] = $this->title;
                             'template' => '<div class="btn-group btn-group-sm text-center" role="group"> {view} {update} </div>',
                             'buttons' => [
                                 'update' => function ($url, $model, $key) {
-                                    if ($model->requester->status->id === 4) {
+                                    if ($model->requester->status->id === 4 ) {
+                                    // if ($model->requester->departments_id === Yii::$app->user->identity->department) {
                                         return '';
                                     } else {
                                         return Html::a('<span class="glyphicon glyphicon-edit"></span>', $url, [

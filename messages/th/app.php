@@ -103,6 +103,9 @@ return [
     'Updated' => 'แก้ไขได้',
     'Deleted' => 'ลบได้',
     'Name' => 'ชื่อผู้ใช้',
+    'Role 1' => 'กลุ่มหลัก',
+    'Role 2' => 'จัดการ 1',
+    'Role 3' => 'จัดการ 2',
 
     // Permission
     'Department' => 'แผนก',

@@ -52,7 +52,7 @@ class User extends \yii\db\ActiveRecord
     {
         return [
             [['username', 'email', 'password_hash', 'auth_key', 'created_at', 'updated_at'], 'required'],
-            [['updated', 'deleted', 'department', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status','role'], 'integer'],
+            [['updated', 'deleted', 'request', 'review', 'approve', 'confirmed_at', 'blocked_at', 'created_at', 'updated_at', 'flags', 'last_login_at', 'status','role1','role2','role3'], 'integer'],
             [['username', 'email', 'unconfirmed_email'], 'string', 'max' => 255],
             [['password_hash'], 'string', 'max' => 60],
             [['auth_key'], 'string', 'max' => 32],
@@ -74,7 +74,9 @@ class User extends \yii\db\ActiveRecord
             'role' => Yii::t('app', 'Role'),
             'updated' => Yii::t('app', 'Updated'),
             'deleted' => Yii::t('app', 'Deleted'),
-            'department' => Yii::t('app', 'Department'),
+            'role1' => Yii::t('app', 'Role 1'),
+            'role2' => Yii::t('app', 'Role 2'),
+            'role3' => Yii::t('app', 'Role 3'),
             'request' => Yii::t('app', 'Request'),
             'review' => Yii::t('app', 'Review'),
             'approve' => Yii::t('app', 'Approve'),
@@ -97,21 +99,31 @@ class User extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRoles()
+    public function getRole01()
     {
-        return $this->hasOne(Role::class, ['id' => 'role']);
+        return $this->hasOne(Departments::class, ['id' => 'role1']);
     }
 
     /**
-     * Gets query for [[Departments]].
+     * Gets query for [[Role]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getDepartments()
+    public function getRole02()
     {
-        // return $this->hasMany(Departments::className(), ['user_id' => 'id']);
-        return $this->hasOne(Departments::class, ['id' => 'department']);
+        return $this->hasOne(Departments::class, ['id' => 'role2']);
     }
+
+    /**
+     * Gets query for [[Role]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRole03()
+    {
+        return $this->hasOne(Departments::class, ['id' => 'role3']);
+    }
+
 
     /**
      * Gets query for [[Profile]].

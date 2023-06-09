@@ -1,8 +1,7 @@
 <?php
 
-use app\modules\operator\models\User;
 use app\modules\operator\models\Departments;
-use app\modules\operator\models\Profile;
+use app\modules\operator\models\User;
 use app\modules\operator\models\Role;
 use yii\helpers\Html;
 use kartik\grid\GridView;
@@ -52,37 +51,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             ],
 
                             [
-                                'attribute' => 'role',
+                                'attribute' => 'role1',
                                 'format' => 'html',
                                 'options' => ['style' => 'width:5%'],
                                 'value' => function ($model) {
-                                    return '<span class="badge" style="background-color:' . $model->roles->role_color . ';"><b>' . $model->roles->role_code . '</b></span>';
+                                    return '<span class="badge" style="background-color:' . $model->role01->color . ';"><b>' . $model->role01->department_code . '</b></span>';
                                 },
                                 'filter' => Select2::widget([
                                     'model' => $searchModel,
-                                    'attribute' => 'role',
-                                    'data' => ArrayHelper::map(Role::find()->all(), 'id', 'role_code'),
-                                    'theme' => Select2::THEME_DEFAULT,
-                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
-                                    'language' => 'th',
-                                    'pluginOptions' => [
-                                        'allowClear' => true
-                                    ],
-                                ])
-                            ],
-                            
-                            // 'departments',
-                            [
-                                'attribute' => 'department',
-                                'format' => 'html',
-                                'options' => ['style' => 'width:5%'],
-                                'value' => function ($model) {
-                                    return '<span class="badge" style="background-color:' . $model->departments->color . ';"><b>' . $model->departments->department_code . '</b></span>';
-                                },
-                                'filter' => Select2::widget([
-                                    'model' => $searchModel,
-                                    'attribute' => 'department',
-                                    'data' => ArrayHelper::map(User::find()->all(), 'department', 'departments.department_code'),
+                                    'attribute' => 'role1',
+                                    // 'data' => ArrayHelper::map(User::find()->all(), 'role1', 'role01.department_code'),
+                                    'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'department_code'),
                                     'theme' => Select2::THEME_DEFAULT,
                                     'options' => ['placeholder' => Yii::t('app', 'Select...')],
                                     'language' => 'th',
@@ -92,90 +71,130 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ])
                             ],
 
-                          
                             [
-                                'attribute' => 'updated',
+                                'attribute' => 'role2',
                                 'format' => 'html',
                                 'options' => ['style' => 'width:5%'],
                                 'value' => function ($model) {
-                                    return $model->updated == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                    return '<span class="badge" style="background-color:' . $model->role02->color . ';"><b>' . $model->role02->role_name . '</b></span>';
                                 },
-                                'filter' => [
-                                    1 => 'Yes',
-                                    0 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                                'filter' => Select2::widget([
+                                    'model' => $searchModel,
+                                    'attribute' => 'role2',
+                                    // 'data' => ArrayHelper::map(User::find()->all(), 'role2', 'role02.department_code'),
+                                    'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'role_name'),
+                                    'theme' => Select2::THEME_DEFAULT,
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'language' => 'th',
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])
                             ],
+
                             [
-                                'attribute' => 'deleted',
+                                'attribute' => 'role3',
                                 'format' => 'html',
                                 'options' => ['style' => 'width:5%'],
                                 'value' => function ($model) {
-                                    return $model->deleted == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                                    return '<span class="badge" style="background-color:' . $model->role03->color . ';"><b>' . $model->role03->role_name . '</b></span>';
                                 },
-                                'filter' => [
-                                    1 => 'Yes',
-                                    0 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                                'filter' => Select2::widget([
+                                    'model' => $searchModel,
+                                    'attribute' => 'role3',
+                                    'data' => ArrayHelper::map(Departments::find()->all(), 'id', 'role_name'),
+                                    'theme' => Select2::THEME_DEFAULT,
+                                    'options' => ['placeholder' => Yii::t('app', 'Select...')],
+                                    'language' => 'th',
+                                    'pluginOptions' => [
+                                        'allowClear' => true
+                                    ],
+                                ])
                             ],
-                            // 'request',
-                            [
-                                'attribute' => 'request',
-                                'format' => 'html',
-                                'options' => ['style' => 'width:5%'],
-                                'value' => function ($model) {
-                                    return $model->request == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
-                                },
-                                'filter' => [
-                                    1 => 'Yes',
-                                    0 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
-                            ],
-                            // 'review',
-                            [
-                                'attribute' => 'review',
-                                'format' => 'html',
-                                'options' => ['style' => 'width:5%'],
-                                'value' => function ($model) {
-                                    $value = $model->review == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
-                                    return $value;
-                                },
-                                'filter' => [
-                                    1 => 'Yes',
-                                    0 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
-                            ],
-                            // 'approve',
-                            [
-                                'attribute' => 'approve',
-                                'format' => 'html',
-                                'options' => ['style' => 'width:5%'],
-                                'value' => function ($model) {
-                                    return $model->approve == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
-                                },
-                                'filter' => [
-                                    1 => 'Yes',
-                                    0 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
-                            ],
-                            // 'status',
-                            [
-                                'attribute' => 'status',
-                                'format' => 'html',
-                                'options' => ['style' => 'width:5%'],
-                                'value' => function ($model) {
-                                    return $model->status == 10 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
-                                },
-                                'filter' => [
-                                    10 => 'Yes',
-                                    9 => 'No',
-                                ],
-                                'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
-                            ],
+                                                      
+                            // [
+                            //     'attribute' => 'updated',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         return $model->updated == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //     },
+                            //     'filter' => [
+                            //         1 => 'Yes',
+                            //         0 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
+                            // [
+                            //     'attribute' => 'deleted',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         return $model->deleted == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //     },
+                            //     'filter' => [
+                            //         1 => 'Yes',
+                            //         0 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
+                            // // 'request',
+                            // [
+                            //     'attribute' => 'request',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         return $model->request == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //     },
+                            //     'filter' => [
+                            //         1 => 'Yes',
+                            //         0 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
+                            // // 'review',
+                            // [
+                            //     'attribute' => 'review',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         $value = $model->review == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //         return $value;
+                            //     },
+                            //     'filter' => [
+                            //         1 => 'Yes',
+                            //         0 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
+                            // // 'approve',
+                            // [
+                            //     'attribute' => 'approve',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         return $model->approve == 1 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //     },
+                            //     'filter' => [
+                            //         1 => 'Yes',
+                            //         0 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
+                            // // 'status',
+                            // [
+                            //     'attribute' => 'status',
+                            //     'format' => 'html',
+                            //     'options' => ['style' => 'width:5%'],
+                            //     'value' => function ($model) {
+                            //         return $model->status == 10 ? '<span class="badge" style="background-color: green;">Yes</span>' : '<span class="badge" style="background-color: red;">No</span>';
+                            //     },
+                            //     'filter' => [
+                            //         10 => 'Yes',
+                            //         9 => 'No',
+                            //     ],
+                            //     'filterInputOptions' => ['class' => 'form-control', 'prompt' => '#'],
+                            // ],
 
                             [
                                 'class' => 'kartik\grid\ActionColumn',

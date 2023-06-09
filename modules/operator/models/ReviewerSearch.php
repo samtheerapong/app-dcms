@@ -5,6 +5,7 @@ namespace app\modules\operator\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\modules\operator\models\Reviewer;
+use Yii;
 
 /**
  * ReviewerSearch represents the model behind the search form of `app\modules\operator\models\Reviewer`.
@@ -29,10 +30,10 @@ class ReviewerSearch extends Reviewer
     public function rules()
     {
         return [
-            [['id', 'requester_id', 'reviewer_name', 'points_id','stamps_id'], 'integer'],
-            [['reviewer_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment','document_number','document_public_at','document_title'], 'safe'],
-            [['document_revision','latest_rev'], 'number'],
-            [['status_id','types_id','request_by'], 'integer'], // **************** เพิ่ม  2 ********************
+            [['id', 'requester_id', 'reviewer_name', 'points_id', 'stamps_id'], 'integer'],
+            [['reviewer_at', 'document_ref', 'document_tags', 'reviewer_comment', 'additional_training', 'approver_comment', 'document_number', 'document_public_at', 'document_title'], 'safe'],
+            [['document_revision', 'latest_rev'], 'number'],
+            [['status_id', 'types_id', 'request_by'], 'integer'], // **************** เพิ่ม  2 ********************
         ];
     }
 
@@ -54,37 +55,47 @@ class ReviewerSearch extends Reviewer
      */
     public function search($params)
     {
-        $query = Reviewer::find();
+
+    
+        
 
         // **************** เพิ่ม  3 ********************
         // $query = Reviewer::find()->joinWith('requester.status');
-        $query = Reviewer::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [1,2,3]]);
+        // $query = Reviewer::find()->joinWith('requester.status')->andFilterWhere(['status.id' => [1,2,3]]);
+
         
-        
+        $query = Reviewer::find()->joinWith('requester.status')
+            ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role1]])
+            ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role2]])
+            ->orFilterWhere(['requester.departments_id' => [Yii::$app->user->identity->role3]])
+            ->orFilterWhere(['requester.departments_id' => [9]])
+            ->andFilterWhere(['status.id' => [1, 2, 3]]);
+
+
         // add conditions that should always apply here
-        
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => ['defaultOrder' => ['id' => SORT_DESC]],
-            ]);
-            
-            $this->load($params);
-            
-            if (!$this->validate()) {
-                // uncomment the following line if you do not want to return any records when validation fails
-                // $query->where('0=1');
-                return $dataProvider;
-            }
-            
-            // **************** เพิ่ม  4 ********************
-            $query->andFilterWhere(['status.id' => $this->status_id]);
-            $query->andFilterWhere(['reviewer.document_title' => $this->document_title]);
-            $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
-            $query->andFilterWhere(['like', 'requester.document_public_at', $this->document_public_at]);
-            $query->andFilterWhere(['like', 'requester.stamps_id', $this->stamps_id]);
-            $query->andFilterWhere(['like', 'requester.latest_rev', $this->latest_rev]);
-            $query->andFilterWhere(['like', 'requester.types_id', $this->types_id]);
-        
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // **************** เพิ่ม  4 ********************
+        $query->andFilterWhere(['status.id' => $this->status_id]);
+        $query->andFilterWhere(['reviewer.document_title' => $this->document_title]);
+        $query->andFilterWhere(['like', 'requester.document_number', $this->document_number]);
+        $query->andFilterWhere(['like', 'requester.document_public_at', $this->document_public_at]);
+        $query->andFilterWhere(['like', 'requester.stamps_id', $this->stamps_id]);
+        $query->andFilterWhere(['like', 'requester.latest_rev', $this->latest_rev]);
+        $query->andFilterWhere(['like', 'requester.types_id', $this->types_id]);
+
 
 
         // grid filtering conditions
