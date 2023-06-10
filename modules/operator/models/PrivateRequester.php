@@ -139,10 +139,16 @@ class PrivateRequester extends \yii\db\ActiveRecord
         return $this->hasOne(User::class, ['id' => 'updated_by']);
     }
 
-    public function getReviewers()
+    public function getReviewer()
     {
-        return $this->hasMany(Reviewer::class, ['requester_id' => 'id']);
+        return $this->hasOne(Reviewer::class, ['requester_id' => 'id']);
     }
+    
+    public function getApprover()
+    {
+        return $this->hasOne(Approver::class, ['requester_id' => 'id']);
+    }
+    
 
 
     /**************** Upload docs ********************/

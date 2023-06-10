@@ -12,7 +12,7 @@ $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="private-requester-view">
-    <?php if ( Yii::$app->user->identity->id === $model->request_by && Yii::$app->user->identity->updated === 1 || Yii::$app->user->identity->id === 1) { ?>
+    <?php if (Yii::$app->user->identity->id === $model->request_by && Yii::$app->user->identity->updated === 1 || Yii::$app->user->identity->id === 1) { ?>
         <p>
             <?= Html::a('<i class="fas fa-chevron-left"></i> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
             <?= Html::a('<i class="fas fa-edit"></i> ' . Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
@@ -34,9 +34,10 @@ $this->params['breadcrumbs'][] = $this->title;
         </div>
     </div>
     <div class="actions-form">
+
         <div class="box box-info box-solid">
             <div class="box-header">
-                <div class="box-title"><?= $this->title ?></div>
+                <div class="box-title"><?= Yii::t('app', 'Requester') ?> </div>
             </div>
             <div class="box-body">
                 <?= DetailView::widget([
@@ -140,10 +141,62 @@ $this->params['breadcrumbs'][] = $this->title;
                             'format' => 'html',
                             'value' => $model->updatedBy->profile->name,
                         ],
+
                     ],
                 ]) ?>
 
             </div>
         </div>
     </div>
+
+    <div class="box box-warning box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= Yii::t('app', 'Reviewer') ?></div>
+        </div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
+                'attributes' => [
+                    // 'reviewer.reviewerName.profile.name',
+                    [
+                        'attribute' => 'reviewer.reviewerName.profile.name',
+                        'format' => 'html',
+                        'value' => $model->reviewer->reviewerName->profile->name ?? '',
+
+                    ],
+                    'reviewer.reviewer_at:date',
+                    'reviewer.document_ref',
+                    // 'reviewer.points_id',
+                    [
+                        'attribute' => 'reviewer.points_id',
+                        'format' => 'html',
+                        'value' => function ($model) {
+                            return $model->reviewer->points ? $model->reviewer->points->point_name : Yii::t('app', '');
+                        },
+                    ],
+                    'reviewer.additional_training:ntext',
+                    'reviewer.reviewer_comment:ntext',
+                ],
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="box box-success box-solid">
+        <div class="box-header">
+            <div class="box-title"><?= Yii::t('app', 'Approve') ?></div>
+        </div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'model' => $model,
+                'template' => '<tr><th style="width: 250px;">{label}</th><td> {value}</td></tr>',
+                'attributes' => [
+                    'approver.approverBy.profile.name',
+                    'approver.approver_at:date',
+                    'approver.approver_comment',
+                ],
+            ]) ?>
+        </div>
+    </div>
+
 </div>
