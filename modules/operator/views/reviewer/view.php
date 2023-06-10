@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div style="display: flex; justify-content: space-between;">
         <p style="text-align: left;">
-            <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+            <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
         </p>
     </div>
 

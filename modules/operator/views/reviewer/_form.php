@@ -13,7 +13,7 @@ use kartik\widgets\Select2;
 
 <div class="reviewer-form">
     <p>
-        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Back'), ['index'], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-chevron-left"></span> ' . Yii::t('app', 'Go Back'), ['index'], ['class' => 'btn btn-primary']) ?>
     </p>
 
     <div class="actions-form">
