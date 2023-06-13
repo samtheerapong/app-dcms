@@ -22,7 +22,7 @@ $config = [
             'class' => 'app\modules\operator\Module',
         ],
 
-        // Admin
+        // Admins
         'admin' => [
             'class' => 'mdm\admin\Module',
             'layout' => 'left-menu'
