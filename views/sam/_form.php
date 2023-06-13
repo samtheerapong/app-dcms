@@ -11,7 +11,7 @@ use kartik\widgets\FileInput;
 
 <div class="sam-form">
 
-<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'ref')->textInput(['maxlength' => true]) ?>
 
